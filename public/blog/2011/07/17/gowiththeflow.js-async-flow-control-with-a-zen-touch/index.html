@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" manifest="default.appcache?v=1"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" manifest="default.appcache?v=1" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Notes from jerome etienne: GoWithTheFlow.js - async flow control with a zen touch</title>
+  <meta name="author" content="Jerome Etienne">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href="/atom.xml" rel="alternate" title="Notes from jerome etienne" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Notes from jerome etienne</a></h1>
+  
+    <h2>Just notes.</h2>
+  
+</hgroup>
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:notes.jetienne.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">GoWithTheFlow.js - Async Flow Control With a Zen Touch</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-07-17 00:00:00 +0200" pubdate  updated >Jul 17<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>GoWithTheFlow.js is a javascript asynchronous flow-control micro library which works <strong>in
+node.js and in browser</strong>. It allow to control how your
+asynchronous code is executed, sequentially or in parallel.
+Flow() is only 30lines.</p>
+
+<h1>How to use it</h1>
+
+<p>Let start with a basic example. 2 jobs run in sequence. The first job is a timeout
+so the result is delivered asynchronously, and a second job is run only <em>after</em> the
+completion of the first.</p>
+
+<div><figure role=code><figcaption><span>basic example with sequential jobds - exeample.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="nx">Flow</span><span class="p">().</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;step 1: started, it will last 1sec&quot;</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;step 1: 1sec expired. Step 1 completed&quot;</span><span class="p">);</span>
+        <span class="nx">next</span><span class="p">();</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;step 2: run after step1 has been completed&quot;</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<p>It will display the following</p>
+
+<pre><code>step 1: started, it will last 1sec
+step 1: 1sec expired. Step 1 completed
+step 2: run after step1 has been completed
+</code></pre>
+
+<h1>Methods</h1>
+
+<p>In order to keep it as simple as possible, Flow has only 2 methods.</p>
+
+<h2>.seq(callback) to execute job sequentially</h2>
+
+<p><code>.seq()</code> is used to execute functions sequentially. The <em>callback</em> parameter
+will be executed only after all previous jobs are completed.
+The callback signature is <code>callback(next, error, result)</code></p>
+
+<ul>
+<li><p><code>next(error, result)</code> is the function to call when the job is completed. <em>error</em> is to notify an error
+to the next job. <em>result</em> to notify a result. <em>error</em> and <em>result</em> may be omitted, if so they are considered
+equal to <code>undefined</code></p></li>
+<li><p><code>error</code> is the error send by previous jobs</p></li>
+<li><p><code>result</code> is the result send by previous jobs</p></li>
+</ul>
+
+
+<p>for example</p>
+
+<div><figure role=code><figcaption><span>basic example with sequential jobs - basicSeq.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="nx">Flow</span><span class="p">().</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;first job&quot;</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;result1&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">,</span> <span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>    
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;second job. run *after* first job&quot;</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">();</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<h2>.par(callback) to execute job in parallel</h2>
+
+<p><code>.par()</code> is used to execute functions in parallel. The <em>callback</em> parameter is the same as for <code>.seq()</code>.
+If multiple .par() are declared one after another, they are run in parallel. The first <code>.seq()</code> after them
+will receive all the <em>error</em> and <em>result</em> in Array. One array item per previous <code>.par()</code></p>
+
+<p>For example</p>
+
+<div><figure role=code><figcaption><span>basic example with jobs in parallel - basicPar.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="nx">Flow</span><span class="p">().</span><span class="nx">par</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;job foo&quot;</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">par</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;job bar&quot;</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">results</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;job run *after* the completion of foo and bar&quot;</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="nx">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">errors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;foo&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">results</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+    <span class="nx">next</span><span class="p">();</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<p>That&#8217;s it</p>
+
+<h1>Conclusion</h1>
+
+<p>GoWithTheFlow.js is available on github <a href='https://github.com/jeromeetienne/gowiththeflow.js'>here</a>
+under <a href='https://github.com/jeromeetienne/gowiththeflow.js/blob/master/MIT-LICENSE.txt'>MIT license</a>.
+If you hit bugs, fill issues on github.
+Feel free to fork, modify and have fun with it :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jerome Etienne</span></span>
+
+      
+
+
+
+
+<time datetime="2011-07-17 00:00:00 +0200" pubdate  updated >Jul 17<span>th</span>, 2011</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://notes.jetienne.com/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch" data-via="jerome_etienne" data-counturl="http://notes.jetienne.com/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+      
+        <aside role=sidebar><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/07/25/learningthreejs-lets-do-a-cube">LearningThree.js - Lets Do a Cube</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch">GoWithTheFlow.js - async flow control with a zen touch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/15/learningthreejs-installation">LearningThree.js - Installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/10/javascript-class-inheritance-ala-vaporjs-in-3-lines">Javascript Class Inheritance ala vapor.js in 3 lines</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/26/Parisjs-7-slides">Parisjs 7 slides</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jerome_etienne", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/jerome_etienne" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @jerome_etienne</a>
+  
+</section>
+
+
+
+
+
+
+</aside>
+      
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Jerome Etienne -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+</footer>
+</body>
+</html>
