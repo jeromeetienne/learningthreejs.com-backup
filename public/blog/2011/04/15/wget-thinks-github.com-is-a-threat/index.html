@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" manifest="default.appcache?v=1"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" manifest="default.appcache?v=1" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Notes from jerome etienne: wget thinks github.com is a threat</title>
+  <meta name="author" content="Jerome Etienne">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href="/atom.xml" rel="alternate" title="Notes from jerome etienne" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Notes from jerome etienne</a></h1>
+  
+    <h2>Just notes.</h2>
+  
+</hgroup>
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:notes.jetienne.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Wget Thinks github.com Is a Threat</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-04-15 00:00:00 +0200" pubdate  updated >Apr 15<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This is just a little post on a oddity. As a coder, i use <a href="http://github.com">github</a>
+and <a href="http://www.gnu.org/software/wget/">wget</a> everyday or close. When i do, i
+see this message.</p>
+
+<pre><code>$ wget https://github.com/jeromeetienne/nmod/raw/master/nmod
+...
+ERROR: certificate common name `*.github.com' doesn't match requested
+host name `github.com'.
+To connect to github.com insecurely, use `--no-check-certificate'.
+</code></pre>
+
+<p>This message puzzles me quite a bit&#8230;
+<a href="http://www.gnu.org/software/wget/">wget</a>
+thinks
+<strong><em><a href="http://github.com">github</a>
+is a threat</em></strong> &#8230; and requires an explicit action
+from you (adding <code>--no-check-certificate</code>) to be sure you are willing to take this <strong><em>risk</em></strong> .
+The risk of downloading files from github&#8230; ok lets admit it, <strong><em>this is ridiculous</em></strong>.
+<a href="http://www.gnu.org/software/wget/">wget</a> distrusting <a href="http://github.com">github</a> is
+like &#8230; <a href="http://en.wikipedia.org/wiki/Ls">ls</a> distrusting <a href="http://en.wikipedia.org/wiki/Cd_(command)">cd</a> :)</p>
+
+<p>According to github, <a href="http://support.github.com/discussions/site/2507-error-certificate-common-name-githubcom-doesnt-match-requested-host-name-githubcom">this is actually a wget bug which has been reported and fixed but not release</a>
+, and point to a <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=409938">bug from 2007</a>!!!!
+Dunno if this is true, or who is at the best place to fix the issue&#8230; and the purpose of this post
+is not to do finger pointing.</p>
+
+<p>Lets note that everybody is from open source world here.
+wget is from gnu, not only under gpl, but
+<a href="http://en.wikipedia.org/wiki/Wget#Authors_and_copyright">even got his copyright assigned to fsf</a>.
+What to say about github and opensource ? well they got <a href="https://github.com/blog/685-one-million-repositories">millions of repositories</a>
+and most of them are open source software.</p>
+
+<p>This post is not meant to be a rant. More to put the light on an oddity. something that i see
+as a <code>symptom of communication issue</code> in the opensource community.</p>
+
+<p>Let do better! :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jerome Etienne</span></span>
+
+      
+
+
+
+
+<time datetime="2011-04-15 00:00:00 +0200" pubdate  updated >Apr 15<span>th</span>, 2011</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://notes.jetienne.com/blog/2011/04/15/wget-thinks-github.com-is-a-threat" data-via="jerome_etienne" data-counturl="http://notes.jetienne.com/blog/2011/04/15/wget-thinks-github.com-is-a-threat" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+      
+        <aside role=sidebar><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/07/25/learningthreejs-lets-do-a-cube">LearningThree.js - Lets Do a Cube</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch">GoWithTheFlow.js - async flow control with a zen touch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/15/learningthreejs-installation">LearningThree.js - Installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/10/javascript-class-inheritance-ala-vaporjs-in-3-lines">Javascript Class Inheritance ala vapor.js in 3 lines</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/26/Parisjs-7-slides">Parisjs 7 slides</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jerome_etienne", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/jerome_etienne" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @jerome_etienne</a>
+  
+</section>
+
+
+
+
+
+
+</aside>
+      
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Jerome Etienne -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+</footer>
+</body>
+</html>

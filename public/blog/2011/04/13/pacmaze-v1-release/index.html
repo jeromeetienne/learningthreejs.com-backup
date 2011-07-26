@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" manifest="default.appcache?v=1"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" manifest="default.appcache?v=1" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Notes from jerome etienne: Pacmaze V1 - a Pacman in WebGL</title>
+  <meta name="author" content="Jerome Etienne">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href="/atom.xml" rel="alternate" title="Notes from jerome etienne" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Notes from jerome etienne</a></h1>
+  
+    <h2>Just notes.</h2>
+  
+</hgroup>
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:notes.jetienne.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Pacmaze V1 - a Pacman in WebGL</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-04-13 00:00:00 +0200" pubdate  updated >Apr 13<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>tl;dr;</h2>
+
+<p>Pacmaze v1 is a pacman in WebGL. You are a pacman trapped in a maze.
+You need to eat all the pills to get out, and avoid the ghosts in the
+process. Well&#8230; you known pacman.
+You can find it as <a href="http://pacmaze.com">standalone webapp</a> or in
+<a href="https://chrome.google.com/webstore/detail/ggeliggglgbhachnoljoieibaneidchi">chrome web store</a>.
+Pacmaze v1 is the first game of <em>the pacmaze experiment</em>. Show, dont tell, here is a screencast</p>
+
+<center>
+<iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/9_ZtsK4rU4g" frameborder="0" allowfullscreen></iframe>
+</center>
+
+
+<h2>Pacmaze Experiment</h2>
+
+<p>What is it ?
+<strong>The pacmaze experiment</strong> is the fancy name for <em>my trip discovering gamedev field</em>.
+It is an experiment i wish to try. The rule is simple.
+During 4 months, i am commited to work in a <em>publish early, publish often</em> mode.
+Twice a month, i will publish a new game, or a significant improvement of a
+previous one, on the second and the fourth wednesday of each month.
+Pacmaze V1 being the first of the serie.</p>
+
+<p>This is the current plan&#8230; I know the schedule is tight, but this
+is part of the challenge. We will see how it goes along the road.</p>
+
+<h2>Pacmaze Experiment Origin</h2>
+
+<p><a href="http://pacmaze0.jetienne.com">Pacmaze v0</a> was the first
+<a href="http://en.wikipedia.org/wiki/First-person_shooter#Multiplayer">multi-player first person shooter</a>
+using html5 power with <a href="http://en.wikipedia.org/wiki/WebGL">WebGL</a>
+and <a href="http://en.wikipedia.org/wiki/WebSockets">WebSockets</a>.
+It started on 14 march 2011 with a <a href="/Pacmaze%20Experiment/2011/03/21/pacmaze-v0-origin.html">36h code rush</a>.
+It was a <a href="http://en.wikipedia.org/wiki/Proof_of_concept">proof-of-concept</a>.
+Its purpose was to know if the needed technology was available on today browsers.
+<em>Good news! it is</em> :)</p>
+
+<p>Obviously to code a <a href="http://en.wikipedia.org/wiki/First-person_shooter">multiplayer fps</a> in 36h,
+you have to cut a lot of corners.
+<a href="http://pacmaze0.jetienne.com">Pacmaze v0</a> is ugly and got a crappy gameplay.
+Additionnaly, a code rush was nice and fancy but it doesnt produce a stable code base.
+I ended with a program which has been hacked rapidely. On top i was a beginner in
+the <a href="http://en.wikipedia.org/wiki/Video_game_development">gamedev</a> field.
+So i spent some time to refactor the code from 36h hack to something more stable.</p>
+
+<p>I did many visual enhancements, improved the gameplay quite a bit&#8230; and then
+you got <a href="http://pacmaze.com">Pacmaze v1</a>. have fun :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jerome Etienne</span></span>
+
+      
+
+
+
+
+<time datetime="2011-04-13 00:00:00 +0200" pubdate  updated >Apr 13<span>th</span>, 2011</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://notes.jetienne.com/blog/2011/04/13/pacmaze-v1-release" data-via="jerome_etienne" data-counturl="http://notes.jetienne.com/blog/2011/04/13/pacmaze-v1-release" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+      
+        <aside role=sidebar><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/07/25/learningthreejs-lets-do-a-cube">LearningThree.js - Lets Do a Cube</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch">GoWithTheFlow.js - async flow control with a zen touch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/15/learningthreejs-installation">LearningThree.js - Installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/10/javascript-class-inheritance-ala-vaporjs-in-3-lines">Javascript Class Inheritance ala vapor.js in 3 lines</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/26/Parisjs-7-slides">Parisjs 7 slides</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jerome_etienne", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/jerome_etienne" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @jerome_etienne</a>
+  
+</section>
+
+
+
+
+
+
+</aside>
+      
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Jerome Etienne -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+</footer>
+</body>
+</html>
