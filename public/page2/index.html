@@ -1,0 +1,581 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" manifest="default.appcache?v=1"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" manifest="default.appcache?v=1" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Notes from jerome etienne</title>
+  <meta name="author" content="Jerome Etienne">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href="/atom.xml" rel="alternate" title="Notes from jerome etienne" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Notes from jerome etienne</a></h1>
+  
+    <h2>Just notes.</h2>
+  
+</hgroup>
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:notes.jetienne.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/15/wget-thinks-github.com-is-a-threat">Wget Thinks github.com Is a Threat</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is just a little post on a oddity. As a coder, i use <a href="http://github.com">github</a>
+and <a href="http://www.gnu.org/software/wget/">wget</a> everyday or close. When i do, i
+see this message.</p>
+
+<pre><code>$ wget https://github.com/jeromeetienne/nmod/raw/master/nmod
+...
+ERROR: certificate common name `*.github.com' doesn't match requested
+host name `github.com'.
+To connect to github.com insecurely, use `--no-check-certificate'.
+</code></pre>
+
+<p>This message puzzles me quite a bit&#8230;
+<a href="http://www.gnu.org/software/wget/">wget</a>
+thinks
+<strong><em><a href="http://github.com">github</a>
+is a threat</em></strong> &#8230; and requires an explicit action
+from you (adding <code>--no-check-certificate</code>) to be sure you are willing to take this <strong><em>risk</em></strong> .
+The risk of downloading files from github&#8230; ok lets admit it, <strong><em>this is ridiculous</em></strong>.
+<a href="http://www.gnu.org/software/wget/">wget</a> distrusting <a href="http://github.com">github</a> is
+like &#8230; <a href="http://en.wikipedia.org/wiki/Ls">ls</a> distrusting <a href="http://en.wikipedia.org/wiki/Cd_(command)">cd</a> :)</p>
+
+<p>According to github, <a href="http://support.github.com/discussions/site/2507-error-certificate-common-name-githubcom-doesnt-match-requested-host-name-githubcom">this is actually a wget bug which has been reported and fixed but not release</a>
+, and point to a <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=409938">bug from 2007</a>!!!!
+Dunno if this is true, or who is at the best place to fix the issue&#8230; and the purpose of this post
+is not to do finger pointing.</p>
+
+<p>Lets note that everybody is from open source world here.
+wget is from gnu, not only under gpl, but
+<a href="http://en.wikipedia.org/wiki/Wget#Authors_and_copyright">even got his copyright assigned to fsf</a>.
+What to say about github and opensource ? well they got <a href="https://github.com/blog/685-one-million-repositories">millions of repositories</a>
+and most of them are open source software.</p>
+
+<p>This post is not meant to be a rant. More to put the light on an oddity. something that i see
+as a <code>symptom of communication issue</code> in the opensource community.</p>
+
+<p>Let do better! :)</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/04/15/wget-thinks-github.com-is-a-threat">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/15/jquery.acewidget-a-jquery-plugin-to-easily-embed-ace">jquery.acewidget - a jQuery Plugin to Easily Embed Ace</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><h1>AceWidget jQuery Plugin</h1>
+
+<p><a href="https://github.com/jeromeetienne/acewidget/tree/master/contrib/jquery.acewidget">jquery.acewidget.js</a> is a
+jQuery plugin for <a href="https://github.com/jeromeetienne/acewidget">acewidget</a>.
+AceWidget is a widget which make <a href="http://mozillalabs.com/skywriter/2011/01/18/mozilla-skywriter-has-been-merged-into-ace/">ace</a>
+/<a href="https://mozillalabs.com/blog/2009/02/introducing-bespin/">bespin</a> trivial to embed in your pages. The Vision is to be
+super simple to embed and have no server to setup. It provides the whole official embeded api. The
+code is available on github under MIT license. That&#8217;s it. No fuss no muss.</p>
+
+<p>Show dont tell, a <a href="http://jeromeetienne.github.com/acewidget/demo.html">demo of acewidget</a> and a
+<a href="http://jeromeetienne.github.com/acewidget/contrib/jquery.acewidget/test.html">example of jquery.acewidget</a></p>
+
+<h2>How to use it</h2>
+
+<p>First you include the plugin itself in a usual script</p>
+
+<pre><code>&lt;script type="text/javascript" src='jquery.acewidget.js'&gt;&lt;/script&gt; 
+</code></pre>
+
+<p>Then create a DOM element which gonna contains ace widget, say a div</p>
+
+<pre><code>&lt;div id="editor"&gt;&lt;/div&gt;
+</code></pre>
+
+<p>Then you create the ace widget in this container by</p>
+
+<pre><code>var acewidget = jQuery('#editor').acewidget();
+</code></pre>
+
+<p>You wait until it is loaded in your DOM</p>
+
+<pre><code>acewidget.bind('load', function(){
+    /* you start using it here */
+})
+</code></pre>
+
+<p>After that you use it with the normal ace API</p>
+
+<h2>API</h2>
+
+<h3>to set a new text</h3>
+
+<pre><code>acewidget.setValue("foobar", function(){
+alert("setValue "+result.status)
+})
+</code></pre>
+
+<p>The callback is optional&#8217; and notified when the action is completed.
+It is <a href="http://labs.omniti.com/labs/jsend/wiki">jsend compatible</a>.</p>
+
+<h3>to get the current text</h3>
+
+<pre><code>acewidget.getValue(function(result){
+    alert("getValue "+result.status+" text:"+result.data.data)
+})
+</code></pre>
+
+<h3>to set the tab size</h3>
+
+<pre><code>acewidget.setTabSize(8, function(result){
+    alert("setTabSize "+result.status)
+})
+</code></pre>
+
+<h3>to be notified when the acewidget is loaded</h3>
+
+<pre><code>acewidget.bind('load', function(){
+    alert('acewidget is loaded')
+})
+</code></pre>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/04/15/jquery.acewidget-a-jquery-plugin-to-easily-embed-ace">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/13/pacmaze-v1-release">Pacmaze V1 - a Pacman in WebGL</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><h2>tl;dr;</h2>
+
+<p>Pacmaze v1 is a pacman in WebGL. You are a pacman trapped in a maze.
+You need to eat all the pills to get out, and avoid the ghosts in the
+process. Well&#8230; you known pacman.
+You can find it as <a href="http://pacmaze.com">standalone webapp</a> or in
+<a href="https://chrome.google.com/webstore/detail/ggeliggglgbhachnoljoieibaneidchi">chrome web store</a>.
+Pacmaze v1 is the first game of <em>the pacmaze experiment</em>. Show, dont tell, here is a screencast</p>
+
+<center>
+<iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/9_ZtsK4rU4g" frameborder="0" allowfullscreen></iframe>
+</center>
+
+
+<h2>Pacmaze Experiment</h2>
+
+<p>What is it ?
+<strong>The pacmaze experiment</strong> is the fancy name for <em>my trip discovering gamedev field</em>.
+It is an experiment i wish to try. The rule is simple.
+During 4 months, i am commited to work in a <em>publish early, publish often</em> mode.
+Twice a month, i will publish a new game, or a significant improvement of a
+previous one, on the second and the fourth wednesday of each month.
+Pacmaze V1 being the first of the serie.</p>
+
+<p>This is the current plan&#8230; I know the schedule is tight, but this
+is part of the challenge. We will see how it goes along the road.</p>
+
+<h2>Pacmaze Experiment Origin</h2>
+
+<p><a href="http://pacmaze0.jetienne.com">Pacmaze v0</a> was the first
+<a href="http://en.wikipedia.org/wiki/First-person_shooter#Multiplayer">multi-player first person shooter</a>
+using html5 power with <a href="http://en.wikipedia.org/wiki/WebGL">WebGL</a>
+and <a href="http://en.wikipedia.org/wiki/WebSockets">WebSockets</a>.
+It started on 14 march 2011 with a <a href="/Pacmaze%20Experiment/2011/03/21/pacmaze-v0-origin.html">36h code rush</a>.
+It was a <a href="http://en.wikipedia.org/wiki/Proof_of_concept">proof-of-concept</a>.
+Its purpose was to know if the needed technology was available on today browsers.
+<em>Good news! it is</em> :)</p>
+
+<p>Obviously to code a <a href="http://en.wikipedia.org/wiki/First-person_shooter">multiplayer fps</a> in 36h,
+you have to cut a lot of corners.
+<a href="http://pacmaze0.jetienne.com">Pacmaze v0</a> is ugly and got a crappy gameplay.
+Additionnaly, a code rush was nice and fancy but it doesnt produce a stable code base.
+I ended with a program which has been hacked rapidely. On top i was a beginner in
+the <a href="http://en.wikipedia.org/wiki/Video_game_development">gamedev</a> field.
+So i spent some time to refactor the code from 36h hack to something more stable.</p>
+
+<p>I did many visual enhancements, improved the gameplay quite a bit&#8230; and then
+you got <a href="http://pacmaze.com">Pacmaze v1</a>. have fun :)</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/04/13/pacmaze-v1-release">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/07/jquery-qrcode">jquery.qrcode - Jquery Plugin for Pure Browser Qrcode Generation</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href='http://jeromeetienne.github.com/jquery-qrcode'>jquery.qrcode.js</a>
+is <em>jquery plugin for a pure browser qrcode generation</em>.
+It allow you to easily add qrcode to your webpages.
+It is standalone, less than 4k after minify+gzip, no image download.
+It doesnt rely on external services which go on and off, or add latency while loading.
+It is based on a <a href='http://www.d-project.com/qrcode/index.html'>library</a>
+which build qrcode in various language. <a href='http://jeromeetienne.github.com/jquery-qrcode'>jquery.qrcode.js</a> wraps
+it to make it easy to include in your own code.</p>
+
+<p>Show, dont tell, here is a <a href='http://jeromeetienne.github.com/jquery-qrcode/examples/basic.html'>example</a></p>
+
+<h2>How to Use It</h2>
+
+<p>Let me walk you thru it. First include it in your webpage with the usual script tag</p>
+
+<pre><code>&lt;script type="text/javascript" src="jquery.qrcode.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>Then create a DOM element which gonna contains the generated qrcode image. Lets say
+a div</p>
+
+<pre><code>&lt;div id="qrcode"&gt;&lt;/div&gt;
+</code></pre>
+
+<p>Then you add the <em>qrcode</em> in this container by</p>
+
+<pre><code>jquery('#qrcode').qrcode("this plugin is great");
+</code></pre>
+
+<p>This is it. see it <a href='http://jeromeetienne.github.com/jquery-qrcode/examples/basic.html'>live</a>.</p>
+
+<h2>Conclusion</h2>
+
+<p><a href='http://jeromeetienne.github.com/jquery-qrcode'>jquery.qrcode.js</a> is available on github
+<a href='https://github.com/jeromeetienne/jquery-qrcode'>here</a>
+under <a href='https://github.com/jeromeetienne/jquery-qrcode/blob/master/MIT-LICENSE.txt'>MIT license</a>.
+If you hit bugs, fill issues on github.
+Feel free to fork, modify and have fun with it :)</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/04/07/jquery-qrcode">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/22/microeventjs">MicroEvent.js - Micro Event Emitter in 20 Lines</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>MicroEvent.js</em> is a event emitter library which provides the
+<a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a> to javascript objects.
+It works on node.js and browser. It is a single .js file containing
+a <a href="https://github.com/jeromeetienne/microevent.js/blob/master/microevent.js#L12-31">20 lines class</a>
+for a total of 321-bytes after minification+gzip.</p>
+
+<h1>How to Use It</h1>
+
+<p>You need a single file <a href="https://github.com/jeromeetienne/microevent.js/raw/master/microevent.js">microevent.js</a>.
+Include it in a webpage via the usual script tag.</p>
+
+<pre><code>&lt;script src="microevent.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>To include it in a nodejs code isnt much harder</p>
+
+<pre><code>var MicroEvent = require('./microevent.js')
+</code></pre>
+
+<p>Now suppose you got a class <code>Foobar</code>, and you wish it to support the observer partern. do</p>
+
+<pre><code>MicroEvent.mixin(Foobar)
+</code></pre>
+
+<p>That&#8217;s it. The repository contains an <a href="https://github.com/jeromeetienne/microevent.js/blob/master/examples/example.html">example in browser</a>
+and an <a href="https://github.com/jeromeetienne/microevent.js/blob/master/examples/example.js">example in nodejs</a>.
+Both use the same code in different contexts. Let me walk you thru it.</p>
+
+<h1>Example</h1>
+
+<p>First we define the class which going to use MicroEvent.js. This is a ticker, it is
+triggering &#8216;tick&#8217; events every second, and add the current date as parameter</p>
+
+<pre><code>var Ticker = function(){
+    var self = this;
+    setInterval(function(){
+        self.trigger('tick', new Date());
+    }, 1000);
+};
+</code></pre>
+
+<p>We mixin <em>MicroEvent</em> into <em>Ticker</em> and we are all set.</p>
+
+<pre><code>MicroEvent.mixin(Ticker);
+</code></pre>
+
+<p>Now lets actually use the <em>Ticker</em> Class. First, create the object.</p>
+
+<pre><code>var ticker = new Ticker();
+</code></pre>
+
+<p>and bind our <em>tick</em> event with its data parameter</p>
+
+<pre><code>ticker.bind('tick', function(date) {
+    console.log('notified date', date);
+});
+</code></pre>
+
+<p>And you will see this output:</p>
+
+<pre><code>notified date Tue, 22 Mar 2011 14:43:41 GMT
+notified date Tue, 22 Mar 2011 14:43:42 GMT
+...
+</code></pre>
+
+<h1>Motivation</h1>
+
+<p>I needed a event emitter in js&#8230; something generic which works on browser and server, cross browser. The solutions i
+found were too complex for my taste.</p>
+
+<p>When i have seen John Resig <a href="http://ejohn.org/blog/javascript-micro-templating/">micro templating</a>
+or <a href='http://ejohn.org/blog/simple-javascript-inheritance/'>simple inheritance</a>, i loved it. It is
+simple, short, self contained, easy to understand&#8230; so <strong>elegant</strong>. i thought &#8220;this is no more a dependancy
+because i could maintain it if needed&#8221;. Now i try to apply those principles to my own work.</p>
+
+<h1>Conclusion</h1>
+
+<p>MicroEvent.js is available on github <a href='https://github.com/jeromeetienne/microevent.js'>here</a>
+under <a href='https://github.com/jeromeetienne/microevent.js/blob/master/MIT-LICENSE.txt'>MIT license</a>.
+If you hit bugs, fill issues on github.
+Feel free to fork, modify and have fun with it :)</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/03/22/microeventjs">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/21/pacmaze-v0-origin">Pacmaze V0 - First Multi-player First Person Shooter on Html5</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p>Last week, i started to do gamedev.
+During a code rush, i did pacmaze v0 in <em>36h!!!</em> Then i slept a lot and published it as
+<a href="https://chrome.google.com/webstore/detail/ggeliggglgbhachnoljoieibaneidchi">chrome application</a>
+(This way, i didnt have to care about cross-browser compatbility out of time and lazyness i admit :)</p>
+
+<p>Pacmaze v0 is a <a href="http://en.wikipedia.org/wiki/First-person_shooter">multi-player first person shooter</a>.
+Everybody joins in the same maze, and they shoot at each other. Lets the best win&#8230; except
+that nobody dies because i forgot to code death :)</p>
+
+<p>To my knowledge, Pacmaze v0 is the first
+<a href="http://en.wikipedia.org/wiki/First-person_shooter#Multiplayer">multi-player first person shooter</a>
+using html5 power with <a href="http://en.wikipedia.org/wiki/WebGL">WebGL</a>
+and <a href="http://en.wikipedia.org/wiki/WebSockets">WebSockets</a>.
+You can find the game as standalone <a href="http://pacmaze0.jetienne.com">here</a>. have fun. I certainly
+had fun writing it :)</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/03/21/pacmaze-v0-origin">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/10/initial-post">Initial Post</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p>Trying to blog again. Here is my first post.</p>
+
+<p>Up to now i didnt considere my blogging seriously. My blog posts were kinda PostIts to me, some random texts
+that i have written not to forget. So the targeted reader was me, and if it helps people outthere, all for
+the best, but not the primary purpose.</p>
+
+<p>This blog is using <a href="http://jekyllrb.com/">jekyll</a> and will be hosted at <a href="http://notes.jetienne.com">notes.jetienne.com</a></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/03/10/initial-post">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+      <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+</div>
+
+      
+        <aside role=sidebar><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/07/25/learningthreejs-lets-do-a-cube">LearningThree.js - Lets Do a Cube</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch">GoWithTheFlow.js - async flow control with a zen touch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/15/learningthreejs-installation">LearningThree.js - Installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/10/javascript-class-inheritance-ala-vaporjs-in-3-lines">Javascript Class Inheritance ala vapor.js in 3 lines</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/26/Parisjs-7-slides">Parisjs 7 slides</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jerome_etienne", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/jerome_etienne" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @jerome_etienne</a>
+  
+</section>
+
+
+
+
+
+
+</aside>
+      
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Jerome Etienne -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+</footer>
+</body>
+</html>

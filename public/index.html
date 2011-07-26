@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" manifest="default.appcache?v=1"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" manifest="default.appcache?v=1" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Notes from jerome etienne</title>
+  <meta name="author" content="Jerome Etienne">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href="/atom.xml" rel="alternate" title="Notes from jerome etienne" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Notes from jerome etienne</a></h1>
+  
+    <h2>Just notes.</h2>
+  
+</hgroup>
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:notes.jetienne.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/25/learningthreejs-lets-do-a-cube">LearningThree.js - Lets Do a Cube</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post is part of the LearningThree.js serie.
+After the post
+on the <a href="/blog/2011/07/15/learningthreejs-installation/">installation</a>
+of <a href="https://github.com/mrdoob/three.js/">Three.js</a>, we will do a
+cube which rotate on the screen. Nothing fancy but perfect to learn
+the basics and play around.
+This example will explain the basics of three.js.
+It follow the same architecture as most of three.js examples.
+This will help you understand and play around with them.
+They are a goldmine of sweetness.</p>
+
+<p>You can find the whole source in a <a href="https://gist.github.com/1106726">gist</a>, and
+you can see it run <a href="">here</a> TODO <strong>TODO</strong>
+In general, the examples are composed of 3 parts:</p>
+
+<ul>
+<li><strong>Part 1</strong> : bootstrapping aka declare the variables and launch the first functions</li>
+<li><strong>Part 2</strong> : <code>init()</code> function which build the 3D objects and Dom elements.</li>
+<li><strong>Part 3</strong> : <code>animate()+render()</code> function which does the animation and display it on the screen</li>
+</ul>
+
+
+<h1>Part 1: Bootstrapping</h1>
+
+<p>nothing magical in here&#8230; just declaring variables you will need later, initialise
+the 3D with <code>init()</code> and start the animation with <code>animate()</code></p>
+
+<div><figure role=code><figcaption><span>create the Cube - cubeCreation.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="kd">var</span> <span class="nx">startTime</span>  <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">container</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">camera</span><span class="p">,</span> <span class="nx">scene</span><span class="p">,</span> <span class="nx">renderer</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">cube</span><span class="p">;</span>
+
+<span class="c1">// initialiaze everything</span>
+<span class="nx">init</span><span class="p">();</span>
+<span class="c1">// make it move</span>
+<span class="nx">animate</span><span class="p">();</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<h1>Part 2: init() functions</h1>
+
+<p>It simply build the 3D scenes, add objects in it, add a camera, and init basic DOM elements</p>
+
+<h2>First, lets create a scene</h2>
+
+<p>The <em>scene</em> is what you show on the screen.
+It is the description of what you choose to represent in <a href="http://en.wikipedia.org/wiki/Three-dimensional_space">three dimensional space</a>.
+You select a part of a scene with your camera. <em>i.e.</em> if you represent several simple
+geometrical shapes, one scene can be a large cube and a pyramid, another scene can
+be two small cubes and a sphere, almost anything you want&#8230;</p>
+
+<p>To initiate this variable is simple</p>
+
+<div><figure role=code><figcaption><span>create the Scene - sceneCreation.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="nx">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Scene</span><span class="p">();</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<h2>Lets create the cube</h2>
+
+<div><figure role=code><figcaption><span>create the Cube - cubeCreation.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="c1">// create the Cube</span>
+<span class="nx">cube</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Mesh</span><span class="p">(</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">CubeGeometry</span><span class="p">(</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span> <span class="p">)</span>
+        <span class="p">,</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshNormalMaterial</span><span class="p">()</span> <span class="p">);</span>
+<span class="c1">// set the position of the cube in the scene</span>
+<span class="nx">cube</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">150</span><span class="p">;</span>
+<span class="c1">// add the object to the scene</span>
+<span class="nx">scene</span><span class="p">.</span><span class="nx">addObject</span><span class="p">(</span> <span class="nx">cube</span> <span class="p">);</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<ul>
+<li><em>Step 1</em>: the cube is created by associating a <em>Geometry</em> and a <em>Material</em></li>
+<li><em>Step 2</em>: the cube is positionned in the scene. By setting position.y, it is
+possible to set position, rotation and scale, in x/y/z.</li>
+<li><em>Step 3</em>: the cube is finaly added to the scene we just created</li>
+</ul>
+
+
+<h2>Now, lets put a camera</h2>
+
+<p>The camera is your point of view, like your own eye. The camera gonna capture
+what is in front of it exactly like a physical camera.
+<em>i.e.</em> if you represent a cube on your scene, the camera can be
+above or on the side of the cube. It can be static or moving.</p>
+
+<div><figure role=code><figcaption><span>create the Camera - cameraCreation.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="nx">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Camera</span><span class="p">(</span> <span class="mi">70</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">/</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span> <span class="p">);</span>
+<span class="nx">camera</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">150</span><span class="p">;</span>
+<span class="nx">camera</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">z</span> <span class="o">=</span> <span class="mi">350</span><span class="p">;</span>
+<span class="nx">camera</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">150</span><span class="p">;</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<p>You set the position of the camera in x/y/z (default to 0).
+Then you determine the <code>camera.target</code> position aka the camera will point
+to the position of its target.</p>
+
+<h2>create a container dom element</h2>
+
+<p>The 3D scene will be rendered in this container element. Beside this, it is a
+normal DOM element.</p>
+
+<div><figure role=code><figcaption><span>create the container - createContainer.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="c1">// create the container element</span>
+<span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s1">&#39;div&#39;</span> <span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">container</span> <span class="p">);</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<h2>Create the renderer</h2>
+
+<p>We create a WebGL renderer and append it to the DOM.</p>
+
+<div><figure role=code><figcaption><span>create the renderer - createRenderer.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="c1">// init the WebGL renderer and append it to the Dom</span>
+<span class="nx">renderer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">WebGLRenderer</span><span class="p">();</span>
+<span class="nx">renderer</span><span class="p">.</span><span class="nx">setSize</span><span class="p">(</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span> <span class="p">);</span>
+<span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">renderer</span><span class="p">.</span><span class="nx">domElement</span> <span class="p">);</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<h1>misc Notes:</h1>
+
+<ul>
+<li>what is needed
+
+<ul>
+<li>show the demo early. and say &#8220;you will be able to do that in 5min&#8221;
+
+<ul>
+<li>list the concept which gonna be presented in it, and link to them at the end of the post</li>
+</ul>
+</li>
+<li>demo
+
+<ul>
+<li>where does the demo comes from
+
+<ul>
+<li>from /examples. i stripped all mouse interactions to simplify the source</li>
+</ul>
+</li>
+<li>explain the source of the demo</li>
+<li>part per part</li>
+</ul>
+</li>
+<li>Concepts
+
+<ul>
+<li>what are they, where is the source for it</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/07/25/learningthreejs-lets-do-a-cube">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch">GoWithTheFlow.js - Async Flow Control With a Zen Touch</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p>GoWithTheFlow.js is a javascript asynchronous flow-control micro library which works <strong>in
+node.js and in browser</strong>. It allow to control how your
+asynchronous code is executed, sequentially or in parallel.
+Flow() is only 30lines.</p>
+
+<h1>How to use it</h1>
+
+<p>Let start with a basic example. 2 jobs run in sequence. The first job is a timeout
+so the result is delivered asynchronously, and a second job is run only <em>after</em> the
+completion of the first.</p>
+
+<div><figure role=code><figcaption><span>basic example with sequential jobds - exeample.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="nx">Flow</span><span class="p">().</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;step 1: started, it will last 1sec&quot;</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;step 1: 1sec expired. Step 1 completed&quot;</span><span class="p">);</span>
+        <span class="nx">next</span><span class="p">();</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;step 2: run after step1 has been completed&quot;</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<p>It will display the following</p>
+
+<pre><code>step 1: started, it will last 1sec
+step 1: 1sec expired. Step 1 completed
+step 2: run after step1 has been completed
+</code></pre>
+
+<h1>Methods</h1>
+
+<p>In order to keep it as simple as possible, Flow has only 2 methods.</p>
+
+<h2>.seq(callback) to execute job sequentially</h2>
+
+<p><code>.seq()</code> is used to execute functions sequentially. The <em>callback</em> parameter
+will be executed only after all previous jobs are completed.
+The callback signature is <code>callback(next, error, result)</code></p>
+
+<ul>
+<li><p><code>next(error, result)</code> is the function to call when the job is completed. <em>error</em> is to notify an error
+to the next job. <em>result</em> to notify a result. <em>error</em> and <em>result</em> may be omitted, if so they are considered
+equal to <code>undefined</code></p></li>
+<li><p><code>error</code> is the error send by previous jobs</p></li>
+<li><p><code>result</code> is the result send by previous jobs</p></li>
+</ul>
+
+
+<p>for example</p>
+
+<div><figure role=code><figcaption><span>basic example with sequential jobs - basicSeq.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="nx">Flow</span><span class="p">().</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;first job&quot;</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;result1&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">,</span> <span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>    
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;second job. run *after* first job&quot;</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">();</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<h2>.par(callback) to execute job in parallel</h2>
+
+<p><code>.par()</code> is used to execute functions in parallel. The <em>callback</em> parameter is the same as for <code>.seq()</code>.
+If multiple .par() are declared one after another, they are run in parallel. The first <code>.seq()</code> after them
+will receive all the <em>error</em> and <em>result</em> in Array. One array item per previous <code>.par()</code></p>
+
+<p>For example</p>
+
+<div><figure role=code><figcaption><span>basic example with jobs in parallel - basicPar.js </span></figcaption>
+
+<div class="highlight"><pre><code class="js"><span class="nx">Flow</span><span class="p">().</span><span class="nx">par</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;job foo&quot;</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">par</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;job bar&quot;</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">results</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;job run *after* the completion of foo and bar&quot;</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="nx">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">errors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;foo&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">results</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+    <span class="nx">next</span><span class="p">();</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<p>That&#8217;s it</p>
+
+<h1>Conclusion</h1>
+
+<p>GoWithTheFlow.js is available on github <a href='https://github.com/jeromeetienne/gowiththeflow.js'>here</a>
+under <a href='https://github.com/jeromeetienne/gowiththeflow.js/blob/master/MIT-LICENSE.txt'>MIT license</a>.
+If you hit bugs, fill issues on github.
+Feel free to fork, modify and have fun with it :)</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/15/learningthreejs-installation">LearningThree.js - Installation</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/mrdoob/three.js">Three.js</a> is a 3D library in javascript. According
+to <a href="http://mrdoob.com/">mrdoob</a>, its author, three.js is</p>
+
+<blockquote><p>The aim of the project is to create a lightweight 3D engine with a very low level of<br/>complexity — in other words, for dummies. The engine can render using canvas, svg and WebGL.</p><footer><strong>mrdoob</strong><cite>tree.js Author</cite></footer></blockquote>
+
+
+<h2>Step 1: get the source</h2>
+
+<p>The source are available <a href="https://github.com/mrdoob/three.js">here</a>. Use
+the following command</p>
+
+<div><figure role=code><figcaption><span>how to get the source - example.sh </span></figcaption>
+
+<div class="highlight"><pre><code class="sh">git clone https://github.com/mrdoob/three.js.git
+</code></pre>
+</div>
+
+</figure></div>
+
+
+<p>It will provide the whole source on your local disk. You are done, just point
+a web server on it, and go in <code>/examples</code>.</p>
+
+<h2>Step 2: Description of the folder structure</h2>
+
+<ul>
+<li><code>/utils</code> it is a bunch of utilities (see <a href="https://github.com/mrdoob/three.js/tree/master/utils">here</a>).
+You can find the script to <a href="https://github.com/mrdoob/three.js/blob/master/utils/build.sh">build the releases</a>
+(concatenate the files, minify them, all that).</li>
+<li><code>/build</code> It is an administrative directory where the build release is stored. Not really important
+for a user, it is more for a developper of the library itself.</li>
+<li><code>/src</code> It is the library code in itself. We will study that in more details later. Meanwhile dont hesitate
+to go look: it is rather small and clean.</li>
+<li><code>/examples</code> It is a list of all the examples. They kinda are the documentation of three.js, try
+them. They are the meat, if you like something, just do view-source:
+
+<ul>
+<li>some of them are for &lt;canvas> rendering, most of them are for WebGL. Three.js is able to render 3D scene
+on canvas, Dom, SVG and obviously WebGL (with various level of support). See <a href="https://github.com/mrdoob/three.js/tree/master/src/renderers">here</a>
+for details.</li>
+<li>Some are focused on <a href="https://github.com/mrdoob/three.js/tree/master/src/extras/geometries">geometry</a> i.e.
+the shape of the objects. See <a href="http://mrdoob.github.com/three.js/examples/webgl_geometry_colors.html">here</a>
+, <a href="http://mrdoob.github.com/three.js/examples/canvas_geometry_cube.html">here</a>
+and <a href="http://mrdoob.github.com/three.js/examples/canvas_geometry_cube.html">here</a></li>
+<li>Some are focused on the <a href="https://github.com/mrdoob/three.js/tree/master/src/materials">material</a> i.e.
+kindof the colors and the texture of the objects. See
+<a href="http://mrdoob.github.com/three.js/examples/webgl_materials_texture_filters.html">here</a>,
+<a href="http://mrdoob.github.com/three.js/examples/webgl_materials_texture_filters.html">here</a> and
+<a href="http://mrdoob.github.com/three.js/examples/webgl_materials_normalmap.html">here</a>.</li>
+<li>Others are focused on <a href="https://github.com/mrdoob/three.js/tree/master/src/lights">light</a>, there are different
+type of light sources. See
+<a href="http://mrdoob.github.com/three.js/examples/canvas_lights_pointlights.html">here</a>,
+<a href="http://mrdoob.github.com/three.js/examples/canvas_lights_pointlights_smooth.html">here</a> and
+<a href="http://mrdoob.github.com/three.js/examples/webgl_lights_pointlights.html">here</a></li>
+<li>Some are focused on <a href="https://github.com/mrdoob/three.js/tree/master/src/extras/physics">collisions</a>. See
+<a href="http://mrdoob.github.com/three.js/examples/webgl_collisions_trigger.html">here</a>,
+<a href="http://mrdoob.github.com/three.js/examples/webgl_collisions_reaction.html">here</a> and
+<a href="http://mrdoob.github.com/three.js/examples//webgl_collisions_mesh.html">here</a>.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Point a web server on <code>three.js</code> source tree and go in <code>/examples</code> to try them. It is fun!</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/07/15/learningthreejs-installation">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/10/javascript-class-inheritance-ala-vaporjs-in-3-lines">Javascript Class Inheritance Ala vapor.js in 3 Lines</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post describes a standalone way to add class inheritance in your javascript code.
+We will do that ala <a href="https://github.com/madrobby/vapor.js">vapor.js</a>, so no
+dependancy or external framework. A vaporjs inheritance is only 3 lines!</p>
+
+<p>Lets get started, say you got a class <em>animal</em>. It gonna have a constructor and a
+method <em>talk</em>.</p>
+
+<pre><code>var Animal = function(opts){}
+Animal.prototype.talk   = function(){ return 'mumble';  }
+Animal.prototype.sleep  = function(){ return 'zzzzz';   }
+</code></pre>
+
+<h1>How to write the inheritance</h1>
+
+<p>Now let write a <em>Cat</em> class which inherits from <em>Animal</em>. It will override the animal
+method <em>talk</em>.</p>
+
+<pre><code>var Cat = function(opts){
+    // call the parent class constructor (one line)
+    Animal.call(this, opts)
+}
+
+// inherit from Animal methods (two lines)
+Cat.prototype = new Animal();
+Cat.prototype.constructor = Animal;
+
+// override talk method
+Cat.prototype.talk = function(){
+    return "maow"
+}
+</code></pre>
+
+<p>So a vaporjs inheritance is only 3 lines!</p>
+
+<h1>Lets test methods override</h1>
+
+<p>Now lets test the result of all this</p>
+
+<pre><code>var cat = new Cat()
+console.log("cat sleep as ", cat.sleep());
+console.log("cat talk as ", cat.talk());
+</code></pre>
+
+<p>This will display</p>
+
+<pre><code>cat sleep as zzzzz
+cat talk as maow
+</code></pre>
+
+<p>So <code>.talk()</code> is actually overridden, and .sleep() is properly passed to the parent class <em>Animal</em>.</p>
+
+<h1>Lets test instanceOf semantic</h1>
+
+<p>Last but not least, the <a href="https://developer.mozilla.org/en/JavaScript/Reference/Operators/Special/instanceof">instanceOf</a>
+operator which is so important for javascript</p>
+
+<pre><code>console.log("Cat instanceof Cat", cat instanceof Cat);
+console.log("Cat instanceof Animal", cat instanceof Animal);
+</code></pre>
+
+<p>will display</p>
+
+<pre><code>Cat instanceof Cat true
+Cat instanceof Animal true
+</code></pre>
+
+<p>So <code>cat</code> object is an instance of the class <em>Cat</em> and of the class <em>Animal</em> which is the good
+semantic for <em>instanceOf</em>.</p>
+
+<p>That&#8217;s all folks. have fun.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/07/10/javascript-class-inheritance-ala-vaporjs-in-3-lines">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/26/Parisjs-7-slides">Parisjs 7 Slides</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://parisjs.org">parisjs #7</a> was fun as always. I did a flash talk
+on <a href="https://github.com/jeromeetienne/shorttag.js">shorttag.js</a> and presented what
+i did on <a href="http://pacmaze.com">pacmaze</a> <a href="http://buddymaze.com">experiment</a> this month. Here
+are the slides i used.</p>
+
+<center>
+    <iframe src="https://docs.google.com/present/embed?id=dhng4bgf_66dbnvxjch" frameborder="0" width="410" height="342"></iframe>
+</center>
+
+
+<p>Btw ryah is coming to paris on june 8th, <a href="http://parisnodemeetup.eventbrite.com/">register</a>.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/05/26/Parisjs-7-slides">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/25/Webgl-london-meeting">Webgl London Meeting</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p>Yesterday, the first london webgl meeting happened!
+people interested in webgl all in a same place and time, it was nice.
+see reports <a href="http://learningwebgl.com/blog/?p=3770">here</a>
+and <a href="http://mozillalabs.com/blog/2011/05/london-webgl-meetup-yesterday/">here</a>.</p>
+
+<p>I talked about <a href="http://pacmaze.com">pacmaze</a> <a href="http://buddymaze.com">experiment</a>, here
+are the slides i used.</p>
+
+<center>
+    <iframe src="https://docs.google.com/present/embed?id=dhng4bgf_65dcvz5hfd" frameborder="0" width="410" height="342"></iframe>
+</center>
+
+
+<p>A nice picture from <a href="http://twitter.com/#!/tbx">@tbx</a>. I love the packy checking on me while im presenting him to
+audience :) reccursive gamification ftw!</p>
+
+<center>
+    <a href="http://www.flickr.com/photos/tobimcfly/5758181812/" title="Jerome Etienne showing pacmaze.com by tobimcfly, on Flickr"><img src="http://farm4.static.flickr.com/3229/5758181812_76c5ecee80.jpg" width="500" height="375" alt="Jerome Etienne showing pacmaze.com"></a>
+</center>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/05/25/Webgl-london-meeting">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/18/cancelRequestAnimFrame-for-paul-irish-requestAnimFrame">cancelRequestAnimationFrame() for Paul Irish requestAnimationFrame()</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://paulirish.com/">Paul Irish</a> recently
+wrote <a href="http://paulirish.com/2011/requestanimationframe-for-smart-animating/">requestAnimationFrame for smart animating</a>.
+It is a polyfill so people can start use requestAnimationFrame() today and still be future proof.</p>
+
+<p>This post is about its counterpart,
+<a href="http://webstuff.nfshost.com/anim-timing/Overview.html#cancelRequestAnimationFrame">cancelRequestAnimFrame()</a>.
+It cancels a <a href="http://webstuff.nfshost.com/anim-timing/Overview.html#requestAnimationFrame">requestAnimationFrame()</a>,
+like <a href="https://developer.mozilla.org/en/DOM/window.clearTimeout">clearTimeout</a>
+cancels a <a href="https://developer.mozilla.org/en/DOM/window.setTimeout">setTimeout</a>.</p>
+
+<h1>Step 1: how to get the code</h1>
+
+<p>First include the <code>cancelRequestAnimFrame()</code> code in your page.</p>
+
+<pre><code>window.cancelRequestAnimFrame = ( function() {
+    return window.cancelAnimationFrame          ||
+        window.webkitCancelRequestAnimationFrame    ||
+        window.mozCancelRequestAnimationFrame       ||
+        window.oCancelRequestAnimationFrame     ||
+        window.msCancelRequestAnimationFrame        ||
+        clearTimeout
+} )();
+</code></pre>
+
+<p>Add <code>requestAnimFrame()</code> too. It is a slightly modified version of
+<a href="http://paulirish.com/2011/requestanimationframe-for-smart-animating/">paul&#8217;s</a>
+to return setTimeout() handle.</p>
+
+<pre><code>window.requestAnimFrame = (function(){
+    return  window.requestAnimationFrame       || 
+        window.webkitRequestAnimationFrame || 
+        window.mozRequestAnimationFrame    || 
+        window.oRequestAnimationFrame      || 
+        window.msRequestAnimationFrame     || 
+        function(/* function */ callback, /* DOMElement */ element){
+            return window.setTimeout(callback, 1000 / 60);
+        };
+})();
+</code></pre>
+
+<h1>Step 2: how to use it</h1>
+
+<p>Here is a possible way to use it.
+<strong><em>Show, dont tell</em></strong>, here is a <a href="http://jsfiddle.net/ghjKC/3/">live demo</a> on jsfiddle</p>
+
+<pre><code>// to store the request
+var request;
+
+// start and run the animloop
+(function animloop(){
+  render();
+  request = requestAnimFrame(animloop, element);
+})();
+
+// cancelRequestAnimFrame to stop the loop in 1 second
+setTimeout(function(){
+    cancelRequestAnimFrame(request);                
+}, 1*1000)
+</code></pre>
+
+<h1>About requestAnimationFrame</h1>
+
+<p>In the past months, much has been done for web graphics. Among them,
+<a href="http://webstuff.nfshost.com/anim-timing/Overview.html">requestAnimationFrame()</a>
+is used to make smoother animation while not wasting useless
+rescources when not visible.
+The <a href="http://webstuff.nfshost.com/anim-timing/Overview.html">spec</a> is making good
+progress, and <a href="http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation">several</a>
+<a href="https://developer.mozilla.org/en/DOM/window.mozRequestAnimationFrame">implementations</a> are already deployed.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/05/18/cancelRequestAnimFrame-for-paul-irish-requestAnimFrame">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/28/trip-to-html5-and-game-talk-at-parisjs-6">A Trip to Html5 and Game - Talk at Parisjs</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p>Yesterday i was at <a href="http://parisjs.org">parisjs</a> talking about html5 and game.
+I presented games from the <a href="/2011/04/20/pacmaze-v2-even-more-WebGL-in-pacman.html">Pacmaze</a>
+<a href="/2011/04/13/pacmaze-v1-release.html">Experiment</a> and talked about html5 technology in it.
+Here are the slides i used.</p>
+
+<center>
+<iframe src="https://docs.google.com/present/embed?id=dhng4bgf_63gks3skcf" frameborder="0" width="410" height="342"></iframe>
+</center>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/04/28/trip-to-html5-and-game-talk-at-parisjs-6">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/28/buddymaze-fps-in-webgl">Buddymaze - First Personn Shooter in WebGL</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://buddymaze.com">Buddymaze</a> is a clone of
+<a href="http://en.wikipedia.org/wiki/MIDI_Maze">midimaze</a>, an old game
+where people shoot at each other.
+You can find it as <a href="http://buddymaze.com">standalone webapp</a> or in
+<a href="https://chrome.google.com/webstore/detail/hpplggoofiffhijgnmnbgcppfafcmljp">chrome web store</a>.
+This is the second game in the <a href="/2011/04/13/pacmaze-v1-release.html">pacmaze experiment announced here</a></a>,
+the first one being <a href="http://pacmaze.com">pacmaze</a>.
+This version is rather rought, i will keep you updated. Considere it as a early beta.</p>
+
+<center>
+<iframe width="425" height="349" src="http://www.youtube.com/embed/OvmuNhkV5aQ" frameborder="0" allowfullscreen></iframe>
+</center>
+
+
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/04/28/buddymaze-fps-in-webgl">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/20/pacmaze-v2-even-more-WebGL-in-pacman">Pacmaze V2 - Event More WebGL in Pacman</a></h1>
+    
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href='http://pacmaze.com' target='_blank'>Pacmaze</a> v2 is the second version of pacmaze
+in the <a href='/2011/04/13/pacmaze-v1-release.html'>pacmaze experiment announced here</a>.</p>
+
+<p>Compared to <a href='http://pacmaze1.jetienne.com' target='_blank'>pacmaze v1</a>, it provides <strong>much nicer 3D effects</strong> with
+lot of camera moves. Use <em>pageUp/pageDown</em> or <em>C/V</em> keys to change the camera positions. It is a little easier
+on the user too. In case you dont have WebGL, you may watch a screencast&#8230; better than the original
+with a alert(), couch :) Show, dont tell, here is the screencast</p>
+
+<center>
+<iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/9_ZtsK4rU4g" frameborder="0" allowfullscreen></iframe>
+</center>
+
+
+<p>Other improvements were done this week, but they were either not yet ready or not visible on the screen&#8230;
+According to <em>pacmaze experiment</em> <a href='/2011/04/13/pacmaze-v1-release.html'>schedule</a>, i should
+release a new game every 2 weeks, so another game is due next wednesday.
+<a href='http://pacmaze.com' target='_blank'>Pacmaze</a> v2 is just an improvement of last week
+release.</p>
+
+<h2>tl;dr;</h2>
+
+<p>Pacmaze is a pacman in WebGL. You are a pacman trapped in a maze.
+You need to eat all the pills to get out, and avoid the ghosts in the
+process. Well&#8230; you known pacman.
+You can find it as <a href="http://pacmaze.com">standalone webapp</a> or in
+<a href="https://chrome.google.com/webstore/detail/ggeliggglgbhachnoljoieibaneidchi">chrome web store</a>.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/04/20/pacmaze-v2-even-more-WebGL-in-pacman">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/page2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</nav>
+
+</div>
+
+      
+        <aside role=sidebar><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/07/25/learningthreejs-lets-do-a-cube">LearningThree.js - Lets Do a Cube</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch">GoWithTheFlow.js - async flow control with a zen touch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/15/learningthreejs-installation">LearningThree.js - Installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/10/javascript-class-inheritance-ala-vaporjs-in-3-lines">Javascript Class Inheritance ala vapor.js in 3 lines</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/26/Parisjs-7-slides">Parisjs 7 slides</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jerome_etienne", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/jerome_etienne" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @jerome_etienne</a>
+  
+</section>
+
+
+
+
+
+
+</aside>
+      
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Jerome Etienne -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+</footer>
+</body>
+</html>
