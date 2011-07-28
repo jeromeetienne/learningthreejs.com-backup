@@ -4,7 +4,7 @@
   <title></title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-07-28T16:42:44+02:00</updated>
+  <updated>2011-07-28T16:51:34+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -54,6 +54,9 @@ In general, the examples are composed of 3 parts:&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;Part 2&lt;/strong&gt; : &lt;code&gt;init()&lt;/code&gt; function which build the 3D objects and Dom elements.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Part 3&lt;/strong&gt; : &lt;code&gt;animate()+render()&lt;/code&gt; function which does the animation and display it on the screen&lt;/li&gt;
 &lt;/ul&gt;
+
+
+&lt;!--more--&gt;
 
 
 &lt;h1&gt;Part 1: Bootstrapping&lt;/h1&gt;
@@ -246,6 +249,9 @@ the following command&lt;/p&gt;
 
 &lt;p&gt;It will provide the whole source on your local disk. You are done, just point
 a web server on it, and go in &lt;code&gt;/examples&lt;/code&gt;.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
 
 &lt;h2&gt;Step 2: Description of the folder structure&lt;/h2&gt;
 
