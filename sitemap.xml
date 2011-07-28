@@ -1,89 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://notes.jetienne.com/blog/2011/03/10/initial-post</loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
+        <loc>http://learningthreejs.com/blog/2011/07/15/threejs-installation</loc>
+        <lastmod>2011-07-28T16:17:41+02:00</lastmod>
     </url>
     <url>
-        <loc>http://notes.jetienne.com/blog/2011/03/21/pacmaze-v0-origin</loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
+        <loc>http://learningthreejs.com/blog/2011/07/25/lets-do-a-cube</loc>
+        <lastmod>2011-07-28T16:17:03+02:00</lastmod>
     </url>
     <url>
-        <loc>http://notes.jetienne.com/blog/2011/03/22/microeventjs</loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
+        <loc>http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs</loc>
+        <lastmod>2011-07-28T16:23:44+02:00</lastmod>
     </url>
     <url>
-        <loc>http://notes.jetienne.com/blog/2011/04/07/jquery-qrcode</loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
+        <loc>http://learningthreejs.com/</loc>
+        <lastmod>2011-07-28T16:23:44+02:00</lastmod>
     </url>
     <url>
-        <loc>http://notes.jetienne.com/blog/2011/04/13/pacmaze-v1-release</loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://notes.jetienne.com/blog/2011/04/15/jquery.acewidget-a-jquery-plugin-to-easily-embed-ace
-        </loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://notes.jetienne.com/blog/2011/04/15/wget-thinks-github.com-is-a-threat</loc>
-        <lastmod>2011-07-25T16:33:44+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://notes.jetienne.com/blog/2011/04/20/pacmaze-v2-even-more-WebGL-in-pacman</loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://notes.jetienne.com/blog/2011/04/28/buddymaze-fps-in-webgl</loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://notes.jetienne.com/blog/2011/04/28/trip-to-html5-and-game-talk-at-parisjs-6
-        </loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://notes.jetienne.com/blog/2011/05/18/cancelRequestAnimFrame-for-paul-irish-requestAnimFrame
-        </loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://notes.jetienne.com/blog/2011/05/25/Webgl-london-meeting</loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://notes.jetienne.com/blog/2011/05/26/Parisjs-7-slides</loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://notes.jetienne.com/blog/2011/07/10/javascript-class-inheritance-ala-vaporjs-in-3-lines
-        </loc>
-        <lastmod>2011-07-25T16:16:48+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://notes.jetienne.com/blog/2011/07/15/learningthreejs-installation</loc>
-        <lastmod>2011-07-25T16:35:53+02:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://notes.jetienne.com/blog/2011/07/17/gowiththeflow.js-async-flow-control-with-a-zen-touch
-        </loc>
-        <lastmod>2011-07-25T16:40:38+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://notes.jetienne.com/blog/2011/07/25/learningthreejs-lets-do-a-cube</loc>
-        <lastmod>2011-07-26T16:32:33+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://notes.jetienne.com/</loc>
-        <lastmod>2011-07-26T16:32:33+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://notes.jetienne.com/blog/archives/</loc>
-        <lastmod>2011-07-26T16:32:33+02:00</lastmod>
+        <loc>http://learningthreejs.com/blog/archives/</loc>
+        <lastmod>2011-07-28T16:23:44+02:00</lastmod>
     </url>
 </urlset>
