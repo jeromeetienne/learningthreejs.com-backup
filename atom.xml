@@ -4,7 +4,7 @@
   <title></title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-07-28T17:23:07+02:00</updated>
+  <updated>2011-07-28T17:42:09+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -21,6 +21,8 @@
 
 &lt;p&gt;Yesterday i did a presentation about Three.js at &lt;a href=&quot;http://parisjs.org&quot;&gt;parisjs&lt;/a&gt;. My first
 on the topic, it was fun, i will clearly do more :)&lt;/p&gt;
+
+&lt;p&gt;On the right, a picture taken during the presentation by &lt;a href=&quot;http://twitter.com/#!/42loops&quot;&gt;42loops&lt;/a&gt;.&lt;/p&gt;
 
 &lt;center&gt;
     &lt;iframe src=&quot;https://docs.google.com/present/view?id=dhng4bgf_71c9txhrdb&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;342&quot;&gt;&lt;/iframe&gt;
