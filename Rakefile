@@ -5,7 +5,7 @@ require "bundler/setup"
 # Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
 ssh_user       = "user@domain.com"
 document_root  = "~/website.com/"
-deploy_default = "rsync"
+deploy_default = "push"
 
 # This will be configured for you when you run config_deploy
 deploy_branch  = "gh-pages"
@@ -163,7 +163,7 @@ desc "deploy public directory to github pages"
 task :push do
   puts "## Deploying branch to Github Pages "
   (Dir["#{deploy_dir}/*"]).each { |f| rm_rf(f) }
-  system "cp -R #{public_dir}/ #{deploy_dir}"
+  system "cp -R #{public_dir}/* #{deploy_dir}"
   puts "\n## copying #{public_dir} to #{deploy_dir}"
   cd "#{deploy_dir}" do
     system "git add ."

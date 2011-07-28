@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://learningthreejs.com
+title: Learning Three.js
+subtitle: or WebGL for dummy
+author: Jerome Etienne
 simple_search: http://google.com/search
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
@@ -20,7 +20,7 @@ email:
 
 # If publishing to a subdirectory as in http://site.com/project set 'root: /project'
 root: /
-port: 4000
+port: 3000
 permalink: /blog/:year/:month/:day/:title
 source: source
 destination: public
@@ -38,7 +38,7 @@ recent_posts: 5 # Posts in the sidebar Recent Posts section
 # ----------------------- #
 
 # Twitter
-twitter_user:
+twitter_user: jerome_etienne
 twitter_tweet_count: 4
 twitter_show_replies: false
 twitter_follow_button: true
