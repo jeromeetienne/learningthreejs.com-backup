@@ -23,6 +23,8 @@ In general, the examples are composed of 3 parts:
 * **Part 2** : ```init()``` function which build the 3D objects and Dom elements.
 * **Part 3** : ```animate()+render()``` function which does the animation and display it on the screen
 
+<!--more-->
+
 
 # Part 1: Bootstrapping
 

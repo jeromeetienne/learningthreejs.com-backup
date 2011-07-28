@@ -24,6 +24,8 @@ git clone https://github.com/mrdoob/three.js.git
 It will provide the whole source on your local disk. You are done, just point
 a web server on it, and go in ```/examples```.
 
+<!--more-->
+
 ## Step 2: Description of the folder structure
 
 * ```/utils``` it is a bunch of utilities (see [here](https://github.com/mrdoob/three.js/tree/master/utils)).
