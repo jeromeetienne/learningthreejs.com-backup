@@ -4,7 +4,7 @@
   <title></title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-07-28T16:51:34+02:00</updated>
+  <updated>2011-07-28T17:23:07+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -17,8 +17,10 @@
     <link href="http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs"/>
     <updated>2011-07-28T00:00:00+02:00</updated>
     <id>http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs</id>
-    <content type="html">&lt;p&gt;Yesterday i did a presentation about Three.js to &lt;a href=&quot;http://parisjs.org&quot;&gt;parisjs&lt;/a&gt;
-audience. My first on the topic, it was fun, i will clearly do more :)&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;a target='_blank' title='yfrog.com - Image And Video Hosting' href='http://yfrog.com/kg1g6rtj'&gt;&lt;img class=&quot;right&quot; src='http://a.yfrog.com/img736/5082/1g6rt.th.jpg' border='0'/&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Yesterday i did a presentation about Three.js at &lt;a href=&quot;http://parisjs.org&quot;&gt;parisjs&lt;/a&gt;. My first
+on the topic, it was fun, i will clearly do more :)&lt;/p&gt;
 
 &lt;center&gt;
     &lt;iframe src=&quot;https://docs.google.com/present/view?id=dhng4bgf_71c9txhrdb&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;342&quot;&gt;&lt;/iframe&gt;
