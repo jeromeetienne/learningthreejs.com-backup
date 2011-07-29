@@ -4,7 +4,7 @@
   <title></title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-07-28T17:42:09+02:00</updated>
+  <updated>2011-07-29T11:33:31+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -19,7 +19,8 @@
     <id>http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs</id>
     <content type="html">&lt;p&gt;&lt;a target='_blank' title='yfrog.com - Image And Video Hosting' href='http://yfrog.com/kg1g6rtj'&gt;&lt;img class=&quot;right&quot; src='http://a.yfrog.com/img736/5082/1g6rt.th.jpg' border='0'/&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Yesterday i did a presentation about Three.js at &lt;a href=&quot;http://parisjs.org&quot;&gt;parisjs&lt;/a&gt;. My first
+&lt;p&gt;Yesterday i did a &lt;a href=&quot;https://docs.google.com/present/view?id=dhng4bgf_71c9txhrdb&quot;&gt;presentation&lt;/a&gt;
+about Three.js at &lt;a href=&quot;http://parisjs.org&quot;&gt;parisjs&lt;/a&gt;. My first
 on the topic, it was fun, i will clearly do more :)&lt;/p&gt;
 
 &lt;p&gt;On the right, a picture taken during the presentation by &lt;a href=&quot;http://twitter.com/#!/42loops&quot;&gt;42loops&lt;/a&gt;.&lt;/p&gt;
@@ -29,199 +30,6 @@ on the topic, it was fun, i will clearly do more :)&lt;/p&gt;
 &lt;/center&gt;
 
 
-
-</content>
-  </entry>
-  
-  <entry>
-    <title>Lets Do a Cube</title>
-    <link href="http://learningthreejs.com/blog/2011/07/25/lets-do-a-cube"/>
-    <updated>2011-07-25T00:00:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/07/25/lets-do-a-cube</id>
-    <content type="html">&lt;p&gt;This post is part of the LearningThree.js serie.
-After the post
-on the &lt;a href=&quot;/blog/2011/07/15/learningthreejs-installation/&quot;&gt;installation&lt;/a&gt;
-of &lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;Three.js&lt;/a&gt;, we will do a
-cube which rotate on the screen. Nothing fancy but perfect to learn
-the basics and play around.
-This example will explain the basics of three.js.
-It follow the same architecture as most of three.js examples.
-This will help you understand and play around with them.
-They are a goldmine of sweetness.&lt;/p&gt;
-
-&lt;p&gt;You can find the whole source in a &lt;a href=&quot;https://gist.github.com/1106726&quot;&gt;gist&lt;/a&gt;, and
-you can see it run &lt;a href=&quot;&quot;&gt;here&lt;/a&gt; TODO &lt;strong&gt;TODO&lt;/strong&gt;
-In general, the examples are composed of 3 parts:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Part 1&lt;/strong&gt; : bootstrapping aka declare the variables and launch the first functions&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Part 2&lt;/strong&gt; : &lt;code&gt;init()&lt;/code&gt; function which build the 3D objects and Dom elements.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Part 3&lt;/strong&gt; : &lt;code&gt;animate()+render()&lt;/code&gt; function which does the animation and display it on the screen&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;!--more--&gt;
-
-
-&lt;h1&gt;Part 1: Bootstrapping&lt;/h1&gt;
-
-&lt;p&gt;nothing magical in here... just declaring variables you will need later, initialise
-the 3D with &lt;code&gt;init()&lt;/code&gt; and start the animation with &lt;code&gt;animate()&lt;/code&gt;&lt;/p&gt;
-
-&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;create the Cube - cubeCreation.js &lt;/span&gt;&lt;/figcaption&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;startTime&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;camera&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scene&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;renderer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cube&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// initialiaze everything&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// make it move&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;animate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;h1&gt;Part 2: init() functions&lt;/h1&gt;
-
-&lt;p&gt;It simply build the 3D scenes, add objects in it, add a camera, and init basic DOM elements&lt;/p&gt;
-
-&lt;h2&gt;First, lets create a scene&lt;/h2&gt;
-
-&lt;p&gt;The &lt;em&gt;scene&lt;/em&gt; is what you show on the screen.
-It is the description of what you choose to represent in &lt;a href=&quot;http://en.wikipedia.org/wiki/Three-dimensional_space&quot;&gt;three dimensional space&lt;/a&gt;.
-You select a part of a scene with your camera. &lt;em&gt;i.e.&lt;/em&gt; if you represent several simple
-geometrical shapes, one scene can be a large cube and a pyramid, another scene can
-be two small cubes and a sphere, almost anything you want...&lt;/p&gt;
-
-&lt;p&gt;To initiate this variable is simple&lt;/p&gt;
-
-&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;create the Scene - sceneCreation.js &lt;/span&gt;&lt;/figcaption&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;scene&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;THREE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Scene&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;h2&gt;Lets create the cube&lt;/h2&gt;
-
-&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;create the Cube - cubeCreation.js &lt;/span&gt;&lt;/figcaption&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// create the Cube&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;cube&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;THREE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Mesh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;THREE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CubeGeometry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;THREE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MeshNormalMaterial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// set the position of the cube in the scene&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;cube&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// add the object to the scene&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;scene&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cube&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;Step 1&lt;/em&gt;: the cube is created by associating a &lt;em&gt;Geometry&lt;/em&gt; and a &lt;em&gt;Material&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Step 2&lt;/em&gt;: the cube is positionned in the scene. By setting position.y, it is
-possible to set position, rotation and scale, in x/y/z.&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Step 3&lt;/em&gt;: the cube is finaly added to the scene we just created&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;Now, lets put a camera&lt;/h2&gt;
-
-&lt;p&gt;The camera is your point of view, like your own eye. The camera gonna capture
-what is in front of it exactly like a physical camera.
-&lt;em&gt;i.e.&lt;/em&gt; if you represent a cube on your scene, the camera can be
-above or on the side of the cube. It can be static or moving.&lt;/p&gt;
-
-&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;create the Camera - cameraCreation.js &lt;/span&gt;&lt;/figcaption&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;camera&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;THREE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Camera&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;70&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;camera&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;camera&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;350&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;camera&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;You set the position of the camera in x/y/z (default to 0).
-Then you determine the &lt;code&gt;camera.target&lt;/code&gt; position aka the camera will point
-to the position of its target.&lt;/p&gt;
-
-&lt;h2&gt;create a container dom element&lt;/h2&gt;
-
-&lt;p&gt;The 3D scene will be rendered in this container element. Beside this, it is a
-normal DOM element.&lt;/p&gt;
-
-&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;create the container - createContainer.js &lt;/span&gt;&lt;/figcaption&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// create the container element&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;div&amp;#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;h2&gt;Create the renderer&lt;/h2&gt;
-
-&lt;p&gt;We create a WebGL renderer and append it to the DOM.&lt;/p&gt;
-
-&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;create the renderer - createRenderer.js &lt;/span&gt;&lt;/figcaption&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// init the WebGL renderer and append it to the Dom&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;renderer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;THREE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebGLRenderer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;renderer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerWidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHeight&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;renderer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;domElement&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;h1&gt;misc Notes:&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;what is needed
-
-&lt;ul&gt;
-&lt;li&gt;show the demo early. and say &quot;you will be able to do that in 5min&quot;
-
-&lt;ul&gt;
-&lt;li&gt;list the concept which gonna be presented in it, and link to them at the end of the post&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;demo
-
-&lt;ul&gt;
-&lt;li&gt;where does the demo comes from
-
-&lt;ul&gt;
-&lt;li&gt;from /examples. i stripped all mouse interactions to simplify the source&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;explain the source of the demo&lt;/li&gt;
-&lt;li&gt;part per part&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Concepts
-
-&lt;ul&gt;
-&lt;li&gt;what are they, where is the source for it&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
 
 </content>
   </entry>
