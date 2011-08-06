@@ -1,7 +1,7 @@
 ---
 layout: post
 published: false
-title: Lets Do a Cube
+title: Lets Do a Cubic
 ---
 
 This post is part of the LearningThree.js serie.
