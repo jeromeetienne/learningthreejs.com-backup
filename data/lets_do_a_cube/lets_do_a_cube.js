@@ -1,5 +1,5 @@
 // This source is the javascript needed to build a simple moving
-// cube in **three.js**. It is the source about this [blog post](/blog/2011/08/06/let-do-a-cube/)
+// cube in **three.js**. It is the source about this [blog post](/blog/2011/08/06/lets-do-a-cube/)
 
 // ## Now lets start
 
