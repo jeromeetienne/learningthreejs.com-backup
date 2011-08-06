@@ -2,6 +2,7 @@
 layout: post
 published: true
 title: Three.js Installation
+categories: [basic, webgl]
 ---
 
 [Three.js](https://github.com/mrdoob/three.js) is a 3D library in javascript. According
