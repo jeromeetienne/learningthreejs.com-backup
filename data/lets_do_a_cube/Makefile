@@ -3,7 +3,7 @@
 build:
 	docco *.js
 
-monitor:
+monitor: build
 	(while inotifywait -r -e modify,attrib,create . ; do make build; done)
 
 
