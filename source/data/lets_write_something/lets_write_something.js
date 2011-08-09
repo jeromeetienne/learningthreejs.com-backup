@@ -53,38 +53,63 @@ function init() {
 	//var textMaterial= new THREE.MeshNormalMaterial();
 	//var textMesh1	= new THREE.Mesh( textGeo, textMaterial );
 	//scene.addChild( textMesh1 );
-
-	var geometry	= new THREE.TextGeometry("Large-scale Amazon EC2 Outage", {
-		size	: 30,
-		height	: 10
-	});
-
-	//mesh	= new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
-	mesh	= new THREE.Mesh( geometry, new THREE.MeshPhongMaterial( { color: 0xff0000 } ) );
-
-	mesh.rotation.y	= 40*Math.PI/180;
-	scene.addChild( mesh );
 	
-	THREE.Collisions.colliders.push( THREE.CollisionUtils.MeshOBB( mesh ) );	
+	var addPost	= function(postItem){
+		// create the parent Object3D
+		var parent	= new THREE.Object3D();
+		
+		var geometry	= new THREE.TextGeometry(postItem.title, {
+			size		: 30,
+			height		: 10,
+			bezelThickness	: 2,
+			bezelSize	: 1.5,
+			bezelEnabled	: true
+		});	
+		title	= new THREE.Mesh(geometry, new THREE.MeshPhongMaterial( { color: 0x4040a0 } ) );
+		title.rotation.y	= 40*Math.PI/180;
+		parent.addChild( title );
+		
+		title._userdata	= {
+			type	: "title",
+			data	: postItem
+		}
+		THREE.Collisions.colliders.push( THREE.CollisionUtils.MeshOBB( title ) );
+		
+		
+		var geometry	= new THREE.TextGeometry("(+)", {
+			size	: 30,
+			height	: 10
+		});
+		comments	= new THREE.Mesh( geometry, new THREE.MeshPhongMaterial( { color: 0x808080 } ) );
+		comments.position.y	= -50;
+		comments.rotation.y	= 40*Math.PI/180;
+		parent.addChild( comments );
+
+		comments._userdata	= {
+			type	: "comments",
+			data	: postItem
+		}
+		THREE.Collisions.colliders.push( THREE.CollisionUtils.MeshOBB( comments ) );
+
+		return parent;
+	}
+
+
+	mesh	= addPost({
+		title	: "Large-scale Amazon EC2 Outage",
+		comments: "http://news.ycombinator.com/item?id=2862566",
+		link	: "http://status.aws.amazon.com/"
+	})
+	scene.addChild(mesh)
+
+	
 
 if(false){
 	var url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20feed%20where%20url%3D'http%3A%2F%2Fnews.ycombinator.com%2Frss'&format=json&diagnostics=false&callback=?";
 	jQuery.getJSON(url, function(json){
 		var items	= json.query.results.item;
 		var item	= items[0]
-		console.log("data", json)
-
-
-		var title	= item.title;
-		var comments	= item.comments;
-		var link	= item.link;
-
-		var geometry	= new THREE.TextGeometry(item.title, {
-			size	: 20
-		});
-
-		var mesh	= new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
-		scene.addChild( mesh );
+		console.log("data", json);
 	});	
 }
 
@@ -115,19 +140,24 @@ function onDocumentMouseMove( event ){
 
 function onDocumentClick( event ){
 	event.preventDefault();
+	
 	var mouseX	= (event.clientX / window.innerWidth) * 2 - 1;
 	var mouseY	= -(event.clientY / window.innerHeight) * 2 + 1;
 
 	var vector = new THREE.Vector3( mouseX, mouseY, 0.5 );
 	projector.unprojectVector( vector, camera );
+	var ray		= new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+	var collided	= THREE.Collisions.rayCastNearest( ray );
 
-	var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
-
-	var c = THREE.Collisions.rayCastNearest( ray );
-
-	if ( c ) {
-		console.log("collide")
-		window.open('http://jetienne.com','_newtab');
+	if( collided ){
+		console.log("collide", collided.mesh._userdata)
+		var userdata	= collided.mesh._userdata;
+		if( userdata.type === 'title' )
+			var url	= userdata.data.link;
+		else if( userdata.type === 'comments' )
+			var url	= userdata.data.comments;
+		else	console.assert(false);
+		window.open(url);
 	} else {
 		console.log("not collide")
 	}	
@@ -148,10 +178,25 @@ function animate() {
 // ## Render the 3D Scene
 function render() {
 
-	
+
+	var vector = new THREE.Vector3( mouse.x, mouse.y, 0.5 );
+	projector.unprojectVector( vector, camera );
+	var ray		= new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+	var collided	= THREE.Collisions.rayCastNearest( ray );
+
+	title.materials[0].color.setHex( 0x003300 );
+	comments.materials[0].color.setHex( 0x003300 );
+
+	if( collided ){
+		document.body.style.cursor	= 'pointer';
+		collided.mesh.materials[0].color.setHex( 0x000033 );
+	} else {
+		document.body.style.cursor	= '';
+	}
+
 	// animate the mesh
 	//mesh.rotation.x += 0.02;
-	//mesh.rotation.y += 0.0125;
+	mesh.rotation.y += 0.0125;
 	//mesh.rotation.z += 0.0175;
 
 	// actually display the scene in the Dom element
