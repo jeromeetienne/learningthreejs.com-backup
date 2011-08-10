@@ -244,8 +244,7 @@ var displayInfo	= function(gl)
 	display("Depth Bits: ", depthBits );
 	var stencilBits = gl.getParameter(gl.STENCIL_BITS);
 	display("Stencil Bits: ", stencilBits);
-		
-
+	
 	display("<br/><u>Implementation Dependent States</u>");
         var maxRenderBufferSize = gl.getParameter(gl.MAX_RENDERBUFFER_SIZE);
         display("Max. Render Buffer Size: ", maxRenderBufferSize);
