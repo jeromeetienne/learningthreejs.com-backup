@@ -20,6 +20,8 @@ init();
 // make it move			
 animate();
 
+
+
 // ## Initialize everything
 function init() {
 	// test if webgl is supported
@@ -34,7 +36,7 @@ function init() {
 	// create the Scene
 	scene		= new THREE.Scene();
 
-	projector = new THREE.Projector();
+	projector	= new THREE.Projector();
 	
 	scene.fog	= new THREE.Fog( 0xf0f0f0, 250, 1000 );
 
@@ -121,9 +123,12 @@ if(false){
 	container.onclick	= onDocumentClick;
 
 	// init the WebGL renderer and append it to the Dom
-	renderer = new THREE.WebGLRenderer();
+	renderer = new THREE.WebGLRenderer({
+		antialias	: true
+	});
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
+	
 	
 	// init the Stats and append it to the Dom - performance vuemeter
 	stats = new Stats();
@@ -204,3 +209,94 @@ function render() {
 }
 
 
+var displayInfo	= function(gl)
+{
+	var display	= function(prefix, value){
+		console.log(prefix, ":", value)
+	}
+	console.log("")
+	display("Platform: ", navigator.platform);
+	display("Broswer User Agent: ", navigator.userAgent);
+
+	var prout	= ['VERSION', 'SHADING_LANGUAGE_VERSION', 'VENDOR', 'RENDERER'];
+	
+	document.writeln('This browser supports WebGL!');
+	display("GL Version: ", gl.getParameter(gl.VERSION));
+	var shadingLanguageVersion = gl.getParameter(gl.SHADING_LANGUAGE_VERSION);
+	display("Shading Language Version: ", shadingLanguageVersion);
+	var vendor = gl.getParameter(gl.VENDOR);
+	display("Vendor: ", vendor);
+	var renderer = gl.getParameter(gl.RENDERER);
+	display("Renderer: ", renderer);
+
+	var pixDepth	= ['RED_BITS', 'GREEN_BITS', 'BLUE_BITS', 'ALPHA_BITS', 'DEPTH_BITS', 'STENCIL_BITS'];
+	
+	display("<br/><u>Pixel Depths</u>");		
+	var redBits = gl.getParameter(gl.RED_BITS);
+	display("Red Bits: ", redBits );
+	var greenBits = gl.getParameter(gl.GREEN_BITS);
+	display("Green Bits: ", greenBits );
+	var blueBits = gl.getParameter(gl.BLUE_BITS);
+	display("Blue Bits: ", blueBits );
+	var alphaBits = gl.getParameter(gl.ALPHA_BITS);
+	display("Alpha Bits: ", alphaBits );
+	var depthBits = gl.getParameter(gl.DEPTH_BITS);
+	display("Depth Bits: ", depthBits );
+	var stencilBits = gl.getParameter(gl.STENCIL_BITS);
+	display("Stencil Bits: ", stencilBits);
+		
+
+	display("<br/><u>Implementation Dependent States</u>");
+        var maxRenderBufferSize = gl.getParameter(gl.MAX_RENDERBUFFER_SIZE);
+        display("Max. Render Buffer Size: ", maxRenderBufferSize);
+	var maximumCombinedTextureImageUnits = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS); // min: 8
+	display("Max. Combined Texture Image Units: ", maximumCombinedTextureImageUnits);
+	var maximumCubeMapTextureSize = gl.getParameter(gl.MAX_CUBE_MAP_TEXTURE_SIZE);               // min: 16
+	display("Max. Cube Map Texture Size: ", maximumCubeMapTextureSize);
+	var maximumFragmentUniformVectors = gl.getParameter(gl.MAX_FRAGMENT_UNIFORM_VECTORS);        // min: 16
+	display("Max. Fragment Uniform Vectors: ", maximumFragmentUniformVectors);
+	var maximumTextureImageUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);                  // min: 8
+	display("Max. Texture Image Units: ", maximumTextureImageUnits);
+	var maximumTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);                               // min: 64
+	display("Max. Texture Size: ", maximumTextureSize);
+	var maximumVaryingVectors = gl.getParameter(gl.MAX_VARYING_VECTORS);                         // min: 8
+	display("Max. Varying Vectors", maximumVaryingVectors);
+	var maximumVertexAttributes = gl.getParameter(gl.MAX_VERTEX_ATTRIBS);                        // min: 8
+	display("Max. Vertex Attributes", maximumVertexAttributes);
+	var maximumVertexTextureImageUnits = gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS);     // min: 0
+	display("Max. Vertex Texture Image Units: ", maximumVertexTextureImageUnits || '0');
+	var maximumVertexUniformVectors = gl.getParameter(gl.MAX_VERTEX_UNIFORM_VECTORS);            // min: 128
+	display("Max. Vertex Uniform Vectors", maximumVertexUniformVectors);
+	
+	
+	var aliasedLineWidthRange = gl.getParameter(gl.ALIASED_LINE_WIDTH_RANGE); // must include the value 1
+	display("Aliased Line Width Range: ", '[' + 
+		aliasedLineWidthRange[0] + ", " +
+		aliasedLineWidthRange[1] + ']');
+	
+	var aliasedPointSizeRange = gl.getParameter(gl.ALIASED_POINT_SIZE_RANGE); // must include the value 1 
+	display("Aliased Point Size Range: ", '[' + 
+		aliasedPointSizeRange[0] + ", " +
+		aliasedPointSizeRange[1] + ']');
+		
+	var maximumViewportDimensions = gl.getParameter(gl.MAX_VIEWPORT_DIMS);
+	display("Max. Viewport Dimensions", '[' + 
+		maximumViewportDimensions[0] + ", " +
+		maximumViewportDimensions[1] + ']');
+		
+	display('<br/><u>Supported Extensions:</u>');			
+	var extensions = gl.getSupportedExtensions();
+	if(extensions.length > 0) {
+		for(var i = 0; i < extensions.length; i++) {
+			display(extensions[i]);
+		}
+	}
+	else {
+		display("No extensions were found.");
+	}
+	
+	
+	console.log("gl", Object.getOwnPropertyNames(gl));
+	console.dir(gl)
+}
+displayInfo(renderer.getContext());
