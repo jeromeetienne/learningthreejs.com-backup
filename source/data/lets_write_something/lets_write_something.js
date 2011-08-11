@@ -201,7 +201,7 @@ function render() {
 
 	// animate the mesh
 	//mesh.rotation.x += 0.02;
-	mesh.rotation.y += 0.0125;
+	//mesh.rotation.y += 0.0125;
 	//mesh.rotation.z += 0.0175;
 
 	// actually display the scene in the Dom element
