@@ -34,16 +34,9 @@ function buildGui(parameters, callback)
 
 function cpuDotLorentz(particules, opts)
 {
-	var x	= 0.1;
-	var y	= 0.1;
-	var z	= 0.1;
 
-	//var a	= 5;
-	//var b	= 15;
-	//var c	= 1;
-	//var interval     = 0.020;
 	
-	//
+	// sanity check
 	console.assert( 'a' in opts )
 	console.assert( 'b' in opts )
 	console.assert( 'c' in opts )
@@ -54,6 +47,12 @@ function cpuDotLorentz(particules, opts)
 	c	= opts.c;
 	interval= opts.interval;
 
+	// initial value
+	var x	= 0.1;
+	var y	= 0.1;
+	var z	= 0.1;
+	var scale	= 8;
+	// go thru each particule
 	for(var i = 0; i < particules.length; i++){
 		// compute lorentz delata
 		var dx	= (y - x) * a;
@@ -63,9 +62,8 @@ function cpuDotLorentz(particules, opts)
 		x	+= dx * interval;
 		y	+= dy * interval;
 		z	+= dz * interval;
-
+		// get the coord for this particule
 		var particle	= particules[i];
-		var scale	= 8;
 		particle.position.x = x*scale;
 		particle.position.y = y*scale;
 		particle.position.z = (z-b)*scale;
@@ -105,10 +103,6 @@ function init()
 		context.closePath();
 		context.fill();		
 	}
-	//var material = new THREE.ParticleCanvasMaterial( {
-	//	color	: 0xffffff,
-	//	program	: particleDraw
-	//} );
 
 	// create all the particules objects and add them to the scene
 	var nbParticules= AMOUNTX * AMOUNTY;
@@ -123,7 +117,6 @@ function init()
 		particules[i]	= particle;
 	}
 	// compute the position of the particules
-	//cpuDotFloor(particules)
 	cpuDotLorentz(particules, parameters);
 
 	// init the renderer
