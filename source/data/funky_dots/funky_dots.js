@@ -1,4 +1,3 @@
-var SEPARATION	= 100;
 var AMOUNTX	= 50;
 var AMOUNTY	= 50;
 
@@ -19,19 +18,77 @@ function buildGui()
 {
 	// maybe replace that by window... or something
 	var parameters = {
-		message	: 'slota',
-		maxSize	: 5
+		iterations	: 10000,
+		interval	: 0.0005,
+		a		: 5,
+		b		: 15,
+		c		: 1,
+		update		: function(){
+			alert('update')
+		}
 	};
 	
 	var gui = new DAT.GUI({
-		height	: 2 * 26 + 11
+		height	: 6 * 32 - 1
 	});
 	
-	// Text field
-	gui.add(parameters, 'message');
+
+	gui.add(parameters, 'iterations').name('Iterations').min(10000).max(500000).step(1);
+	gui.add(parameters, 'interval').name('Interval').min(0.001).max(0.01);
+	gui.add(parameters, 'a').name('Sigma').min(1).max(30).step(1);
+	gui.add(parameters, 'b').name('Rho').min(1).max(100).step(1);
+	gui.add(parameters, 'c').name('Beta').min(0.01).max(3);
+	gui.add(parameters, 'update').name('Go!');
+}
+
+function cpuDotFloor(particules)
+{
+	var SEPARATION	= 100;
+	for ( var ix = 0; ix < AMOUNTX; ix++ ) {
+		for ( var iy = 0; iy < AMOUNTY; iy++ ) {
+			var particle	= particules[ix*AMOUNTY+iy];
+			particle.position.x = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 );
+			particle.position.z = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 );
+		}
+	}	
+}
+
+function cpuDotLorentz(particules, opts)
+{
+	var x	= 0.1;
+	var y	= 0.1;
+	var z	= 0.1;
+
+	var a	= 5;
+	var b	= 15;
+	var c	= 1;
+	var interval     = 0.0050;
 	
-	// Sliders with min + max
-	gui.add(parameters, 'maxSize').min(0.5).max(7);
+	
+	console.assert( 'a' in opts )
+	console.assert( 'b' in opts )
+	console.assert( 'c' in opts )
+	console.assert( 'intervals' in opts )
+	
+	a	= opts.a;
+	b	= opts.b;
+	c	= opts.c;
+	interval= opts.interval;
+
+	for(var i = 0; i < particules.length; i++){
+		// compute lorentz
+		var newX	= x - (a * x) * interval + (a * y) * interval;
+		var newY	= y + (b * x) * interval - y * interval - (z * x) * interval;
+		var newZ	= z - (c * z) * interval + (x * y) * interval;
+		x	= newX;
+		y	= newY;
+		z	= newZ;
+
+		var particle	= particules[i];
+		particle.position.x = x*7;
+		particle.position.y = y*7;
+		particle.position.z = z*7;
+	}
 }
 
 function init()
@@ -43,51 +100,34 @@ function init()
 	document.body.appendChild( container );
 	// create the Camera
 	camera = new THREE.Camera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
-	camera.position.z = 1000;
+	camera.position.z = 200;
 	// build the scene
 	scene = new THREE.Scene();
 
 	// not sure what is it
 	// maybe the way each particule are drawn 
 	var material = new THREE.ParticleCanvasMaterial( {
-		color: 0xffffff,
-		program: function ( context ) {
+		color	: 0xffffff,
+		program	: function (context, color) {
 			context.beginPath();
-			context.arc( 0, 0, 1, 0, Math.PI * 2, true );
+			context.arc( 0, 0, 0.5, 0, Math.PI * 2, true );
 			context.closePath();
 			context.fill();
 		}
 	} );
 
-	// create the particules
-	//for ( var ix = 0; ix < AMOUNTX; ix++ ) {
-	//
-	//	for ( var iy = 0; iy < AMOUNTY; iy++ ) {
-	//
-	//		particle = new THREE.Particle( material );
-	//		particle.position.x = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 );
-	//		particle.position.z = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 );
-	//		scene.addObject( particle );
-	//	}
-	//}
-
-
 	// create all the particules objects and add them to the scene
-	var particules	= [];
-	for ( var ix = 0; ix < AMOUNTX; ix++ ) {
-		for ( var iy = 0; iy < AMOUNTY; iy++ ) {
-			particle = new THREE.Particle( material );
-			scene.addObject( particle );
-			particules[ix*AMOUNTY+iy]	= particle;
-		}
+	var nbParticules= AMOUNTX * AMOUNTY;
+	var particules	= new Array(nbParticules);
+	for(var i = 0; i < nbParticules; i++){
+		var particle = new THREE.Particle( material );
+		//particle.materials[0].color.setRGB(iy/AMOUNTX, 0, 0)
+		scene.addObject( particle );
+		particules[i]	= particle;
 	}
-	for ( var ix = 0; ix < AMOUNTX; ix++ ) {
-		for ( var iy = 0; iy < AMOUNTY; iy++ ) {
-			particle	= particules[ix*AMOUNTY+iy];
-			particle.position.x = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 );
-			particle.position.z = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 );
-		}
-	}
+	// compute the position of the particules
+	//cpuDotFloor(particules)
+	cpuDotLorentz(particules)
 
 	// init the renderer
 	renderer	= new THREE.CanvasRenderer();
