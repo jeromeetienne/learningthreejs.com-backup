@@ -28,7 +28,7 @@ function buildGui(parameters, callback)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 }
 
-function buildParticlesObject(particles, nParticles)
+function buildParticlesObjectCanvas(particles, nParticles)
 {
 	if( nParticles < particles.length ){
 		// remove particles if needed
@@ -68,7 +68,7 @@ function cpuDotLorentz(particles, opts)
 	console.assert( 'c' in opts )
 	console.assert( 'interval' in opts )
 
-	buildParticlesObject(particles, opts.iterations);	
+	if( !useWebgl )	buildParticlesObjectCanvas(particles, opts.iterations);	
 	
 	a	= opts.a;
 	b	= opts.b;
