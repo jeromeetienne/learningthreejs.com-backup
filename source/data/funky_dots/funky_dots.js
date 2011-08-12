@@ -1,12 +1,10 @@
 var AMOUNTX	= 50;
 var AMOUNTY	= 50;
 
-var container, stats;
+var container, stats, parent;
 var camera, scene, renderer, particle;
 var mouseX = 0, mouseY = 0;
 
-//var windowHalfX = window.innerWidth / 2;
-//var windowHalfY = window.innerHeight / 2;
 
 init();
 animate();
@@ -54,6 +52,7 @@ function cpuDotLorentz(particules, opts)
 	var scale	= 8;
 	// go thru each particule
 	for(var i = 0; i < particules.length; i++){
+		var particle	= particules[i];
 		// compute lorentz delata
 		var dx	= (y - x) * a;
 		var dy	= (b - z) * x - y;
@@ -63,10 +62,24 @@ function cpuDotLorentz(particules, opts)
 		y	+= dy * interval;
 		z	+= dz * interval;
 		// get the coord for this particule
-		var particle	= particules[i];
 		particle.position.x = x*scale;
 		particle.position.y = y*scale;
 		particle.position.z = (z-b)*scale;
+	}
+/**
+ * say value is between 0 and 1
+ * - if v < 0.5, then f(x) = x
+ * - if v >= 0.5, then f(x)= 1.0 - x
+*/
+var f = function(v){
+	v	= v % 1.0;
+	if( v < 0.5 )	return v*2;
+	return (1.0 - v) * 2;
+}
+	// go thru each particule
+	for(var i = 0; i < particules.length; i++){
+		var particle	= particules[i];
+		particle.materials[0].color.setHSV(f(i/130)*0.5+0.5, 0.5, f(i/50)*0.7+0.3)
 	}
 }
 
@@ -91,7 +104,8 @@ function init()
 	document.body.appendChild( container );
 	// create the Camera
 	camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 10000 );
-	camera.position.z = 100;
+	camera.position.z = 300;
+	
 	// build the scene
 	scene = new THREE.Scene();
 
@@ -104,6 +118,10 @@ function init()
 		context.fill();		
 	}
 
+	// define the parent of all the particule
+	parent	= new THREE.Object3D();
+	scene.addChild(parent)
+	
 	// create all the particules objects and add them to the scene
 	var nbParticules= AMOUNTX * AMOUNTY;
 	var particules	= new Array(nbParticules);
@@ -112,8 +130,7 @@ function init()
 			color	: Math.random() * 0x808080 + 0x808080,
 			program	: particleDraw
 		} ) );
-		//particle.materials[0].color.setRGB(iy/AMOUNTX, 0, 0)
-		scene.addObject( particle );
+		parent.addChild( particle );
 		particules[i]	= particle;
 	}
 	// compute the position of the particules
@@ -153,8 +170,12 @@ function animate() {
 function render()
 {
 	// move the camera
-	camera.position.x += ( mouseX - camera.position.x ) * .05;
-	camera.position.y += ( - mouseY - camera.position.y ) * .05;
+	//camera.position.x += ( mouseX - camera.position.x ) * .05;
+	//camera.position.y += ( - mouseY - camera.position.y ) * .05;
+	// animate the cube
+	parent.rotation.x += 0.02;
+	parent.rotation.y += 0.0225;
+	parent.rotation.z += 0.0175;
 	// actually render the scene
 	renderer.render( scene, camera );
 }
