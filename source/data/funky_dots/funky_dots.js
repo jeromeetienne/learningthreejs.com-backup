@@ -1,10 +1,8 @@
-var AMOUNTX	= 50;
-var AMOUNTY	= 50;
-
-var container, stats, parent;
+var container, stats, containerObj;
 var camera, scene, renderer, particle;
+var sprite;
 var mouseX = 0, mouseY = 0;
-
+var useWebgl	= false;
 
 init();
 animate();
@@ -18,7 +16,7 @@ function buildGui(parameters, callback)
 		height	: 5 * 32 - 1
 	});
 
-	gui.add(parameters, 'iterations').name('Iterations').min(10000).max(500000).step(1)
+	gui.add(parameters, 'iterations').name('Iterations').min(1000).max(8000).step(1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 	gui.add(parameters, 'interval').name('Interval').min(0.001).max(0.1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
@@ -30,15 +28,47 @@ function buildGui(parameters, callback)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 }
 
-function cpuDotLorentz(particules, opts)
+function buildParticlesObject(particles, nParticles)
 {
+	if( nParticles < particles.length ){
+		// remove particles if needed
+		while( particles.length != nParticles ){
+			// remove a particle from the particles
+			var particle	= particles.pop();
+			// detach it from the Object3D containerObj
+			containerObj.removeChild(particle)
+		}
+	}else if( nParticles > particles.length ){
+		// add particles if needed
+		var toAdd	= nParticles - particles.length;
+		for(var i = 0; i < toAdd; i++){
+			var particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( {
+				color	: Math.random() * 0x808080 + 0x808080,
+				program	: function(context, color){
+					context.beginPath();
+					context.arc( 0, 0, 0.5, 0, Math.PI * 2, true );
+					context.closePath();
+					context.fill();		
+				}
+			} ) );
+			// the new particle to particles
+			particles.push(particle);
+			// attache it to the Object3D containerObj
+			containerObj.addChild( particle );
+		}
+	}
+}
 
-	
+function cpuDotLorentz(particles, opts)
+{
 	// sanity check
+	console.assert( 'iterations' in opts )
 	console.assert( 'a' in opts )
 	console.assert( 'b' in opts )
 	console.assert( 'c' in opts )
 	console.assert( 'interval' in opts )
+
+	buildParticlesObject(particles, opts.iterations);	
 	
 	a	= opts.a;
 	b	= opts.b;
@@ -50,9 +80,9 @@ function cpuDotLorentz(particules, opts)
 	var y	= 0.1;
 	var z	= 0.1;
 	var scale	= 8;
-	// go thru each particule
-	for(var i = 0; i < particules.length; i++){
-		var particle	= particules[i];
+	// go thru each particle
+	for(var i = 0; i < particles.length; i++){
+		var particle	= particles[i];
 		// compute lorentz delata
 		var dx	= (y - x) * a;
 		var dy	= (b - z) * x - y;
@@ -61,44 +91,34 @@ function cpuDotLorentz(particules, opts)
 		x	+= dx * interval;
 		y	+= dy * interval;
 		z	+= dz * interval;
-		// get the coord for this particule
+		// get the coord for this particle
 		particle.position.x = x*scale;
 		particle.position.y = y*scale;
 		particle.position.z = (z-b)*scale;
 	}
-/**
- * say value is between 0 and 1
- * - if v < 0.5, then f(x) = x
- * - if v >= 0.5, then f(x)= 1.0 - x
-*/
-var f = function(v){
-	v	= v % 1.0;
-	if( v < 0.5 )	return v*2;
-	return (1.0 - v) * 2;
-}
-	// go thru each particule
-	for(var i = 0; i < particules.length; i++){
-		var particle	= particules[i];
+	/**
+	 * say value is between 0 and 1
+	 * - if v < 0.5, then f(x) = x
+	 * - if v >= 0.5, then f(x)= 1.0 - x
+	*/
+	var f = function(v){
+		v	= v % 1.0;
+		if( v < 0.5 )	return v*2;
+		return (1.0 - v) * 2;
+	}
+
+	// go thru each particle
+	for(var i = 0; i < particles.length; i++){
+		var particle	= particles[i];
 		particle.materials[0].color.setHSV(f(i/130)*0.5+0.5, 0.5, f(i/50)*0.7+0.3)
 	}
 }
 
 function init()
 {
-	// maybe replace that by window... or something
-	var parameters = {
-		iterations	: 10000,
-		interval	: 0.02,
-		a		: 5,
-		b		: 15,
-		c		: 1
-	};
+	// detect if webgl is needed and available
+	if( useWebgl && !Detector.webgl ) Detector.addGetWebGLMessage();
 	
-	buildGui(parameters, function(){
-		console.log("parameters", JSON.stringify(parameters, null, '\t'))
-		cpuDotLorentz(particules, parameters);
-	});
-
 	// create the container
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
@@ -109,35 +129,38 @@ function init()
 	// build the scene
 	scene = new THREE.Scene();
 
-	// not sure what is it
-	// maybe the way each particule are drawn
-	var particleDraw	= function(context, color){
-		context.beginPath();
-		context.arc( 0, 0, 0.5, 0, Math.PI * 2, true );
-		context.closePath();
-		context.fill();		
-	}
-
-	// define the parent of all the particule
-	parent	= new THREE.Object3D();
-	scene.addChild(parent)
+	// define the containerObj of all the particle
+	containerObj	= new THREE.Object3D();
+	scene.addChild(containerObj)
 	
-	// create all the particules objects and add them to the scene
-	var nbParticules= AMOUNTX * AMOUNTY;
-	var particules	= new Array(nbParticules);
-	for(var i = 0; i < nbParticules; i++){
-		var particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( {
-			color	: Math.random() * 0x808080 + 0x808080,
-			program	: particleDraw
-		} ) );
-		parent.addChild( particle );
-		particules[i]	= particle;
-	}
-	// compute the position of the particules
-	cpuDotLorentz(particules, parameters);
+
+	if( useWebgl )	sprite = THREE.ImageUtils.loadTexture( "https://github.com/mrdoob/three.js/raw/master/examples/textures/sprites/ball.png" );
+ 	
+	
+	// maybe replace that by window... or something
+	var parameters = {
+		iterations	: 2500,
+		interval	: 0.02,
+		a		: 5,
+		b		: 15,
+		c		: 1
+	};
+
+	// create all the particles objects and add them to the scene
+	var particles	= [];
+
+	// compute the position of the particles
+	cpuDotLorentz(particles, parameters);
+	// build the GUI 
+	buildGui(parameters, function(){
+		console.log("parameters", JSON.stringify(parameters, null, '\t'))
+		cpuDotLorentz(particles, parameters);
+	});
+
 
 	// init the renderer
-	renderer	= new THREE.CanvasRenderer();
+	if( useWebgl )	renderer	= new THREE.WebGLRenderer( { clearAlpha: 1 } );
+	else		renderer	= new THREE.CanvasRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
 
@@ -173,9 +196,9 @@ function render()
 	//camera.position.x += ( mouseX - camera.position.x ) * .05;
 	//camera.position.y += ( - mouseY - camera.position.y ) * .05;
 	// animate the cube
-	parent.rotation.x += 0.02;
-	parent.rotation.y += 0.0225;
-	parent.rotation.z += 0.0175;
+	containerObj.rotation.x += 0.02;
+	containerObj.rotation.y += 0.0225;
+	containerObj.rotation.z += 0.0175;
 	// actually render the scene
 	renderer.render( scene, camera );
 }
