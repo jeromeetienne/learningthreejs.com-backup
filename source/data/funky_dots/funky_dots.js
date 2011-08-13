@@ -172,6 +172,53 @@ function init()
 
 	// listen to mousemove to animate the scene
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+/**
+ * Experimentation with toDataUrl on the 
+*/
+	jQuery('body').click(function(){
+		THREEx.Screenshot.resizeTo(THREEx.Screenshot.toDataURL(renderer), 320, 240, function(imgUrl, error){
+			// put it on the DOM for debug
+			//jQuery('<img>').attr('src', imgUrl).css({
+			//	position:	'absolute',
+			//	top:		'0px',
+			//	right:		'0px'
+			//}).appendTo('body');
+			window.location = imgUrl;
+			//window.open(imgUrl, '_target')
+			//window.open(imgUrl, "super", "height=200, width=200");
+		});
+	});
+
+
+/**
+ * Experimentation with dropping image 
+*/
+	document.addEventListener("drop", function(event){
+		event.preventDefault();
+		console.log("DROPPED", event.dataTransfer.files.length)
+		for(var i = 0;i < event.dataTransfer.files.length; i ++){
+			var file	= event.dataTransfer.files[i];
+			//console.log("file", file)
+			reader = new FileReader();
+			reader.onload = function (event) {
+				var imgUrl	= event.target.result;
+				// put it on the DOM for debug
+				jQuery('<img>').attr('src', imgUrl).css({
+					position:	'absolute',
+					top:		'0px',
+					right:		'0px'
+				}).appendTo('body')
+				//window.open(imgUrl, "super", "height=200, width=200");
+			};
+			reader.readAsDataURL(file);
+		}
+	}, true);
+	// no idea why this one is needed
+	// - without it the image replace the current page
+	document.addEventListener("dragover", function(event) {
+		event.preventDefault();
+	}, true);
 }
 
 //

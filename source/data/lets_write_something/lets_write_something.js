@@ -124,7 +124,8 @@ if(false){
 
 	// init the WebGL renderer and append it to the Dom
 	renderer = new THREE.WebGLRenderer({
-		antialias	: true
+		antialias		: true,
+		preserveDrawingBuffer	: true
 	});
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
@@ -165,8 +166,16 @@ function onDocumentClick( event ){
 		window.open(url);
 	} else {
 		console.log("not collide")
-	}	
+	}
 	
+	THREEx.Screenshot.resizeTo(THREEx.Screenshot.toDataURL(renderer), 320, 240, function(imgUrl, error){
+		// put it on the DOM for debug
+		jQuery('<img>').attr('src', imgUrl).css({
+			position:	'absolute',
+			top:		'0px',
+			right:		'0px'
+		}).appendTo('body')
+	});
 };
 
 // ## Animate and Display the Scene
@@ -200,14 +209,15 @@ function render() {
 	}
 
 	// animate the mesh
-	//mesh.rotation.x += 0.02;
-	//mesh.rotation.y += 0.0125;
-	//mesh.rotation.z += 0.0175;
+	mesh.rotation.x += 0.02;
+	mesh.rotation.y += 0.0125;
+	mesh.rotation.z += 0.0175;
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
 }
 
 
+// TODO remove it from here
 var info	= THREEx.glCapability( renderer.getContext() );
 console.dir(info)
