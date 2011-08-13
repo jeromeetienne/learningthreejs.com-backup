@@ -104,6 +104,29 @@ function init() {
 	})
 	scene.addChild(mesh)
 
+/**
+ * - TODO find a simple way to complete this one
+ * - issue in the visualisation
+ *   - would be nice to have something beautifull
+ *   - i dunno what to do at the moment
+ *   - ok sure so find something simple which does the job
+ * - simple visualisation
+ *   - a function to clear the screen
+ *   - a function to load the text from hn
+ *   - the data are just happended to a big plan one topic below the other
+ * - about putting the + on the right of the title
+ *   - use the bounding box of both Mesh
+ *   - the right of the title is the same as the right of the +
+ *   - same principle for the appending the topic one below the others
+ * - about organizing the clicability
+ *   - about hover, use tempp javascript object like collision example
+ *   - _actastag = {a : { href:"http://dsdfs", target: "dd"}}
+ * - see about timeline.js
+ *   - is that suitable for some this animation ?
+ *   - what about a carefully crafted tween.js
+ *   - tween.js would be so much more three.js mood
+*/
+
 	
 
 if(false){
@@ -167,15 +190,6 @@ function onDocumentClick( event ){
 	} else {
 		console.log("not collide")
 	}
-	
-	THREEx.Screenshot.resizeTo(THREEx.Screenshot.toDataURL(renderer), 320, 240, function(imgUrl, error){
-		// put it on the DOM for debug
-		jQuery('<img>').attr('src', imgUrl).css({
-			position:	'absolute',
-			top:		'0px',
-			right:		'0px'
-		}).appendTo('body')
-	});
 };
 
 // ## Animate and Display the Scene
@@ -190,9 +204,8 @@ function animate() {
 
 
 // ## Render the 3D Scene
-function render() {
-
-
+function render()
+{
 	var vector = new THREE.Vector3( mouse.x, mouse.y, 0.5 );
 	projector.unprojectVector( vector, camera );
 	var ray		= new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
@@ -209,9 +222,9 @@ function render() {
 	}
 
 	// animate the mesh
-	mesh.rotation.x += 0.02;
-	mesh.rotation.y += 0.0125;
-	mesh.rotation.z += 0.0175;
+	//mesh.rotation.x += 0.02;
+	//mesh.rotation.y += 0.0125;
+	//mesh.rotation.z += 0.0175;
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
