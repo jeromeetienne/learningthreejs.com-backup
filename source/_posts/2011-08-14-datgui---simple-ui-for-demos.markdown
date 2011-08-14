@@ -3,14 +3,14 @@ layout: post
 title: "dat.gui - Simple UI for Demos"
 date: 2011-08-14 19:42
 comments: true
-categories: 
+categories: [ui, demo]
 ---
 
 [Dat.gui](http://code.google.com/p/dat-gui/)
 is a GUI widget for your demos. It provide way for the user to set parameters of the
 demo to play with it. It is simple to code, yet cool and minimalist on the screen.
 
-{% img right /data/dat_gui_simple_ui_for_demos/datgui_integrated.png 320 240 Integrated %}
+{% img right /data/dat_gui_simple_ui_for_demos/datgui_integrated.png Integrated %}
 
 ## How to include it
 
@@ -41,8 +41,8 @@ the variable names.
 
     gui.add(params, 'interval').name('Interval').min(0.001).max(0.1)
 
-It maybe usefull to setup a step, like when setting size in pixel. This will allows values
-from 128 to 256 but only if the value is a multiple of 16.
+It maybe usefull to setup a step, like when setting size in pixel, integer may be more
+suitable. This will allows values from 128 to 256 but only integers.
 
-    gui.add(params, 'width').min(128).max(256).step(16)
+    gui.add(params, 'width').min(128).max(256).step(1)
 
