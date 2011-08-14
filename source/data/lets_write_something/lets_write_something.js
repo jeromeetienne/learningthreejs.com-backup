@@ -28,9 +28,9 @@ function init() {
 	if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 	// create the camera
-	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 2000 );
 	camera.position.y	= 50;
-	camera.position.z	= 500;
+	camera.position.z	= 400;
 	camera.target.position.y= 50;
 
 	// create the Scene
@@ -38,7 +38,7 @@ function init() {
 
 	projector	= new THREE.Projector();
 	
-	scene.fog	= new THREE.Fog( 0xf0f0f0, 250, 1000 );
+	scene.fog	= new THREE.Fog( 0xf0f0f0, 250, 1200 );
 
 	var dirLight	= new THREE.DirectionalLight( 0xffffff, 0.8 );
 	dirLight.position.set( 0, 0, 1 );
@@ -66,8 +66,13 @@ function init() {
 			bezelThickness	: 2,
 			bezelSize	: 1.5,
 			bezelEnabled	: true
-		});	
+		});
+		
 		title	= new THREE.Mesh(geometry, new THREE.MeshPhongMaterial( { color: 0x4040a0 } ) );
+
+		geometry.computeBoundingBox();
+		title.position.x	= -0.5 * ( geometry.boundingBox.x[ 1 ] - geometry.boundingBox.x[ 0 ] );
+		
 		parent.addChild( title );
 		
 		title._userdata	= {
@@ -82,6 +87,8 @@ function init() {
 			height	: 10
 		});
 		comments	= new THREE.Mesh( geometry, new THREE.MeshPhongMaterial( { color: 0x808080 } ) );
+		geometry.computeBoundingBox();
+		comments.position.x	= -0.5 * ( geometry.boundingBox.x[ 1 ] - geometry.boundingBox.x[ 0 ] );
 		comments.position.y	= -50;
 		parent.addChild( comments );
 
@@ -92,7 +99,7 @@ function init() {
 		THREE.Collisions.colliders.push( THREE.CollisionUtils.MeshOBB( comments ) );
 
 
-		parent.rotation.y	= 40*Math.PI/180;
+		//parent.rotation.y	= 40*Math.PI/180;
 		return parent;
 	}
 
@@ -144,6 +151,29 @@ if(false){
 	
 	container.onmousemove	= onDocumentMouseMove;
 	container.onclick	= onDocumentClick;
+	
+(function(){
+	var update	= function(){
+		mesh.position.y = position.y;
+	}
+
+	var position	= {y: 450};
+	var tween = new TWEEN.Tween(position)
+		.to({y: 0}, 3000)
+		.easing(TWEEN.Easing.Elastic.EaseInOut)
+		.onUpdate(update);
+
+	var tweenBack = new TWEEN.Tween(position)
+		.to({y: 450}, 2000)
+		.delay(1000)
+		.easing(TWEEN.Easing.Elastic.EaseInOut)
+		.onUpdate(update);
+
+	tween.chain(tweenBack);
+	tweenBack.chain(tween);
+	
+	tween.start();
+})();
 
 	// init the WebGL renderer and append it to the Dom
 	renderer = new THREE.WebGLRenderer({
@@ -196,8 +226,12 @@ function onDocumentClick( event ){
 function animate() {
 	// render the 3D scene
 	render();
+
+	// update the tweens
+	TWEEN.update();
 	// relaunch the 'timer' 
 	requestAnimationFrame( animate );
+	
 	// update the stats
 	stats.update();
 }
