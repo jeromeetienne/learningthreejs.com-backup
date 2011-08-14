@@ -1,10 +1,8 @@
-var AMOUNTX	= 50;
-var AMOUNTY	= 50;
-
-var container, stats, parent;
+var container, stats, containerObj;
 var camera, scene, renderer, particle;
+var sprite;
 var mouseX = 0, mouseY = 0;
-
+var useWebgl	= true;
 
 init();
 animate();
@@ -18,7 +16,7 @@ function buildGui(parameters, callback)
 		height	: 5 * 32 - 1
 	});
 
-	gui.add(parameters, 'iterations').name('Iterations').min(10000).max(500000).step(1)
+	gui.add(parameters, 'iterations').name('Iterations').min(1000).max(8000).step(1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 	gui.add(parameters, 'interval').name('Interval').min(0.001).max(0.1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
@@ -30,16 +28,125 @@ function buildGui(parameters, callback)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 }
 
-function cpuDotLorentz(particules, opts)
+function buildObjectSpriteWebgl(particles, nParticles)
 {
+	console.assert(useWebgl, "to be used only with webgl renderer")
+	if( nParticles < particles.length ){
+		// remove particles if needed
+		while( particles.length != nParticles ){
+			// remove a particle from the particles
+			var particle	= particles.pop();
+			// detach it from the Object3D containerObj
+			containerObj.removeChild(particle)
+		}
+	}else if( nParticles > particles.length ){
+		// add particles if needed
+		var toAdd	= nParticles - particles.length;
+		for(var i = 0; i < toAdd; i++){
+			var particle	= new THREE.Sprite({
+				map		: sprite,
+				useScreenCoordinates	: false,
+				//blending	: THREE.NormalBlending,
+				blending	: THREE.AdditiveBlending,
+				//blending	: THREE.SubtractiveBlending,
+				//blending	: THREE.MultiplyBlending,
+				//blending	: THREE.AdditiveAlphaBlending,
+			});
+			particle.scale.set(0.2, 0.2, 0.2);
+			particle.opactity	= 0.5;
+			// the new particle to particles
+			particles.push(particle);
+			// attache it to the Object3D containerObj
+			containerObj.addChild( particle );
+		}
+	}
+}
 
-	
+function buildObjectParticlesWebgl(particles, nParticles)
+{
+	console.assert(useWebgl, "to be used only with webgl renderer")
+	if( nParticles < particles.length ){
+		// remove particles if needed
+		while( particles.length != nParticles ){
+			// remove a particle from the particles
+			var particle	= particles.pop();
+			// detach it from the Object3D containerObj
+			containerObj.removeChild(particle)
+		}
+	}else if( nParticles > particles.length ){
+		// add particles if needed
+		var toAdd	= nParticles - particles.length;
+		var colors	= [];
+		var geometry	= new THREE.Geometry();
+		geometry.colors = colors;
+
+		for(var i = 0; i < toAdd; i++){
+			var x, y, z, s = 300;
+			x = s * Math.random() - s/2;
+			y = s * Math.random() - s/2;
+			z = s * Math.random() - s/2;
+			geometry.vertices.push( new THREE.Vertex( new THREE.Vector3( x, y, z ) ) );
+		
+			colors[ i ] = new THREE.Color( 0xffffff );
+			colors[ i ].setHSV( (x+s/2)/s, 1.0, 1.0 );
+		}
+		var material	= new THREE.ParticleBasicMaterial( { size: 5, map: sprite, vertexColors: true } );
+		material.color.setHSV( 1.0, 0.2, 0.8 );
+
+		var particleSys	= new THREE.ParticleSystem( geometry, material );
+		particleSys.sortParticles = true;
+console.log("particleSys", particleSys)
+		particleSys.updateMatrix();
+		containerObj.addChild( particleSys );
+	}
+}
+
+function buildObjectParticlesCanvas(particles, nParticles)
+{
+	if( nParticles < particles.length ){
+		// remove particles if needed
+		while( particles.length != nParticles ){
+			// remove a particle from the particles
+			var particle	= particles.pop();
+			// detach it from the Object3D containerObj
+			containerObj.removeChild(particle)
+		}
+	}else if( nParticles > particles.length ){
+		// add particles if needed
+		var toAdd	= nParticles - particles.length;
+		for(var i = 0; i < toAdd; i++){
+			var particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( {
+				color	: Math.random() * 0x808080 + 0x808080,
+				program	: function(context, color){
+					context.beginPath();
+					context.arc( 0, 0, 0.5, 0, Math.PI * 2, true );
+					context.closePath();
+					context.fill();		
+				}
+			} ) );
+			// the new particle to particles
+			particles.push(particle);
+			// attache it to the Object3D containerObj
+			containerObj.addChild( particle );
+		}
+	}
+}
+
+function cpuDotLorentz(particles, opts)
+{
 	// sanity check
+	console.assert( 'iterations' in opts )
 	console.assert( 'a' in opts )
 	console.assert( 'b' in opts )
 	console.assert( 'c' in opts )
 	console.assert( 'interval' in opts )
-	
+
+	if( !useWebgl )	buildObjectParticlesCanvas(particles, opts.iterations);
+	//else		buildObjectSpriteWebgl(particles, opts.iterations)
+	else		buildObjectParticlesWebgl(particles, opts.iterations)
+
+console.log("containerObj", containerObj);
+
 	a	= opts.a;
 	b	= opts.b;
 	c	= opts.c;
@@ -50,9 +157,8 @@ function cpuDotLorentz(particules, opts)
 	var y	= 0.1;
 	var z	= 0.1;
 	var scale	= 8;
-	// go thru each particule
-	for(var i = 0; i < particules.length; i++){
-		var particle	= particules[i];
+	// go thru each particle
+	for(var i = 0; i < opts.iterations; i++){
 		// compute lorentz delata
 		var dx	= (y - x) * a;
 		var dy	= (b - z) * x - y;
@@ -61,44 +167,42 @@ function cpuDotLorentz(particules, opts)
 		x	+= dx * interval;
 		y	+= dy * interval;
 		z	+= dz * interval;
-		// get the coord for this particule
-		particle.position.x = x*scale;
+		// get the coord for this particle
+		if( !useWebgl )	var particle	= particles[i];
+		else		var particle	= containerObj.children[0].geometry.vertices[i];
+ 		particle.position.x = x*scale;
 		particle.position.y = y*scale;
-		particle.position.z = (z-b)*scale;
+		particle.position.z = (z-b)*scale;		
 	}
-/**
- * say value is between 0 and 1
- * - if v < 0.5, then f(x) = x
- * - if v >= 0.5, then f(x)= 1.0 - x
-*/
-var f = function(v){
-	v	= v % 1.0;
-	if( v < 0.5 )	return v*2;
-	return (1.0 - v) * 2;
-}
-	// go thru each particule
-	for(var i = 0; i < particules.length; i++){
-		var particle	= particules[i];
+
+	var particleSys	= containerObj.children[0];
+	particleSys.sortParticles = true;
+console.log("particleSys", particleSys)
+	particleSys.updateMatrix();
+return
+	/**
+	 * say value is between 0 and 1
+	 * - if v < 0.5, then f(x) = x
+	 * - if v >= 0.5, then f(x)= 1.0 - x
+	*/
+	var f = function(v){
+		v	= v % 1.0;
+		if( v < 0.5 )	return v*2;
+		return (1.0 - v) * 2;
+	}
+
+	// go thru each particle
+	for(var i = 0; i < particles.length; i++){
+		var particle	= particles[i];
 		particle.materials[0].color.setHSV(f(i/130)*0.5+0.5, 0.5, f(i/50)*0.7+0.3)
 	}
 }
 
 function init()
 {
-	// maybe replace that by window... or something
-	var parameters = {
-		iterations	: 10000,
-		interval	: 0.02,
-		a		: 5,
-		b		: 15,
-		c		: 1
-	};
+	// detect if webgl is needed and available
+	if( useWebgl && !Detector.webgl ) Detector.addGetWebGLMessage();
 	
-	buildGui(parameters, function(){
-		console.log("parameters", JSON.stringify(parameters, null, '\t'))
-		cpuDotLorentz(particules, parameters);
-	});
-
 	// create the container
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
@@ -109,35 +213,45 @@ function init()
 	// build the scene
 	scene = new THREE.Scene();
 
-	// not sure what is it
-	// maybe the way each particule are drawn
-	var particleDraw	= function(context, color){
-		context.beginPath();
-		context.arc( 0, 0, 0.5, 0, Math.PI * 2, true );
-		context.closePath();
-		context.fill();		
-	}
+	// define the containerObj of all the particle
+	containerObj	= new THREE.Object3D();
+	scene.addChild(containerObj)
 
-	// define the parent of all the particule
-	parent	= new THREE.Object3D();
-	scene.addChild(parent)
-	
-	// create all the particules objects and add them to the scene
-	var nbParticules= AMOUNTX * AMOUNTY;
-	var particules	= new Array(nbParticules);
-	for(var i = 0; i < nbParticules; i++){
-		var particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( {
-			color	: Math.random() * 0x808080 + 0x808080,
-			program	: particleDraw
-		} ) );
-		parent.addChild( particle );
-		particules[i]	= particle;
+/**
+ * Use blending to make the color cooler good with webgl
+*/
+
+	if( useWebgl ){
+		sprite = THREE.ImageUtils.loadTexture( "ball.png" );
 	}
-	// compute the position of the particules
-	cpuDotLorentz(particules, parameters);
+	
+	// maybe replace that by window... or something
+	var parameters = {
+		iterations	: 10000,
+		interval	: 0.005,
+		//iterations	: 2500,
+		//interval	: 0.02,
+		a		: 5,
+		b		: 15,
+		c		: 1
+	};
+
+	// create all the particles objects and add them to the scene
+	var particles	= [];
+
+	// compute the position of the particles
+	cpuDotLorentz(particles, parameters);
+	// build the GUI 
+	buildGui(parameters, function(){
+		console.log("parameters", JSON.stringify(parameters, null, '\t'))
+		cpuDotLorentz(particles, parameters);
+	});
+
 
 	// init the renderer
-	renderer	= new THREE.CanvasRenderer();
+	if( useWebgl )	renderer	= new THREE.WebGLRenderer();
+	else		renderer	= new THREE.CanvasRenderer();
+//renderer.sortObjects = false;
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
 
@@ -149,6 +263,57 @@ function init()
 
 	// listen to mousemove to animate the scene
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+/**
+ * Experimentation with toDataUrl on the 
+*/
+if(false){
+	jQuery('body').click(function(){
+		THREEx.Screenshot.resizeTo(THREEx.Screenshot.toDataURL(renderer), 320, 240, function(imgUrl, error){
+			// put it on the DOM for debug
+			//jQuery('<img>').attr('src', imgUrl).css({
+			//	position:	'absolute',
+			//	top:		'0px',
+			//	right:		'0px'
+			//}).appendTo('body');
+			window.location = imgUrl;
+			//window.open(imgUrl, '_target')
+			//window.open(imgUrl, "super", "height=200, width=200");
+		});
+	});
+}
+
+/**
+ * Experimentation with dropping image 
+*/
+if(false){
+	document.addEventListener("drop", function(event){
+		event.preventDefault();
+		console.log("DROPPED", event.dataTransfer.files.length)
+		for(var i = 0;i < event.dataTransfer.files.length; i ++){
+			var file	= event.dataTransfer.files[i];
+			//console.log("file", file)
+			reader = new FileReader();
+			reader.onload = function (event) {
+				var imgUrl	= event.target.result;
+				// put it on the DOM for debug
+				jQuery('<img>').attr('src', imgUrl).css({
+					position:	'absolute',
+					top:		'0px',
+					right:		'0px'
+				}).appendTo('body')
+				//window.open(imgUrl, "super", "height=200, width=200");
+			};
+			reader.readAsDataURL(file);
+		}
+	}, true);
+	// no idea why this one is needed
+	// - without it the image replace the current page
+	document.addEventListener("dragover", function(event) {
+		event.preventDefault();
+	}, true);
+}
+
 }
 
 //
@@ -170,12 +335,12 @@ function animate() {
 function render()
 {
 	// move the camera
-	//camera.position.x += ( mouseX - camera.position.x ) * .05;
-	//camera.position.y += ( - mouseY - camera.position.y ) * .05;
+	camera.position.x += ( mouseX - camera.position.x ) * .05;
+	camera.position.y += ( - mouseY - camera.position.y ) * .05;
 	// animate the cube
-	parent.rotation.x += 0.02;
-	parent.rotation.y += 0.0225;
-	parent.rotation.z += 0.0175;
+	containerObj.rotation.x += 0.02;
+	containerObj.rotation.y += 0.0225;
+	containerObj.rotation.z += 0.0175;
 	// actually render the scene
 	renderer.render( scene, camera );
 }
