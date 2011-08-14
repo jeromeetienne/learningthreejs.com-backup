@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "dat.gui - Simple UI for Demos"
+title: "dat-gui - Simple UI for Demos"
 date: 2011-08-14 19:42
 comments: true
 categories: [ui, demo]
@@ -9,6 +9,8 @@ categories: [ui, demo]
 [Dat.gui](http://code.google.com/p/dat-gui/)
 is a GUI widget for your demos. It provide way for the user to set parameters of the
 demo to play with it. It is simple to code, yet cool and minimalist on the screen.
+It is the blue vuemeters on the screenshot below. This post is a presentation of
+the library.
 
 {% img right /data/dat_gui_simple_ui_for_demos/datgui_integrated.png Integrated %}
 
@@ -17,6 +19,8 @@ demo to play with it. It is simple to code, yet cool and minimalist on the scree
 Simply include the library file in your page. Download it [there](http://code.google.com/p/dat-gui)
 
     <script type='text/javascript' src='DAT.GUI.min.js'></script>
+
+<!--more-->
 
 ## How to use it
 
@@ -49,13 +53,14 @@ Let add a variable name ```interation``` to the widget.
 It will add a line in the GUI widget.
 *dat.gui* will see ```params.iteration``` is a Number and thus *guess* you want to display a slider for it.
 If it is a function, it will be interpreted as a button and call params.foobar() on click.
-
-## lets custom it some more
-
 If the user changes the value with the mouse, the value of ```params.iteration```
 will be changed accordingly. Up to you to know what to do with it.
 
-You may be easy notified of user change with callbacks
+## Lets Custom it Some More
+
+
+You may be easy be notified of user changes with callbacks.  ```onFinishChange``` is triggered once the value is changed.
+```on```
 
     gui.add(params, 'interation').onFinishChange(function(){
         // refresh based on the new value of params.interation
@@ -71,3 +76,8 @@ You can set up min/max limits and steps. This one will allows values from
 
     gui.add(params, 'width').min(128).max(256).step(16)
 
+## Conclusion
+
+I hope this introduction got you excited about DAT.GUI. I find nice for simple demos parameters, simple to code and good
+looking on the screen at that. For more informations and authoritative
+answer, [see details](http://code.google.com/p/dat-gui/) here.
