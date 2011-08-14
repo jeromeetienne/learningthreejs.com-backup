@@ -88,9 +88,9 @@ function buildObjectParticlesWebgl(particles, nParticles)
 			geometry.vertices.push( new THREE.Vertex( new THREE.Vector3( x, y, z ) ) );
 		
 			colors[ i ] = new THREE.Color( 0xffffff );
-			colors[ i ].setHSV( (x+s/2)/s, 1.0, 1.0 );
+			//colors[ i ].setHSV( (x+s/2)/s, 1.0, 1.0 );
 		}
-		var material	= new THREE.ParticleBasicMaterial( { size: 5, map: sprite, vertexColors: true } );
+		var material	= new THREE.ParticleBasicMaterial( { size: 16, map: sprite, vertexColors: true } );
 		material.color.setHSV( 1.0, 0.2, 0.8 );
 
 		var particleSys	= new THREE.ParticleSystem( geometry, material );
@@ -162,7 +162,7 @@ console.log("containerObj", containerObj);
 		// compute lorentz delata
 		var dx	= (y - x) * a;
 		var dy	= (b - z) * x - y;
-		var dz	= x*y - c*z;
+		var dz	=  x*y - c*z;
 		// goto next coord
 		x	+= dx * interval;
 		y	+= dy * interval;
@@ -174,11 +174,6 @@ console.log("containerObj", containerObj);
 		particle.position.y = y*scale;
 		particle.position.z = (z-b)*scale;		
 	}
-
-	var particleSys	= containerObj.children[0];
-	particleSys.sortParticles = true;
-console.log("particleSys", particleSys)
-	particleSys.updateMatrix();
 return
 	/**
 	 * say value is between 0 and 1
@@ -222,13 +217,14 @@ function init()
 */
 
 	if( useWebgl ){
-		sprite = THREE.ImageUtils.loadTexture( "ball.png" );
+		//sprite = THREE.ImageUtils.loadTexture( "ball.png" );
+		sprite = THREE.ImageUtils.loadTexture( "lensFlare/Flare1.png" );
 	}
 	
 	// maybe replace that by window... or something
 	var parameters = {
-		iterations	: 10000,
-		interval	: 0.005,
+		iterations	: 1000,
+		interval	: 0.05,
 		//iterations	: 2500,
 		//interval	: 0.02,
 		a		: 5,
@@ -251,7 +247,7 @@ function init()
 	// init the renderer
 	if( useWebgl )	renderer	= new THREE.WebGLRenderer();
 	else		renderer	= new THREE.CanvasRenderer();
-//renderer.sortObjects = false;
+renderer.sortObjects = false;
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
 
@@ -338,9 +334,9 @@ function render()
 	camera.position.x += ( mouseX - camera.position.x ) * .05;
 	camera.position.y += ( - mouseY - camera.position.y ) * .05;
 	// animate the cube
-	containerObj.rotation.x += 0.02;
-	containerObj.rotation.y += 0.0225;
-	containerObj.rotation.z += 0.0175;
+	//containerObj.rotation.x += 0.02;
+	//containerObj.rotation.y += 0.0225;
+	//containerObj.rotation.z += 0.0175;
 	// actually render the scene
 	renderer.render( scene, camera );
 }
