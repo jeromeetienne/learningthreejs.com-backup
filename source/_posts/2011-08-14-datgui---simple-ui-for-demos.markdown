@@ -35,7 +35,7 @@ The formula which worked for me has been ```nline * 32 - 1```.
 
 ## Lets configure it and add some variables
 
-First we need to store the values of the variables, lets call that ```params```. It may be ```this```too, it depends
+First we need to store the values of the variables, lets call that ```params```. It may be ```this``` too, it depends
 of your personal style of code.
 
     var params = {
@@ -47,7 +47,8 @@ Let add a variable name ```interation``` to the widget.
     gui.add(params, 'interation')
 
 It will add a line in the GUI widget.
-*dat.gui* will see ```params.iteration``` is a Number and thus guess you want to display a slider for it.
+*dat.gui* will see ```params.iteration``` is a Number and thus *guess* you want to display a slider for it.
+If it is a function, it will be interpreted as a button and call params.foobar() on click.
 
 ## lets go custom
 
