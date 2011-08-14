@@ -50,7 +50,7 @@ It will add a line in the GUI widget.
 *dat.gui* will see ```params.iteration``` is a Number and thus *guess* you want to display a slider for it.
 If it is a function, it will be interpreted as a button and call params.foobar() on click.
 
-## lets go custom
+## lets custom it some more
 
 If the user changes the value with the mouse, the value of ```params.iteration```
 will be changed accordingly. Up to you to know what to do with it.
@@ -64,7 +64,7 @@ You may be easy notified of user change with callbacks
 
 You can customize further if needed. To change the label displayed on the variable line, use ```.name("better label")```
 
-    gui.add(params, 'interval').name('Interval')
+    gui.add(params, 'interation').name('Intertions')
 
 You can set up min/max limits and steps. This one will allows values from
 128 to 256, only if they are multiple of 16
