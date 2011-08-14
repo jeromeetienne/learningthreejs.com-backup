@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" manifest="default.appcache?v=1" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Learning Three.js</title>
+  <title>Learning Three.js: dat-gui - Simple UI for Demos</title>
   <meta name="author" content="Jerome Etienne">
   
 
@@ -87,21 +87,28 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
-
-
-
-  <article>
-    
+      <div>
+<article class="hentry">
+  
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos">Dat-gui - Simple UI for Demos</a></h1>
+      <h1 class="entry-title">Dat-gui - Simple UI for Demos</h1>
     
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-14 19:42:00 +0200" pubdate  updated >Aug 14<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
 
 
-  <div class="entry-content"><p><a href="http://code.google.com/p/dat-gui/">Dat.gui</a>
+<div class="entry-content"><p><a href="http://code.google.com/p/dat-gui/">Dat.gui</a>
 is a GUI widget for your demos. It provide way for the user to set parameters of the
 demo to play with it. It is simple to code, yet cool and minimalist on the screen.
 It is the blue vuemeters on the screenshot below. This post is a presentation of
@@ -116,142 +123,132 @@ the library.</p>
 <pre><code>&lt;script type='text/javascript' src='DAT.GUI.min.js'&gt;&lt;/script&gt;
 </code></pre>
 
-</div>
-  <footer>
-    <a rel="full-article" href="/blog/2011/08/14/dat-gui-simple-ui-for-demos">Read on &rarr;</a>
-  </footer>
+<!--more-->
 
 
-  </article>
+<h2>How to use it</h2>
 
+<p>First initialize the object itself. It will create the widget and display it on the
+screen top right corner. You can change this position if you wish (see <code>autoplace</code>)
+<img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_closeup.png' alt=' Close up ' title=' Close up '></p>
 
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/06/lets-do-a-cube">Lets Do a Cube</a></h1>
-    
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here is the first lesson! I started with something real simple, a <strong>cube</strong>.
-I wasnt sure how to present the lesson, so i did
-an <a href="/data/lets_do_a_cube/docs/lets_do_a_cube.html">annotated source of the example</a>
-to get things started.
-I kept it small as possible to simplicity sake.
-It is only 70 lines of javascript for a <em>webgl simplistic demo</em>. I hope it shows that webgl
-is quite accessible.</p>
-
-<p>You can see this <a href="/data/lets_do_a_cube/lets_do_a_cube.html">example live</a> or in the
-screencast below.</p>
-
-<center>
-    <iframe width="425" height="349" src="http://www.youtube.com/embed/8PrXCBOllTg" frameborder="0" allowfullscreen></iframe>
-</center>
-
-
-
-</div>
-  <footer>
-    <a rel="full-article" href="/blog/2011/08/06/lets-do-a-cube">Read on &rarr;</a>
-  </footer>
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/07/28/presentation_at_parisjs">Presentation at Parisjs</a></h1>
-    
-    
-  </header>
-
-
-  <div class="entry-content"><p><a target='_blank' title='yfrog.com - Image And Video Hosting' href='http://yfrog.com/kg1g6rtj'><img class="right" src='http://a.yfrog.com/img736/5082/1g6rt.th.jpg' border='0'/></a></p>
-
-<p>Yesterday i did a <a href="https://docs.google.com/present/view?id=dhng4bgf_71c9txhrdb">presentation</a>
-about Three.js at <a href="http://parisjs.org">parisjs</a>. My first
-on the topic, it was fun, i will clearly do more :)</p>
-
-<p>On the right, a picture taken during the presentation by <a href="http://twitter.com/#!/42loops">42loops</a>.</p>
-
-<center>
-    <iframe src="https://docs.google.com/present/view?id=dhng4bgf_71c9txhrdb" frameborder="0" width="100%" height="342"></iframe>
-</center>
-
-
-
-</div>
-  <footer>
-    <a rel="full-article" href="/blog/2011/07/28/presentation_at_parisjs">Read on &rarr;</a>
-  </footer>
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/07/15/threejs-installation">Three.js Installation</a></h1>
-    
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/mrdoob/three.js">Three.js</a> is a 3D library in javascript. According
-to <a href="http://mrdoob.com/">mrdoob</a>, its author, three.js is</p>
-
-<blockquote><p>The aim of the project is to create a lightweight 3D engine with a very low level of<br/>complexity — in other words, for dummies. The engine can render using canvas, svg and WebGL.</p><footer><strong>mrdoob</strong><cite>tree.js Author</cite></footer></blockquote>
-
-
-<h2>Step 1: get the source</h2>
-
-<p>The source are available <a href="https://github.com/mrdoob/three.js">here</a>. Use
-the following command</p>
-
-<div><figure role=code><figcaption><span>how to get the source - example.sh </span></figcaption>
-
-<div class="highlight"><pre><code class="sh">git clone https://github.com/mrdoob/three.js.git
+<pre><code>var gui = new DAT.GUI({
+    height : 5 * 32 - 1
+});
 </code></pre>
+
+<p>Here is the visual result on the right.
+The misterious <code>height</code>parameter is the height of the widget. You have to set it manually.
+In our case, we get 5 lines plus the close button.
+The formula which worked for me has been <code>nline * 32 - 1</code>.</p>
+
+<h2>Lets configure it and add some variables</h2>
+
+<p>First we need to store the values of the variables, lets call that <code>params</code>. It may be <code>this</code> too, it depends
+of your personal style of code.</p>
+
+<pre><code>var params = {
+    interation: 5000
+};
+</code></pre>
+
+<p>Let add a variable name <code>interation</code> to the widget.</p>
+
+<pre><code>gui.add(params, 'interation')
+</code></pre>
+
+<p>It will add a line in the GUI widget.
+<em>dat.gui</em> will see <code>params.iteration</code> is a Number and thus <em>guess</em> you want to display a slider for it.
+If it is a function, it will be interpreted as a button and call params.foobar() on click.
+If the user changes the value with the mouse, the value of <code>params.iteration</code>
+will be changed accordingly. Up to you to know what to do with it.</p>
+
+<h2>Lets Custom it Some More</h2>
+
+<p>You may be easy be notified of user changes with callbacks.  <code>onFinishChange</code> is triggered once the value is changed.
+<code>on</code></p>
+
+<pre><code>gui.add(params, 'interation').onFinishChange(function(){
+    // refresh based on the new value of params.interation
+})
+</code></pre>
+
+<p>You can customize further if needed. To change the label displayed on the variable line, use <code>.name("better label")</code></p>
+
+<pre><code>gui.add(params, 'interation').name('Intertions')
+</code></pre>
+
+<p>You can set up min/max limits and steps. This one will allows values from
+128 to 256, only if they are multiple of 16</p>
+
+<pre><code>gui.add(params, 'width').min(128).max(256).step(16)
+</code></pre>
+
+<h2>Conclusion</h2>
+
+<p>I hope this introduction got you excited about DAT.GUI. I find nice for simple demos parameters, simple to code and good
+looking on the screen at that. For more informations and authoritative
+answer, <a href="http://code.google.com/p/dat-gui/">see details</a> here.</p>
 </div>
 
-</figure></div>
 
-
-<p>It will provide the whole source on your local disk. You are done, just point
-a web server on it, and go in <code>/examples</code>.</p>
-
-</div>
   <footer>
-    <a rel="full-article" href="/blog/2011/07/15/threejs-installation">Read on &rarr;</a>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jerome Etienne</span></span>
+
+      
+
+
+
+
+<time datetime="2011-08-14 19:42:00 +0200" pubdate  updated >Aug 14<span>th</span>, 2011</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/demo/'>demo</a>, <a class='category' href='/blog/categories/ui/'>ui</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos" data-via="jerome_etienne" data-counturl="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
   </footer>
+</article>
 
-
-  </article>
-
-<nav role="pagination">
-  <div>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</nav>
-
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
-    var disqus_shortname = 'learningthreejs';
-    (function () {
-      var s = document.createElement('script'); s.async = true;
-      s.type = 'text/javascript';
-      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+  var disqus_shortname = 'learningthreejs';
+  var disqus_identifier = 'http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos';
+  var disqus_url = 'http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
 </script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 

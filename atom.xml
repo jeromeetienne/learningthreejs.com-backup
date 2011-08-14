@@ -4,13 +4,102 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-08-09T12:16:26+02:00</updated>
+  <updated>2011-08-14T22:19:14+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>dat-gui - Simple UI for Demos</title>
+    <link href="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos"/>
+    <updated>2011-08-14T19:42:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos</id>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;http://code.google.com/p/dat-gui/&quot;&gt;Dat.gui&lt;/a&gt;
+is a GUI widget for your demos. It provide way for the user to set parameters of the
+demo to play with it. It is simple to code, yet cool and minimalist on the screen.
+It is the blue vuemeters on the screenshot below. This post is a presentation of
+the library.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_integrated.png' alt=' Integrated ' title=' Integrated '&gt;&lt;/p&gt;
+
+&lt;h2&gt;How to include it&lt;/h2&gt;
+
+&lt;p&gt;Simply include the library file in your page. Download it &lt;a href=&quot;http://code.google.com/p/dat-gui&quot;&gt;there&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script type='text/javascript' src='DAT.GUI.min.js'&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!--more--&gt;
+
+
+&lt;h2&gt;How to use it&lt;/h2&gt;
+
+&lt;p&gt;First initialize the object itself. It will create the widget and display it on the
+screen top right corner. You can change this position if you wish (see &lt;code&gt;autoplace&lt;/code&gt;)
+&lt;img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_closeup.png' alt=' Close up ' title=' Close up '&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var gui = new DAT.GUI({
+    height : 5 * 32 - 1
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is the visual result on the right.
+The misterious &lt;code&gt;height&lt;/code&gt;parameter is the height of the widget. You have to set it manually.
+In our case, we get 5 lines plus the close button.
+The formula which worked for me has been &lt;code&gt;nline * 32 - 1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Lets configure it and add some variables&lt;/h2&gt;
+
+&lt;p&gt;First we need to store the values of the variables, lets call that &lt;code&gt;params&lt;/code&gt;. It may be &lt;code&gt;this&lt;/code&gt; too, it depends
+of your personal style of code.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var params = {
+    interation: 5000
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let add a variable name &lt;code&gt;interation&lt;/code&gt; to the widget.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gui.add(params, 'interation')
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It will add a line in the GUI widget.
+&lt;em&gt;dat.gui&lt;/em&gt; will see &lt;code&gt;params.iteration&lt;/code&gt; is a Number and thus &lt;em&gt;guess&lt;/em&gt; you want to display a slider for it.
+If it is a function, it will be interpreted as a button and call params.foobar() on click.
+If the user changes the value with the mouse, the value of &lt;code&gt;params.iteration&lt;/code&gt;
+will be changed accordingly. Up to you to know what to do with it.&lt;/p&gt;
+
+&lt;h2&gt;Lets Custom it Some More&lt;/h2&gt;
+
+&lt;p&gt;You may be easy be notified of user changes with callbacks.  &lt;code&gt;onFinishChange&lt;/code&gt; is triggered once the value is changed.
+&lt;code&gt;on&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gui.add(params, 'interation').onFinishChange(function(){
+    // refresh based on the new value of params.interation
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can customize further if needed. To change the label displayed on the variable line, use &lt;code&gt;.name(&quot;better label&quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gui.add(params, 'interation').name('Intertions')
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can set up min/max limits and steps. This one will allows values from
+128 to 256, only if they are multiple of 16&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gui.add(params, 'width').min(128).max(256).step(16)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I hope this introduction got you excited about DAT.GUI. I find nice for simple demos parameters, simple to code and good
+looking on the screen at that. For more informations and authoritative
+answer, &lt;a href=&quot;http://code.google.com/p/dat-gui/&quot;&gt;see details&lt;/a&gt; here.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Lets Do a Cube</title>
