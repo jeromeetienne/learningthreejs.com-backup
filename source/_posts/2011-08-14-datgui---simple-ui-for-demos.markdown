@@ -33,16 +33,40 @@ The misterious ```height```parameter is the height of the widget. You have to se
 In our case, we get 5 lines plus the close button.
 The formula which worked for me has been ```nline * 32 - 1```.
 
-## Some variables examples
+## Lets configure it and add some variables
 
-This will add a variable named ```interval```. It will be display ```Intervals```
-and will go from 0.001 and 0.1. If the name isnt explicitly specified, it is simply
-the variable names.
+First we need to store the values of the variables, lets call that ```params```. It may be ```this```too, it depends
+of your personal style of code.
 
-    gui.add(params, 'interval').name('Interval').min(0.001).max(0.1)
+    var params = {
+        interation: 5000
+    };
 
-It maybe usefull to setup a step, like when setting size in pixel, integer may be more
-suitable. This will allows values from 128 to 256 but only integers.
+Let add a variable name ```interation``` to the widget.
 
-    gui.add(params, 'width').min(128).max(256).step(1)
+    gui.add(params, 'interation')
+
+It will add a line in the GUI widget.
+*dat.gui* will see ```params.iteration``` is a Number and thus guess you want to display a slider for it.
+
+## lets go custom
+
+If the user changes the value with the mouse, the value of ```params.iteration```
+will be changed accordingly. Up to you to know what to do with it.
+
+You may be easy notified of user change with callbacks
+
+    gui.add(params, 'interation').onFinishChange(function(){
+        // refresh based on the new value of params.interation
+    })
+
+
+You can customize further if needed. To change the label displayed on the variable line, use ```.name("better label")```
+
+    gui.add(params, 'interval').name('Interval')
+
+You can set up min/max limits and steps. This one will allows values from
+128 to 256, only if they are multiple of 16
+
+    gui.add(params, 'width').min(128).max(256).step(16)
 
