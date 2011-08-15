@@ -3,6 +3,8 @@
 server:
 	rake preview
 
-deploy:
+build:
 	rake generate
+
+deploy: build
 	rake deploy
