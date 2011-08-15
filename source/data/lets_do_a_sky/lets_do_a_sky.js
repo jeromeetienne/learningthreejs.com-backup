@@ -1,7 +1,5 @@
-// This source is the javascript needed to build a simple moving
-// cube in **three.js** based on this
-// [example](https://raw.github.com/mrdoob/three.js/master/examples/canvas_geometry_cube.html)
-// It is the source about this [blog post](/blog/2011/08/06/lets-do-a-cube/).
+// This source is the javascript needed to build a sky box in **three.js**
+// It is the source about this [blog post](/2011/08/15/lets-do-a-sky/).
 
 // ## Now lets start
 
@@ -24,33 +22,34 @@ function init() {
 
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
-	//camera.position.y = 150;
-	//camera.position.z = 350;
-	//camera.target.position.y = 150;
 
 	// create the Scene
 	scene = new THREE.Scene();
 	
-// Skybox
-	var r = "http://localhost/~jerome/tmp/three.js.current/examples/textures/cube/Bridge2/";
-	var urls = [ r + "posx.jpg", r + "negx.jpg",
-		 r + "posy.jpg", r + "negy.jpg",
-		 r + "posz.jpg", r + "negz.jpg" ];
- 
-	var textureCube	= THREE.ImageUtils.loadTextureCube( urls ); 
+	// ## Begining of the Skybox Code
+	
+	// load the cube textures
+	var urlPrefix	= "images/Bridge2/";
+	var urls = [ urlPrefix + "posx.jpg", urlPrefix + "negx.jpg",
+			urlPrefix + "posy.jpg", urlPrefix + "negy.jpg",
+			urlPrefix + "posz.jpg", urlPrefix + "negz.jpg" ];
+	var textureCube	= THREE.ImageUtils.loadTextureCube( urls );
+	
+	// init the cube shadder
 	var shader	= THREE.ShaderUtils.lib["cube"];
 	shader.uniforms["tCube"].texture = textureCube;
-
 	var material = new THREE.MeshShaderMaterial({
 		fragmentShader	: shader.fragmentShader,
 		vertexShader	: shader.vertexShader,
 		uniforms	: shader.uniforms
 	});
 
+	// build the skybox Mesh
 	skyboxMesh	= new THREE.Mesh( new THREE.CubeGeometry( 100000, 100000, 100000, 1, 1, 1, null, true ), material );
+	// add it to the scene
 	scene.addObject( skyboxMesh );
 
-// /Skybox
+	// ## End of the Skybox Code
 
 	// create the container element
 	container = document.createElement( 'div' );
@@ -81,7 +80,7 @@ function animate() {
 
 // ## Render the 3D Scene
 function render() {
-console.log("skyboxMesh", skyboxMesh);
+	// move the camera based on a timer
 	var timer = - new Date().getTime() * 0.0002; 
 	camera.position.x = 1000 * Math.cos( timer );
 	camera.position.z = 1000 * Math.sin( timer );

@@ -60,7 +60,6 @@ will be changed accordingly. Up to you to know what to do with it.
 
 
 You may be easy be notified of user changes with callbacks.  ```onFinishChange``` is triggered once the value is changed.
-```on```
 
     gui.add(params, 'interation').onFinishChange(function(){
         // refresh based on the new value of params.interation
