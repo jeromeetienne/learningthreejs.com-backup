@@ -1,6 +1,8 @@
 #custom filters for Octopress
+require './plugins/pygments_code'
 
 module OctopressFilters
+  include HighlightCode
   # Used on the blog index to split posts on the <!--more--> marker
   def excerpt(input)
     if input.index(/<!--\s*more\s*-->/i)
@@ -16,6 +18,40 @@ module OctopressFilters
       input.split(/\n\n/)[0]
     else
       input
+    end
+  end
+
+  # for Github style codeblocks eg.
+  # ``` ruby
+  #     code snippet
+  # ```
+  def backtick_codeblock(input)
+    # Markdown support
+    input = input.gsub /<p>`{3}\s*(\w+)?<\/p>\s*<pre><code>\s*(.+?)\s*<\/code><\/pre>\s*<p>`{3}<\/p>/m do
+      lang = $1
+      if lang != ''
+        str  = $2.gsub('&lt;','<').gsub('&gt;','>').gsub('&amp;','&')
+        highlight(str, lang)
+      else
+        "<pre><code>#{$2}</code></pre>"
+      end
+    end
+
+    # Textile warning
+    input = input.gsub /<p>`{3}\s*(\w+)?<br\s*\/>\n(.+?)`{3}<\/p>/m do
+      lang = $1
+      "<pre><code>Back tick code blocks are not supported for Textile.\nTry HTML or Markdown instead or use the codeblock tag.\n\n{% codeblock #{lang} %}\nYour code snippet\n{% endcodeblock %}</code></pre>"
+    end
+
+    # Regular HTML support
+    input.gsub /^`{3}\s*(\w+)?\n(.+?)\n`{3}/m do
+      lang = $1
+      str  = $2.gsub(/^\s{4}/, '')
+      if lang != ''
+        highlight(str, lang)
+      else
+        "<pre><code>#{$2.gsub('<','&lt;').gsub('>','&gt;')}</code></pre>"
+      end
     end
   end
 
@@ -82,3 +118,4 @@ module OctopressFilters
   end
 end
 Liquid::Template.register_filter OctopressFilters
+
