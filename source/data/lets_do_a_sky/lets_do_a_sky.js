@@ -1,5 +1,5 @@
 // This source is the javascript needed to build a sky box in **three.js**
-// It is the source about this [blog post](/2011/08/15/lets-do-a-sky/).
+// It is the source about this [blog post](/blog/2011/08/15/lets-do-a-sky/).
 
 // ## Now lets start
 

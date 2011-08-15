@@ -1,0 +1,65 @@
+# ----------------------- #
+#      Main Configs       #
+# ----------------------- #
+
+url: http://learningthreejs.com
+title: Learning Three.js
+subtitle: or WebGL for Dummies
+blog_title: Learning Three.js
+author: Jerome Etienne
+simple_search: http://google.com/search
+
+# RSS / Email (optional) subscription links (change if using something like Feedburner)
+subscribe_rss: http://feeds.feedburner.com/LearningThreejs
+subscribe_email:
+# RSS feeds can list your email address if you like
+email:
+
+# ----------------------- #
+#    Jekyll & Plugins     #
+# ----------------------- #
+
+# If publishing to a subdirectory as in http://site.com/project set 'root: /project'
+root: /
+port: 3000
+permalink: /blog/:year/:month/:day/:title
+source: source
+destination: public
+plugins: plugins
+code_dir: downloads/code
+category_dir: blog/categories
+markdown: rdiscount
+pygments: true
+
+paginate: 10 # Posts per page on the blog index
+recent_posts: 5 # Posts in the sidebar Recent Posts section
+
+# ----------------------- #
+#   3rd Party Settings    #
+# ----------------------- #
+
+# Twitter
+twitter_user: jerome_etienne
+twitter_tweet_count: 4
+twitter_show_replies: false
+twitter_follow_button: true
+twitter_show_follower_count: false
+twitter_tweet_button: true
+
+# Google Plus
+google_plus_one: true
+google_plus_one_size: medium
+
+# Pinboard
+pinboard_user:
+pinboard_count: 3
+
+# Delicious
+delicious_user:
+delicious_count: 3
+
+# Disqus Comments
+disqus_short_name: learningthreejs
+
+# Google Analytics
+google_analytics_tracking_id: UA-4037844-19
