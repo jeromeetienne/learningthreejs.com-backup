@@ -13,11 +13,11 @@ animate();
 function buildGui(parameters, callback)
 {
 	var gui = new DAT.GUI({
-		height	: 5 * 32 - 1
+		height	: 4 * 32 - 1
 	});
 
-	gui.add(parameters, 'iterations').name('Iterations').min(1000).max(8000).step(1)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	//gui.add(parameters, 'iterations').name('Iterations').min(1000).max(12000).step(1)
+	//	.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 	gui.add(parameters, 'interval').name('Interval').min(0.001).max(0.1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 	gui.add(parameters, 'a').name('Sigma').min(1).max(30)
@@ -30,33 +30,24 @@ function buildGui(parameters, callback)
 
 function buildObjectParticlesWebgl(nParticles)
 {
+	// create the particule system if needed
 	if( !particleSys ){
 		var geometry	= new THREE.Geometry();
 		geometry.colors = [];			
 		var material	= new THREE.ParticleBasicMaterial({
-			map		: THREE.ImageUtils.loadTexture( "lensFlare/Flare2.png" ),
+			//map		: THREE.ImageUtils.loadTexture( "lensFlare/Flare2.png" ),
+			map		: THREE.ImageUtils.loadTexture( "ball.png" ),
 			vertexColors	: true,
-			size		: 32,
+			size		: 16,
 			blending	: THREE.AdditiveBlending,
 			transparent	: true
 		});
-		material.color.setRGB( 1.0, 0.2, 0.8 );
+		material.color.setRGB( 1.0, 0.5, 0.8 );
 		particleSys	= new THREE.ParticleSystem( geometry, material );
 		particleSys.sortParticles = true;
 		//particleSys.dynamic = true;
 		containerObj.addChild( particleSys );
 	}
-
-/**
- * * issue on the addition removal
- *   * and because the estimatoin of the current number of dot is based on particles array
- *   * this array is not even used anymore
- * * this is because this is not the same function
- *   * vertices is an array, container is object3D 
- * * only does the webgl particles
- * * clean the source a lot
- * * see areotwist tutorial
-*/
 
 	var geometry	= containerObj.children[0].geometry;
 	var particles	= [];
@@ -134,11 +125,16 @@ console.log("containerObj", containerObj, containerObj.children[0].geometry);
 	var rangeZ = (geometry.boundingBox.z[1] - geometry.boundingBox.z[0]);
 	
 	for(var i = 0; i < parameters.iterations; i++) {
-		geometry.colors[i].setRGB(
-			Math.pow(0.07	, Math.abs(vertices[i].position.x / rangeX)) 	* 0.2,
-			Math.pow(0.03	, Math.abs(vertices[i].position.y / rangeY)) 	* 0.2,
-			Math.pow(0.05	, Math.abs(vertices[i].position.z / rangeZ))	* 1.5
+		geometry.colors[i].setHSV(
+			Math.pow(0.005	, Math.abs(vertices[i].position.x / rangeX)) 	* 1,
+			Math.pow(0.002	, Math.abs(vertices[i].position.y / rangeY)) 	* 1,
+			Math.pow(0.005	, Math.abs(vertices[i].position.z / rangeZ))	* 0.9
 		);
+		//geometry.colors[i].setRGB(
+		//	Math.pow(0.005	, Math.abs(vertices[i].position.x / rangeX)) 	* 0.5,
+		//	Math.pow(0.002	, Math.abs(vertices[i].position.y / rangeY)) 	* 1,
+		//	Math.pow(0.005	, Math.abs(vertices[i].position.z / rangeZ))	* 0.5
+		//);
 	}
 })();
     
@@ -200,8 +196,8 @@ function init()
 	
 	// maybe replace that by window... or something
 	var parameters = {
-		iterations	: 3000,
-		interval	: 0.05,
+		iterations	: 9000,
+		interval	: 0.008,
 		//iterations	: 2500,
 		//interval	: 0.02,
 		a		: 5,
