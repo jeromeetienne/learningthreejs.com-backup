@@ -2,7 +2,7 @@ var container, stats, containerObj;
 var camera, scene, renderer, particle;
 var sprite;
 var mouseX = 0, mouseY = 0;
-var useWebgl	= true;
+var particleSys;
 
 init();
 animate();
@@ -16,7 +16,7 @@ function buildGui(parameters, callback)
 		height	: 5 * 32 - 1
 	});
 
-	gui.add(parameters, 'iterations').name('Iterations').min(1000).max(20000).step(1)
+	gui.add(parameters, 'iterations').name('Iterations').min(1000).max(8000).step(1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 	gui.add(parameters, 'interval').name('Interval').min(0.001).max(0.1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
@@ -28,23 +28,25 @@ function buildGui(parameters, callback)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 }
 
-function buildObjectParticlesWebgl(particles, nParticles)
+function buildObjectParticlesWebgl(nParticles)
 {
-	console.assert(useWebgl, "to be used only with webgl renderer")
-	if( nParticles < particles.length ){
-		// remove particles if needed
-		while( particles.length != nParticles ){
-			// remove a particle from the particles
-			var particle	= particles.pop();
-			// detach it from the Object3D containerObj
-			containerObj.removeChild(particle)
-		}
-	}else if( nParticles > particles.length ){
-		// add particles if needed
-		var toAdd	= nParticles - particles.length;
-		var colors	= [];
+	if( !particleSys ){
 		var geometry	= new THREE.Geometry();
-		geometry.colors = colors;
+		geometry.colors = [];			
+		var material	= new THREE.ParticleBasicMaterial({
+			map		: THREE.ImageUtils.loadTexture( "lensFlare/Flare2.png" ),
+			vertexColors	: true,
+			size		: 32,
+			blending	: THREE.AdditiveBlending,
+			transparent	: true
+		});
+		material.color.setRGB( 1.0, 0.2, 0.8 );
+		particleSys	= new THREE.ParticleSystem( geometry, material );
+		particleSys.sortParticles = true;
+		//particleSys.dynamic = true;
+		containerObj.addChild( particleSys );
+	}
+
 /**
  * * issue on the addition removal
  *   * and because the estimatoin of the current number of dot is based on particles array
@@ -55,52 +57,58 @@ function buildObjectParticlesWebgl(particles, nParticles)
  * * clean the source a lot
  * * see areotwist tutorial
 */
-		for(var i = 0; i < toAdd; i++){
-			var x, y, z, s = 300;
-			x = s * Math.random() - s/2;
-			y = s * Math.random() - s/2;
-			z = s * Math.random() - s/2;
-			geometry.vertices.push( new THREE.Vertex( new THREE.Vector3( x, y, z ) ) );
-		
-			colors[ i ] = new THREE.Color( 0xffffff );
-			//colors[ i ].setHSV( (x+s/2)/s, 1.0, 1.0 );
-		}
-		var material	= new THREE.ParticleBasicMaterial( { size: 8, map: sprite, vertexColors: true } );
-		//material.color.setHSV( 1.0, 0.2, 0.8 );
 
-		var particleSys	= new THREE.ParticleSystem( geometry, material );
-		particleSys.sortParticles = true;
+	var geometry	= containerObj.children[0].geometry;
+	var particles	= [];
+	if( nParticles < geometry.vertices.length ){
+		// remove particles if needed
+		while( particles.length != nParticles ){
+			// remove a particle from the particles
+			var particle	= particles.pop();
+			// detach it from the Object3D containerObj
+			containerObj.removeChild(particle)
+		}
+	}else if( nParticles > geometry.vertices.length ){
+		// add particles if needed
+		var toAdd	= nParticles - geometry.vertices.length;
+		for(var i = 0; i < toAdd; i++){
+			geometry.vertices.push( new THREE.Vertex( new THREE.Vector3( 0,0,0 ) ) );
+			geometry.colors.push( new THREE.Color( 0xffffff ) );
+		}
+
 console.log("particleSys", particleSys)
+		particleSys.geometry.__dirtyVertices = true;
 		particleSys.updateMatrix();
-		containerObj.addChild( particleSys );
 	}
+	console.assert( nParticles === geometry.vertices.length );
+	console.assert( nParticles === geometry.colors.length );
 }
 
-function cpuDotLorentz(particles, opts)
+function cpuDotLorentz(parameters)
 {
 	// sanity check
-	console.assert( 'iterations' in opts )
-	console.assert( 'a' in opts )
-	console.assert( 'b' in opts )
-	console.assert( 'c' in opts )
-	console.assert( 'interval' in opts )
+	console.assert( 'iterations' in parameters )
+	console.assert( 'a' in parameters )
+	console.assert( 'b' in parameters )
+	console.assert( 'c' in parameters )
+	console.assert( 'interval' in parameters )
 
-	buildObjectParticlesWebgl(particles, opts.iterations)
+	buildObjectParticlesWebgl(parameters.iterations)
 
 console.log("containerObj", containerObj, containerObj.children[0].geometry);
 
-	a	= opts.a;
-	b	= opts.b;
-	c	= opts.c;
-	interval= opts.interval;
+	a	= parameters.a;
+	b	= parameters.b;
+	c	= parameters.c;
+	interval= parameters.interval;
 
 	// initial value
 	var x	= 0.1;
 	var y	= 0.1;
 	var z	= 0.1;
-	var scale	= 8;
+	var scale	= 15;
 	// go thru each particle
-	for(var i = 0; i < opts.iterations; i++){
+	for(var i = 0; i < parameters.iterations; i++){
 		// compute lorentz delata
 		var dx	= (y - x) * a;
 		var dy	= (b - z) * x - y;
@@ -115,6 +123,38 @@ console.log("containerObj", containerObj, containerObj.children[0].geometry);
 		vertex.position.y = y*scale;
 		vertex.position.z = (z-b)*scale;		
 	}
+	
+(function(){
+	var geometry	= containerObj.children[0].geometry;
+	var vertices	= geometry.vertices;
+	geometry.computeBoundingBox();
+	
+	var rangeX = (geometry.boundingBox.x[1] - geometry.boundingBox.x[0]);
+	var rangeY = (geometry.boundingBox.y[1] - geometry.boundingBox.y[0]);
+	var rangeZ = (geometry.boundingBox.z[1] - geometry.boundingBox.z[0]);
+	
+	for(var i = 0; i < parameters.iterations; i++) {
+		geometry.colors[i].setRGB(
+			Math.pow(0.07	, Math.abs(vertices[i].position.x / rangeX)) 	* 0.2,
+			Math.pow(0.03	, Math.abs(vertices[i].position.y / rangeY)) 	* 0.2,
+			Math.pow(0.05	, Math.abs(vertices[i].position.z / rangeZ))	* 1.5
+		);
+	}
+})();
+    
+
+	//particleSys.geometry.__dirtyNormals	= true;
+	//particleSys.geometry.computeFaceNormals();
+	//
+	particleSys.geometry.__dirtyVertices	= true;
+	//particleSys.geometry.computeVertexNormals();
+	//
+	//particleSys.geometry.computeCentroids();
+	//
+	//particleSys.geometry.computeBoundingBox();
+	//
+	//particleSys.geometry.computeBoundingSphere();
+	particleSys.updateMatrix();
 return
 	/**
 	 * say value is between 0 and 1
@@ -137,14 +177,14 @@ return
 function init()
 {
 	// detect if webgl is needed and available
-	if( useWebgl && !Detector.webgl ) Detector.addGetWebGLMessage();
+	if( !Detector.webgl ) Detector.addGetWebGLMessage();
 	
 	// create the container
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
 	// create the Camera
-	camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 10000 );
-	camera.position.z = 300;
+	camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 100000 );
+	camera.position.z = 400;
 	
 	// build the scene
 	scene = new THREE.Scene();
@@ -157,11 +197,10 @@ function init()
  * Use blending to make the color cooler good with webgl
 */
 
-	sprite = THREE.ImageUtils.loadTexture( "lensFlare/Flare2.png" );
 	
 	// maybe replace that by window... or something
 	var parameters = {
-		iterations	: 2000,
+		iterations	: 3000,
 		interval	: 0.05,
 		//iterations	: 2500,
 		//interval	: 0.02,
@@ -170,15 +209,12 @@ function init()
 		c		: 1
 	};
 
-	// create all the particles objects and add them to the scene
-	var particles	= [];
-
 	// compute the position of the particles
-	cpuDotLorentz(particles, parameters);
+	cpuDotLorentz(parameters);
 	// build the GUI 
 	buildGui(parameters, function(){
 		console.log("parameters", JSON.stringify(parameters, null, '\t'))
-		cpuDotLorentz(particles, parameters);
+		cpuDotLorentz(parameters);
 	});
 
 
@@ -203,7 +239,7 @@ function init()
 /**
  * Experimentation with toDataUrl on the 
 */
-if(true){
+if(false){
 	jQuery('body').click(function(){
 		THREEx.Screenshot.resizeTo(THREEx.Screenshot.toDataURL(renderer), 320, 240, function(imgUrl, error){
 			// put it on the DOM for debug
@@ -271,12 +307,17 @@ function animate() {
 function render()
 {
 	// move the camera
-	camera.position.x += ( mouseX - camera.position.x ) * .05;
-	camera.position.y += ( - mouseY - camera.position.y ) * .05;
+	if( false ){		
+		camera.position.x += ( mouseX - camera.position.x ) * .05;
+		camera.position.y += ( - mouseY - camera.position.y ) * .05;
+	}
 	// animate the cube
-	//containerObj.rotation.x += 0.02;
-	//containerObj.rotation.y += 0.0225;
-	//containerObj.rotation.z += 0.0175;
+	if( true ){
+		containerObj.rotation.x += 0.3*0.02;
+		containerObj.rotation.y += 0.3*0.0225;
+		containerObj.rotation.z += 0.3*0.0175;		
+	}
+
 	// actually render the scene
 	renderer.render( scene, camera );
 }
