@@ -25,8 +25,9 @@ where the camera will be positionned.
 On the *bottom right*, you can see the same 3D scene, with the large cube and now the
 camera is inside.
 The kind of cross *on the top half* are the images used as texture.
-Those are the ones which gonna be applied inside the large sky cube. If you go to the [demo](/data/lets_do_a_sky/lets_do_a_sky.html)
-and open your browser debugger, look at downloaded images, you will see those 6 images.
+Those are the ones which gonna be applied inside the large sky cube. If you go to
+the [demo](/data/lets_do_a_sky/lets_do_a_sky.html),
+open your browser debugger and look at downloaded images, you will see those 6 images.
 
 <!-- more -->
 
