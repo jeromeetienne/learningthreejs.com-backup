@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7" manifest="default.appcache?v=1"><![endif]-->
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" manifest="default.appcache?v=1" lang="en"><!--<![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <title>Learning Three.js</title>
@@ -16,14 +16,13 @@
 
   
 
+  <link rel="canonical" href="http://learningthreejs.com/index.html"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-  <link href="/atom.xml" rel="alternate" title="Learning Three.js" type="application/atom+xml"/>
+  <link href="http://feeds.feedburner.com/LearningThreejs" rel="alternate" title="Learning Three.js" type="application/atom+xml"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -60,6 +59,10 @@
   </script>
 
 
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body  >
@@ -69,6 +72,7 @@
     <h2>or WebGL for Dummies</h2>
   
 </hgroup>
+
 </header>
   <nav role=navigation><ul role=subscription data-subscription="rss">
   <li><a href="http://feeds.feedburner.com/LearningThreejs" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
@@ -82,9 +86,10 @@
 </form>
 <ul role=main-navigation>
   <li><a href="/about">About</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
   <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
 </ul>
+
 </nav>
   <div id="main">
     <div id="content">
@@ -96,8 +101,18 @@
     
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/08/15/lets-do-a-sky">Lets Do a Sky</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/08/15/lets-do-a-sky/">Lets Do a Sky</a></h1>
     
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-15 12:26:00 +0200" pubdate  updated >Aug 15<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
 
@@ -109,7 +124,7 @@ easy addition to your effects. This is simple and efficient.</p>
 
 <h1>Background</h1>
 
-<p><img class='right ' src='/data/lets_do_a_sky/images/Panorama_cube_map.png' alt=' Close up ' title=' Close up '>
+<p><img class='right ' src='/data/lets_do_a_sky/images/Panorama_cube_map.png' width='' height='' alt='Close up' title='Close up'>
 Technically this is called a <a href="http://en.wikipedia.org/wiki/Cube_mapping">cube mapping</a>.
 Why that ? because the principle is so simple: we create a large cube, apply some images
 on each face of this cube and put the camera inside it. That&#8217;s it.</p>
@@ -121,12 +136,13 @@ where the camera will be positionned.
 On the <em>bottom right</em>, you can see the same 3D scene, with the large cube and now the
 camera is inside.
 The kind of cross <em>on the top half</em> are the images used as texture.
-Those are the ones which gonna be applied inside the large sky cube. If you go to the <a href="/data/lets_do_a_sky/lets_do_a_sky.html">demo</a>
-and open your browser debugger, look at downloaded images, you will see those 6 images.</p>
+Those are the ones which gonna be applied inside the large sky cube. If you go to
+the <a href="/data/lets_do_a_sky/lets_do_a_sky.html">demo</a>,
+open your browser debugger and look at downloaded images, you will see those 6 images.</p>
 
 </div>
   <footer>
-    <a rel="full-article" href="/blog/2011/08/15/lets-do-a-sky">Read on &rarr;</a>
+    <a rel="full-article" href="/blog/2011/08/15/lets-do-a-sky/">Read on &rarr;</a>
   </footer>
 
 
@@ -137,8 +153,18 @@ and open your browser debugger, look at downloaded images, you will see those 6 
     
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos">Dat-gui - Simple UI for Demos</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos/">Dat-gui - Simple UI for Demos</a></h1>
     
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-14 19:42:00 +0200" pubdate  updated >Aug 14<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
 
@@ -149,18 +175,19 @@ demo to play with it. It is simple to code, yet cool and minimalist on the scree
 It is the blue vuemeters on the screenshot below. This post is a presentation of
 the library.</p>
 
-<p><img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_integrated.png' alt=' Integrated ' title=' Integrated '></p>
+<p><img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_integrated.png' width='' height='' alt='Integrated' title='Integrated'></p>
 
 <h2>How to include it</h2>
 
 <p>Simply include the library file in your page. Download it <a href="http://code.google.com/p/dat-gui">there</a></p>
 
-<pre><code>&lt;script type='text/javascript' src='DAT.GUI.min.js'&gt;&lt;/script&gt;
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src=</span><span class="s">&#39;DAT.GUI.min.js&#39;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</div></code></pre></td></tr></table></div>
 
 </div>
   <footer>
-    <a rel="full-article" href="/blog/2011/08/14/dat-gui-simple-ui-for-demos">Read on &rarr;</a>
+    <a rel="full-article" href="/blog/2011/08/14/dat-gui-simple-ui-for-demos/">Read on &rarr;</a>
   </footer>
 
 
@@ -171,8 +198,18 @@ the library.</p>
     
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/08/06/lets-do-a-cube">Lets Do a Cube</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/08/06/lets-do-a-cube/">Lets Do a Cube</a></h1>
     
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-06 00:00:00 +0200" pubdate  updated >Aug 6<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
 
@@ -196,7 +233,7 @@ screencast below.</p>
 
 </div>
   <footer>
-    <a rel="full-article" href="/blog/2011/08/06/lets-do-a-cube">Read on &rarr;</a>
+    <a rel="full-article" href="/blog/2011/08/06/lets-do-a-cube/">Read on &rarr;</a>
   </footer>
 
 
@@ -207,8 +244,18 @@ screencast below.</p>
     
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/07/28/presentation_at_parisjs">Presentation at Parisjs</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/07/28/presentation_at_parisjs/">Presentation at Parisjs</a></h1>
     
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-07-28 00:00:00 +0200" pubdate  updated >Jul 28<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
 
@@ -229,7 +276,7 @@ on the topic, it was fun, i will clearly do more :)</p>
 
 </div>
   <footer>
-    <a rel="full-article" href="/blog/2011/07/28/presentation_at_parisjs">Read on &rarr;</a>
+    <a rel="full-article" href="/blog/2011/07/28/presentation_at_parisjs/">Read on &rarr;</a>
   </footer>
 
 
@@ -240,8 +287,18 @@ on the topic, it was fun, i will clearly do more :)</p>
     
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/07/15/threejs-installation">Three.js Installation</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/07/15/threejs-installation/">Three.js Installation</a></h1>
     
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-07-15 00:00:00 +0200" pubdate  updated >Jul 15<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
 
@@ -258,12 +315,9 @@ to <a href="http://mrdoob.com/">mrdoob</a>, its author, three.js is</p>
 the following command</p>
 
 <div><figure role=code><figcaption><span>how to get the source - example.sh </span></figcaption>
-
-<div class="highlight"><pre><code class="sh">git clone https://github.com/mrdoob/three.js.git
-</code></pre>
-</div>
-
-</figure></div>
+ <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='sh'><div class='line'>git clone https://github.com/mrdoob/three.js.git
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>It will provide the whole source on your local disk. You are done, just point
@@ -271,7 +325,7 @@ a web server on it, and go in <code>/examples</code>.</p>
 
 </div>
   <footer>
-    <a rel="full-article" href="/blog/2011/07/15/threejs-installation">Read on &rarr;</a>
+    <a rel="full-article" href="/blog/2011/07/15/threejs-installation/">Read on &rarr;</a>
   </footer>
 
 
@@ -296,40 +350,39 @@ a web server on it, and go in <code>/examples</code>.</p>
 </script>
 
 </div>
-
-      
-        <aside role=sidebar><section>
+<aside role=sidebar>
+  
+    <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2011/08/15/lets-do-a-sky">Lets Do a Sky</a>
+        <a href="/blog/2011/08/15/lets-do-a-sky/">Lets Do a Sky</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos">dat-gui - Simple UI for Demos</a>
+        <a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos/">dat-gui - Simple UI for Demos</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/08/06/lets-do-a-cube">Lets Do a Cube</a>
+        <a href="/blog/2011/08/06/lets-do-a-cube/">Lets Do a Cube</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/07/28/presentation_at_parisjs">Presentation at parisjs</a>
+        <a href="/blog/2011/07/28/presentation_at_parisjs/">Presentation at parisjs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/07/15/threejs-installation">Three.js Installation</a>
+        <a href="/blog/2011/07/15/threejs-installation/">Three.js Installation</a>
       </li>
     
   </ul>
 </section>
 
-
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating...</li>
+    <li class="loading">Status updating&#8230;</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -345,16 +398,17 @@ a web server on it, and go in <code>/examples</code>.</p>
 
 
 
-
-
+  
 </aside>
-      
+
+
     </div>
   </div>
   <footer><p>
   Copyright &copy; 2011 - Jerome Etienne -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
 </footer>
 </body>
 </html>

@@ -16,7 +16,7 @@ function buildGui(parameters, callback)
 		height	: 5 * 32 - 1
 	});
 
-	gui.add(parameters, 'iterations').name('Iterations').min(1000).max(8000).step(1)
+	gui.add(parameters, 'iterations').name('Iterations').min(1000).max(20000).step(1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 	gui.add(parameters, 'interval').name('Interval').min(0.001).max(0.1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
@@ -53,6 +53,7 @@ function buildObjectParticlesWebgl(particles, nParticles)
  *   * vertices is an array, container is object3D 
  * * only does the webgl particles
  * * clean the source a lot
+ * * see areotwist tutorial
 */
 		for(var i = 0; i < toAdd; i++){
 			var x, y, z, s = 300;
@@ -160,7 +161,7 @@ function init()
 	
 	// maybe replace that by window... or something
 	var parameters = {
-		iterations	: 10000,
+		iterations	: 2000,
 		interval	: 0.05,
 		//iterations	: 2500,
 		//interval	: 0.02,

@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7" manifest="default.appcache?v=1"><![endif]-->
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" manifest="default.appcache?v=1" lang="en"><!--<![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <title>Learning Three.js: Lets Do a Sky</title>
@@ -16,14 +16,13 @@
 
   
 
+  <link rel="canonical" href="http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-  <link href="/atom.xml" rel="alternate" title="Learning Three.js" type="application/atom+xml"/>
+  <link href="http://feeds.feedburner.com/LearningThreejs" rel="alternate" title="Learning Three.js" type="application/atom+xml"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -60,6 +59,10 @@
   </script>
 
 
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body  >
@@ -69,6 +72,7 @@
     <h2>or WebGL for Dummies</h2>
   
 </hgroup>
+
 </header>
   <nav role=navigation><ul role=subscription data-subscription="rss">
   <li><a href="http://feeds.feedburner.com/LearningThreejs" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
@@ -82,9 +86,10 @@
 </form>
 <ul role=main-navigation>
   <li><a href="/about">About</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
   <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
 </ul>
+
 </nav>
   <div id="main">
     <div id="content">
@@ -116,7 +121,7 @@ easy addition to your effects. This is simple and efficient.</p>
 
 <h1>Background</h1>
 
-<p><img class='right ' src='/data/lets_do_a_sky/images/Panorama_cube_map.png' alt=' Close up ' title=' Close up '>
+<p><img class='right ' src='/data/lets_do_a_sky/images/Panorama_cube_map.png' width='' height='' alt='Close up' title='Close up'>
 Technically this is called a <a href="http://en.wikipedia.org/wiki/Cube_mapping">cube mapping</a>.
 Why that ? because the principle is so simple: we create a large cube, apply some images
 on each face of this cube and put the camera inside it. That&#8217;s it.</p>
@@ -128,8 +133,9 @@ where the camera will be positionned.
 On the <em>bottom right</em>, you can see the same 3D scene, with the large cube and now the
 camera is inside.
 The kind of cross <em>on the top half</em> are the images used as texture.
-Those are the ones which gonna be applied inside the large sky cube. If you go to the <a href="/data/lets_do_a_sky/lets_do_a_sky.html">demo</a>
-and open your browser debugger, look at downloaded images, you will see those 6 images.</p>
+Those are the ones which gonna be applied inside the large sky cube. If you go to
+the <a href="/data/lets_do_a_sky/lets_do_a_sky.html">demo</a>,
+open your browser debugger and look at downloaded images, you will see those 6 images.</p>
 
 <!-- more -->
 
@@ -145,26 +151,38 @@ to your page is 3 simple steps in around 20 lines. Lets look at them.</p>
 in 6 images: <em>posx</em> for the front face on X axis, negx for the back side on the X axis, posy
 for the front on Y axis and so on.</p>
 
-<pre><code>var urlPrefix = "images/Bridge2/";
-var urls = [ urlPrefix + "posx.jpg", urlPrefix + "negx.jpg",
-    urlPrefix + "posy.jpg", urlPrefix + "negy.jpg",
-    urlPrefix + "posz.jpg", urlPrefix + "negz.jpg" ];
-var textureCube = THREE.ImageUtils.loadTextureCube( urls );
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">urlPrefix</span> <span class="o">=</span> <span class="s2">&quot;images/Bridge2/&quot;</span><span class="p">;</span>
+</div><div class='line'><span class="kd">var</span> <span class="nx">urls</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">urlPrefix</span> <span class="o">+</span> <span class="s2">&quot;posx.jpg&quot;</span><span class="p">,</span> <span class="nx">urlPrefix</span> <span class="o">+</span> <span class="s2">&quot;negx.jpg&quot;</span><span class="p">,</span>
+</div><div class='line'>    <span class="nx">urlPrefix</span> <span class="o">+</span> <span class="s2">&quot;posy.jpg&quot;</span><span class="p">,</span> <span class="nx">urlPrefix</span> <span class="o">+</span> <span class="s2">&quot;negy.jpg&quot;</span><span class="p">,</span>
+</div><div class='line'>    <span class="nx">urlPrefix</span> <span class="o">+</span> <span class="s2">&quot;posz.jpg&quot;</span><span class="p">,</span> <span class="nx">urlPrefix</span> <span class="o">+</span> <span class="s2">&quot;negz.jpg&quot;</span> <span class="p">];</span>
+</div><div class='line'><span class="kd">var</span> <span class="nx">textureCube</span> <span class="o">=</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">ImageUtils</span><span class="p">.</span><span class="nx">loadTextureCube</span><span class="p">(</span> <span class="nx">urls</span> <span class="p">);</span>
+</div></code></pre></td></tr></table></div>
 
 <h2>Step 2: Lets init the shadder</h2>
 
 <p>Then we init the shadder for the cube. It is rather standard, dont forget to init <code>tCube</code> uniform
 with your textures.</p>
 
-<pre><code>var shader = THREE.ShaderUtils.lib["cube"];
-shader.uniforms["tCube"].texture = textureCube; // textureCube has been init before
-var material = new THREE.MeshShaderMaterial({
-    fragmentShader  : shader.fragmentShader,
-    vertexShader    : shader.vertexShader,
-    uniforms        : shader.uniforms
-});
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">shader</span> <span class="o">=</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">ShaderUtils</span><span class="p">.</span><span class="nx">lib</span><span class="p">[</span><span class="s2">&quot;cube&quot;</span><span class="p">];</span>
+</div><div class='line'><span class="nx">shader</span><span class="p">.</span><span class="nx">uniforms</span><span class="p">[</span><span class="s2">&quot;tCube&quot;</span><span class="p">].</span><span class="nx">texture</span> <span class="o">=</span> <span class="nx">textureCube</span><span class="p">;</span> <span class="c1">// textureCube has been init before</span>
+</div><div class='line'><span class="kd">var</span> <span class="nx">material</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshShaderMaterial</span><span class="p">({</span>
+</div><div class='line'>    <span class="nx">fragmentShader</span>  <span class="o">:</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">fragmentShader</span><span class="p">,</span>
+</div><div class='line'>    <span class="nx">vertexShader</span>    <span class="o">:</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">vertexShader</span><span class="p">,</span>
+</div><div class='line'>    <span class="nx">uniforms</span>        <span class="o">:</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">uniforms</span>
+</div><div class='line'><span class="p">});</span>
+</div></code></pre></td></tr></table></div>
 
 <h2>Step 3: Lets Create the Cube Itself</h2>
 
@@ -172,11 +190,15 @@ var material = new THREE.MeshShaderMaterial({
 your camera is able to see that far.
 The last step is to add it to the scene, and we are done. Rather simple for such a cool effect i would say.</p>
 
-<pre><code>// build the skybox Mesh 
-skyboxMesh  = new THREE.Mesh( new THREE.CubeGeometry( 100000, 100000, 100000, 1, 1, 1, null, true ), material );
-// add it to the scene
-scene.addObject( skyboxMesh );
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="c1">// build the skybox Mesh </span>
+</div><div class='line'><span class="nx">skyboxMesh</span>  <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Mesh</span><span class="p">(</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">CubeGeometry</span><span class="p">(</span> <span class="mi">100000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">true</span> <span class="p">),</span> <span class="nx">material</span> <span class="p">);</span>
+</div><div class='line'><span class="c1">// add it to the scene</span>
+</div><div class='line'><span class="nx">scene</span><span class="p">.</span><span class="nx">addObject</span><span class="p">(</span> <span class="nx">skyboxMesh</span> <span class="p">);</span>
+</div></code></pre></td></tr></table></div>
 
 <h1>Conclusion</h1>
 
@@ -218,7 +240,7 @@ immersive effect. Use it and tweek it for fun :) Examples are there for that.</p
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky" data-via="jerome_etienne" data-counturl="http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/" data-via="jerome_etienne" data-counturl="http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/" >Tweet</a>
   
   
   <g:plusone size="medium"></g:plusone>
@@ -234,8 +256,8 @@ immersive effect. Use it and tweek it for fun :) Examples are there for that.</p
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'learningthreejs';
-  var disqus_identifier = 'http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky';
-  var disqus_url = 'http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky';
+  var disqus_identifier = 'http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/';
+  var disqus_url = 'http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -249,39 +271,39 @@ immersive effect. Use it and tweek it for fun :) Examples are there for that.</p
 
 </div>
 
-      
-        <aside role=sidebar><section>
+<aside role=sidebar>
+  
+    <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2011/08/15/lets-do-a-sky">Lets Do a Sky</a>
+        <a href="/blog/2011/08/15/lets-do-a-sky/">Lets Do a Sky</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos">dat-gui - Simple UI for Demos</a>
+        <a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos/">dat-gui - Simple UI for Demos</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/08/06/lets-do-a-cube">Lets Do a Cube</a>
+        <a href="/blog/2011/08/06/lets-do-a-cube/">Lets Do a Cube</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/07/28/presentation_at_parisjs">Presentation at parisjs</a>
+        <a href="/blog/2011/07/28/presentation_at_parisjs/">Presentation at parisjs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/07/15/threejs-installation">Three.js Installation</a>
+        <a href="/blog/2011/07/15/threejs-installation/">Three.js Installation</a>
       </li>
     
   </ul>
 </section>
 
-
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating...</li>
+    <li class="loading">Status updating&#8230;</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -297,16 +319,17 @@ immersive effect. Use it and tweek it for fun :) Examples are there for that.</p
 
 
 
-
-
+  
 </aside>
-      
+
+
     </div>
   </div>
   <footer><p>
   Copyright &copy; 2011 - Jerome Etienne -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
 </footer>
 </body>
 </html>

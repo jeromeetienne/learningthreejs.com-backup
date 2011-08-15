@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-08-15T16:24:36+02:00</updated>
+  <updated>2011-08-15T18:31:11+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -14,17 +14,17 @@
   
   <entry>
     <title>Lets Do a Sky</title>
-    <link href="http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky"/>
+    <link href="http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/"/>
     <updated>2011-08-15T12:26:00+02:00</updated>
     <id>http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky</id>
     <content type="html">&lt;p&gt;This tutorial is about doing a sky. It makes a nice panorama with a nice immersive effect.
 This is much simpler than people would expect : only 3 steps for a total around 20 lines.
-You can find a &lt;a href=&quot;/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt; of it. It may be a
+You can find a &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt; of it. It may be a
 easy addition to your effects. This is simple and efficient.&lt;/p&gt;
 
 &lt;h1&gt;Background&lt;/h1&gt;
 
-&lt;p&gt;&lt;img class='right ' src='/data/lets_do_a_sky/images/Panorama_cube_map.png' alt=' Close up ' title=' Close up '&gt;
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/lets_do_a_sky/images/Panorama_cube_map.png' width='' height='' alt='Close up' title='Close up'&gt;
 Technically this is called a &lt;a href=&quot;http://en.wikipedia.org/wiki/Cube_mapping&quot;&gt;cube mapping&lt;/a&gt;.
 Why that ? because the principle is so simple: we create a large cube, apply some images
 on each face of this cube and put the camera inside it. That's it.&lt;/p&gt;
@@ -36,8 +36,9 @@ where the camera will be positionned.
 On the &lt;em&gt;bottom right&lt;/em&gt;, you can see the same 3D scene, with the large cube and now the
 camera is inside.
 The kind of cross &lt;em&gt;on the top half&lt;/em&gt; are the images used as texture.
-Those are the ones which gonna be applied inside the large sky cube. If you go to the &lt;a href=&quot;/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;demo&lt;/a&gt;
-and open your browser debugger, look at downloaded images, you will see those 6 images.&lt;/p&gt;
+Those are the ones which gonna be applied inside the large sky cube. If you go to
+the &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;demo&lt;/a&gt;,
+open your browser debugger and look at downloaded images, you will see those 6 images.&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
@@ -53,6 +54,8 @@ to your page is 3 simple steps in around 20 lines. Lets look at them.&lt;/p&gt;
 in 6 images: &lt;em&gt;posx&lt;/em&gt; for the front face on X axis, negx for the back side on the X axis, posy
 for the front on Y axis and so on.&lt;/p&gt;
 
+&lt;p&gt;``` javascript&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;var urlPrefix = &quot;images/Bridge2/&quot;;
 var urls = [ urlPrefix + &quot;posx.jpg&quot;, urlPrefix + &quot;negx.jpg&quot;,
     urlPrefix + &quot;posy.jpg&quot;, urlPrefix + &quot;negy.jpg&quot;,
@@ -60,10 +63,14 @@ var urls = [ urlPrefix + &quot;posx.jpg&quot;, urlPrefix + &quot;negx.jpg&quot;,
 var textureCube = THREE.ImageUtils.loadTextureCube( urls );
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;```&lt;/p&gt;
+
 &lt;h2&gt;Step 2: Lets init the shadder&lt;/h2&gt;
 
 &lt;p&gt;Then we init the shadder for the cube. It is rather standard, dont forget to init &lt;code&gt;tCube&lt;/code&gt; uniform
 with your textures.&lt;/p&gt;
+
+&lt;p&gt;``` javascript&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var shader = THREE.ShaderUtils.lib[&quot;cube&quot;];
 shader.uniforms[&quot;tCube&quot;].texture = textureCube; // textureCube has been init before
@@ -74,11 +81,15 @@ var material = new THREE.MeshShaderMaterial({
 });
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;```&lt;/p&gt;
+
 &lt;h2&gt;Step 3: Lets Create the Cube Itself&lt;/h2&gt;
 
 &lt;p&gt;Now we create the large cube. The actual size is up to you. Note that you need to ensure
 your camera is able to see that far.
 The last step is to add it to the scene, and we are done. Rather simple for such a cool effect i would say.&lt;/p&gt;
+
+&lt;p&gt;``` javascript&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;// build the skybox Mesh 
 skyboxMesh  = new THREE.Mesh( new THREE.CubeGeometry( 100000, 100000, 100000, 1, 1, 1, null, true ), material );
@@ -86,11 +97,13 @@ skyboxMesh  = new THREE.Mesh( new THREE.CubeGeometry( 100000, 100000, 100000, 1,
 scene.addObject( skyboxMesh );
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;```&lt;/p&gt;
+
 &lt;h1&gt;Conclusion&lt;/h1&gt;
 
-&lt;p&gt;This tutorial explained how to do a sky using cube mapping. Additionnaly you can look at &lt;a href=&quot;/data/lets_do_a_sky/docs/lets_do_a_sky.html&quot;&gt;an anotated source of the demo&lt;/a&gt;
-especially the &lt;a href=&quot;/data/lets_do_a_sky/docs/lets_do_a_sky.html#section-10&quot;&gt;skybox section&lt;/a&gt;
-of the &lt;a href=&quot;/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt;. You may go out with your camera and
+&lt;p&gt;This tutorial explained how to do a sky using cube mapping. Additionnaly you can look at &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/docs/lets_do_a_sky.html&quot;&gt;an anotated source of the demo&lt;/a&gt;
+especially the &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/docs/lets_do_a_sky.html#section-10&quot;&gt;skybox section&lt;/a&gt;
+of the &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt;. You may go out with your camera and
 do your own cube images. Just use &lt;a href=&quot;http://hugin.sourceforge.net/&quot;&gt;Hugin&lt;/a&gt; later to stinch them back together.
 It takes around 20 lines, quite small source for such
 immersive effect. Use it and tweek it for fun :) Examples are there for that.&lt;/p&gt;
@@ -99,7 +112,7 @@ immersive effect. Use it and tweek it for fun :) Examples are there for that.&lt
   
   <entry>
     <title>dat-gui - Simple UI for Demos</title>
-    <link href="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos"/>
+    <link href="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/"/>
     <updated>2011-08-14T19:42:00+02:00</updated>
     <id>http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos</id>
     <content type="html">&lt;p&gt;&lt;a href=&quot;http://code.google.com/p/dat-gui/&quot;&gt;Dat.gui&lt;/a&gt;
@@ -108,14 +121,18 @@ demo to play with it. It is simple to code, yet cool and minimalist on the scree
 It is the blue vuemeters on the screenshot below. This post is a presentation of
 the library.&lt;/p&gt;
 
-&lt;p&gt;&lt;img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_integrated.png' alt=' Integrated ' title=' Integrated '&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/dat_gui_simple_ui_for_demos/datgui_integrated.png' width='' height='' alt='Integrated' title='Integrated'&gt;&lt;/p&gt;
 
 &lt;h2&gt;How to include it&lt;/h2&gt;
 
 &lt;p&gt;Simply include the library file in your page. Download it &lt;a href=&quot;http://code.google.com/p/dat-gui&quot;&gt;there&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;``` html&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;&amp;lt;script type='text/javascript' src='DAT.GUI.min.js'&amp;gt;&amp;lt;/script&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -124,12 +141,16 @@ the library.&lt;/p&gt;
 
 &lt;p&gt;First initialize the object itself. It will create the widget and display it on the
 screen top right corner. You can change this position if you wish (see &lt;code&gt;autoplace&lt;/code&gt;)
-&lt;img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_closeup.png' alt=' Close up ' title=' Close up '&gt;&lt;/p&gt;
+&lt;img class='right ' src='http://learningthreejs.com/data/dat_gui_simple_ui_for_demos/datgui_closeup.png' width='' height='' alt='Close up' title='Close up'&gt;&lt;/p&gt;
+
+&lt;p&gt;``` javascript&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var gui = new DAT.GUI({
     height : 5 * 32 - 1
 });
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
 
 &lt;p&gt;Here is the visual result on the right.
 The misterious &lt;code&gt;height&lt;/code&gt;parameter is the height of the widget. You have to set it manually.
@@ -141,15 +162,23 @@ The formula which worked for me has been &lt;code&gt;nline * 32 - 1&lt;/code&gt;
 &lt;p&gt;First we need to store the values of the variables, lets call that &lt;code&gt;params&lt;/code&gt;. It may be &lt;code&gt;this&lt;/code&gt; too, it depends
 of your personal style of code.&lt;/p&gt;
 
+&lt;p&gt;``` javascript&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;var params = {
     interation: 5000
 };
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;```&lt;/p&gt;
+
 &lt;p&gt;Let add a variable name &lt;code&gt;interation&lt;/code&gt; to the widget.&lt;/p&gt;
+
+&lt;p&gt;``` javascript&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;gui.add(params, 'interation')
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
 
 &lt;p&gt;It will add a line in the GUI widget.
 &lt;em&gt;dat.gui&lt;/em&gt; will see &lt;code&gt;params.iteration&lt;/code&gt; is a Number and thus &lt;em&gt;guess&lt;/em&gt; you want to display a slider for it.
@@ -161,21 +190,33 @@ will be changed accordingly. Up to you to know what to do with it.&lt;/p&gt;
 
 &lt;p&gt;You may be easy be notified of user changes with callbacks.  &lt;code&gt;onFinishChange&lt;/code&gt; is triggered once the value is changed.&lt;/p&gt;
 
+&lt;p&gt;``` javascript&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;gui.add(params, 'interation').onFinishChange(function(){
     // refresh based on the new value of params.interation
 })
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;```&lt;/p&gt;
+
 &lt;p&gt;You can customize further if needed. To change the label displayed on the variable line, use &lt;code&gt;.name(&quot;better label&quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;``` javascript&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;gui.add(params, 'interation').name('Intertions')
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;```&lt;/p&gt;
+
 &lt;p&gt;You can set up min/max limits and steps. This one will allows values from
 128 to 256, only if they are multiple of 16&lt;/p&gt;
 
+&lt;p&gt;``` javascript&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;gui.add(params, 'width').min(128).max(256).step(16)
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
 
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 
@@ -187,18 +228,18 @@ answer, &lt;a href=&quot;http://code.google.com/p/dat-gui/&quot;&gt;see details&
   
   <entry>
     <title>Lets Do a Cube</title>
-    <link href="http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube"/>
+    <link href="http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/"/>
     <updated>2011-08-06T00:00:00+02:00</updated>
     <id>http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube</id>
     <content type="html">&lt;p&gt;Here is the first lesson! I started with something real simple, a &lt;strong&gt;cube&lt;/strong&gt;.
 I wasnt sure how to present the lesson, so i did
-an &lt;a href=&quot;/data/lets_do_a_cube/docs/lets_do_a_cube.html&quot;&gt;annotated source of the example&lt;/a&gt;
+an &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_cube/docs/lets_do_a_cube.html&quot;&gt;annotated source of the example&lt;/a&gt;
 to get things started.
 I kept it small as possible to simplicity sake.
 It is only 70 lines of javascript for a &lt;em&gt;webgl simplistic demo&lt;/em&gt;. I hope it shows that webgl
 is quite accessible.&lt;/p&gt;
 
-&lt;p&gt;You can see this &lt;a href=&quot;/data/lets_do_a_cube/lets_do_a_cube.html&quot;&gt;example live&lt;/a&gt; or in the
+&lt;p&gt;You can see this &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_cube/lets_do_a_cube.html&quot;&gt;example live&lt;/a&gt; or in the
 screencast below.&lt;/p&gt;
 
 &lt;center&gt;
@@ -212,7 +253,7 @@ screencast below.&lt;/p&gt;
   
   <entry>
     <title>Presentation at parisjs</title>
-    <link href="http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs"/>
+    <link href="http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs/"/>
     <updated>2011-07-28T00:00:00+02:00</updated>
     <id>http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs</id>
     <content type="html">&lt;p&gt;&lt;a target='_blank' title='yfrog.com - Image And Video Hosting' href='http://yfrog.com/kg1g6rtj'&gt;&lt;img class=&quot;right&quot; src='http://a.yfrog.com/img736/5082/1g6rt.th.jpg' border='0'/&gt;&lt;/a&gt;&lt;/p&gt;
@@ -234,7 +275,7 @@ on the topic, it was fun, i will clearly do more :)&lt;/p&gt;
   
   <entry>
     <title>Three.js Installation</title>
-    <link href="http://learningthreejs.com/blog/2011/07/15/threejs-installation"/>
+    <link href="http://learningthreejs.com/blog/2011/07/15/threejs-installation/"/>
     <updated>2011-07-15T00:00:00+02:00</updated>
     <id>http://learningthreejs.com/blog/2011/07/15/threejs-installation</id>
     <content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/mrdoob/three.js&quot;&gt;Three.js&lt;/a&gt; is a 3D library in javascript. According
@@ -249,12 +290,9 @@ to &lt;a href=&quot;http://mrdoob.com/&quot;&gt;mrdoob&lt;/a&gt;, its author, th
 the following command&lt;/p&gt;
 
 &lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;how to get the source - example.sh &lt;/span&gt;&lt;/figcaption&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;git clone https://github.com/mrdoob/three.js.git
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/figure&gt;&lt;/div&gt;
+ &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;div class='line'&gt;git clone https://github.com/mrdoob/three.js.git
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;It will provide the whole source on your local disk. You are done, just point

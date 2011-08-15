@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7" manifest="default.appcache?v=1"><![endif]-->
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" manifest="default.appcache?v=1" lang="en"><!--<![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <title>Learning Three.js: dat-gui - Simple UI for Demos</title>
@@ -16,14 +16,13 @@
 
   
 
+  <link rel="canonical" href="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-  <link href="/atom.xml" rel="alternate" title="Learning Three.js" type="application/atom+xml"/>
+  <link href="http://feeds.feedburner.com/LearningThreejs" rel="alternate" title="Learning Three.js" type="application/atom+xml"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -60,6 +59,10 @@
   </script>
 
 
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body  >
@@ -69,6 +72,7 @@
     <h2>or WebGL for Dummies</h2>
   
 </hgroup>
+
 </header>
   <nav role=navigation><ul role=subscription data-subscription="rss">
   <li><a href="http://feeds.feedburner.com/LearningThreejs" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
@@ -82,9 +86,10 @@
 </form>
 <ul role=main-navigation>
   <li><a href="/about">About</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
   <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
 </ul>
+
 </nav>
   <div id="main">
     <div id="content">
@@ -115,14 +120,15 @@ demo to play with it. It is simple to code, yet cool and minimalist on the scree
 It is the blue vuemeters on the screenshot below. This post is a presentation of
 the library.</p>
 
-<p><img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_integrated.png' alt=' Integrated ' title=' Integrated '></p>
+<p><img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_integrated.png' width='' height='' alt='Integrated' title='Integrated'></p>
 
 <h2>How to include it</h2>
 
 <p>Simply include the library file in your page. Download it <a href="http://code.google.com/p/dat-gui">there</a></p>
 
-<pre><code>&lt;script type='text/javascript' src='DAT.GUI.min.js'&gt;&lt;/script&gt;
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src=</span><span class="s">&#39;DAT.GUI.min.js&#39;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</div></code></pre></td></tr></table></div>
 
 <!--more-->
 
@@ -131,12 +137,15 @@ the library.</p>
 
 <p>First initialize the object itself. It will create the widget and display it on the
 screen top right corner. You can change this position if you wish (see <code>autoplace</code>)
-<img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_closeup.png' alt=' Close up ' title=' Close up '></p>
+<img class='right ' src='/data/dat_gui_simple_ui_for_demos/datgui_closeup.png' width='' height='' alt='Close up' title='Close up'></p>
 
-<pre><code>var gui = new DAT.GUI({
-    height : 5 * 32 - 1
-});
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">gui</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DAT</span><span class="p">.</span><span class="nx">GUI</span><span class="p">({</span>
+</div><div class='line'>    <span class="nx">height</span> <span class="o">:</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">32</span> <span class="o">-</span> <span class="mi">1</span>
+</div><div class='line'><span class="p">});</span>
+</div></code></pre></td></tr></table></div>
 
 <p>Here is the visual result on the right.
 The misterious <code>height</code>parameter is the height of the widget. You have to set it manually.
@@ -148,15 +157,19 @@ The formula which worked for me has been <code>nline * 32 - 1</code>.</p>
 <p>First we need to store the values of the variables, lets call that <code>params</code>. It may be <code>this</code> too, it depends
 of your personal style of code.</p>
 
-<pre><code>var params = {
-    interation: 5000
-};
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nx">interation</span><span class="o">:</span> <span class="mi">5000</span>
+</div><div class='line'><span class="p">};</span>
+</div></code></pre></td></tr></table></div>
 
 <p>Let add a variable name <code>interation</code> to the widget.</p>
 
-<pre><code>gui.add(params, 'interation')
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">gui</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="s1">&#39;interation&#39;</span><span class="p">)</span>
+</div></code></pre></td></tr></table></div>
 
 <p>It will add a line in the GUI widget.
 <em>dat.gui</em> will see <code>params.iteration</code> is a Number and thus <em>guess</em> you want to display a slider for it.
@@ -168,21 +181,26 @@ will be changed accordingly. Up to you to know what to do with it.</p>
 
 <p>You may be easy be notified of user changes with callbacks.  <code>onFinishChange</code> is triggered once the value is changed.</p>
 
-<pre><code>gui.add(params, 'interation').onFinishChange(function(){
-    // refresh based on the new value of params.interation
-})
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">gui</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="s1">&#39;interation&#39;</span><span class="p">).</span><span class="nx">onFinishChange</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>    <span class="c1">// refresh based on the new value of params.interation</span>
+</div><div class='line'><span class="p">})</span>
+</div></code></pre></td></tr></table></div>
 
 <p>You can customize further if needed. To change the label displayed on the variable line, use <code>.name("better label")</code></p>
 
-<pre><code>gui.add(params, 'interation').name('Intertions')
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">gui</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="s1">&#39;interation&#39;</span><span class="p">).</span><span class="nx">name</span><span class="p">(</span><span class="s1">&#39;Intertions&#39;</span><span class="p">)</span>
+</div></code></pre></td></tr></table></div>
 
 <p>You can set up min/max limits and steps. This one will allows values from
 128 to 256, only if they are multiple of 16</p>
 
-<pre><code>gui.add(params, 'width').min(128).max(256).step(16)
-</code></pre>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">gui</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">).</span><span class="nx">min</span><span class="p">(</span><span class="mi">128</span><span class="p">).</span><span class="nx">max</span><span class="p">(</span><span class="mi">256</span><span class="p">).</span><span class="nx">step</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</div></code></pre></td></tr></table></div>
 
 <h2>Conclusion</h2>
 
@@ -221,7 +239,7 @@ answer, <a href="http://code.google.com/p/dat-gui/">see details</a> here.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos" data-via="jerome_etienne" data-counturl="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/" data-via="jerome_etienne" data-counturl="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/" >Tweet</a>
   
   
   <g:plusone size="medium"></g:plusone>
@@ -237,8 +255,8 @@ answer, <a href="http://code.google.com/p/dat-gui/">see details</a> here.</p>
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'learningthreejs';
-  var disqus_identifier = 'http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos';
-  var disqus_url = 'http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos';
+  var disqus_identifier = 'http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/';
+  var disqus_url = 'http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -252,39 +270,39 @@ answer, <a href="http://code.google.com/p/dat-gui/">see details</a> here.</p>
 
 </div>
 
-      
-        <aside role=sidebar><section>
+<aside role=sidebar>
+  
+    <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2011/08/15/lets-do-a-sky">Lets Do a Sky</a>
+        <a href="/blog/2011/08/15/lets-do-a-sky/">Lets Do a Sky</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos">dat-gui - Simple UI for Demos</a>
+        <a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos/">dat-gui - Simple UI for Demos</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/08/06/lets-do-a-cube">Lets Do a Cube</a>
+        <a href="/blog/2011/08/06/lets-do-a-cube/">Lets Do a Cube</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/07/28/presentation_at_parisjs">Presentation at parisjs</a>
+        <a href="/blog/2011/07/28/presentation_at_parisjs/">Presentation at parisjs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/07/15/threejs-installation">Three.js Installation</a>
+        <a href="/blog/2011/07/15/threejs-installation/">Three.js Installation</a>
       </li>
     
   </ul>
 </section>
 
-
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating...</li>
+    <li class="loading">Status updating&#8230;</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -300,16 +318,17 @@ answer, <a href="http://code.google.com/p/dat-gui/">see details</a> here.</p>
 
 
 
-
-
+  
 </aside>
-      
+
+
     </div>
   </div>
   <footer><p>
   Copyright &copy; 2011 - Jerome Etienne -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
 </footer>
 </body>
 </html>
