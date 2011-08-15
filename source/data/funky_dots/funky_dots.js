@@ -16,6 +16,8 @@ function buildGui(parameters, callback)
 		height	: 4 * 32 - 1
 	});
 
+	// FIXME disabled because i failed to make the number of points to change
+	// - ask mr doob
 	//gui.add(parameters, 'iterations').name('Iterations').min(1000).max(12000).step(1)
 	//	.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 	gui.add(parameters, 'interval').name('Interval').min(0.001).max(0.1)
@@ -35,14 +37,14 @@ function buildObjectParticlesWebgl(nParticles)
 		var geometry	= new THREE.Geometry();
 		geometry.colors = [];			
 		var material	= new THREE.ParticleBasicMaterial({
-			//map		: THREE.ImageUtils.loadTexture( "lensFlare/Flare2.png" ),
-			map		: THREE.ImageUtils.loadTexture( "ball.png" ),
+			map		: THREE.ImageUtils.loadTexture( "lensFlare/Flare1.png" ),
+			//map		: THREE.ImageUtils.loadTexture( "ball.png" ),
 			vertexColors	: true,
 			size		: 16,
 			blending	: THREE.AdditiveBlending,
 			transparent	: true
 		});
-		material.color.setRGB( 1.0, 0.5, 0.8 );
+		material.color.setRGB( 0.2, 1.0, 0.7 );
 		particleSys	= new THREE.ParticleSystem( geometry, material );
 		particleSys.sortParticles = true;
 		//particleSys.dynamic = true;
@@ -67,7 +69,6 @@ function buildObjectParticlesWebgl(nParticles)
 			geometry.colors.push( new THREE.Color( 0xffffff ) );
 		}
 
-console.log("particleSys", particleSys)
 		particleSys.geometry.__dirtyVertices = true;
 		particleSys.updateMatrix();
 	}
@@ -126,15 +127,10 @@ console.log("containerObj", containerObj, containerObj.children[0].geometry);
 	
 	for(var i = 0; i < parameters.iterations; i++) {
 		geometry.colors[i].setHSV(
-			Math.pow(0.005	, Math.abs(vertices[i].position.x / rangeX)) 	* 1,
-			Math.pow(0.002	, Math.abs(vertices[i].position.y / rangeY)) 	* 1,
-			Math.pow(0.005	, Math.abs(vertices[i].position.z / rangeZ))	* 0.9
+			Math.pow(0.09	, Math.abs(vertices[i].position.x / rangeX)) 	* 0.8,
+			Math.pow(0.002	, Math.abs(vertices[i].position.y / rangeY)) 	* 0.7,
+			Math.pow(0.05	, Math.abs(vertices[i].position.z / rangeZ))	* 0.6
 		);
-		//geometry.colors[i].setRGB(
-		//	Math.pow(0.005	, Math.abs(vertices[i].position.x / rangeX)) 	* 0.5,
-		//	Math.pow(0.002	, Math.abs(vertices[i].position.y / rangeY)) 	* 1,
-		//	Math.pow(0.005	, Math.abs(vertices[i].position.z / rangeZ))	* 0.5
-		//);
 	}
 })();
     
@@ -197,7 +193,7 @@ function init()
 	// maybe replace that by window... or something
 	var parameters = {
 		iterations	: 9000,
-		interval	: 0.008,
+		interval	: 0.012,
 		//iterations	: 2500,
 		//interval	: 0.02,
 		a		: 5,
