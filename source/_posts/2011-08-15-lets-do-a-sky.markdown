@@ -42,17 +42,20 @@ This will create the texture objects and download all the images. They are usual
 in 6 images: *posx* for the front face on X axis, negx for the back side on the X axis, posy
 for the front on Y axis and so on. 
 
+``` javascript
     var urlPrefix = "images/Bridge2/";
     var urls = [ urlPrefix + "posx.jpg", urlPrefix + "negx.jpg",
         urlPrefix + "posy.jpg", urlPrefix + "negy.jpg",
         urlPrefix + "posz.jpg", urlPrefix + "negz.jpg" ];
     var textureCube = THREE.ImageUtils.loadTextureCube( urls );
+```
 
 ## Step 2: Lets init the shadder
 
 Then we init the shadder for the cube. It is rather standard, dont forget to init ```tCube``` uniform
 with your textures.
 
+``` javascript
     var shader = THREE.ShaderUtils.lib["cube"];
     shader.uniforms["tCube"].texture = textureCube; // textureCube has been init before
     var material = new THREE.MeshShaderMaterial({
@@ -60,7 +63,7 @@ with your textures.
         vertexShader    : shader.vertexShader,
         uniforms        : shader.uniforms
     });
-
+```
 
 ## Step 3: Lets Create the Cube Itself
 
@@ -68,11 +71,12 @@ Now we create the large cube. The actual size is up to you. Note that you need t
 your camera is able to see that far. 
 The last step is to add it to the scene, and we are done. Rather simple for such a cool effect i would say.
 
+``` javascript
     // build the skybox Mesh 
     skyboxMesh	= new THREE.Mesh( new THREE.CubeGeometry( 100000, 100000, 100000, 1, 1, 1, null, true ), material );
     // add it to the scene
     scene.addObject( skyboxMesh );
-
+```
 
 # Conclusion
 

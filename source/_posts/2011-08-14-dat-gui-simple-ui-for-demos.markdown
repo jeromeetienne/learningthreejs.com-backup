@@ -18,7 +18,9 @@ the library.
 
 Simply include the library file in your page. Download it [there](http://code.google.com/p/dat-gui)
 
+``` html
     <script type='text/javascript' src='DAT.GUI.min.js'></script>
+```
 
 <!--more-->
 
@@ -28,9 +30,11 @@ First initialize the object itself. It will create the widget and display it on 
 screen top right corner. You can change this position if you wish (see ```autoplace```)
 {% img right /data/dat_gui_simple_ui_for_demos/datgui_closeup.png Close up %}
 
+``` javascript
     var gui = new DAT.GUI({
         height : 5 * 32 - 1
     });
+```
 
 Here is the visual result on the right.
 The misterious ```height```parameter is the height of the widget. You have to set it manually.
@@ -42,13 +46,17 @@ The formula which worked for me has been ```nline * 32 - 1```.
 First we need to store the values of the variables, lets call that ```params```. It may be ```this``` too, it depends
 of your personal style of code.
 
+``` javascript
     var params = {
         interation: 5000
     };
+```
 
 Let add a variable name ```interation``` to the widget.
 
+``` javascript
     gui.add(params, 'interation')
+```
 
 It will add a line in the GUI widget.
 *dat.gui* will see ```params.iteration``` is a Number and thus *guess* you want to display a slider for it.
@@ -61,19 +69,24 @@ will be changed accordingly. Up to you to know what to do with it.
 
 You may be easy be notified of user changes with callbacks.  ```onFinishChange``` is triggered once the value is changed.
 
+``` javascript
     gui.add(params, 'interation').onFinishChange(function(){
         // refresh based on the new value of params.interation
     })
-
+```
 
 You can customize further if needed. To change the label displayed on the variable line, use ```.name("better label")```
 
+``` javascript
     gui.add(params, 'interation').name('Intertions')
+```
 
 You can set up min/max limits and steps. This one will allows values from
 128 to 256, only if they are multiple of 16
 
+``` javascript
     gui.add(params, 'width').min(128).max(256).step(16)
+```
 
 ## Conclusion
 
