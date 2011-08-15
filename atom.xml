@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-08-15T15:08:07+02:00</updated>
+  <updated>2011-08-15T16:24:36+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -37,7 +37,7 @@ On the &lt;em&gt;bottom right&lt;/em&gt;, you can see the same 3D scene, with th
 camera is inside.
 The kind of cross &lt;em&gt;on the top half&lt;/em&gt; are the images used as texture.
 Those are the ones which gonna be applied inside the large sky cube. If you go to the &lt;a href=&quot;/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;demo&lt;/a&gt;
-and open your browser debugger, look at the image downloaded, you will see those 6 images.&lt;/p&gt;
+and open your browser debugger, look at downloaded images, you will see those 6 images.&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
@@ -45,7 +45,7 @@ and open your browser debugger, look at the image downloaded, you will see those
 &lt;h1&gt;Lets Code it Now!&lt;/h1&gt;
 
 &lt;p&gt;Now that we got an understanding of the background, lets code it. To add a skybox
-to your page is 3 simples steps in around 20lines. Lets look at them.&lt;/p&gt;
+to your page is 3 simple steps in around 20 lines. Lets look at them.&lt;/p&gt;
 
 &lt;h2&gt;Step 1: Lets load the cube textures&lt;/h2&gt;
 
@@ -90,7 +90,8 @@ scene.addObject( skyboxMesh );
 
 &lt;p&gt;This tutorial explained how to do a sky using cube mapping. Additionnaly you can look at &lt;a href=&quot;/data/lets_do_a_sky/docs/lets_do_a_sky.html&quot;&gt;an anotated source of the demo&lt;/a&gt;
 especially the &lt;a href=&quot;/data/lets_do_a_sky/docs/lets_do_a_sky.html#section-10&quot;&gt;skybox section&lt;/a&gt;
-of the &lt;a href=&quot;/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt;.
+of the &lt;a href=&quot;/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt;. You may go out with your camera and
+do your own cube images. Just use &lt;a href=&quot;http://hugin.sourceforge.net/&quot;&gt;Hugin&lt;/a&gt; later to stinch them back together.
 It takes around 20 lines, quite small source for such
 immersive effect. Use it and tweek it for fun :) Examples are there for that.&lt;/p&gt;
 </content>
