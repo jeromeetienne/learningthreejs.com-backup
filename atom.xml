@@ -4,13 +4,97 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-08-14T22:19:14+02:00</updated>
+  <updated>2011-08-15T15:08:07+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Lets Do a Sky</title>
+    <link href="http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky"/>
+    <updated>2011-08-15T12:26:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky</id>
+    <content type="html">&lt;p&gt;This tutorial is about doing a sky. It makes a nice panorama with a nice immersive effect.
+This is much simpler than people would expect : only 3 steps for a total around 20 lines.
+You can find a &lt;a href=&quot;/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt; of it. It may be a
+easy addition to your effects. This is simple and efficient.&lt;/p&gt;
+
+&lt;h1&gt;Background&lt;/h1&gt;
+
+&lt;p&gt;&lt;img class='right ' src='/data/lets_do_a_sky/images/Panorama_cube_map.png' alt=' Close up ' title=' Close up '&gt;
+Technically this is called a &lt;a href=&quot;http://en.wikipedia.org/wiki/Cube_mapping&quot;&gt;cube mapping&lt;/a&gt;.
+Why that ? because the principle is so simple: we create a large cube, apply some images
+on each face of this cube and put the camera inside it. That's it.&lt;/p&gt;
+
+&lt;p&gt;The illustration (from &lt;a href=&quot;http://en.wikipedia.org/wiki/User:SharkD/Images&quot;&gt;SharkD&lt;/a&gt; at &lt;a href=&quot;http://en.wikipedia.org/wiki/File:Panorama_cube_map.png&quot;&gt;wikipedia&lt;/a&gt;)
+on the right, may help understanding.
+On the &lt;em&gt;bottom left&lt;/em&gt;, you can see a 3D scene with a dot in the middle... This is
+where the camera will be positionned.
+On the &lt;em&gt;bottom right&lt;/em&gt;, you can see the same 3D scene, with the large cube and now the
+camera is inside.
+The kind of cross &lt;em&gt;on the top half&lt;/em&gt; are the images used as texture.
+Those are the ones which gonna be applied inside the large sky cube. If you go to the &lt;a href=&quot;/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;demo&lt;/a&gt;
+and open your browser debugger, look at the image downloaded, you will see those 6 images.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h1&gt;Lets Code it Now!&lt;/h1&gt;
+
+&lt;p&gt;Now that we got an understanding of the background, lets code it. To add a skybox
+to your page is 3 simples steps in around 20lines. Lets look at them.&lt;/p&gt;
+
+&lt;h2&gt;Step 1: Lets load the cube textures&lt;/h2&gt;
+
+&lt;p&gt;This will create the texture objects and download all the images. They are usually stored
+in 6 images: &lt;em&gt;posx&lt;/em&gt; for the front face on X axis, negx for the back side on the X axis, posy
+for the front on Y axis and so on.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var urlPrefix = &quot;images/Bridge2/&quot;;
+var urls = [ urlPrefix + &quot;posx.jpg&quot;, urlPrefix + &quot;negx.jpg&quot;,
+    urlPrefix + &quot;posy.jpg&quot;, urlPrefix + &quot;negy.jpg&quot;,
+    urlPrefix + &quot;posz.jpg&quot;, urlPrefix + &quot;negz.jpg&quot; ];
+var textureCube = THREE.ImageUtils.loadTextureCube( urls );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Step 2: Lets init the shadder&lt;/h2&gt;
+
+&lt;p&gt;Then we init the shadder for the cube. It is rather standard, dont forget to init &lt;code&gt;tCube&lt;/code&gt; uniform
+with your textures.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var shader = THREE.ShaderUtils.lib[&quot;cube&quot;];
+shader.uniforms[&quot;tCube&quot;].texture = textureCube; // textureCube has been init before
+var material = new THREE.MeshShaderMaterial({
+    fragmentShader  : shader.fragmentShader,
+    vertexShader    : shader.vertexShader,
+    uniforms        : shader.uniforms
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Step 3: Lets Create the Cube Itself&lt;/h2&gt;
+
+&lt;p&gt;Now we create the large cube. The actual size is up to you. Note that you need to ensure
+your camera is able to see that far.
+The last step is to add it to the scene, and we are done. Rather simple for such a cool effect i would say.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// build the skybox Mesh 
+skyboxMesh  = new THREE.Mesh( new THREE.CubeGeometry( 100000, 100000, 100000, 1, 1, 1, null, true ), material );
+// add it to the scene
+scene.addObject( skyboxMesh );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;This tutorial explained how to do a sky using cube mapping. Additionnaly you can look at &lt;a href=&quot;/data/lets_do_a_sky/docs/lets_do_a_sky.html&quot;&gt;an anotated source of the demo&lt;/a&gt;
+especially the &lt;a href=&quot;/data/lets_do_a_sky/docs/lets_do_a_sky.html#section-10&quot;&gt;skybox section&lt;/a&gt;
+of the &lt;a href=&quot;/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt;.
+It takes around 20 lines, quite small source for such
+immersive effect. Use it and tweek it for fun :) Examples are there for that.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>dat-gui - Simple UI for Demos</title>
@@ -74,8 +158,7 @@ will be changed accordingly. Up to you to know what to do with it.&lt;/p&gt;
 
 &lt;h2&gt;Lets Custom it Some More&lt;/h2&gt;
 
-&lt;p&gt;You may be easy be notified of user changes with callbacks.  &lt;code&gt;onFinishChange&lt;/code&gt; is triggered once the value is changed.
-&lt;code&gt;on&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You may be easy be notified of user changes with callbacks.  &lt;code&gt;onFinishChange&lt;/code&gt; is triggered once the value is changed.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;gui.add(params, 'interation').onFinishChange(function(){
     // refresh based on the new value of params.interation

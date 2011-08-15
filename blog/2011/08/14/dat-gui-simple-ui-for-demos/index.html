@@ -81,8 +81,9 @@
   </fieldset>
 </form>
 <ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
+  <li><a href="/about">About</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/">Blog</a></li>
 </ul>
 </nav>
   <div id="main">
@@ -165,8 +166,7 @@ will be changed accordingly. Up to you to know what to do with it.</p>
 
 <h2>Lets Custom it Some More</h2>
 
-<p>You may be easy be notified of user changes with callbacks.  <code>onFinishChange</code> is triggered once the value is changed.
-<code>on</code></p>
+<p>You may be easy be notified of user changes with callbacks.  <code>onFinishChange</code> is triggered once the value is changed.</p>
 
 <pre><code>gui.add(params, 'interation').onFinishChange(function(){
     // refresh based on the new value of params.interation
@@ -256,6 +256,10 @@ answer, <a href="http://code.google.com/p/dat-gui/">see details</a> here.</p>
         <aside role=sidebar><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/15/lets-do-a-sky">Lets Do a Sky</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos">dat-gui - Simple UI for Demos</a>
