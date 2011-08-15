@@ -26,14 +26,14 @@ On the *bottom right*, you can see the same 3D scene, with the large cube and no
 camera is inside.
 The kind of cross *on the top half* are the images used as texture.
 Those are the ones which gonna be applied inside the large sky cube. If you go to the [demo](/data/lets_do_a_sky/lets_do_a_sky.html)
-and open your browser debugger, look at the image downloaded, you will see those 6 images.
+and open your browser debugger, look at downloaded images, you will see those 6 images.
 
 <!-- more -->
 
 # Lets Code it Now!
 
 Now that we got an understanding of the background, lets code it. To add a skybox
-to your page is 3 simples steps in around 20lines. Lets look at them.
+to your page is 3 simple steps in around 20 lines. Lets look at them.
 
 ## Step 1: Lets load the cube textures
 
@@ -77,6 +77,7 @@ The last step is to add it to the scene, and we are done. Rather simple for such
 
 This tutorial explained how to do a sky using cube mapping. Additionnaly you can look at [an anotated source of the demo](/data/lets_do_a_sky/docs/lets_do_a_sky.html)
 especially the [skybox section](/data/lets_do_a_sky/docs/lets_do_a_sky.html#section-10)
-of the [live demo](/data/lets_do_a_sky/lets_do_a_sky.html).
+of the [live demo](/data/lets_do_a_sky/lets_do_a_sky.html). You may go out with your camera and
+do your own cube images. Just use [Hugin](http://hugin.sourceforge.net/) later to stinch them back together.
 It takes around 20 lines, quite small source for such
 immersive effect. Use it and tweek it for fun :) Examples are there for that.
