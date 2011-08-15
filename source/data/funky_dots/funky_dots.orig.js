@@ -28,6 +28,40 @@ function buildGui(parameters, callback)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 }
 
+function buildObjectSpriteWebgl(particles, nParticles)
+{
+	console.assert(useWebgl, "to be used only with webgl renderer")
+	if( nParticles < particles.length ){
+		// remove particles if needed
+		while( particles.length != nParticles ){
+			// remove a particle from the particles
+			var particle	= particles.pop();
+			// detach it from the Object3D containerObj
+			containerObj.removeChild(particle)
+		}
+	}else if( nParticles > particles.length ){
+		// add particles if needed
+		var toAdd	= nParticles - particles.length;
+		for(var i = 0; i < toAdd; i++){
+			var particle	= new THREE.Sprite({
+				map		: sprite,
+				useScreenCoordinates	: false,
+				//blending	: THREE.NormalBlending,
+				blending	: THREE.AdditiveBlending,
+				//blending	: THREE.SubtractiveBlending,
+				//blending	: THREE.MultiplyBlending,
+				//blending	: THREE.AdditiveAlphaBlending,
+			});
+			particle.scale.set(0.2, 0.2, 0.2);
+			particle.opactity	= 0.5;
+			// the new particle to particles
+			particles.push(particle);
+			// attache it to the Object3D containerObj
+			containerObj.addChild( particle );
+		}
+	}
+}
+
 function buildObjectParticlesWebgl(particles, nParticles)
 {
 	console.assert(useWebgl, "to be used only with webgl renderer")
@@ -47,8 +81,6 @@ function buildObjectParticlesWebgl(particles, nParticles)
 		geometry.colors = colors;
 /**
  * * issue on the addition removal
- *   * and because the estimatoin of the current number of dot is based on particles array
- *   * this array is not even used anymore
  * * this is because this is not the same function
  *   * vertices is an array, container is object3D 
  * * only does the webgl particles
@@ -64,14 +96,45 @@ function buildObjectParticlesWebgl(particles, nParticles)
 			colors[ i ] = new THREE.Color( 0xffffff );
 			//colors[ i ].setHSV( (x+s/2)/s, 1.0, 1.0 );
 		}
-		var material	= new THREE.ParticleBasicMaterial( { size: 8, map: sprite, vertexColors: true } );
-		//material.color.setHSV( 1.0, 0.2, 0.8 );
+		var material	= new THREE.ParticleBasicMaterial( { size: 16, map: sprite, vertexColors: true } );
+		material.color.setHSV( 1.0, 0.2, 0.8 );
 
 		var particleSys	= new THREE.ParticleSystem( geometry, material );
 		particleSys.sortParticles = true;
 console.log("particleSys", particleSys)
 		particleSys.updateMatrix();
 		containerObj.addChild( particleSys );
+	}
+}
+
+function buildObjectParticlesCanvas(particles, nParticles)
+{
+	if( nParticles < particles.length ){
+		// remove particles if needed
+		while( particles.length != nParticles ){
+			// remove a particle from the particles
+			var particle	= particles.pop();
+			// detach it from the Object3D containerObj
+			containerObj.removeChild(particle)
+		}
+	}else if( nParticles > particles.length ){
+		// add particles if needed
+		var toAdd	= nParticles - particles.length;
+		for(var i = 0; i < toAdd; i++){
+			var particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( {
+				color	: Math.random() * 0x808080 + 0x808080,
+				program	: function(context, color){
+					context.beginPath();
+					context.arc( 0, 0, 0.5, 0, Math.PI * 2, true );
+					context.closePath();
+					context.fill();		
+				}
+			} ) );
+			// the new particle to particles
+			particles.push(particle);
+			// attache it to the Object3D containerObj
+			containerObj.addChild( particle );
+		}
 	}
 }
 
@@ -84,9 +147,11 @@ function cpuDotLorentz(particles, opts)
 	console.assert( 'c' in opts )
 	console.assert( 'interval' in opts )
 
-	buildObjectParticlesWebgl(particles, opts.iterations)
+	if( !useWebgl )	buildObjectParticlesCanvas(particles, opts.iterations);
+	//else		buildObjectSpriteWebgl(particles, opts.iterations)
+	else		buildObjectParticlesWebgl(particles, opts.iterations)
 
-console.log("containerObj", containerObj, containerObj.children[0].geometry);
+console.log("containerObj", containerObj);
 
 	a	= opts.a;
 	b	= opts.b;
@@ -109,10 +174,11 @@ console.log("containerObj", containerObj, containerObj.children[0].geometry);
 		y	+= dy * interval;
 		z	+= dz * interval;
 		// get the coord for this particle
-		var vertex	= containerObj.children[0].geometry.vertices[i];
- 		vertex.position.x = x*scale;
-		vertex.position.y = y*scale;
-		vertex.position.z = (z-b)*scale;		
+		if( !useWebgl )	var particle	= particles[i];
+		else		var particle	= containerObj.children[0].geometry.vertices[i];
+ 		particle.position.x = x*scale;
+		particle.position.y = y*scale;
+		particle.position.z = (z-b)*scale;		
 	}
 return
 	/**
@@ -156,11 +222,14 @@ function init()
  * Use blending to make the color cooler good with webgl
 */
 
-	sprite = THREE.ImageUtils.loadTexture( "lensFlare/Flare2.png" );
+	if( useWebgl ){
+		//sprite = THREE.ImageUtils.loadTexture( "ball.png" );
+		sprite = THREE.ImageUtils.loadTexture( "lensFlare/Flare1.png" );
+	}
 	
 	// maybe replace that by window... or something
 	var parameters = {
-		iterations	: 10000,
+		iterations	: 1000,
 		interval	: 0.05,
 		//iterations	: 2500,
 		//interval	: 0.02,
@@ -182,11 +251,9 @@ function init()
 
 
 	// init the renderer
-	renderer	= new THREE.WebGLRenderer({
-		antialias		: true,
-		preserveDrawingBuffer	: true		
-	});
-	//renderer.sortObjects = true;
+	if( useWebgl )	renderer	= new THREE.WebGLRenderer();
+	else		renderer	= new THREE.CanvasRenderer();
+renderer.sortObjects = false;
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
 
@@ -202,7 +269,7 @@ function init()
 /**
  * Experimentation with toDataUrl on the 
 */
-if(true){
+if(false){
 	jQuery('body').click(function(){
 		THREEx.Screenshot.resizeTo(THREEx.Screenshot.toDataURL(renderer), 320, 240, function(imgUrl, error){
 			// put it on the DOM for debug
