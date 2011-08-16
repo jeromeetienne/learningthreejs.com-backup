@@ -6,18 +6,22 @@
 		<style type="text/css">
 			body {
 				background-color: #f0f0f0;
-				margin: 0px;
-				overflow: hidden;
+				margin		: 0px;
+				overflow	: hidden;
 			}
 			#info {
-				text-align:center;
-				z-index	: 1;
-				position: absolute;
-				top: 0px; width: 100%;
-				padding: 5px;
+				font-weight	: bolder
+				color		: #f0f0f0;
+				text-align	: center;
+				z-index		: 1;
+				position	: absolute;
+				top		: 0px;
+				width		: 100%;
+				padding		: 5px;
 			} 
 			a {
-				color: #0080bb;
+				font-weight	: bolder
+				color		: #F0F0FF;
 			}			
 		</style>
 	</head>
@@ -43,21 +47,17 @@
 			void main()
 			{
 				vec2 p		= -1.0 + 2.0 * gl_FragCoord.xy / resolution.xy;
-				float cossin1	= cos(p.x*c0+time) + sin(p.y*c3-time) + sin(time);
-				float cossin2	= cos(p.y*c1+time) + sin(p.x*c4-time) - cos(time);
-				float cossin3	= cos(p.x*c2+time) + sin(p.y*c5+time) + cos(time);
-
-				/*
-				float cossin1	= cos(p.x*5.0+time) + sin(p.y*7.0-time) + sin(time);
-				float cossin2	= cos(p.y*3.0+time) + sin(p.x*9.0-time) - cos(time);
-				float cossin3	= cos(p.x*11.0+time)+ sin(p.y*3.0+time) + cos(time);
-				*/
+				float cossin1	= cos(p.x*c0+sin(time)) * sin(p.y*c3*cos(time)) + sin(time);
+				float cossin2	= cos(p.y*c1+cos(time)) * sin(p.x*c4*sin(time)) - cos(time);
+				float cossin3	= cos(p.x*c2+sin(time)) + sin(p.y*c5+cos(time)) + cos(time);
+				
 				/*gl_FragColor	= vec4(1.0,0.0,0.0,1.0);*/
 				gl_FragColor	= vec4(cossin1*sin(p.x), cossin2*sin(p.y), cossin3*sin(p.x), 1.0);
+				//gl_FragColor	= vec4(cossin1*sin(p.x)*cos(p.y), 0, 0, 1.0);
 			}
 		</script>
 
-		<div id="info"><a href="/blog/2011/08/06/lets-do-a-cube/" target="_blank">LearningThree.js</a> - Lets do a cube demo</div> 
+		<div id="info"><a href="/blog/2011/08/06/lets-do-a-cube/" target="_blank">LearningThree.js</a> - Lets do a Plasma</div> 
 		<!-- include javascript files -->
 		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/build/Three.js"></script>
 		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/js/RequestAnimationFrame.js"></script>
