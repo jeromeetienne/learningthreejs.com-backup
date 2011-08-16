@@ -305,9 +305,9 @@ function render()
 	}
 	// animate the cube
 	if( true ){
-		containerObj.rotation.x += 0.3*0.02;
-		containerObj.rotation.y += 0.3*0.0225;
-		containerObj.rotation.z += 0.3*0.0175;		
+		containerObj.rotation.x += 0.4*0.02;
+		containerObj.rotation.y += 0.4*0.0225;
+		containerObj.rotation.z += 0.4*0.0175;		
 	}
 
 	// actually render the scene
