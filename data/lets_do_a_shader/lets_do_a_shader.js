@@ -65,7 +65,9 @@ function init() {
 	document.body.appendChild( container );
 
 	// init the WebGL renderer and append it to the Dom
-	renderer = new THREE.WebGLRenderer();
+	renderer = new THREE.WebGLRenderer({
+		antialias	: true
+	});
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
 	
