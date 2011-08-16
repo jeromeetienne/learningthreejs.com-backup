@@ -87,7 +87,6 @@ function init() {
 		var uniforms	= {
 			resolution	: {
 				type	: "v2",
-				//value	: new THREE.Vector2(window.innerWidth, window.innerHeight)
 				value	: new THREE.Vector2(userOpts.resolutionX, userOpts.resolutionY)
 			},
 			time	: { type : "f", value:  0.0 },
@@ -156,7 +155,7 @@ function render() {
 (function(){
 	var time	= (Date.now() - startTime)/1000;
 	var uniforms	= cube.materials[0].uniforms;
-	uniforms.time.value	= time*10*userOpts.speed;	
+	uniforms.time.value	= time*userOpts.speed;	
 	uniforms.resolution.value.set(userOpts.resolutionX, userOpts.resolutionY);
 	uniforms.c0.value	= userOpts.c0;	
 	uniforms.c1.value	= userOpts.c1;	
