@@ -42,15 +42,27 @@ function init() {
 			resolution	: {
 				type	: "v2",
 				value	: new THREE.Vector2(window.innerWidth, window.innerHeight)
+			},
+			time	: {
+				type	: "f",
+				value	: 0.0
 			}
 		};
 
 		var material	= new THREE.MeshShaderMaterial({
 			vertexShader	: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader	: document.getElementById( 'fragmentShader' ).textContent,
+			//fragmentShader	: document.getElementById( 'fragmentShaderCircle' ).textContent,
+			fragmentShader	: document.getElementById( 'fragmentShaderPlasma' ).textContent,
 			uniforms	: uniforms
 		});		
 	}
+/**
+ * How to make shader easier to use ?
+ * - need a js object on top ?
+ * - well isnt that Material ? like PlasmaMaterial ?
+ * - then make it super flexible.
+ * - port the other from adrien boeing ? attribute credits
+*/
 	
 
 	// create the Cube
@@ -91,6 +103,8 @@ function animate() {
 
 // ## Render the 3D Scene
 function render() {
+	var time = (Date.now() - startTime)/1000;
+	cube.materials[0].uniforms.time.value	= time;
 	// animate the cube
 	if( false ){
 		cube.rotation.x += 0.02;
