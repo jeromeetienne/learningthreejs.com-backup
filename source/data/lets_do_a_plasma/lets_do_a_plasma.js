@@ -11,11 +11,56 @@ var container;
 var camera, scene, renderer, stats;
 var cube;
 
+// maybe replace that by window... or something
+var userOpts	= {
+	speed		: 0.5,
+	resolutionX	: 1024,
+	resolutionY	: 1024,
+	c0		:  5.0,
+	c1		:  3.0,
+	c2		: 11.0,
+	c3		:  7.0,
+	c4		:  9.0,
+	c5		:  3.0
+
+};
+
 // ## bootstrap functions
 // initialiaze everything
 init();
 // make it move			
 animate();
+
+
+/**
+ * Build ui with Data.GUI
+*/
+function buildGui(parameters, callback)
+{
+	var gui = new DAT.GUI({
+		height	: 9 * 32 - 1
+	});
+
+	gui.add(parameters, 'speed').min(0).max(1)
+		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	gui.add(parameters, 'resolutionX').min(32).max(2048)
+		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	gui.add(parameters, 'resolutionY').min(32).max(2048)
+		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	gui.add(parameters, 'c0').min(1).max(15)
+		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	gui.add(parameters, 'c1').min(1).max(15)
+		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	gui.add(parameters, 'c2').min(1).max(15)
+		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	gui.add(parameters, 'c3').min(1).max(15)
+		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	gui.add(parameters, 'c4').min(1).max(15)
+		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	gui.add(parameters, 'c5').min(1).max(15)
+		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+}
+
 
 // ## Initialize everything
 function init() {
@@ -30,29 +75,33 @@ function init() {
 
 	// create the Scene
 	scene = new THREE.Scene();
-	
-	// basic material
-	if( false ){
-		var material	= new THREE.MeshNormalMaterial();		
-	}
+
+
+	// build the GUI 
+	buildGui(userOpts, function(){
+		//console.log("userOpts", JSON.stringify(userOpts, null, '\t'))
+	});
 	
 	// create the sphere's material
 	if( true ){
 		var uniforms	= {
 			resolution	: {
 				type	: "v2",
-				value	: new THREE.Vector2(window.innerWidth, window.innerHeight)
+				//value	: new THREE.Vector2(window.innerWidth, window.innerHeight)
+				value	: new THREE.Vector2(userOpts.resolutionX, userOpts.resolutionY)
 			},
-			time	: {
-				type	: "f",
-				value	: 0.0
-			}
+			time	: { type : "f", value:  0.0 },
+			c0	: { type : "f", value:  5.0 },
+			c1	: { type : "f", value:  3.0 },
+			c2	: { type : "f", value: 11.0 },
+			c3	: { type : "f", value:  7.0 },
+			c4	: { type : "f", value:  9.0 },
+			c5	: { type : "f", value:  3.0 }
 		};
 
 		var material	= new THREE.MeshShaderMaterial({
 			vertexShader	: document.getElementById( 'vertexShader' ).textContent,
-			//fragmentShader	: document.getElementById( 'fragmentShaderCircle' ).textContent,
-			fragmentShader	: document.getElementById( 'fragmentShaderPlasma' ).textContent,
+			fragmentShader	: document.getElementById( 'fragmentShader' ).textContent,
 			uniforms	: uniforms
 		});		
 	}
@@ -65,6 +114,7 @@ function init() {
 */
 	
 
+// TODO make a plan facing camera instead
 	// create the Cube
 	cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), material );
 	cube.position.y = 150;
@@ -103,8 +153,19 @@ function animate() {
 
 // ## Render the 3D Scene
 function render() {
-	var time = (Date.now() - startTime)/1000;
-	cube.materials[0].uniforms.time.value	= time;
+(function(){
+	var time	= (Date.now() - startTime)/1000;
+	var uniforms	= cube.materials[0].uniforms;
+	uniforms.time.value	= time*10*userOpts.speed;	
+	uniforms.resolution.value.set(userOpts.resolutionX, userOpts.resolutionY);
+	uniforms.c0.value	= userOpts.c0;	
+	uniforms.c1.value	= userOpts.c1;	
+	uniforms.c2.value	= userOpts.c2;	
+	uniforms.c3.value	= userOpts.c3;	
+	uniforms.c4.value	= userOpts.c4;	
+	uniforms.c5.value	= userOpts.c5;	
+})();
+
 	// animate the cube
 	if( false ){
 		cube.rotation.x += 0.02;
