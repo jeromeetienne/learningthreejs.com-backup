@@ -14,9 +14,9 @@ var cube;
 // maybe replace that by window... or something
 var userOpts	= {
 	range		: 450,
-	duration	: 2000,
+	duration	: 1000,
 	delay		: 0,
-	easing		: TWEEN.Easing.Elastic.EaseInOut
+	easing		: 'Linear.EaseNone'
 };
 
 
@@ -42,9 +42,9 @@ function buildGui(options, callback)
 
 	gui.add(options, 'range').name('Range').min(64).max(1024)
 		.onChange(change);
-	gui.add(options, 'duration').name('Duration').min(200).max(4000)
+	gui.add(options, 'duration').name('Duration (ms)').min(100).max(2000)
 		.onChange(change);
-	gui.add(options, 'delay').name('Delay').min(0).max(4000)
+	gui.add(options, 'delay').name('Delay (ms)').min(0).max(1000)
 		.onChange(change);
 
 
@@ -52,7 +52,8 @@ function buildGui(options, callback)
 	var easings	= {};
 	Object.keys(TWEEN.Easing).forEach(function(family){
 		Object.keys(TWEEN.Easing[family]).forEach(function(direction){
-			easings[family+'.'+direction]	= TWEEN.Easing[family][direction];
+			var name	= family+'.'+direction;
+			easings[name]	= name;
 		});
 	});
 	// add 'easing'
@@ -66,20 +67,24 @@ function setupTween()
 		cube.position.x = current.x;
 	}
 	var current	= { x: userOpts.range };
+
+console.log('easing', userOpts.easing);
 	
 	// remove previous tweens if needed
 	TWEEN.removeAll();
 	
+	// convert the string 
+	var easing	= TWEEN.Easing[userOpts.easing.split('.')[0]][userOpts.easing.split('.')[1]];
 	var tweenHead	= new TWEEN.Tween(current)
 		.to({x: -userOpts.range}, userOpts.duration)
 		.delay(userOpts.delay)
-		.easing(userOpts.easing)
+		.easing(easing)
 		.onUpdate(update);
 
 	var tweenBack	= new TWEEN.Tween(current)
 		.to({x: userOpts.range}, userOpts.duration)
 		.delay(userOpts.delay)
-		.easing(userOpts.easing)
+		.easing(easing)
 		.onUpdate(update);
 
 	// after tweenHead do tweenBack
@@ -110,7 +115,7 @@ function init() {
 	});
 
 	// create the Cube
-	cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), new THREE.MeshNormalMaterial() );
+	cube = new THREE.Mesh( new THREE.SphereGeometry( 200 ), new THREE.MeshNormalMaterial() );
 
 	setupTween();
 
