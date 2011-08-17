@@ -40,7 +40,7 @@ function buildGui(options, callback)
 		callback(options)
 	}
 
-	gui.add(options, 'range').name('Range').min(64).max(1280)
+	gui.add(options, 'range').name('Range coordinate').min(64).max(1280)
 		.onChange(change);
 	gui.add(options, 'duration').name('Duration (ms)').min(100).max(3000)
 		.onChange(change);
@@ -57,7 +57,7 @@ function buildGui(options, callback)
 		});
 	});
 	// add 'easing'
-	gui.add(options, 'easing').name('Easing').options(easings)
+	gui.add(options, 'easing').name('Easing Curve').options(easings)
 		.onChange(change);
 }
 

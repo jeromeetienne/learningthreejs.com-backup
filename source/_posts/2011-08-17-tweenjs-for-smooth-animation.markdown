@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Tweenjs for Smooth Animation"
+title: "Tween.js for Smooth Animation"
 date: 2011-08-17 10:16
 comments: true
 categories: [demo, library]
@@ -14,17 +14,24 @@ Show, dont tell, here is a [demo](/data/tweenjs_for_smooth_animation/tweenjs_for
 using tween.js
 
 
-# What is tween
+# Tweening... what's that ?
 
-From [wikipedia article](http://en.wikipedia.org/wiki/Tweening), *tweening* is an abreviation of *inbetweening* :)
-So what is a tween ? It is a interpolation between 2 values, from ```a``` to ```b``` or from source to target.
-The tween will simply generate the needed values needed inbetween those 2 limits.
-TODO find a visual example. do it with javascript on the example page
+{% img right /data/tweenjs_for_smooth_animation/images/tweenjs-linear-easenone.png Linear %}
 
-The obvious function is the linear one, but [many other exist](http://sole.github.com/tween.js/examples/03_graphs.html).
+From [wikipedia article](http://en.wikipedia.org/wiki/Tweening), *tweening* is an abreviation of *inbetweening*, i
+dont know why but i find that funny maybe between *inbetweening* isnt a word to begin with :)
+Lets get back to business, what is a tween ? It is a interpolation between 2 values, from ```a``` to ```b``` or from source to target.
+The tween will simply generate the needed values needed inbetween those 2 limits. It will be done according to a
+special function. The one on the right is the linear, the most obvious one, straight and simple.
 
+{% img right /data/tweenjs_for_smooth_animation/images/tweenjs-cubic-easeinout.png Cubic EaseInOut %}
+{% img left /data/tweenjs_for_smooth_animation/images/tweenjs-elastic-easeinout.png Elastic EaseInOut %}
 
+But some are more funky, you can
+see *Cubic EaseInOut* on the right and *Elastic EaseInOut* on the left.
+Many others exist for our delight as you can see [here](http://sole.github.com/tween.js/examples/03_graphs.html).
 
+<!--more -->
 
 ## How to include it
 
