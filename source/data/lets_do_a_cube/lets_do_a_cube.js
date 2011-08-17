@@ -24,16 +24,13 @@ function init() {
 
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-	camera.position.y = 150;
 	camera.position.z = 350;
-	camera.target.position.y = 150;
 
 	// create the Scene
 	scene = new THREE.Scene();
 
 	// create the Cube
 	cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), new THREE.MeshNormalMaterial() );
-	cube.position.y = 150;
 
 	// add the object to the scene
 	scene.addObject( cube );
