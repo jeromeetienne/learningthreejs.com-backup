@@ -14,7 +14,7 @@ var cube;
 // maybe replace that by window... or something
 var userOpts	= {
 	range		: 800,
-	duration	: 1500,
+	duration	: 2500,
 	delay		: 200,
 	easing		: 'Elastic.EaseInOut'
 };
@@ -42,7 +42,7 @@ function buildGui(options, callback)
 
 	gui.add(options, 'range').name('Range coordinate').min(64).max(1280)
 		.onChange(change);
-	gui.add(options, 'duration').name('Duration (ms)').min(100).max(3000)
+	gui.add(options, 'duration').name('Duration (ms)').min(100).max(4000)
 		.onChange(change);
 	gui.add(options, 'delay').name('Delay (ms)').min(0).max(1000)
 		.onChange(change);
