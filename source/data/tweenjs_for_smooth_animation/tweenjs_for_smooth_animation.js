@@ -1,7 +1,7 @@
 // This source is the javascript needed to build a simple moving
 // cube in **three.js** based on this
 // [example](https://raw.github.com/mrdoob/three.js/master/examples/canvas_geometry_cube.html)
-// It is the source about this [blog post](/blog/2011/08/06/lets-do-a-cube/).
+// It is the source about this [blog post](/blog/2011/08/17/tweenjs-for-smooth-animation/).
 
 // ## Now lets start
 
@@ -13,10 +13,10 @@ var cube;
 
 // maybe replace that by window... or something
 var userOpts	= {
-	range		: 450,
-	duration	: 1000,
-	delay		: 0,
-	easing		: 'Linear.EaseNone'
+	range		: 900,
+	duration	: 2000,
+	delay		: 200,
+	easing		: 'Elastic.EaseInOut'
 };
 
 
@@ -40,9 +40,9 @@ function buildGui(options, callback)
 		callback(options)
 	}
 
-	gui.add(options, 'range').name('Range').min(64).max(1024)
+	gui.add(options, 'range').name('Range').min(64).max(1280)
 		.onChange(change);
-	gui.add(options, 'duration').name('Duration (ms)').min(100).max(2000)
+	gui.add(options, 'duration').name('Duration (ms)').min(100).max(3000)
 		.onChange(change);
 	gui.add(options, 'delay').name('Delay (ms)').min(0).max(1000)
 		.onChange(change);
