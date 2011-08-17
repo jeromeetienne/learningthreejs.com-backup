@@ -13,8 +13,8 @@ var cube;
 
 // maybe replace that by window... or something
 var userOpts	= {
-	range		: 900,
-	duration	: 2000,
+	range		: 800,
+	duration	: 1500,
 	delay		: 200,
 	easing		: 'Elastic.EaseInOut'
 };
@@ -34,7 +34,7 @@ animate();
 function buildGui(options, callback)
 {
 	var gui = new DAT.GUI({
-		height	: 3 * 32 - 1 + 28
+		height	: 4 * 32 - 1
 	});
 	var change	= function(){
 		callback(options)
@@ -66,7 +66,7 @@ function setupTween()
 	var update	= function(){
 		cube.position.x = current.x;
 	}
-	var current	= { x: userOpts.range };
+	var current	= { x: -userOpts.range };
 
 console.log('easing', userOpts.easing);
 	
@@ -76,13 +76,13 @@ console.log('easing', userOpts.easing);
 	// convert the string 
 	var easing	= TWEEN.Easing[userOpts.easing.split('.')[0]][userOpts.easing.split('.')[1]];
 	var tweenHead	= new TWEEN.Tween(current)
-		.to({x: -userOpts.range}, userOpts.duration)
+		.to({x: +userOpts.range}, userOpts.duration)
 		.delay(userOpts.delay)
 		.easing(easing)
 		.onUpdate(update);
 
 	var tweenBack	= new TWEEN.Tween(current)
-		.to({x: userOpts.range}, userOpts.duration)
+		.to({x: -userOpts.range}, userOpts.duration)
 		.delay(userOpts.delay)
 		.easing(easing)
 		.onUpdate(update);
@@ -114,36 +114,12 @@ function init() {
 		setupTween();
 	});
 
-	// create the Cube
-	cube = new THREE.Mesh( new THREE.SphereGeometry( 200 ), new THREE.MeshNormalMaterial() );
-
+	// initial setup of the tweens
 	setupTween();
 
-(function(){
-	return;
-	var mesh	= cube;
-	var update	= function(){
-		mesh.position.x = position.x;
-	}
-
-	var position	= {x: 450};
-	var tween = new TWEEN.Tween(position)
-		.to({x: -450}, 3000)
-		.delay(1000)
-		.easing(TWEEN.Easing.Elastic.EaseInOut)
-		.onUpdate(update);
-
-	var tweenBack = new TWEEN.Tween(position)
-		.to({x: 450}, 2000)
-		.delay(1000)
-		.easing(TWEEN.Easing.Elastic.EaseInOut)
-		.onUpdate(update);
-
-	tween.chain(tweenBack);
-	tweenBack.chain(tween);
-	
-	tween.start();
-})();
+	// create the Cube
+	cube = new THREE.Mesh( new THREE.SphereGeometry( 200, 48, 32 ), new THREE.MeshNormalMaterial() );
+	cube.position.x = -userOpts.range;
 
 	// add the object to the scene
 	scene.addObject( cube );

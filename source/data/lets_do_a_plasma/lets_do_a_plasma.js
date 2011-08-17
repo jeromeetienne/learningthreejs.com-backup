@@ -34,30 +34,30 @@ animate();
 /**
  * Build ui with Data.GUI
 */
-function buildGui(parameters, callback)
+function buildGui(options, callback)
 {
 	var gui = new DAT.GUI({
 		height	: 9 * 32 - 1
 	});
 
-	gui.add(parameters, 'speed').min(0).max(1)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'resolutionX').min(32).max(3096)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'resolutionY').min(32).max(3096)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c0').min(0.1).max(8)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c1').min(0.1).max(8)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c2').min(0.1).max(8)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c3').min(0.1).max(8)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c4').min(0.1).max(8)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c5').min(0.1).max(8)
-		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
+	gui.add(options, 'speed').min(0).max(1)
+		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
+	gui.add(options, 'resolutionX').min(32).max(3096)
+		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
+	gui.add(options, 'resolutionY').min(32).max(3096)
+		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
+	gui.add(options, 'c0').min(0.1).max(8)
+		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
+	gui.add(options, 'c1').min(0.1).max(8)
+		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
+	gui.add(options, 'c2').min(0.1).max(8)
+		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
+	gui.add(options, 'c3').min(0.1).max(8)
+		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
+	gui.add(options, 'c4').min(0.1).max(8)
+		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
+	gui.add(options, 'c5').min(0.1).max(8)
+		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
 }
 
 

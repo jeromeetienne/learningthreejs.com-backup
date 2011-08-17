@@ -232,13 +232,13 @@ function animate() {
 	// render the 3D scene
 	render();
 
-	// update the tweens
-	TWEEN.update();
 	// relaunch the 'timer' 
 	requestAnimationFrame( animate );
 	
 	// update the stats
 	stats.update();
+	// update the tweens
+	TWEEN.update();
 }
 
 

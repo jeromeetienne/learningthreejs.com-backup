@@ -6,22 +6,24 @@ comments: true
 categories: [demo, library]
 ---
 
-[tween.js](https://github.com/sole/tween.js) is a library which provides the basics to
-animate your demo.
-According to [sole](https://github.com/sole), the author, **tween.js**
-is a javascript tweening engine which is
-"Super simple, fast and easy to use tweening engine which incorporates optimised Robert Penner's equations."
+This post presents [tween.js](https://github.com/sole/tween.js) and how you can use it to easily smooth your animation.
+**tween.js** is a "super simple, fast and easy to use tweening engine" from [sole](https://github.com/sole).
+It provides tweening and full blown animations thanks to chaining. Lets get started!
 
-Show, dont tell, here is a [demo](/data/tweenjs-for-smooth-animation/tweenjs-for-smooth-animation.html)
+Show, dont tell, here is a [demo](/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html)
 using tween.js
 
-This post explains how to use it in your webgl demos, but tween.js scope is larger than that. It
-can be used for any tweening.
 
-* About demo, simply put a dat.gui with tuning with a live animation on the screen
-* simply. go back and forth at first
-* tune the easing, delay, duration, etc....
-* something simple, maybe with a lot of particule, just to see it something nice on screen
+# What is tween
+
+From [wikipedia article](http://en.wikipedia.org/wiki/Tweening), *tweening* is an abreviation of *inbetweening* :)
+So what is a tween ? It is a interpolation between 2 values, from ```a``` to ```b``` or from source to target.
+The tween will simply generate the needed values needed inbetween those 2 limits.
+TODO find a visual example. do it with javascript on the example page
+
+The obvious function is the linear one, but [many other exist](http://sole.github.com/tween.js/examples/03_graphs.html).
+
+
 
 
 ## How to include it
@@ -32,11 +34,19 @@ Simply include the library file in your page. Download it [there](https://github
     <script type='text/javascript' src='tween.js'></script>
 ```
 
-# How to customize a tween
+# How to use it
+
+First we create the tween object
+ 
+``` javascript
+    new TWEEN.Tween(current).to(target}, duration)
+```
 
 # how to chain tweens
 
-It allow longer animation
+For longer, more varied animations, you can chain multiple tweens. They
+will be executed one after the other. Thus to have
+
 
 <!--more-->
 
