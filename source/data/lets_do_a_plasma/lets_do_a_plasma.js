@@ -68,8 +68,8 @@ function init() {
 
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-	camera.position.z = 120;
-	camera.position.z = 200;
+	camera.position.z = 100;
+	//camera.position.z = 200;
 
 	// create the Scene
 	scene = new THREE.Scene();
@@ -162,7 +162,7 @@ function render() {
 })();
 
 	// animate the planeMesh
-	if( true ){
+	if( false ){
 		//planeMesh.rotation.x += 0.02;
 		//planeMesh.rotation.y += 0.0225;
 		planeMesh.rotation.z += 0.0175;
