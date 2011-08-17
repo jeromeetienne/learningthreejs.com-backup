@@ -1,6 +1,6 @@
 // This source is the javascript needed to build a simple moving
-// cube in **three.js** based on this
-// [example](https://raw.github.com/mrdoob/three.js/master/examples/canvas_geometry_cube.html)
+// planeMesh in **three.js** based on this
+// [example](https://raw.github.com/mrdoob/three.js/master/examples/canvas_geometry_planeMesh.html)
 // It is the source about this [blog post](/blog/2011/08/06/lets-do-a-cube/).
 
 // ## Now lets start
@@ -9,7 +9,7 @@
 var startTime	= Date.now();
 var container;
 var camera, scene, renderer, stats;
-var cube;
+var planeMesh;
 
 // maybe replace that by window... or something
 var userOpts	= {
@@ -22,7 +22,6 @@ var userOpts	= {
 	c3		:  7.0,
 	c4		:  9.0,
 	c5		:  3.0
-
 };
 
 // ## bootstrap functions
@@ -69,9 +68,8 @@ function init() {
 
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-	camera.position.y = 150;
 	camera.position.z = 120;
-	camera.target.position.y = 150;
+	camera.position.z = 200;
 
 	// create the Scene
 	scene = new THREE.Scene();
@@ -82,28 +80,26 @@ function init() {
 		//console.log("userOpts", JSON.stringify(userOpts, null, '\t'))
 	});
 	
-	// create the sphere's material
-	if( true ){
-		var uniforms	= {
-			resolution	: {
-				type	: "v2",
-				value	: new THREE.Vector2(userOpts.resolutionX, userOpts.resolutionY)
-			},
-			time	: { type : "f", value:  0.0 },
-			c0	: { type : "f", value:  5.0 },
-			c1	: { type : "f", value:  3.0 },
-			c2	: { type : "f", value: 11.0 },
-			c3	: { type : "f", value:  7.0 },
-			c4	: { type : "f", value:  9.0 },
-			c5	: { type : "f", value:  3.0 }
-		};
+	// create the material
+	var uniforms	= {
+		resolution	: {
+			type	: "v2",
+			value	: new THREE.Vector2(userOpts.resolutionX, userOpts.resolutionY)
+		},
+		time	: { type : "f", value:  0.0 },
+		c0	: { type : "f", value:  5.0 },
+		c1	: { type : "f", value:  3.0 },
+		c2	: { type : "f", value: 11.0 },
+		c3	: { type : "f", value:  7.0 },
+		c4	: { type : "f", value:  9.0 },
+		c5	: { type : "f", value:  3.0 }
+	};
 
-		var material	= new THREE.MeshShaderMaterial({
-			vertexShader	: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader	: document.getElementById( 'fragmentShader' ).textContent,
-			uniforms	: uniforms
-		});		
-	}
+	var material	= new THREE.MeshShaderMaterial({
+		vertexShader	: document.getElementById( 'vertexShader' ).textContent,
+		fragmentShader	: document.getElementById( 'fragmentShader' ).textContent,
+		uniforms	: uniforms
+	});		
 /**
  * How to make shader easier to use ?
  * - need a js object on top ?
@@ -114,12 +110,11 @@ function init() {
 	
 
 // TODO make a plan facing camera instead
-	// create the Cube
-	cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), material );
-	cube.position.y = 150;
+	// create the Mesh
+	planeMesh = new THREE.Mesh( new THREE.PlaneGeometry( 400, 300 ), material );
 
 	// add the object to the scene
-	scene.addObject( cube );
+	scene.addObject( planeMesh );
 
 	// create the container element
 	container = document.createElement( 'div' );
@@ -154,7 +149,7 @@ function animate() {
 function render() {
 (function(){
 	var time	= (Date.now() - startTime)/1000;
-	var uniforms	= cube.materials[0].uniforms;
+	var uniforms	= planeMesh.materials[0].uniforms;
 	uniforms.time.value	= time*userOpts.speed;	
 	uniforms.resolution.value.set(userOpts.resolutionX, userOpts.resolutionY);
 	uniforms.c0.value	= userOpts.c0;	
@@ -165,18 +160,18 @@ function render() {
 	uniforms.c5.value	= userOpts.c5;	
 })();
 
-	// animate the cube
-	if( false ){
-		cube.rotation.x += 0.02;
-		cube.rotation.y += 0.0225;
-		cube.rotation.z += 0.0175;
+	// animate the planeMesh
+	if( true ){
+		//planeMesh.rotation.x += 0.02;
+		//planeMesh.rotation.y += 0.0225;
+		planeMesh.rotation.z += 0.0175;
 	}
-	// make the cube bounce
+	// make the planeMesh bounce
 	if( false ){
 		var dtime	= Date.now() - startTime;
-		cube.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
-		cube.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
-		cube.scale.z	= 1.0 + 0.3*Math.sin(dtime/300);		
+		planeMesh.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
+		planeMesh.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
+		planeMesh.scale.z	= 1.0 + 0.3*Math.sin(dtime/300);		
 	}
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
