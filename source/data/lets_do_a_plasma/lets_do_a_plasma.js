@@ -43,21 +43,21 @@ function buildGui(parameters, callback)
 
 	gui.add(parameters, 'speed').min(0).max(1)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'resolutionX').min(32).max(2048)
+	gui.add(parameters, 'resolutionX').min(32).max(3096)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'resolutionY').min(32).max(2048)
+	gui.add(parameters, 'resolutionY').min(32).max(3096)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c0').min(1).max(15)
+	gui.add(parameters, 'c0').min(0.1).max(8)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c1').min(1).max(15)
+	gui.add(parameters, 'c1').min(0.1).max(8)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c2').min(1).max(15)
+	gui.add(parameters, 'c2').min(0.1).max(8)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c3').min(1).max(15)
+	gui.add(parameters, 'c3').min(0.1).max(8)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c4').min(1).max(15)
+	gui.add(parameters, 'c4').min(0.1).max(8)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
-	gui.add(parameters, 'c5').min(1).max(15)
+	gui.add(parameters, 'c5').min(0.1).max(8)
 		.onFinishChange(function(){callback(parameters)}).onChange(function(){callback(parameters)});
 }
 
@@ -127,7 +127,8 @@ function init() {
 
 	// init the WebGL renderer and append it to the Dom
 	renderer = new THREE.WebGLRenderer({
-		antialias	: true
+		antialias		: true,
+		preserveDrawingBuffer	: true
 	});
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
@@ -155,7 +156,7 @@ function render() {
 (function(){
 	var time	= (Date.now() - startTime)/1000;
 	var uniforms	= cube.materials[0].uniforms;
-	uniforms.time.value	= time*userOpts.speed;	
+	uniforms.time.value	= time*5*userOpts.speed;	
 	uniforms.resolution.value.set(userOpts.resolutionX, userOpts.resolutionY);
 	uniforms.c0.value	= userOpts.c0;	
 	uniforms.c1.value	= userOpts.c1;	

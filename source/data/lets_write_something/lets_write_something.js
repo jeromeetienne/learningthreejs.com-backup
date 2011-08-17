@@ -182,6 +182,11 @@ if(false){
 	});
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
+
+	renderer = new THREE.WebGLRenderer({
+		antialias		: true,
+		preserveDrawingBuffer	: true
+	});
 	
 	
 	// init the Stats and append it to the Dom - performance vuemeter
