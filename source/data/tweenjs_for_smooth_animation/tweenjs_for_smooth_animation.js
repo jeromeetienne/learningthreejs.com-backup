@@ -19,14 +19,6 @@ var userOpts	= {
 	easing		: TWEEN.Easing.Elastic.EaseInOut
 };
 
-// collect all available easing in TWEEN library
-var easings	= [];
-Object.keys(TWEEN.Easing).forEach(function(family){
-	Object.keys(TWEEN.Easing[family]).forEach(function(direction){
-		easings.push(family+'.'+direction);
-	});
-});
-console.log("easings", easings)
 
 
 // ## bootstrap functions
@@ -34,6 +26,70 @@ console.log("easings", easings)
 init();
 // make it move			
 animate();
+
+
+/**
+ * Build ui with Data.GUI
+*/
+function buildGui(options, callback)
+{
+	var gui = new DAT.GUI({
+		height	: 3 * 32 - 1 + 28
+	});
+	var change	= function(){
+		callback(options)
+	}
+
+	gui.add(options, 'range').name('Range').min(64).max(1024)
+		.onChange(change);
+	gui.add(options, 'duration').name('Duration').min(200).max(4000)
+		.onChange(change);
+	gui.add(options, 'delay').name('Delay').min(0).max(4000)
+		.onChange(change);
+
+
+	// collect all available easing in TWEEN library
+	var easings	= {};
+	Object.keys(TWEEN.Easing).forEach(function(family){
+		Object.keys(TWEEN.Easing[family]).forEach(function(direction){
+			easings[family+'.'+direction]	= TWEEN.Easing[family][direction];
+		});
+	});
+	// add 'easing'
+	gui.add(options, 'easing').name('Easing').options(easings)
+		.onChange(change);
+}
+
+function setupTween()
+{
+	var update	= function(){
+		cube.position.x = current.x;
+	}
+	var current	= { x: userOpts.range };
+	
+	// remove previous tweens if needed
+	TWEEN.removeAll();
+	
+	var tweenHead	= new TWEEN.Tween(current)
+		.to({x: -userOpts.range}, userOpts.duration)
+		.delay(userOpts.delay)
+		.easing(userOpts.easing)
+		.onUpdate(update);
+
+	var tweenBack	= new TWEEN.Tween(current)
+		.to({x: userOpts.range}, userOpts.duration)
+		.delay(userOpts.delay)
+		.easing(userOpts.easing)
+		.onUpdate(update);
+
+	// after tweenHead do tweenBack
+	tweenHead.chain(tweenBack);
+	// after tweenBack do tweenHead, so it is cycling
+	tweenBack.chain(tweenHead);
+
+	// start the tween
+	tweenHead.start();
+}
 
 // ## Initialize everything
 function init() {
@@ -47,10 +103,19 @@ function init() {
 	// create the Scene
 	scene = new THREE.Scene();
 
+	// build the GUI 
+	buildGui(userOpts, function(){
+		console.log("userOpts", userOpts)
+		setupTween();
+	});
+
 	// create the Cube
 	cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), new THREE.MeshNormalMaterial() );
 
+	setupTween();
+
 (function(){
+	return;
 	var mesh	= cube;
 	var update	= function(){
 		mesh.position.x = position.x;
