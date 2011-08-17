@@ -3,7 +3,7 @@ layout: post
 title: "dat-gui - Simple UI for Demos"
 date: 2011-08-14 19:42
 comments: true
-categories: [ui, demo]
+categories: [ui, demo, library]
 ---
 
 [Dat.gui](http://code.google.com/p/dat-gui/)
