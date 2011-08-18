@@ -73,8 +73,9 @@ console.log('easing', userOpts.easing);
 	// remove previous tweens if needed
 	TWEEN.removeAll();
 	
-	// convert the string 
+	// convert the string from dat-gui into tween.js functions 
 	var easing	= TWEEN.Easing[userOpts.easing.split('.')[0]][userOpts.easing.split('.')[1]];
+
 	var tweenHead	= new TWEEN.Tween(current)
 		.to({x: +userOpts.range}, userOpts.duration)
 		.delay(userOpts.delay)
@@ -99,14 +100,14 @@ console.log('easing', userOpts.easing);
 // ## Initialize everything
 function init() {
 	// test if webgl is supported
-	if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+	if ( ! Detector.webgl )	Detector.addGetWebGLMessage();
 
 	// create the camera
-	camera = new THREE.Camera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
+	camera	= new THREE.Camera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
 	camera.position.z = 1000;
 
 	// create the Scene
-	scene = new THREE.Scene();
+	scene	= new THREE.Scene();
 
 	// build the GUI 
 	buildGui(userOpts, function(){
@@ -118,7 +119,7 @@ function init() {
 	setupTween();
 
 	// create the Cube
-	cube = new THREE.Mesh( new THREE.SphereGeometry( 200, 48, 32 ), new THREE.MeshNormalMaterial() );
+	cube	= new THREE.Mesh( new THREE.SphereGeometry( 200, 48, 32 ), new THREE.MeshNormalMaterial() );
 	cube.position.x = -userOpts.range;
 
 	// add the object to the scene
