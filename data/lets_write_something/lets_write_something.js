@@ -182,6 +182,11 @@ if(false){
 	});
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
+
+	renderer = new THREE.WebGLRenderer({
+		antialias		: true,
+		preserveDrawingBuffer	: true
+	});
 	
 	
 	// init the Stats and append it to the Dom - performance vuemeter
@@ -227,13 +232,13 @@ function animate() {
 	// render the 3D scene
 	render();
 
-	// update the tweens
-	TWEEN.update();
 	// relaunch the 'timer' 
 	requestAnimationFrame( animate );
 	
 	// update the stats
 	stats.update();
+	// update the tweens
+	TWEEN.update();
 }
 
 
