@@ -1,8 +1,6 @@
-// This source is the javascript needed to build a simple moving
-// cube in **three.js** based on this
-// [example](https://raw.github.com/mrdoob/three.js/master/examples/canvas_geometry_cube.html)
-// It is the source about this [blog post](/blog/2011/08/17/tweenjs-for-smooth-animation/).
-
+// This is the annotated source for this [blog post](/blog/2011/08/17/tweenjs-for-smooth-animation/).
+// It is part of [LearningThree.js](http://learningthreejs.com) blog.
+ 
 // ## Now lets start
 
 // declare a bunch of variable we will need later
@@ -27,34 +25,15 @@ init();
 // make it move			
 animate();
 
+// ## =========================
 
-/**
- * Build ui with Data.GUI
-*/
-function buildGui(options, callback)
-{
-	// collect all available easing in TWEEN library
-	var easings	= {};
-	Object.keys(TWEEN.Easing).forEach(function(family){
-		Object.keys(TWEEN.Easing[family]).forEach(function(direction){
-			var name	= family+'.'+direction;
-			easings[name]	= name;
-		});
-	});
-	// the callback notified on UI change
-	var change	= function(){
-		callback(options)
-	}
-	// create and initialize the UI
-	var gui = new DAT.GUI({ height	: 4 * 32 - 1 });
-	gui.add(options, 'range').name('Range coordinate').min(64).max(1280)	.onChange(change);
-	gui.add(options, 'duration').name('Duration (ms)').min(100).max(4000)	.onChange(change);
-	gui.add(options, 'delay').name('Delay (ms)').min(0).max(1000)		.onChange(change);
-	gui.add(options, 'easing').name('Easing Curve').options(easings)	.onChange(change);
-}
+// ## Tween.js Setup (Start here)
+
+// ## =========================
 
 function setupTween()
 {
+	// 
 	var update	= function(){
 		cube.position.x = current.x;
 	}
@@ -85,6 +64,35 @@ function setupTween()
 
 	// start the first
 	tweenHead.start();
+}
+
+// ## =========================
+
+// ## Tween.js Setup (End here)
+
+// ## =========================
+
+// # Build gui with dat.gui
+function buildGui(options, callback)
+{
+	// collect all available easing in TWEEN library
+	var easings	= {};
+	Object.keys(TWEEN.Easing).forEach(function(family){
+		Object.keys(TWEEN.Easing[family]).forEach(function(direction){
+			var name	= family+'.'+direction;
+			easings[name]	= name;
+		});
+	});
+	// the callback notified on UI change
+	var change	= function(){
+		callback(options)
+	}
+	// create and initialize the UI
+	var gui = new DAT.GUI({ height	: 4 * 32 - 1 });
+	gui.add(options, 'range').name('Range coordinate').min(64).max(1280)	.onChange(change);
+	gui.add(options, 'duration').name('Duration (ms)').min(100).max(4000)	.onChange(change);
+	gui.add(options, 'delay').name('Delay (ms)').min(0).max(1000)		.onChange(change);
+	gui.add(options, 'easing').name('Easing Curve').options(easings)	.onChange(change);
 }
 
 // ## Initialize everything
@@ -146,18 +154,6 @@ function animate() {
 
 // ## Render the 3D Scene
 function render() {
-	var dtime	= Date.now()/1000;
-	// animate the cube
-	if( false ){
-		cube.rotation.x += 0.02;
-		cube.rotation.y += 0.0225;
-		cube.rotation.z += 0.0175;		
-	}
-	// make the cube bounce
-	if( false ){
-		var scale	= 1.0 + 0.3*Math.sin(dtime*Math.PI);
-		cube.scale.set(scale, scale, scale);		
-	}
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
 }

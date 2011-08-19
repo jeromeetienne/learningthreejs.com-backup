@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-08-19T09:20:21+02:00</updated>
+  <updated>2011-08-19T10:02:43+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -167,7 +167,8 @@ tweenBack.chain(tweenHead);
 
 &lt;p&gt;So &lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;tween.js&lt;/a&gt; is a nice small library which
 provides an easy way to animate things in your demos. You can get a play with
-the parameters of the &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;example&lt;/a&gt;.&lt;/p&gt;
+the parameters of the &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;example&lt;/a&gt; or
+look at its &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/docs/tweenjs_for_smooth_animation.html&quot;&gt;annotated code&lt;/a&gt;.&lt;/p&gt;
 </content>
   </entry>
   
