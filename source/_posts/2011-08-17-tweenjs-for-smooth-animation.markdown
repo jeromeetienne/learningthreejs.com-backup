@@ -131,6 +131,7 @@ and ```tweenBack```.
 
 So [tween.js](https://github.com/sole/tween.js) is a nice small library which
 provides an easy way to animate things in your demos. You can get a play with
-the parameters of the [example](/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html).
+the parameters of the [example](/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html) or
+look at its [annotated code](/data/tweenjs_for_smooth_animation/docs/tweenjs_for_smooth_animation.html).
 
 
