@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-08-19T10:02:43+02:00</updated>
+  <updated>2011-08-19T10:49:19+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -19,18 +19,18 @@
     <id>http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation</id>
     <content type="html">&lt;p&gt;This post presents &lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;tween.js&lt;/a&gt; and how you can use it to easily smooth your animation.
 &lt;strong&gt;tween.js&lt;/strong&gt; is a &quot;super simple, fast and easy to use tweening engine&quot; from &lt;a href=&quot;https://github.com/sole&quot;&gt;sole&lt;/a&gt;.
-It provides tweening and full blown animations thanks to chaining. Lets get started!
+It provides tweening and full blown animations thanks to chaining. Let's get started!
 But first, here is a &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;demo&lt;/a&gt;
 using tween.js. It has basic parameters for you to play with and get a feel of what tweening
 may be.&lt;/p&gt;
 
-&lt;h2&gt;Tweening... what's that ?&lt;/h2&gt;
+&lt;h2&gt;Tweening... what's that?&lt;/h2&gt;
 
 &lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/tweenjs_for_smooth_animation/images/tweenjs-linear-easenone.png' width='' height='' alt='Linear' title='Linear'&gt;&lt;/p&gt;
 
 &lt;p&gt;From &lt;a href=&quot;http://en.wikipedia.org/wiki/Tweening&quot;&gt;wikipedia article&lt;/a&gt;, &lt;em&gt;tweening&lt;/em&gt; is an abreviation of &lt;em&gt;inbetweening&lt;/em&gt;, i
-dont know why but i find that funny maybe because &lt;em&gt;inbetweening&lt;/em&gt; isnt a word to begin with :)
-Lets get back to business, what is a tween ? It is a interpolation between 2 values,
+dont know why but i find that funny maybe because &lt;em&gt;inbetweening&lt;/em&gt; isnt a word to begin with.
+Let's get back to business, what is a tween? It is a interpolation between 2 values,
 from the &lt;code&gt;source&lt;/code&gt; to the &lt;code&gt;target&lt;/code&gt;.
 The tween will simply generate the needed values needed inbetween those 2 limits. The key is &lt;strong&gt;where&lt;/strong&gt;
 are those values.
@@ -50,7 +50,7 @@ Many others exist for our delight as you can see &lt;a href=&quot;http://sole.gi
 
 &lt;h2&gt;First include the library&lt;/h2&gt;
 
-&lt;p&gt;Now that we got some understanding of concept, lets see how to use it.
+&lt;p&gt;Now that we got some understanding of concept, let's see how to use it.
 We start by simply including the library file in the page.
 Download it &lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;there&lt;/a&gt;&lt;/p&gt;
 
@@ -63,8 +63,8 @@ Download it &lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;there&lt;
 
 &lt;h2&gt;Now Create a Tween&lt;/h2&gt;
 
-&lt;p&gt;Lets see how it is used in the &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;demo&lt;/a&gt;.
-A practical case is less dry than a theorical explaination, and you can tweak the demo after that :)
+&lt;p&gt;Let's see how it is used in the &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;demo&lt;/a&gt;.
+A practical case is less dry than a theorical explaination, and you can tweak the demo after that.
 So our case will be to move a sphere &lt;code&gt;x&lt;/code&gt; position back and forth, say between 0 to 400.&lt;/p&gt;
 
 &lt;p&gt;First we define the original &lt;code&gt;position&lt;/code&gt; and the &lt;code&gt;target&lt;/code&gt;.
@@ -95,9 +95,9 @@ the tween, use &lt;code&gt;onComplete()&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;```&lt;/p&gt;
 
-&lt;h2&gt;Want to Tweak it ?&lt;/h2&gt;
+&lt;h2&gt;Want to Tweak it?&lt;/h2&gt;
 
-&lt;p&gt;Lets custom it some more.
+&lt;p&gt;Let's customise it some more.
 what is about delaying the begining of the tween by say 500 milliseconds
 for the fun of it.&lt;/p&gt;
 
@@ -111,7 +111,7 @@ for the fun of it.&lt;/p&gt;
 &lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/tweenjs_for_smooth_animation/images/tweenjs-elastic-easeinout.png' width='' height='' alt='Elastic EaseInOut' title='Elastic EaseInOut'&gt;
 Obviously you can change the ease function too.
 Choose any one you like among &lt;a href=&quot;http://sole.github.com/tween.js/examples/03_graphs.html&quot;&gt;the 31 from tween.js&lt;/a&gt;.
-Lets pick the funny one on the right, it is &lt;code&gt;TWEEN.Easing.Elastic.EaseInOut&lt;/code&gt;.&lt;/p&gt;
+Let's pick the funny one on the right, it is &lt;code&gt;TWEEN.Easing.Elastic.EaseInOut&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;``` javascript&lt;/p&gt;
 
@@ -120,9 +120,9 @@ Lets pick the funny one on the right, it is &lt;code&gt;TWEEN.Easing.Elastic.Eas
 
 &lt;p&gt;```&lt;/p&gt;
 
-&lt;h2&gt;Lets run!&lt;/h2&gt;
+&lt;h2&gt;Let's run!&lt;/h2&gt;
 
-&lt;p&gt;Ok now the tween is fully configured, lets run it. First we tell the library the
+&lt;p&gt;Ok now the tween is fully configured, let's run it. First we tell the library the
 configuration is over and it can start the tween.&lt;/p&gt;
 
 &lt;p&gt;``` javascript&lt;/p&gt;
@@ -142,13 +142,13 @@ configuration is over and it can start the tween.&lt;/p&gt;
 &lt;p&gt;```&lt;/p&gt;
 
 &lt;p&gt;And you are done. Now you can go crazy and put tweening everywhere! In object
-position like we did here, in colors, or in scale, anywhere, feel free :)&lt;/p&gt;
+position like we did here, in colors, or in scale, anywhere, feel free to use/abuse it.&lt;/p&gt;
 
 &lt;h2&gt;Chaining Tweens for Animation&lt;/h2&gt;
 
 &lt;p&gt;The &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;demo&lt;/a&gt;
 has an endless animation, the sphere going back and forth until the end of time.
-How do we do that ? we chain tweens. They
+How do we do that? we chain tweens. They
 will be executed one after the other. &lt;code&gt;chain()&lt;/code&gt; provides a easy way
 to build longer, more varied animations. Suppose we got &lt;code&gt;tweenHead&lt;/code&gt;
 and &lt;code&gt;tweenBack&lt;/code&gt;.&lt;/p&gt;
