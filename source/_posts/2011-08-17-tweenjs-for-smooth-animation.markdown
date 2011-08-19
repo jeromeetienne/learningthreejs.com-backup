@@ -3,7 +3,7 @@ layout: post
 title: "Tween.js for Smooth Animation"
 date: 2011-08-17 10:16
 comments: true
-categories: [demo, library]
+categories: [animation, tween, library]
 ---
 
 This post presents [tween.js](https://github.com/sole/tween.js) and how you can use it to easily smooth your animation.
@@ -12,7 +12,6 @@ It provides tweening and full blown animations thanks to chaining. Lets get star
 But first, here is a [demo](/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html)
 using tween.js. It has basic parameters for you to play with and get a feel of what tweening
 may be.
-
 
 ## Tweening... what's that ?
 
@@ -66,7 +65,8 @@ Then we create the tween object which do the job for us :)
 Noticed the 2000 at the end? It means the tween will last 2 seconds. 
 Ok so ```tween``` variable will make position.x goes from 0 to 400 in 2 seconds. To
 make the 3D object moves along, we need to be notified at every modification. This
-is done with ```toUpdate()```.
+is done with ```toUpdate()```. If you want to be notified at the end of
+the tween, use ```onComplete()```.
 
 ``` javascript
     tween.onUpdate(function(){
@@ -93,14 +93,44 @@ Lets pick the funny one on the right, it is ```TWEEN.Easing.Elastic.EaseInOut```
     tween.ease(TWEEN.Easing.Elastic.EaseInOut)
 ```
 
-# How to run it
+## Lets run!
 
-# how to chain tweens
+Ok now the tween is fully configured, lets run it. First we tell the library the
+configuration is over and it can start the tween.
 
-For longer, more varied animations, you can chain multiple tweens. They
-will be executed one after the other. Thus to have
+``` javascript
+    tween.start();
+```
 
+Then we periodically update the tweens we got. This code fits well in the render loop.
 
-<!--more-->
+``` javascript
+    TWEEN.update();
+```
+
+And you are done. Now you can go crazy and put tweening everywhere! In object
+position like we did here, in colors, or in scale, anywhere, feel free :)
+
+## Chaining Tweens for Animation
+
+The [demo](/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html)
+has an endless animation, the sphere going back and forth until the end of time.
+How do we do that ? we chain tweens. They
+will be executed one after the other. ```chain()``` provides a easy way
+to build longer, more varied animations. Suppose we got ```tweenHead```
+and ```tweenBack```.
+
+``` javascript
+    // after tweenHead, do tweenBack
+    tweenHead.chain(tweenBack);
+    // And after tweenBack, do tweenHead, so it is cycling
+    tweenBack.chain(tweenHead);
+```
+
+## That's All Folks
+
+So [tween.js](https://github.com/sole/tween.js) is a nice small library which
+provides an easy way to animate things in your demos. You can get a play with
+the parameters of the [example](/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html).
 
 

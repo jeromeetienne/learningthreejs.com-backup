@@ -33,21 +33,6 @@ animate();
 */
 function buildGui(options, callback)
 {
-	var gui = new DAT.GUI({
-		height	: 4 * 32 - 1
-	});
-	var change	= function(){
-		callback(options)
-	}
-
-	gui.add(options, 'range').name('Range coordinate').min(64).max(1280)
-		.onChange(change);
-	gui.add(options, 'duration').name('Duration (ms)').min(100).max(4000)
-		.onChange(change);
-	gui.add(options, 'delay').name('Delay (ms)').min(0).max(1000)
-		.onChange(change);
-
-
 	// collect all available easing in TWEEN library
 	var easings	= {};
 	Object.keys(TWEEN.Easing).forEach(function(family){
@@ -56,9 +41,16 @@ function buildGui(options, callback)
 			easings[name]	= name;
 		});
 	});
-	// add 'easing'
-	gui.add(options, 'easing').name('Easing Curve').options(easings)
-		.onChange(change);
+	// the callback notified on UI change
+	var change	= function(){
+		callback(options)
+	}
+	// create and initialize the UI
+	var gui = new DAT.GUI({ height	: 4 * 32 - 1 });
+	gui.add(options, 'range').name('Range coordinate').min(64).max(1280)	.onChange(change);
+	gui.add(options, 'duration').name('Duration (ms)').min(100).max(4000)	.onChange(change);
+	gui.add(options, 'delay').name('Delay (ms)').min(0).max(1000)		.onChange(change);
+	gui.add(options, 'easing').name('Easing Curve').options(easings)	.onChange(change);
 }
 
 function setupTween()
@@ -68,20 +60,18 @@ function setupTween()
 	}
 	var current	= { x: -userOpts.range };
 
-console.log('easing', userOpts.easing);
-	
 	// remove previous tweens if needed
 	TWEEN.removeAll();
 	
 	// convert the string from dat-gui into tween.js functions 
 	var easing	= TWEEN.Easing[userOpts.easing.split('.')[0]][userOpts.easing.split('.')[1]];
-
+	// build the tween to go ahead
 	var tweenHead	= new TWEEN.Tween(current)
 		.to({x: +userOpts.range}, userOpts.duration)
 		.delay(userOpts.delay)
 		.easing(easing)
 		.onUpdate(update);
-
+	// build the tween to go backward
 	var tweenBack	= new TWEEN.Tween(current)
 		.to({x: -userOpts.range}, userOpts.duration)
 		.delay(userOpts.delay)
@@ -93,7 +83,7 @@ console.log('easing', userOpts.easing);
 	// after tweenBack do tweenHead, so it is cycling
 	tweenBack.chain(tweenHead);
 
-	// start the tween
+	// start the first
 	tweenHead.start();
 }
 
@@ -156,6 +146,7 @@ function animate() {
 
 // ## Render the 3D Scene
 function render() {
+	console.log("nb tween", TWEEN.getAll().length)
 	var dtime	= Date.now()/1000;
 	// animate the cube
 	if( false ){
