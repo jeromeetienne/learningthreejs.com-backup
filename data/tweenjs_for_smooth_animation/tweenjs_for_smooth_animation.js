@@ -146,7 +146,6 @@ function animate() {
 
 // ## Render the 3D Scene
 function render() {
-	console.log("nb tween", TWEEN.getAll().length)
 	var dtime	= Date.now()/1000;
 	// animate the cube
 	if( false ){
