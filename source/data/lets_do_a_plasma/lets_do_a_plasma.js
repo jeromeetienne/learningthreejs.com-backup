@@ -13,9 +13,7 @@ var planeMesh;
 
 // maybe replace that by window... or something
 var userOpts	= {
-	speed		: 0.5,
-	resolutionX	: 1024,
-	resolutionY	: 1024,
+	speed		:  4.0,
 	c0		:  5.0,
 	c1		:  3.0,
 	c2		: 11.0,
@@ -37,14 +35,10 @@ animate();
 function buildGui(options, callback)
 {
 	var gui = new DAT.GUI({
-		height	: 9 * 32 - 1
+		height	: 7 * 32 - 1
 	});
 
-	gui.add(options, 'speed').min(0).max(1)
-		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
-	gui.add(options, 'resolutionX').min(32).max(3096)
-		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
-	gui.add(options, 'resolutionY').min(32).max(3096)
+	gui.add(options, 'speed').min(0).max(10)
 		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
 	gui.add(options, 'c0').min(0.1).max(8)
 		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
@@ -69,7 +63,7 @@ function init() {
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z = 100;
-	//camera.position.z = 200;
+	camera.position.z = 200;
 
 	// create the Scene
 	scene = new THREE.Scene();
@@ -81,25 +75,11 @@ function init() {
 	});
 	
 	// create the material
-	var uniforms	= {
-		resolution	: {
-			type	: "v2",
-			value	: new THREE.Vector2(userOpts.resolutionX, userOpts.resolutionY)
-		},
-		time	: { type : "f", value:  0.0 },
-		c0	: { type : "f", value:  5.0 },
-		c1	: { type : "f", value:  3.0 },
-		c2	: { type : "f", value: 11.0 },
-		c3	: { type : "f", value:  7.0 },
-		c4	: { type : "f", value:  9.0 },
-		c5	: { type : "f", value:  3.0 }
-	};
-
 	var material	= new THREE.MeshShaderMaterial({
-		vertexShader	: document.getElementById( 'vertexShader' ).textContent,
-		fragmentShader	: document.getElementById( 'fragmentShader' ).textContent,
-		uniforms	: uniforms
-	});		
+		vertexShader	: THREEx.ShaderLib['plasma'].vertexShader,
+		fragmentShader	: THREEx.ShaderLib['plasma'].fragmentShader,
+		uniforms	: THREEx.UniformsLib['plasma']
+	});
 /**
  * How to make shader easier to use ?
  * - need a js object on top ?
@@ -112,6 +92,9 @@ function init() {
 // TODO make a plan facing camera instead
 	// create the Mesh
 	planeMesh = new THREE.Mesh( new THREE.PlaneGeometry( 400, 300 ), material );
+	planeMesh = new THREE.Mesh( new THREE.SphereGeometry( 100, 48, 32 ), material );
+	planeMesh = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
+	
 
 	// add the object to the scene
 	scene.addObject( planeMesh );
@@ -152,7 +135,6 @@ function render() {
 	var time	= (Date.now() - startTime)/1000;
 	var uniforms	= planeMesh.materials[0].uniforms;
 	uniforms.time.value	= time*userOpts.speed;	
-	uniforms.resolution.value.set(userOpts.resolutionX, userOpts.resolutionY);
 	uniforms.c0.value	= userOpts.c0;	
 	uniforms.c1.value	= userOpts.c1;	
 	uniforms.c2.value	= userOpts.c2;	
@@ -162,13 +144,13 @@ function render() {
 })();
 
 	// animate the planeMesh
-	if( false ){
-		//planeMesh.rotation.x += 0.02;
-		//planeMesh.rotation.y += 0.0225;
+	if( true ){
+		planeMesh.rotation.x += 0.02;
+		planeMesh.rotation.y += 0.0225;
 		planeMesh.rotation.z += 0.0175;
 	}
 	// make the planeMesh bounce
-	if( false ){
+	if( true ){
 		var dtime	= Date.now() - startTime;
 		planeMesh.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
 		planeMesh.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
