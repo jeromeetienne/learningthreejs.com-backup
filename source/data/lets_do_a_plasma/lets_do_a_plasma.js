@@ -13,13 +13,13 @@ var planeMesh;
 
 // maybe replace that by window... or something
 var userOpts	= {
-	speed		:  4.0,
-	c0		:  5.0,
-	c1		:  3.0,
-	c2		: 11.0,
-	c3		:  7.0,
-	c4		:  9.0,
-	c5		:  3.0
+	speed		: 4.0,
+	c0		: 5.0,
+	c1		: 3.0,
+	c2		: 6.0,
+	c3		: 7.0,
+	c4		: 5.0,
+	c5		: 3.0
 };
 
 // ## bootstrap functions
@@ -62,8 +62,8 @@ function init() {
 
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-	camera.position.z = 100;
-	camera.position.z = 200;
+	camera.position.z = 80;
+	//camera.position.z = 200;
 
 	// create the Scene
 	scene = new THREE.Scene();
@@ -91,8 +91,6 @@ function init() {
 
 // TODO make a plan facing camera instead
 	// create the Mesh
-	planeMesh = new THREE.Mesh( new THREE.PlaneGeometry( 400, 300 ), material );
-	planeMesh = new THREE.Mesh( new THREE.SphereGeometry( 100, 48, 32 ), material );
 	planeMesh = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
 	
 
@@ -144,13 +142,13 @@ function render() {
 })();
 
 	// animate the planeMesh
-	if( true ){
+	if( false ){
 		planeMesh.rotation.x += 0.02;
 		planeMesh.rotation.y += 0.0225;
 		planeMesh.rotation.z += 0.0175;
 	}
 	// make the planeMesh bounce
-	if( true ){
+	if( false ){
 		var dtime	= Date.now() - startTime;
 		planeMesh.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
 		planeMesh.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
