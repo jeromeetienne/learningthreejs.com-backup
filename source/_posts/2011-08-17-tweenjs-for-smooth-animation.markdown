@@ -50,27 +50,29 @@ Download it [there](https://github.com/sole/tween.js)
 
 Let's see how it is used in the [demo](/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html).
 A practical case is less dry than a theorical explaination, and you can tweak the demo after that.
-So our case will be to move a sphere ```x``` position back and forth, say between 0 to 400.
+So our case will be to move a sphere ```x``` position back and forth, say between 0 to 400, and
+```y``` between 300 to 50.
 
 First we define the original ```position``` and the ```target```.
 This ```position``` variable will be updated by tween.js with new values until it is equal to ```target```values.
 Then we create the tween object which do the job for us.
 
 ``` javascript
-    var position = { x : 0 }; 
-    var target = { x : 400 };
+    var position = { x : 0, y: 300 }; 
+    var target = { x : 400, y: 50 };
     var tween = new TWEEN.Tween(position).to(target, 2000);
 ```
 
-Noticed the 2000 at the end? It means the tween will last 2 seconds. 
-Ok so ```tween``` variable will make position.x goes from 0 to 400 in 2 seconds. To
-make the 3D object moves along, we need to be notified at every modification. This
-is done with ```onUpdate()```. If you want to be notified at the end of
-the tween, use ```onComplete()```.
+Noticed the 2000 at the end? It means the tween will last 2 seconds.
+Ok so ```tween``` variable will make position.x goes from 0 to 400 and position.y
+from 300 to 50 in 2 seconds. To make the 3D object moves along, we need to be
+notified at every modification. This is done with ```onUpdate()```.
+If you want to be notified at the end of the tween, use ```onComplete()```.
 
 ``` javascript
     tween.onUpdate(function(){
         mesh.position.x = position.x;
+        mesh.position.y = position.y;
     });
 ```
 
