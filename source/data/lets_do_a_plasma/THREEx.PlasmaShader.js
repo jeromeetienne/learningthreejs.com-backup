@@ -1,4 +1,4 @@
-// define namespace
+// define namespaces
 var THREEx		= THREEx || {};
 THREEx.ShaderLib	= THREEx.ShaderLib	|| {};
 THREEx.UniformsLib	= THREEx.UniformsLib	|| {};
