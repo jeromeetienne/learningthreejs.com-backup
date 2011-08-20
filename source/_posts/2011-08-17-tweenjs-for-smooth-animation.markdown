@@ -46,7 +46,7 @@ Download it [there](https://github.com/sole/tween.js)
     <script type='text/javascript' src='tween.js'></script>
 ```
 
-## Now Create a Tween
+## Now Let's Create a Tween
 
 Let's see how it is used in the [demo](/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html).
 A practical case is less dry than a theorical explaination, and you can tweak the demo after that.
@@ -54,7 +54,7 @@ So our case will be to move a sphere ```x``` position back and forth, say betwee
 
 First we define the original ```position``` and the ```target```.
 This ```position``` variable will be updated by tween.js with new values until it is equal to ```target```values.
-Then we create the tween object which do the job for us :)
+Then we create the tween object which do the job for us.
 
 ``` javascript
     var position = { x : 0 }; 
@@ -65,7 +65,7 @@ Then we create the tween object which do the job for us :)
 Noticed the 2000 at the end? It means the tween will last 2 seconds. 
 Ok so ```tween``` variable will make position.x goes from 0 to 400 in 2 seconds. To
 make the 3D object moves along, we need to be notified at every modification. This
-is done with ```toUpdate()```. If you want to be notified at the end of
+is done with ```onUpdate()```. If you want to be notified at the end of
 the tween, use ```onComplete()```.
 
 ``` javascript
