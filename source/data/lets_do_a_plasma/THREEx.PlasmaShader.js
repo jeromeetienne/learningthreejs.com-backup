@@ -78,7 +78,6 @@ THREEx.ShaderLib['plasma']	= {
 			"float cossin3	= cos(p.x*c2+sin(c2*time/c5)) + sin(p.y*c5+cos(time)) + cos(time);",
 			//"vec3 color	= vec3(abs(cossin1*sin(p.x)), 1.0 - 0.3* abs(cossin2*sin(p.y)), 1.0 - 0.3*abs(cossin3*sin(p.x)));",
 			"vec3 color	= vec3(abs(cossin1*sin(p.x)), 1.0 - 0.3* abs(cossin2*sin(p.y)), 1.0 - 0.3*abs(cossin3*sin(p.x)));",
-			"color		= vec3(abs(p.x), abs(p.y), 0.8);",
 			"color		= HSVtoRGB(color);",
 			"gl_FragColor	= vec4(color, opacity);",
 			//"gl_FragColor	= vec4(cossin1*sin(p.x), cossin2*sin(p.y), cossin3*sin(p.x), 1.0);",

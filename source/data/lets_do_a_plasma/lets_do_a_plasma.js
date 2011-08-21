@@ -63,7 +63,7 @@ function init() {
 	// create the camera
 	camera	= new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z	= 80;
-	camera.position.z	= 200;
+	//camera.position.z	= 200;
 
 	// create the Scene
 	scene	= new THREE.Scene();
@@ -140,8 +140,8 @@ function render() {
 	var time	= (Date.now() - startTime)/1000;
 	var uniforms	= planeMesh.materials[0].uniforms;
 	uniforms.time.value	= time * userOpts.speed;	
-	//uniforms.rotation.value	= Math.sin(time/10)*Math.PI;
-	//uniforms.scale.value	= 0.4 - 0.2*Math.sin(time);
+	uniforms.rotation.value	= Math.sin(time/10)*Math.PI;
+	uniforms.scale.value	= 0.4 - 0.2*Math.sin(time);
 
 	uniforms.c0.value	= userOpts.c0;	
 	uniforms.c1.value	= userOpts.c1;	
