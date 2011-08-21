@@ -38,14 +38,17 @@ THREEx.GeometryWobble.Animate	= function(geometry, phase, magnitude)
 {
 	if( phase === undefined )	phase		= 0;
 	if( magnitude === undefined )	magnitude	= 0.2;
+	
+	if( typeof magnitude === "number" )	magnitude	= new THREE.Vector3(magnitude, magnitude, magnitude)
+
 
 	for(var i = 0; i < geometry.vertices.length; i++) {
 		var vertex	= geometry.vertices[i];
 		var vertexPhase	= Math.cos(phase + vertex.axisValue);
 		
-		vertex.position.x = vertex.originalPosition.x + vertexPhase * vertex.dirVector.x * magnitude;
-		vertex.position.y = vertex.originalPosition.y + vertexPhase * vertex.dirVector.y * magnitude;
-		vertex.position.z = vertex.originalPosition.z + vertexPhase * vertex.dirVector.z * magnitude;
+		vertex.position.x = vertex.originalPosition.x + vertexPhase * vertex.dirVector.x * magnitude.x;
+		vertex.position.y = vertex.originalPosition.y + vertexPhase * vertex.dirVector.y * magnitude.y;
+		vertex.position.z = vertex.originalPosition.z + vertexPhase * vertex.dirVector.z * magnitude.z;
 	}
 	
 	geometry.__dirtyVertices = true;
