@@ -74,7 +74,7 @@ function init() {
 	scene.addLight( dirLight );
 	
 	
-	var pointLight	= new THREE.PointLight( 0x8080f0, 1.5 );
+	var pointLight	= new THREE.PointLight( 0x8080f0, 5.5 );
 	pointLight.position.set( 0, 100, 50 );
 	scene.addLight( pointLight );
 
@@ -97,37 +97,63 @@ function init() {
 	//});
 
 	//var material	= new THREE.MeshNormalMaterial();
-	var material	= new THREE.MeshPhongMaterial( { color: 0x40F040 } );
+	var material	= new THREE.MeshPhongMaterial( { color: 0xA02000 } );
 
 	var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
 	var geometry	= new THREE.TorusGeometry( 50, 20, 45, 45 );
 	//var geometry	= new THREE.SphereGeometry( 100, 25, 25 );
 
 
-	var geometry	= new THREE.TextGeometry("Knock Out", {
-		size		: 50,
-		height		: 25,
-		weight		: 'bold',
-		bezelThickness	: 10,
-		bezelSize	: 10,
-		bezelEnabled	: true
-	});
+	//var geometry	= new THREE.TextGeometry("knock out", {
+	//	size		: 50,
+	//	height		: 30,
+	//	weight		: 'bold',
+	//	bezelThickness	: 10,
+	//	bezelSize	: 10,
+	//	bezelEnabled	: true
+	//});
 
 	THREEx.GeometryWobble.init(geometry);
-	THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.03);
+	THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.02);
 	
-	material	= [material, new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } )]; 
+	//material	= [material, new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } )]; 
 	
 // TODO make a plan facing camera instead
 	// create the Mesh
 	planeMesh	= new THREE.Mesh( geometry, material );
 
 	// to center the object
-	planeMesh.geometry.computeBoundingBox();
-	planeMesh.position.x	= -0.5 * ( planeMesh.geometry.boundingBox.x[ 1 ] - planeMesh.geometry.boundingBox.x[ 0 ] );
+	//planeMesh.geometry.computeBoundingBox();
+	//planeMesh.position.x	= -0.5 * ( planeMesh.geometry.boundingBox.x[ 1 ] - planeMesh.geometry.boundingBox.x[ 0 ] );
+	//planeMesh.position.y	= -0.5 * ( planeMesh.geometry.boundingBox.y[ 1 ] - planeMesh.geometry.boundingBox.y[ 0 ] );
+	//planeMesh.position.z	= -0.5 * ( planeMesh.geometry.boundingBox.z[ 1 ] - planeMesh.geometry.boundingBox.z&[ 0 ] );
 	
 	// add the object to the scene
 	scene.addObject( planeMesh );
+
+
+// failed attempts at a generic geometryCenter()
+(function(geometry){
+	return;
+	//geometry.computeBoundingBox();
+
+	var delta	= new THREE.Vector3()
+	delta.x		= -( geometry.boundingBox.x[ 1 ] - geometry.boundingBox.x[ 0 ] ) / 2;
+	delta.y		= -( geometry.boundingBox.y[ 1 ] - geometry.boundingBox.y[ 0 ] ) / 2;
+	delta.z		= -( geometry.boundingBox.z[ 1 ] - geometry.boundingBox.z[ 0 ] ) / 2;
+console.log("delta", delta)
+console.log("boundingBox", geometry.boundingBox)
+	for(var i = 0; i < geometry.vertices.length; i++) {
+		var vertex	= geometry.vertices[i];
+		vertex.position.addSelf( delta )
+	}
+//geometry.computeBoundingBox();
+console.log("boundingBox", geometry.boundingBox)
+//geometry.computeCentroids();
+//geometry.computeFaceNormals();
+//geometry.computeVertexNormals();
+	geometry.__dirtyVertices = true;
+})(planeMesh.geometry);
 
 	// create the container element
 	container	= document.createElement( 'div' );
@@ -184,7 +210,7 @@ function render(){
 	var time	= Date.now()/1000;
 
 	// to animate the geometry
-	THREEx.GeometryWobble.Animate(planeMesh.geometry, time*8, 15);
+	THREEx.GeometryWobble.Animate(planeMesh.geometry, time*3, 20);
 	
 	// animate the planeMesh
 	if( false ){
