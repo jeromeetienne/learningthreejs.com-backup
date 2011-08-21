@@ -54,7 +54,6 @@ function buildGui(options, callback)
 		.onFinishChange(function(){callback(options)}).onChange(function(){callback(options)});
 }
 
-
 // ## Initialize everything
 function init() {
 	// test if webgl is supported
@@ -63,10 +62,21 @@ function init() {
 	// create the camera
 	camera	= new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z	= 80;
-	//camera.position.z	= 200;
+	camera.position.z	= 200;
 
 	// create the Scene
 	scene	= new THREE.Scene();
+
+
+	var dirLight	= new THREE.DirectionalLight( 0xffffff, 0.8 );
+	dirLight.position.set( 0, 0, 1 );
+	dirLight.position.normalize();
+	scene.addLight( dirLight );
+	
+	
+	var pointLight	= new THREE.PointLight( 0x8080f0, 1.5 );
+	pointLight.position.set( 0, 100, 50 );
+	scene.addLight( pointLight );
 
 
 	// build the GUI 
@@ -86,20 +96,35 @@ function init() {
 	//	uniforms	: THREEx.UniformsLib['cel']
 	//});
 
-/**
- * How to make shader easier to use ?
- * - need a js object on top ?
- * - well isnt that Material ? like PlasmaMaterial ?
- * - then make it super flexible.
- * - port the other from adrien boeing ? attribute credits
-*/
-	
+	//var material	= new THREE.MeshNormalMaterial();
+	var material	= new THREE.MeshPhongMaterial( { color: 0x40F040 } );
 
+	var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
+	var geometry	= new THREE.TorusGeometry( 50, 20, 45, 45 );
+	//var geometry	= new THREE.SphereGeometry( 100, 25, 25 );
+
+
+	var geometry	= new THREE.TextGeometry("Knock Out", {
+		size		: 50,
+		height		: 25,
+		weight		: 'bold',
+		bezelThickness	: 10,
+		bezelSize	: 10,
+		bezelEnabled	: true
+	});
+
+	THREEx.GeometryWobble.init(geometry);
+	THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.03);
+	
+	material	= [material, new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } )]; 
+	
 // TODO make a plan facing camera instead
-	// create the Mesh0
-	planeMesh	= new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
-	//planeMesh	= new THREE.Mesh( new THREE.TorusGeometry( 50, 20, 15, 15 ), material );
-	//planeMesh	= new THREE.Mesh( new THREE.TorusGeometry( 50, 20, 15, 15 ), material );
+	// create the Mesh
+	planeMesh	= new THREE.Mesh( geometry, material );
+
+	// to center the object
+	planeMesh.geometry.computeBoundingBox();
+	planeMesh.position.x	= -0.5 * ( planeMesh.geometry.boundingBox.x[ 1 ] - planeMesh.geometry.boundingBox.x[ 0 ] );
 	
 	// add the object to the scene
 	scene.addObject( planeMesh );
@@ -133,12 +158,12 @@ function animate() {
 	stats.update();
 }
 
-
-// ## Render the 3D Scene
-function render() {
-(function(){
-	var time	= (Date.now() - startTime)/1000;
-	var uniforms	= planeMesh.materials[0].uniforms;
+/**
+ * @param {Object} uniforms the uniforms of the shader
+*/
+function animatePlasma(uniforms)
+{
+	var time	= Date.now()/1000;
 	uniforms.time.value	= time * userOpts.speed;	
 	uniforms.rotation.value	= Math.sin(time/10)*Math.PI;
 	uniforms.scale.value	= 0.4 - 0.2*Math.sin(time);
@@ -149,13 +174,23 @@ function render() {
 	uniforms.c3.value	= userOpts.c3;	
 	uniforms.c4.value	= userOpts.c4;	
 	uniforms.c5.value	= userOpts.c5;	
-})();
+}
 
+// ## Render the 3D Scene
+function render(){
+	// to animate the plasme
+	//animatePlasma(planeMesh.materials[0].uniforms);
+	
+	var time	= Date.now()/1000;
+
+	// to animate the geometry
+	THREEx.GeometryWobble.Animate(planeMesh.geometry, time*8, 15);
+	
 	// animate the planeMesh
 	if( false ){
-		planeMesh.rotation.x += 0.02;
+		//planeMesh.rotation.x += 0.02;
 		planeMesh.rotation.y += 0.0225;
-		planeMesh.rotation.z += 0.0175;
+		//planeMesh.rotation.z += 0.0175;
 	}
 	// make the planeMesh bounce
 	if( false ){
