@@ -62,7 +62,7 @@ function init() {
 	// create the camera
 	camera	= new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z	= 80;
-	camera.position.z	= 260;
+	camera.position.z	= 120;
 
 	// create the Scene
 	scene	= new THREE.Scene();
@@ -99,15 +99,15 @@ function init() {
 	//	uniforms	: THREEx.UniformsLib['cel']
 	//});
 
-	//var material	= new THREE.MeshNormalMaterial();
-	var material	= new THREE.MeshPhongMaterial( { color: 0xaaaaaa } );
+	var material	= new THREE.MeshNormalMaterial();
+	//var material	= new THREE.MeshPhongMaterial( { color: 0xaaaaaa } );
 
 	var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
 	var geometry	= new THREE.TorusGeometry( 50, 20, 45, 45 );
 	//var geometry	= new THREE.SphereGeometry( 100, 25, 25 );
 
 
-	var geometry	= new THREE.TextGeometry("Learning Three.js", {
+	var geometry	= new THREE.TextGeometry("node.js", {
 		size		: 50,
 		height		: 20,
 		weight		: 'bold',
@@ -214,7 +214,7 @@ function render(){
 	var time	= Date.now()/1000;
 
 	// to animate the geometry
-	THREEx.GeometryWobble.Animate(planeMesh.geometry, time*3, new THREE.Vector3(30, 20, 10));
+	THREEx.GeometryWobble.Animate(planeMesh.geometry, time/Math.PI*15, new THREE.Vector3(25,30, 5));
 	
 	// animate the planeMesh
 	if( false ){
