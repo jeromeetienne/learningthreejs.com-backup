@@ -62,7 +62,7 @@ function init() {
 
 	// create the camera
 	camera	= new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-	//camera.position.z	= 80;
+	camera.position.z	= 80;
 	camera.position.z	= 200;
 
 	// create the Scene
@@ -80,11 +80,12 @@ function init() {
 		fragmentShader	: THREEx.ShaderLib['plasma'].fragmentShader,
 		uniforms	: THREEx.UniformsLib['plasma']
 	});
-	var material	= new THREE.MeshShaderMaterial({
-		vertexShader	: THREEx.ShaderLib['cel'].vertexShader,
-		fragmentShader	: THREEx.ShaderLib['cel'].fragmentShader,
-		uniforms	: THREEx.UniformsLib['cel']
-	});
+	//var material	= new THREE.MeshShaderMaterial({
+	//	vertexShader	: THREEx.ShaderLib['cel'].vertexShader,
+	//	fragmentShader	: THREEx.ShaderLib['cel'].fragmentShader,
+	//	uniforms	: THREEx.UniformsLib['cel']
+	//});
+
 /**
  * How to make shader easier to use ?
  * - need a js object on top ?
@@ -98,11 +99,8 @@ function init() {
 	// create the Mesh0
 	planeMesh	= new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
 	//planeMesh	= new THREE.Mesh( new THREE.TorusGeometry( 50, 20, 15, 15 ), material );
-	planeMesh	= new THREE.Mesh( new THREE.TorusGeometry( 50, 20, 15, 15 ), material );
+	//planeMesh	= new THREE.Mesh( new THREE.TorusGeometry( 50, 20, 15, 15 ), material );
 	
-	
-	
-
 	// add the object to the scene
 	scene.addObject( planeMesh );
 
@@ -139,10 +137,12 @@ function animate() {
 // ## Render the 3D Scene
 function render() {
 (function(){
-	return;
 	var time	= (Date.now() - startTime)/1000;
 	var uniforms	= planeMesh.materials[0].uniforms;
 	uniforms.time.value	= time * userOpts.speed;	
+	//uniforms.rotation.value	= Math.sin(time/10)*Math.PI;
+	//uniforms.scale.value	= 0.4 - 0.2*Math.sin(time);
+
 	uniforms.c0.value	= userOpts.c0;	
 	uniforms.c1.value	= userOpts.c1;	
 	uniforms.c2.value	= userOpts.c2;	
@@ -152,13 +152,13 @@ function render() {
 })();
 
 	// animate the planeMesh
-	if( true ){
+	if( false ){
 		planeMesh.rotation.x += 0.02;
 		planeMesh.rotation.y += 0.0225;
 		planeMesh.rotation.z += 0.0175;
 	}
 	// make the planeMesh bounce
-	if( true ){
+	if( false ){
 		var dtime	= Date.now() - startTime;
 		planeMesh.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
 		planeMesh.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);

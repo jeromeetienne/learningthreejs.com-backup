@@ -3,7 +3,7 @@ var THREEx		= THREEx || {};
 THREEx.ShaderLib	= THREEx.ShaderLib	|| {};
 THREEx.UniformsLib	= THREEx.UniformsLib	|| {};
 
-// cel shader from ro.me - http://www.ro.me/tech/cel-shader
+// cel shader from ro.me - http://www.ro.me/tech/cel-shader - Apache License 2.0
 THREEx.UniformsLib['cel']	= {
       "uDirLightPos"		: { type: "v3", value: new THREE.Vector3(1,0,0) },
       "uDirLightColor"		: { type: "c" , value: new THREE.Color( 0xeeeeee ) },
