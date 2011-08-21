@@ -155,35 +155,38 @@ Download it <a href="https://github.com/sole/tween.js">there</a></p>
 </pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src=</span><span class="s">&#39;tween.js&#39;</span><span class="nt">&gt;&lt;/script&gt;</span>
 </div></code></pre></td></tr></table></div>
 
-<h2>Now Create a Tween</h2>
+<h2>Now Let&#8217;s Create a Tween</h2>
 
 <p>Let&#8217;s see how it is used in the <a href="/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html">demo</a>.
 A practical case is less dry than a theorical explaination, and you can tweak the demo after that.
-So our case will be to move a sphere <code>x</code> position back and forth, say between 0 to 400.</p>
+So our case will be to move a sphere <code>x</code> position back and forth, say between 0 to 400, and
+<code>y</code> between 300 to 50.</p>
 
 <p>First we define the original <code>position</code> and the <code>target</code>.
 This <code>position</code> variable will be updated by tween.js with new values until it is equal to <code>target</code>values.
-Then we create the tween object which do the job for us :)</p>
+Then we create the tween object which do the job for us.</p>
 
 <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
 <span class='line'>2</span>
 <span class='line'>3</span>
-</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">position</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span> <span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
-</div><div class='line'><span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span> <span class="o">:</span> <span class="mi">400</span> <span class="p">};</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">position</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">300</span> <span class="p">};</span>
+</div><div class='line'><span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span> <span class="o">:</span> <span class="mi">400</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">50</span> <span class="p">};</span>
 </div><div class='line'><span class="kd">var</span> <span class="nx">tween</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TWEEN</span><span class="p">.</span><span class="nx">Tween</span><span class="p">(</span><span class="nx">position</span><span class="p">).</span><span class="nx">to</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="mi">2000</span><span class="p">);</span>
 </div></code></pre></td></tr></table></div>
 
 <p>Noticed the 2000 at the end? It means the tween will last 2 seconds.
-Ok so <code>tween</code> variable will make position.x goes from 0 to 400 in 2 seconds. To
-make the 3D object moves along, we need to be notified at every modification. This
-is done with <code>toUpdate()</code>. If you want to be notified at the end of
-the tween, use <code>onComplete()</code>.</p>
+Ok so <code>tween</code> variable will make position.x goes from 0 to 400 and position.y
+from 300 to 50 in 2 seconds. To make the 3D object moves along, we need to be
+notified at every modification. This is done with <code>onUpdate()</code>.
+If you want to be notified at the end of the tween, use <code>onComplete()</code>.</p>
 
 <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
 <span class='line'>2</span>
 <span class='line'>3</span>
+<span class='line'>4</span>
 </pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">tween</span><span class="p">.</span><span class="nx">onUpdate</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 </div><div class='line'>    <span class="nx">mesh</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+</div><div class='line'>    <span class="nx">mesh</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
 </div><div class='line'><span class="p">});</span>
 </div></code></pre></td></tr></table></div>
 

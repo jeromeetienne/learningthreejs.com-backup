@@ -70,6 +70,7 @@ function init() {
 		
 		title	= new THREE.Mesh(geometry, new THREE.MeshPhongMaterial( { color: 0x4040a0 } ) );
 
+		// to center the geometry
 		geometry.computeBoundingBox();
 		title.position.x	= -0.5 * ( geometry.boundingBox.x[ 1 ] - geometry.boundingBox.x[ 0 ] );
 		

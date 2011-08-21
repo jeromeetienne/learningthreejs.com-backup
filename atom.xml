@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-08-19T10:49:19+02:00</updated>
+  <updated>2011-08-21T19:42:53+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -61,35 +61,37 @@ Download it &lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;there&lt;
 
 &lt;p&gt;```&lt;/p&gt;
 
-&lt;h2&gt;Now Create a Tween&lt;/h2&gt;
+&lt;h2&gt;Now Let's Create a Tween&lt;/h2&gt;
 
 &lt;p&gt;Let's see how it is used in the &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;demo&lt;/a&gt;.
 A practical case is less dry than a theorical explaination, and you can tweak the demo after that.
-So our case will be to move a sphere &lt;code&gt;x&lt;/code&gt; position back and forth, say between 0 to 400.&lt;/p&gt;
+So our case will be to move a sphere &lt;code&gt;x&lt;/code&gt; position back and forth, say between 0 to 400, and
+&lt;code&gt;y&lt;/code&gt; between 300 to 50.&lt;/p&gt;
 
 &lt;p&gt;First we define the original &lt;code&gt;position&lt;/code&gt; and the &lt;code&gt;target&lt;/code&gt;.
 This &lt;code&gt;position&lt;/code&gt; variable will be updated by tween.js with new values until it is equal to &lt;code&gt;target&lt;/code&gt;values.
-Then we create the tween object which do the job for us :)&lt;/p&gt;
+Then we create the tween object which do the job for us.&lt;/p&gt;
 
 &lt;p&gt;``` javascript&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;var position = { x : 0 }; 
-var target = { x : 400 };
+&lt;pre&gt;&lt;code&gt;var position = { x : 0, y: 300 }; 
+var target = { x : 400, y: 50 };
 var tween = new TWEEN.Tween(position).to(target, 2000);
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;```&lt;/p&gt;
 
 &lt;p&gt;Noticed the 2000 at the end? It means the tween will last 2 seconds.
-Ok so &lt;code&gt;tween&lt;/code&gt; variable will make position.x goes from 0 to 400 in 2 seconds. To
-make the 3D object moves along, we need to be notified at every modification. This
-is done with &lt;code&gt;toUpdate()&lt;/code&gt;. If you want to be notified at the end of
-the tween, use &lt;code&gt;onComplete()&lt;/code&gt;.&lt;/p&gt;
+Ok so &lt;code&gt;tween&lt;/code&gt; variable will make position.x goes from 0 to 400 and position.y
+from 300 to 50 in 2 seconds. To make the 3D object moves along, we need to be
+notified at every modification. This is done with &lt;code&gt;onUpdate()&lt;/code&gt;.
+If you want to be notified at the end of the tween, use &lt;code&gt;onComplete()&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;``` javascript&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;tween.onUpdate(function(){
     mesh.position.x = position.x;
+    mesh.position.y = position.y;
 });
 &lt;/code&gt;&lt;/pre&gt;
 

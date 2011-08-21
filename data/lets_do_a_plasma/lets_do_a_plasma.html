@@ -26,48 +26,20 @@
 		</style>
 	</head>
 	<body>
-		<!-- Shaders -->
-		<script type="x-shader/x-vertex" id="vertexShader">
-			// switch on high precision floats
-			#ifdef GL_ES
-				precision highp float;
-			#endif	
-			varying vec2 vUv;	// failed attempt to get the shader in texture space
-			void main()
-			{
-				vUv	= uv;
-				gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-			}
-		</script>
-		<script type="x-shader/x-fragment" id="fragmentShader">
-			#ifdef GL_ES
-				precision highp float;
-			#endif
-			varying vec2 vUv;
-			uniform vec2 resolution;
-			uniform float time;
-			uniform float c0, c1, c2, c3, c4, c5;
-			void main()
-			{
-				//vec2 p		= -1.0 + 2.0 * gl_FragCoord.xy / vUv.xy;
-				vec2 p		= -1.0 + 2.0 * gl_FragCoord.xy / resolution.xy;
-				float cossin1	= cos(p.x*c0+sin(c0*time/c3)) * sin(p.y*c3*cos(time)) + sin(time);
-				float cossin2	= cos(p.y*c1+cos(c1*time/c4)) * sin(p.x*c4*sin(time)) - cos(time);
-				float cossin3	= cos(p.x*c2+sin(c2*time/c5)) + sin(p.y*c5+cos(time)) + cos(time);
-				
-				/*gl_FragColor	= vec4(1.0,0.0,0.0,1.0);*/
-				gl_FragColor	= vec4(cossin1*sin(p.x), cossin2*sin(p.y), cossin3*sin(p.x), 1.0);
-			}
-		</script>
-
 		<div id="info"><a href="/blog/2011/08/06/lets-do-a-cube/" target="_blank">LearningThree.js</a> - Lets do a Plasma</div> 
 		<!-- include javascript files -->
 		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/build/Three.js"></script>
 		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/js/RequestAnimationFrame.js"></script>
 		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/js/Detector.js"></script>
 		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/js/Stats.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/fonts/helvetiker_bold.typeface.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/fonts/helvetiker_regular.typeface.js"></script>
+
 		<script type="text/javascript" src="dat-gui/build/DAT.GUI.js"></script>
 		
+		<script type="text/javascript" src="THREEx.GeometryWobble.js"></script>
+		<script type="text/javascript" src="THREEx.PlasmaShader.js"></script>
+		<script type="text/javascript" src="THREEx.CelShader.js"></script>
 		<script type="text/javascript" src="lets_do_a_plasma.js"></script>
 	</body>
 </html>
