@@ -80,6 +80,11 @@ function init() {
 		fragmentShader	: THREEx.ShaderLib['plasma'].fragmentShader,
 		uniforms	: THREEx.UniformsLib['plasma']
 	});
+	var material	= new THREE.MeshShaderMaterial({
+		vertexShader	: THREEx.ShaderLib['cel'].vertexShader,
+		fragmentShader	: THREEx.ShaderLib['cel'].fragmentShader,
+		uniforms	: THREEx.UniformsLib['cel']
+	});
 /**
  * How to make shader easier to use ?
  * - need a js object on top ?
@@ -92,6 +97,10 @@ function init() {
 // TODO make a plan facing camera instead
 	// create the Mesh0
 	planeMesh	= new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
+	//planeMesh	= new THREE.Mesh( new THREE.TorusGeometry( 50, 20, 15, 15 ), material );
+	planeMesh	= new THREE.Mesh( new THREE.TorusGeometry( 50, 20, 15, 15 ), material );
+	
+	
 	
 
 	// add the object to the scene
@@ -130,6 +139,7 @@ function animate() {
 // ## Render the 3D Scene
 function render() {
 (function(){
+	return;
 	var time	= (Date.now() - startTime)/1000;
 	var uniforms	= planeMesh.materials[0].uniforms;
 	uniforms.time.value	= time * userOpts.speed;	
