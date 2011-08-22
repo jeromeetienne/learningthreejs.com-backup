@@ -118,7 +118,7 @@ function init() {
 	THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.02);
 	
 	// add wireframe
-	material	= [material, new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } )]; 
+	//material	= [material, new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } )]; 
 	
 	// create the Mesh
 	mesh	= new THREE.Mesh( geometry, material );
@@ -127,19 +127,15 @@ function init() {
 	scene.addObject( mesh );
 
 	// build the coulds
-	var geometry		= new THREE.SphereGeometry( 50, 50, 50 );
-	var cloudsTexture	= THREE.ImageUtils.loadTexture( "images/earth_clouds_1024.png" );
-	var cloudsMaterial	= new THREE.MeshLambertMaterial( { color: 0xffffff, map: cloudsTexture, transparent:true } );
-	var cloudsScale		= 1.005;
-	meshClouds		= new THREE.Mesh( geometry, cloudsMaterial );
-	meshClouds.scale.set( cloudsScale, cloudsScale, cloudsScale );
-	scene.addObject( meshClouds );
-
-
-
-
-
-
+	if( false ){
+		var geometry		= new THREE.SphereGeometry( 50, 50, 50 );
+		var cloudsTexture	= THREE.ImageUtils.loadTexture( "images/earth_clouds_1024.png" );
+		var cloudsMaterial	= new THREE.MeshLambertMaterial( { color: 0xffffff, map: cloudsTexture, transparent:true } );
+		var cloudsScale		= 1.005;
+		meshClouds		= new THREE.Mesh( geometry, cloudsMaterial );
+		meshClouds.scale.set( cloudsScale, cloudsScale, cloudsScale );
+		scene.addObject( meshClouds );		
+	}
 
 
 	// create the container element
@@ -177,17 +173,18 @@ function render(){
 	var time	= Date.now()/1000;
 
 	// to animate the geometry
-	//THREEx.GeometryWobble.Animate(mesh.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
+	THREEx.GeometryWobble.Animate(mesh.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
 	
 	// animate the mesh
 	if( true ){
-		//mesh.rotation.x += 0.005/2.5;
+		mesh.rotation.x += 0.005/2.5;
 		mesh.rotation.y += 0.0125/2.5;
-		meshClouds.rotation.z += 0.0125/2.5;
-		//mesh.rotation.z += 0.0085/2.5;
+		mesh.rotation.z += 0.0085/2.5;
+
+		//meshClouds.rotation.z += 0.0125/2.5;
 	}
 	// make the mesh bounce
-	if( false ){
+	if( true ){
 		var dtime	= Date.now() - startTime;
 		mesh.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
 		mesh.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
