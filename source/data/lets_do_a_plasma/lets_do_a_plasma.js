@@ -62,7 +62,7 @@ function init() {
 	// create the camera
 	camera	= new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z	= 80;
-	camera.position.z	= 260;
+	camera.position.z	= 120;
 
 	// create the Scene
 	scene	= new THREE.Scene();
@@ -100,37 +100,37 @@ function init() {
 	//});
 
 	//var material	= new THREE.MeshNormalMaterial();
-	var material	= new THREE.MeshPhongMaterial( { color: 0xaaaaaa } );
+	//var material	= new THREE.MeshPhongMaterial( { color: 0xaaaaaa } );
 
 	var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
-	var geometry	= new THREE.TorusGeometry( 50, 20, 45, 45 );
-	//var geometry	= new THREE.SphereGeometry( 100, 25, 25 );
+	//var geometry	= new THREE.TorusGeometry( 50, 20, 45, 45 );
+	var geometry	= new THREE.SphereGeometry( 50, 25, 25 );
 
 
-	var geometry	= new THREE.TextGeometry("Learning Three.js", {
-		size		: 50,
-		height		: 20,
-		weight		: 'bold',
-		bezelThickness	: 10,
-		bezelSize	: 10,
-		bezelEnabled	: true
-	});
+	//var geometry	= new THREE.TextGeometry("node.js", {
+	//	size		: 50,
+	//	height		: 20,
+	//	weight		: 'bold',
+	//	bezelThickness	: 10,
+	//	bezelSize	: 10,
+	//	bezelEnabled	: true
+	//});
 
 	THREEx.GeometryWobble.init(geometry);
 	THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.02);
 	
 	// add wireframe
-	//material	= [material, new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } )]; 
+	material	= [material, new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } )]; 
 	
 // TODO make a plan facing camera instead
 	// create the Mesh
 	planeMesh	= new THREE.Mesh( geometry, material );
 
 	// to center the object
-	planeMesh.geometry.computeBoundingBox();
-	planeMesh.position.x	= -0.5 * ( planeMesh.geometry.boundingBox.x[ 1 ] - planeMesh.geometry.boundingBox.x[ 0 ] );
-	planeMesh.position.y	= -0.5 * ( planeMesh.geometry.boundingBox.y[ 1 ] - planeMesh.geometry.boundingBox.y[ 0 ] );
-	planeMesh.position.z	= -0.5 * ( planeMesh.geometry.boundingBox.z[ 1 ] - planeMesh.geometry.boundingBox.z&[ 0 ] );
+	//planeMesh.geometry.computeBoundingBox();
+	//planeMesh.position.x	= -0.5 * ( planeMesh.geometry.boundingBox.x[ 1 ] - planeMesh.geometry.boundingBox.x[ 0 ] );
+	//planeMesh.position.y	= -0.5 * ( planeMesh.geometry.boundingBox.y[ 1 ] - planeMesh.geometry.boundingBox.y[ 0 ] );
+	//planeMesh.position.z	= -0.5 * ( planeMesh.geometry.boundingBox.z[ 1 ] - planeMesh.geometry.boundingBox.z[ 0 ] );
 	
 	// add the object to the scene
 	scene.addObject( planeMesh );
@@ -209,21 +209,21 @@ function animatePlasma(uniforms)
 // ## Render the 3D Scene
 function render(){
 	// to animate the plasme
-	//animatePlasma(planeMesh.materials[0].uniforms);
+	animatePlasma(planeMesh.materials[0].uniforms);
 	
 	var time	= Date.now()/1000;
 
 	// to animate the geometry
-	THREEx.GeometryWobble.Animate(planeMesh.geometry, time*3, new THREE.Vector3(30, 20, 10));
+	THREEx.GeometryWobble.Animate(planeMesh.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
 	
 	// animate the planeMesh
-	if( false ){
-		//planeMesh.rotation.x += 0.02;
-		planeMesh.rotation.y += 0.0225;
-		//planeMesh.rotation.z += 0.0175;
+	if( true ){
+		planeMesh.rotation.x += 0.005/2.5;
+		planeMesh.rotation.y += 0.0125/2.5;
+		planeMesh.rotation.z += 0.0085/2.5;
 	}
 	// make the planeMesh bounce
-	if( false ){
+	if( true ){
 		var dtime	= Date.now() - startTime;
 		planeMesh.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
 		planeMesh.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
