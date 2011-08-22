@@ -41,21 +41,21 @@ function buildHearthMaterial()
 	var shader	= THREE.ShaderUtils.lib[ "normal" ];
 	var uniforms	= THREE.UniformsUtils.clone( shader.uniforms );
 
-	uniforms[ "tNormal" ].texture = normalTexture;
-	uniforms[ "uNormalScale" ].value = 0.85;
+	uniforms[ "tNormal" ].texture		= normalTexture;
+	uniforms[ "uNormalScale" ].value	= 0.85;
 
-	uniforms[ "tDiffuse" ].texture = planetTexture;
-	uniforms[ "tSpecular" ].texture = specularTexture;
+	uniforms[ "tDiffuse" ].texture		= planetTexture;
+	uniforms[ "tSpecular" ].texture		= specularTexture;
 
-	uniforms[ "enableAO" ].value = false;
-	uniforms[ "enableDiffuse" ].value = true;
-	uniforms[ "enableSpecular" ].value = true;
+	uniforms[ "enableAO" ].value		= false;
+	uniforms[ "enableDiffuse" ].value	= true;
+	uniforms[ "enableSpecular" ].value	= true;
 
 	uniforms[ "uDiffuseColor" ].value.setHex( 0xffffff );
 	uniforms[ "uSpecularColor" ].value.setHex( 0xaaaaaa );
 	uniforms[ "uAmbientColor" ].value.setHex( 0x000000 );
 
-	uniforms[ "uShininess" ].value = 30;
+	uniforms[ "uShininess" ].value		= 30;
 
 	var material	= new THREE.MeshShaderMaterial({
 		fragmentShader	: shader.fragmentShader,
@@ -63,7 +63,8 @@ function buildHearthMaterial()
 		uniforms	: uniforms,
 		lights		: true
 	});
-	return material;	
+
+	return material;
 }
 
 // ## Initialize everything
@@ -127,8 +128,12 @@ function init() {
 	scene.addObject( mesh );
 
 	// build the coulds
-	if( false ){
+	if( true ){
 		var geometry		= new THREE.SphereGeometry( 50, 50, 50 );
+		THREEx.GeometryCenter.center(geometry);
+		THREEx.GeometryWobble.init(geometry);
+		THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.02);
+
 		var cloudsTexture	= THREE.ImageUtils.loadTexture( "images/earth_clouds_1024.png" );
 		var cloudsMaterial	= new THREE.MeshLambertMaterial( { color: 0xffffff, map: cloudsTexture, transparent:true } );
 		var cloudsScale		= 1.005;
@@ -173,18 +178,22 @@ function render(){
 	var time	= Date.now()/1000;
 
 	// to animate the geometry
-	THREEx.GeometryWobble.Animate(mesh.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
+	//THREEx.GeometryWobble.Animate(mesh.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
+
+	//THREEx.GeometryWobble.Animate(meshClouds.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
 	
 	// animate the mesh
 	if( true ){
-		mesh.rotation.x += 0.005/2.5;
-		mesh.rotation.y += 0.0125/2.5;
-		mesh.rotation.z += 0.0085/2.5;
+		//mesh.rotation.x += 0.005/2.5;
+		//mesh.rotation.y += 0.0125/2.5;
+		//mesh.rotation.z += 0.0085/2.5;
 
-		//meshClouds.rotation.z += 0.0125/2.5;
+		//meshClouds.rotation.x += 0.005/2.5;
+		//meshClouds.rotation.y += 0.0125/2.5;
+		//meshClouds.rotation.z += 0.0085/2.5;
 	}
 	// make the mesh bounce
-	if( true ){
+	if( false ){
 		var dtime	= Date.now() - startTime;
 		mesh.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
 		mesh.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
