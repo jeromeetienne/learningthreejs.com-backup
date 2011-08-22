@@ -135,7 +135,7 @@ function animatePlasma(uniforms)
 {
 	var seconds		= (Date.now() - startTime) / 1000;
 
-	uniforms.time.value	= seconds * userOpts.speed;	
+	uniforms.time.value	= seconds * userOpts.speed;
 	uniforms.rotation.value	= Math.sin(seconds/10)*Math.PI;
 	uniforms.scale.value	= 0.4 - 0.2*Math.sin(seconds);
 	uniforms.opacity.value	= 1.0;
