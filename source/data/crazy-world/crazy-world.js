@@ -79,29 +79,58 @@ function init() {
 	scene	= new THREE.Scene();
 
 
-	var dirLight	= new THREE.DirectionalLight( 0xFFFFFF, 1.0 );
-	dirLight.position.set( 0, 0, 1 );
-	dirLight.position.normalize();
+	var ambientLight= new THREE.AmbientLight( 0xFBB917, 5 );
+	scene.addLight( ambientLight );
+
+	var dirLight	= new THREE.DirectionalLight( 0xFBB917, 3.0 );
+	var dirLight	= new THREE.DirectionalLight( 0xffffff, 3.0 );
+	dirLight.position.set( 1, 1, 2 ).normalize();
 	scene.addLight( dirLight );
 		
-	//var pointLight	= new THREE.PointLight( 0x0101f0, 3.5 );
-	//pointLight.position.set( 50, 50, 50 );
-	//scene.addLight( pointLight );
+	var pointLight	= new THREE.PointLight( 0xAA8888, 5, 300.0 );
+	pointLight.position.set( 50, 50, 150 );
+	scene.addLight( pointLight );
 	
 	//var pointLight	= new THREE.PointLight( 0xF00180, 5 );
 	//pointLight.position.set( -50, 0, 10 );
 	//scene.addLight( pointLight );
 
-	//var material	= new THREE.MeshNormalMaterial();
-	var material	= new THREE.MeshPhongMaterial( { color: 0xaaaaaa } );
+	var material	= new THREE.MeshNormalMaterial();
+	var material	= new THREE.MeshPhongMaterial( {
+		//opacity		: 0.5,
+		//transparent	: false,
+		//shininess	: 100.0,
+		color		: 0xFFFFFF,
+		ambient		: 0x222222,
+		specular	: 0x886600,
+		//specular	: 0x221100,
+		//wireframe		: true,
+		//wireframeLinewidth	: 10,
+		map		: THREE.ImageUtils.loadTexture( "images/earth_atmos_2048.jpg" ),
+		//lightMap	: THREE.ImageUtils.loadTexture( "images/earth_normal_2048.jpg" ),
+		//lightMap	: THREE.ImageUtils.loadTexture( "images/earth_specular_2048.jpg" ),
+	});
+	//var material	= new THREE.MeshLambertMaterial( { color: 0xAA8822 } );
 
+	var material	= [];
+	material.push(new THREE.MeshPhongMaterial( { specular: 0xFF8800, color: 0x000, shininess: 500}) );
+	material.push(new THREE.MeshLambertMaterial({
+		map 	: THREE.ImageUtils.loadTexture( "images/earth_atmos_2048.jpg" ),
+		//color	: 0x111111,
+		ambient	: 0x888888,
+		opacity	: 0.5
+	}));
+	//material.push( new THREE.MeshLambertMaterial( { color: 0xAA8822, opacity: 0.2 }) );
+	//material.push( new THREE.MeshLambertMaterial( { color: 0xAA8822 } ) );
+	//material.push( new THREE.MeshBasicMaterial( { color: 0xAA8822, wireframe: true } ) );
 
-	var material	= buildHearthMaterial();
+	//var material	= buildHearthMaterial();
 
 
 	var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
 	//var geometry	= new THREE.TorusGeometry( 50, 20, 45, 45 );
-	var geometry	= new THREE.SphereGeometry( 50, 50, 50 );
+	//var geometry	= new THREE.SphereGeometry( 50, 50, 50 );
+	var geometry	= new THREE.SphereGeometry( 50, 25, 25 );
 	geometry.computeTangents();
 
 
@@ -177,28 +206,43 @@ function animate() {
 function render(){
 	var time	= Date.now()/1000;
 
-	// to animate the geometry
-	//THREEx.GeometryWobble.Animate(mesh.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
 
-	//THREEx.GeometryWobble.Animate(meshClouds.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
-	
-	// animate the mesh
-	if( true ){
-		//mesh.rotation.x += 0.005/2.5;
-		//mesh.rotation.y += 0.0125/2.5;
-		//mesh.rotation.z += 0.0085/2.5;
-
-		//meshClouds.rotation.x += 0.005/2.5;
-		//meshClouds.rotation.y += 0.0125/2.5;
-		//meshClouds.rotation.z += 0.0085/2.5;
+	var wobble	= function(){
+		THREEx.GeometryWobble.Animate(mesh.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
+		THREEx.GeometryWobble.Animate(meshClouds.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));		
 	}
-	// make the mesh bounce
-	if( false ){
+	var funkyRotation	= function(){
+		var speed	= 0.05;
+		var rx		=  5.0 *Math.PI/180*speed;
+		var ry		= 12.5 *Math.PI/180*speed;
+		var rz		=  7.5 *Math.PI/180*speed;
+		var inc		= new THREE.Vector3(rx, ry, rz);
+		mesh.rotation.addSelf(inc);
+		meshClouds.rotation.addSelf(inc);
+	}
+	var normalEarthRotation= function(){
+		mesh.rotation.y		+= 0.0125/7.5;
+		meshClouds.rotation.y	+= 3*0.0125/7.5;		
+	}
+	var zBounce	= function(){
+			// - may be nice as a vumeter
 		var dtime	= Date.now() - startTime;
-		mesh.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
-		mesh.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
-		mesh.scale.z	= 1.0 + 0.3*Math.sin(dtime/300);		
+		var scale	= 1.0 + 0.3*Math.sin(dtime/300);
+		var scaleClouds	= 1.005;
+		mesh.scale.x	= scale;
+		mesh.scale.y	= scale;
+		mesh.scale.z	= scale;		
+		meshClouds.scale.x	= scaleClouds * scale;
+		meshClouds.scale.y	= scaleClouds * scale;
+		meshClouds.scale.z	= scaleClouds * scale;;		
 	}
+	
+	// funky rotation
+	wobble();
+	funkyRotation();
+	//normalEarthRotation();
+	zBounce();
+
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
 }
