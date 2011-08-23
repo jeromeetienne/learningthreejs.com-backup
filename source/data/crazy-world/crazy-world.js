@@ -199,9 +199,11 @@ function animate() {
 	requestAnimationFrame( animate );
 	// update the stats
 	stats.update();
+	// update the tweens from TWEEN library
+	TWEEN.update();
 }
 
-
+var tweenForward, tweenBackward;
 // ## Render the 3D Scene
 function render(){
 	var time	= Date.now()/1000;
@@ -224,24 +226,94 @@ function render(){
 		mesh.rotation.y		+= 0.0125/7.5;
 		meshClouds.rotation.y	+= 3*0.0125/7.5;		
 	}
-	var zBounce	= function(){
-			// - may be nice as a vumeter
-		var dtime	= Date.now() - startTime;
-		var scale	= 1.0 + 0.3*Math.sin(dtime/300);
+	var heartbeat	= function(){
+		var seconds	= (Date.now() - startTime)/1000;
+		var angle	= 1.5*seconds*Math.PI;
+		var scale	= Math.abs(Math.cos(angle));
+
+		var from	= 1.0
+		var to		= 1.1;
+		var value	= from + (to-from) * scale;
+
 		var scaleClouds	= 1.005;
-		mesh.scale.x	= scale;
-		mesh.scale.y	= scale;
-		mesh.scale.z	= scale;		
-		meshClouds.scale.x	= scaleClouds * scale;
-		meshClouds.scale.y	= scaleClouds * scale;
-		meshClouds.scale.z	= scaleClouds * scale;;		
+		mesh.scale.x		= mesh.scale.y		= mesh.scale.z		= value;		
+		meshClouds.scale.x	= meshClouds.scale.y	= meshClouds.scale.z	= scaleClouds * value;		
+	}
+	var zBounce0	= function(){
+			// - may be nice as a vumeter
+		var seconds	= (Date.now() - startTime)/1000;
+		var angle	= seconds*Math.PI;
+		//var angle	= (Date.now() - startTime)/300;
+		//var scale	= 0.3*Math.sin(angle)*Math.sin(angle);
+		var scale	= Math.sin(angle);
+		var scale	= Math.sin(angle)*Math.sin(angle);
+		//var scale	= Math.abs(Math.cos(angle));
+		var scaleClouds	= 1.005;
+		
+		//scale	= 
+		//var width	= 300;
+		//scale= 0;
+		//meshClouds.position.x	= mesh.position.x	= scale * width/2;
+		//meshClouds.position.x	= scale * width/2;
+		//return;
+		var offset	= 1.0;
+		var range	= 0.3;
+		var value	= offset + range * scale;
+		mesh.scale.x	= mesh.scale.y	= mesh.scale.z	= value;		
+		meshClouds.scale.x	= meshClouds.scale.y	= meshClouds.scale.z	= scaleClouds * value;		
+	}
+	var zBounce	= function(){
+		var scaleClouds	= 1.005;
+		var update	= function(){
+			mesh.scale.x		= mesh.scale.y		= mesh.scale.z		= this.v;		
+			meshClouds.scale.x	= meshClouds.scale.y	= meshClouds.scale.z	= scaleClouds * this.v;		
+		};
+
+		// notion of mirror
+		// notion of loop, nb loop
+		
+		if( tweenForward )	return;
+		var loops	= 10;
+		var duration	= 1000/2;
+		
+		var offset	= 1.0;
+		var range	= 0.1;
+		var from	= {v: offset + range};
+		var to		= {v: offset - range};
+
+		var position	= JSON.parse(JSON.stringify(from));
+		tweenForward	= new TWEEN.Tween(position)
+				.to(from, duration)
+				.easing(TWEEN.Easing.Circular.EaseOut)
+				.onUpdate(update);
+		tweenBackward	= new TWEEN.Tween(position)
+				.to(to, duration)
+				.easing(TWEEN.Easing.Circular.EaseIn)
+				.onUpdate(update)
+				.onComplete(function(){
+					loops--;
+
+					var base	= 1.0;
+					var range	= 1/(loops/3+1);
+					from.v	= base + range/2 + range;
+					to.v	= base + range/2 - range;
+
+					if(loops != 0)	return;
+					tweenForward.stop();
+					tweenBackward.stop();
+				});
+		tweenForward.chain( tweenBackward );
+		tweenBackward.chain( tweenForward );
+		tweenForward.start();
 	}
 	
 	// funky rotation
-	wobble();
-	funkyRotation();
+	//wobble();
+	//funkyRotation();
 	//normalEarthRotation();
+	//zBounce0();
 	zBounce();
+	//heartbeat();
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
