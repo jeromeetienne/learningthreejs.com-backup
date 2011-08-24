@@ -52,130 +52,13 @@ function init() {
 
 
 
-function LogoShapeO(r)
-{
-	var a		= 90	* Math.PI/180;
-	var ai		= 360/6 * Math.PI/180;
-	var shape	= new THREE.Shape();
-	shape.moveTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	
-	return shape;
-}
-
-function LogoShapeN(r)
-{
-	var rs		= 0.6	* r;
-	var a		= 90	* Math.PI/180;
-	var ai		= 360/6 * Math.PI/180;
-	var shape	= new THREE.Shape();
-	
-	shape.moveTo(  Math.cos(a)*r	, Math.sin(a)*r );
-	a	+= ai;
-
-	// left side
-	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
-	a	+= ai;
-
-	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
-
-	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
-	a	-= ai;
-
-	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
-	a	-= ai;
-
-	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
-	a	-= ai;
-	
-	// right side
-
-	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
-	a	-= ai;
-
-	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
-
-	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
-	a	+= ai;
-
-	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
-
-	// close the shape
-	var a		= 90	* Math.PI/180;
-	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
-	
-	return shape;
-}
-
-
-function LogoShapeD(r)
-{
-	var a		= 90	* Math.PI/180;
-	var ai		= 360/6 * Math.PI/180;
-	var shape	= new THREE.Shape();
-	shape.moveTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r+1*r );
-	a	+= ai;
-	shape.lineTo(  Math.cos(a)*r+r/2, Math.sin(a)*r+1*r );
-	shape.lineTo(  Math.cos(a)*r+r/2, Math.sin(a)*r-r/4 );
-	
-	// close the shape
-	var a		= 90	* Math.PI/180;
-	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
-
-
-	// get the hole
-	// TODO to the hexagone in another function
-	var r		= r/3;
-	var a		= 90	* Math.PI/180;
-	var ai		= 360/6 * Math.PI/180;
-	var hole	= new THREE.Path();
-	hole.moveTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	shape.holes.push( hole );
-
-
-	
-	return shape;
-}
-
 (function(){
 	var logoGreen	= 0x8BC84B;
 	var logoWhite	= 0xE0E0E0;
-	var shape	= LogoShapeO(100);
-	//var shape	= LogoShapeN(100);
-	var shape	= LogoShapeD(100);
+	//var shape	= NodeLogo.shapeN(100);
+	//var shape	= NodeLogo.shapeO(100);
+	var shape	= NodeLogo.shapeD(100);
+	//var shape	= LogoShapeD(100);
 
 	// build the geometry from the THREE.Shape	
 	var extrudeSettings	= { amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
