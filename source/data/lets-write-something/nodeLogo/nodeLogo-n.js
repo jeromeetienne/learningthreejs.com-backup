@@ -44,3 +44,33 @@ NodeLogo.shapeN	= function(r)
 	return shape;
 }
 
+NodeLogo.shapeN	= function(radius)
+{
+	var distance	= 2 * radius * Math.sin(0.5 * Math.PI/3);
+	var distanceIn	= distance / 2;
+	var turtle	=  THREEx.LogoTurtle.create()
+		.turn(Math.PI/2)
+		.moveTo(-radius/2, -radius * Math.cos(0.5 * Math.PI/3))
+		.forward(distance)
+		.turn(Math.PI/3)
+		.forward(distance)
+		.turn(Math.PI/3)
+		.forward(distance)
+		.turn(Math.PI/3)
+		.forward(distance+distanceIn)
+		.turn(2*Math.PI/3)
+		.forward(distanceIn)
+		.turn(Math.PI/3)
+		.forward(distance)
+		.turn(-Math.PI/3)
+		.forward(distanceIn)
+		.turn(-Math.PI/3)
+		.forward(distanceIn)
+		.turn(-Math.PI/3)
+		.forward(distance)
+		.turn(Math.PI/3)
+		.forward(distanceIn)
+		
+	return new THREE.Shape( turtle.points() );
+}
+

@@ -53,28 +53,9 @@ function init() {
 
 
 (function(){
-	var logoGreen	= 0x8BC84B;
-	var logoWhite	= 0xE0E0E0;
-	//var shape	= NodeLogo.shapeN(100);
-	//var shape	= NodeLogo.shapeO(100);
-	//var shape	= NodeLogo.shapeD(100);
-	var shape	= NodeLogo.shapeE(100);
-
-	// build the geometry from the THREE.Shape	
-	var extrudeSettings	= { amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
-	var geometry		= shape.extrude( extrudeSettings );
-
-	// recenter and scale
-	//THREEx.GeometryCenter
-	//	.center(geometry)
-	//	.scale(geometry, new THREE.Vector3(1,1.1,1))
-
-	// build the Mesh and add it to the scene
-	var mesh	= new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: logoGreen }) );
-	mesh.position.z	= 300;
-	scene.addChild( mesh );
-	
-	triangleMesh	= mesh;
+	triangleMesh	= buildNodeLogo();
+	triangleMesh.position.z	= 300;
+	scene.addChild( triangleMesh );
 }())
 
 
@@ -295,6 +276,7 @@ function render()
 	//mesh.rotation.z += 0.0175;
 
 	//triangleMesh.rotation.z += 2 * Math.PI/180;
+	triangleMesh.rotation.x += 2 * Math.PI/180;
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );

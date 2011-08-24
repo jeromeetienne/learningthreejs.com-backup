@@ -8,20 +8,52 @@ THREEx.GeometryCenter	= {};
 // - add scale
 // - chained API
 // - possibility a matrix to reduce computation ?
-// - rename it to GeometryOperations
+// - rename it to GeometryUtils
 
 THREEx.GeometryCenter.center	= function(geometry, noX, noY, noZ)
 {
-	// make sure that geometry.boundingBox is uptodate
+	// compute bounding box
 	geometry.computeBoundingBox();
 
 	// compute delta
-	var delta	= new THREE.Vector3()
-	if( !noX )	delta.x	= -( geometry.boundingBox.x[ 1 ] + geometry.boundingBox.x[ 0 ] ) / 2;
-	if( !noY )	delta.y	= -( geometry.boundingBox.y[ 1 ] + geometry.boundingBox.y[ 0 ] ) / 2;
-	if( !noZ )	delta.z	= -( geometry.boundingBox.z[ 1 ] + geometry.boundingBox.z[ 0 ] ) / 2;
+	var delta	= this.middlePoint(geometry).negate();
+	if( noX )	delta.x	= 0;
+	if( noY )	delta.y	= 0;
+	if( noZ )	delta.z	= 0;
 
 	return this.translate(geometry, delta)
+}
+
+THREEx.GeometryCenter.middlePoint	= function(geometry)
+{
+	// compute bounding box
+	geometry.computeBoundingBox();
+
+	// compute middle
+	var point	= new THREE.Vector3()
+	point.x	= ( geometry.boundingBox.x[ 1 ] + geometry.boundingBox.x[ 0 ] ) / 2;
+	point.y	= ( geometry.boundingBox.y[ 1 ] + geometry.boundingBox.y[ 0 ] ) / 2;
+	point.z	= ( geometry.boundingBox.z[ 1 ] + geometry.boundingBox.z[ 0 ] ) / 2;
+
+	return point;
+}
+
+THREEx.GeometryCenter.attachRightLeft	= function(geometry1, geometry2, delta)
+{
+	if( delta === undefined )	delta	= 0;
+	// compute bounding box
+	geometry1.computeBoundingBox();
+	geometry2.computeBoundingBox();
+	
+	var maxX1	= geometry1.boundingBox.x[ 1 ]
+	var minX2	= geometry2.boundingBox.x[ 0 ];
+
+	var vector	= new THREE.Vector3();
+	vector.x	= maxX1+ (-minX2) + delta;
+
+	this.translate(geometry2, vector);
+	
+	return this;
 }
 
 THREEx.GeometryCenter.scale	= function(geometry, scale)
