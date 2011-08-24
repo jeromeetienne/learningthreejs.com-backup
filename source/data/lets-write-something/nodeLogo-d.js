@@ -1,5 +1,27 @@
 var NodeLogo	= NodeLogo	|| {};
 
+NodeLogo.pathHexagon	= function(path, radius)
+{
+	var r		= radius;
+	var a		= 90	* Math.PI/180;
+	var ai		= 360/6 * Math.PI/180;
+	path.moveTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	path.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	path.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	path.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	path.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	path.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	path.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	return path;
+	shape.holes.push( hole );
+}
+
 NodeLogo.shapeD	= function(r)
 {
 	var a		= 90	* Math.PI/180;
@@ -24,26 +46,8 @@ NodeLogo.shapeD	= function(r)
 	var a		= 90	* Math.PI/180;
 	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
 
-
 	// get the hole
-	// TODO to the hexagone in another function
-	var r		= r/3;
-	var a		= 90	* Math.PI/180;
-	var ai		= 360/6 * Math.PI/180;
-	var hole	= new THREE.Path();
-	hole.moveTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
-	a	+= ai;
-	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	var hole	= this.pathHexagon(new THREE.Path(), r/3);
 	shape.holes.push( hole );
 
 	return shape;

@@ -57,8 +57,8 @@ function init() {
 	var logoWhite	= 0xE0E0E0;
 	//var shape	= NodeLogo.shapeN(100);
 	//var shape	= NodeLogo.shapeO(100);
-	var shape	= NodeLogo.shapeD(100);
-	//var shape	= LogoShapeD(100);
+	//var shape	= NodeLogo.shapeD(100);
+	var shape	= NodeLogo.shapeE(100);
 
 	// build the geometry from the THREE.Shape	
 	var extrudeSettings	= { amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
