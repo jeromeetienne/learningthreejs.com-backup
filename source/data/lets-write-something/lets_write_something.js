@@ -29,9 +29,9 @@ function init() {
 
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 2000 );
-	camera.position.y	= 50;
-	camera.position.z	= 400;
-	camera.target.position.y= 50;
+	camera.position.y	= 0;
+	camera.position.z	= 600;
+	camera.target.position.y= 0;
 
 	// create the Scene
 	scene		= new THREE.Scene();
@@ -51,17 +51,89 @@ function init() {
 	scene.addLight( pointLight );
 
 
-	var triangleShape = new THREE.Shape();
-	triangleShape.moveTo(  80, 20 );
-	triangleShape.lineTo(  40, 80 );
-	triangleShape.lineTo( 120, 80 );
-	triangleShape.lineTo(  80, 20 ); // close path
 
-	var extrudeSettings = {	amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
-	var triangle3d = triangleShape.extrude( extrudeSettings );
-	// 3d shape
-	var triangleMesh	= new THREE.Mesh(triangle3d, new THREE.MeshLambertMaterial({ color: 0xFF0000 }) );
+function LogoShapeO(r)
+{
+	var a		= 90	* Math.PI/180;
+	var ai		= 360/6 * Math.PI/180;
+	var shape	= new THREE.Shape();
+	shape.moveTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	
+	return shape;
+}
+
+function LogoShapeN(r)
+{
+	var rs		= 0.6	* r;
+	var a		= 90	* Math.PI/180;
+	var ai		= 360/6 * Math.PI/180;
+	var shape	= new THREE.Shape();
+	
+	shape.moveTo(  Math.cos(a)*r	, Math.sin(a)*r );
+	a	+= ai;
+
+	// left side
+	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
+	a	+= ai;
+
+	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
+
+	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
+	a	-= ai;
+
+	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
+	a	-= ai;
+
+	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
+	a	-= ai;
+	
+	// right side
+
+	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
+	a	-= ai;
+
+	shape.lineTo(  Math.cos(a)*rs	, Math.sin(a)*rs );
+
+	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
+	a	+= ai;
+
+	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
+
+	// close the shape
+	var a		= 90	* Math.PI/180;
+	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
+	
+	return shape;
+}
+
+(function(){
+	var logoGreen	= 0x8BC84B;
+	var logoWhite	= 0xE0E0E0;
+	var shape	= LogoShapeO(100);
+	var shape	= LogoShapeN(100);
+
+	// build the geometry from the THREE.Shape	
+	var extrudeSettings	= { amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
+	var geometry		= shape.extrude( extrudeSettings );
+	THREEx.GeometryCenter.center(geometry)
+
+	// build the Mesh and add it to the scene
+	triangleMesh		= new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: logoWhite }) );
+	triangleMesh.position.z	= 300;
 	scene.addChild( triangleMesh );
+}())
 
 
 	//var textGeo	= new THREE.TextGeometry( "Hello");
@@ -128,7 +200,7 @@ function init() {
 		comments: "http://news.ycombinator.com/item?id=2862566",
 		link	: "http://status.aws.amazon.com/"
 	})
-	scene.addChild(mesh)
+	//scene.addChild(mesh)
 
 /**
  * - TODO find a simple way to complete this one
@@ -279,6 +351,8 @@ function render()
 	//mesh.rotation.x += 0.02;
 	//mesh.rotation.y += 0.0125;
 	//mesh.rotation.z += 0.0175;
+
+	triangleMesh.rotation.y += 2 * Math.PI/180;
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
