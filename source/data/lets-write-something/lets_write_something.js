@@ -118,21 +118,80 @@ function LogoShapeN(r)
 	return shape;
 }
 
+
+function LogoShapeD(r)
+{
+	var a		= 90	* Math.PI/180;
+	var ai		= 360/6 * Math.PI/180;
+	var shape	= new THREE.Shape();
+	shape.moveTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r, Math.sin(a)*r+1*r );
+	a	+= ai;
+	shape.lineTo(  Math.cos(a)*r+r/2, Math.sin(a)*r+1*r );
+	shape.lineTo(  Math.cos(a)*r+r/2, Math.sin(a)*r-r/4 );
+	
+	// close the shape
+	var a		= 90	* Math.PI/180;
+	shape.lineTo(  Math.cos(a)*r	, Math.sin(a)*r );
+
+
+	// get the hole
+	// TODO to the hexagone in another function
+	var r		= r/3;
+	var a		= 90	* Math.PI/180;
+	var ai		= 360/6 * Math.PI/180;
+	var hole	= new THREE.Path();
+	hole.moveTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	a	+= ai;
+	hole.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
+	shape.holes.push( hole );
+
+
+	
+	return shape;
+}
+
 (function(){
 	var logoGreen	= 0x8BC84B;
 	var logoWhite	= 0xE0E0E0;
 	var shape	= LogoShapeO(100);
-	var shape	= LogoShapeN(100);
+	//var shape	= LogoShapeN(100);
+	var shape	= LogoShapeD(100);
 
 	// build the geometry from the THREE.Shape	
 	var extrudeSettings	= { amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
 	var geometry		= shape.extrude( extrudeSettings );
-	THREEx.GeometryCenter.center(geometry)
+
+	// recenter and scale
+	THREEx.GeometryCenter
+		.center(geometry)
+		.scale(geometry, new THREE.Vector3(1,1.1,1))
 
 	// build the Mesh and add it to the scene
-	triangleMesh		= new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: logoWhite }) );
-	triangleMesh.position.z	= 300;
-	scene.addChild( triangleMesh );
+	var mesh	= new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: logoGreen }) );
+	mesh.position.z	= 300;
+	scene.addChild( mesh );
+	
+	triangleMesh	= mesh;
 }())
 
 

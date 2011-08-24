@@ -8,6 +8,7 @@ THREEx.GeometryCenter	= {};
 // - add scale
 // - chained API
 // - possibility a matrix to reduce computation ?
+// - rename it to GeometryOperations
 
 THREEx.GeometryCenter.center	= function(geometry, noX, noY, noZ)
 {
