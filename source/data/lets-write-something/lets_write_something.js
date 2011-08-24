@@ -51,6 +51,19 @@ function init() {
 	scene.addLight( pointLight );
 
 
+	var triangleShape = new THREE.Shape();
+	triangleShape.moveTo(  80, 20 );
+	triangleShape.lineTo(  40, 80 );
+	triangleShape.lineTo( 120, 80 );
+	triangleShape.lineTo(  80, 20 ); // close path
+
+	var extrudeSettings = {	amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
+	var triangle3d = triangleShape.extrude( extrudeSettings );
+	// 3d shape
+	var triangleMesh	= new THREE.Mesh(triangle3d, new THREE.MeshLambertMaterial({ color: 0xFF0000 }) );
+	scene.addChild( triangleMesh );
+
+
 	//var textGeo	= new THREE.TextGeometry( "Hello");
 	//var textMaterial= new THREE.MeshNormalMaterial();
 	//var textMesh1	= new THREE.Mesh( textGeo, textMaterial );

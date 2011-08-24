@@ -185,7 +185,7 @@ TWEEN.Tween = function ( object ) {
 
 		value = _easingFunction( elapsed );
 
-		for ( var property in _valuesEnd ) {
+		for ( property in _valuesEnd ) {
 
 			// Again, prevent dealing with null values
 			if( _valuesEnd[ property ] === null ){
