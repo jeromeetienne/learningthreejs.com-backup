@@ -1,61 +1,87 @@
 /** @namespace */
 var THREEx	= THREEx	|| {};
 
-THREEx.LogoShape	= function()
+
+THREEx.LogoTurtle	= function()
 {
 	this._penX	= 0;
 	this._penY	= 0;
 	this._angle	= 0;
-	this._penDown	= true;
-	this._shape	= new THREE.Shape();
-	
-	this._needMoveTo= true;
+	this._vectors	= [];
 }
 
-THREEx.LogoShape.prototype.penUp	= function()
+THREEx.LogoTurtle.create	= function()
 {
-	this._penDown	= false;
-	return this;
+	return new THREEx.LogoTurtle()
 }
 
-THREEx.LogoShape.prototype.penDown	= function()
-{
-	this._penDown	= true;
-	this._needMoveTo= true;
-	return this;
-}
-
-THREEx.LogoShape.prototype.turnRight	= function(rotation)
+THREEx.LogoTurtle.prototype.turn	= function(rotation)
 {
 	this._angle	+= rotation;
+	return this;	
+}
+
+THREEx.LogoTurtle.prototype.moveTo	= function(x, y)
+{
+	this._penX	= x * Math.cos(this._angle) - y * Math.sin(this._angle);
+	this._penY	= x * Math.sin(this._angle) + y * Math.cos(this._angle);
+	this._vectors.push( new THREE.Vector2(this._penX, this._penY) );
 	return this;
 }
 
-THREEx.LogoShape.prototype.turnLeft	= function(rotation)
+THREEx.LogoTurtle.prototype.forward	= function(distance)
 {
-	return this.turnRight(-rotation);
-}
-
-THREEx.LogoShape.prototype.forward	= function(distance)
-{
-	if( this._needMoveTo ){
-		console.log("MoveTo pen x", this._penX, " y", this._penY)
-		this._shape.moveTo( this._penX, this._penY );
-		this._needMoveTo	= false;
-	}
-
 	this._penX	+= Math.cos(this._angle) * distance;
 	this._penY	+= Math.sin(this._angle) * distance;
 
-	if( this._penDown ){
-		console.log("lineTo pen x", this._penX, " y", this._penY)
-		this._shape.lineTo( this._penX, this._penY );
-	}
-
+	this._vectors.push( new THREE.Vector2(this._penX, this._penY) );	
+	
 	return this;
 }
 
-THREEx.LogoShape.prototype.shape	= function()
+THREEx.LogoTurtle.prototype.points	= function()
 {
-	return this._shape;
+	return this._vectors;
+}
+
+// ==============================================================================
+// ==============================================================================
+// ==============================================================================
+
+THREEx.LogoTurtle.prototype.doHexagon	= function(radius)
+{
+	var distance	= 2 * radius * Math.sin(0.5 * Math.PI/3);
+	this
+		.moveTo(-radius/2, -radius * Math.cos(0.5 * Math.PI/3))
+		.forward(distance)
+		.turn(Math.PI/3)
+		.forward(distance)
+		.turn(Math.PI/3)
+		.forward(distance)
+		.turn(Math.PI/3)
+		.forward(distance)
+		.turn(Math.PI/3)
+		.forward(distance)
+		.turn(Math.PI/3)
+		.forward(distance);
+	return this;
+}
+
+THREEx.LogoTurtle.prototype.doRectangle	= function(width, height)
+{
+	this
+		.moveTo(-width/2,-height/2)
+		.forward(width)
+		.turn(Math.PI/2)
+		.forward(height)
+		.turn(Math.PI/2)
+		.forward(width)
+		.turn(Math.PI/2)
+		.forward(height);
+	return this;
+}
+
+THREEx.LogoTurtle.prototype.doSquare	= function(width)
+{
+	return this.doRectangle(width, width)
 }

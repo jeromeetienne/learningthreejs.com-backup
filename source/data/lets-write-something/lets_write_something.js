@@ -65,9 +65,9 @@ function init() {
 	var geometry		= shape.extrude( extrudeSettings );
 
 	// recenter and scale
-	THREEx.GeometryCenter
-		.center(geometry)
-		.scale(geometry, new THREE.Vector3(1,1.1,1))
+	//THREEx.GeometryCenter
+	//	.center(geometry)
+	//	.scale(geometry, new THREE.Vector3(1,1.1,1))
 
 	// build the Mesh and add it to the scene
 	var mesh	= new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: logoGreen }) );
@@ -294,7 +294,7 @@ function render()
 	//mesh.rotation.y += 0.0125;
 	//mesh.rotation.z += 0.0175;
 
-	triangleMesh.rotation.y += 2 * Math.PI/180;
+	//triangleMesh.rotation.z += 2 * Math.PI/180;
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );

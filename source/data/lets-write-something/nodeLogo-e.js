@@ -1,15 +1,13 @@
 var NodeLogo	= NodeLogo	|| {};
 
-NodeLogo.shapeE	= function(r)
+NodeLogo.shapeE	= function(radius)
 {
-	var logo	= new THREEx.LogoShape()
-		.forward(100)
-		.turnRight(Math.PI/2)
-		.forward(100)
-		.turnRight(Math.PI/2)
-		.forward(100)
-		.turnRight(Math.PI/2)
-		.forward(100);
-	
-	return logo.shape();
+	var turtle	=  THREEx.LogoTurtle.create().turn(Math.PI/2).doHexagon(radius);
+	var shape	= new THREE.Shape(turtle.points());
+
+	var turtle	= THREEx.LogoTurtle.create().turn(Math.PI/2).doHexagon(radius/3);
+	var hole	= new THREE.Path(turtle.points());
+	shape.holes.push( hole );
+
+	return shape;
 }

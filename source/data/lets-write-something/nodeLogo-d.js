@@ -19,7 +19,6 @@ NodeLogo.pathHexagon	= function(path, radius)
 	a	+= ai;
 	path.lineTo(  Math.cos(a)*r, Math.sin(a)*r );
 	return path;
-	shape.holes.push( hole );
 }
 
 NodeLogo.shapeD	= function(r)
