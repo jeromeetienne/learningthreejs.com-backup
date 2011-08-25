@@ -45,20 +45,17 @@ function init() {
 	scene	= new THREE.Scene();
 
 
-	var ambientLight= new THREE.AmbientLight( 0xFBB917, 1.0 );
+	var ambientLight= new THREE.AmbientLight( 0xaaaaaa, 1.0 );
 	scene.addLight( ambientLight );
 
-	//var dirLight	= new THREE.DirectionalLight( 0xffffff, 1.0 );
-	//dirLight.position.set( 1, 1, 2 ).normalize();
-	//scene.addLight( dirLight );
+	var dirLight	= new THREE.DirectionalLight( 0xaaaaaa, 1.0 );
+	dirLight.position.set( -2, 1, 1 ).normalize();
+	scene.addLight( dirLight );
 		
-	var pointLight	= new THREE.PointLight( 0xFF8888, 3.0, 4000 );
-	pointLight.position.set( 50, 50, 150 );
-	scene.addLight( pointLight );
-	
-	//var pointLight	= new THREE.PointLight( 0xF00180, 5 );
-	//pointLight.position.set( -50, 0, 10 );
-	//scene.addLight( pointLight );
+	var dirLight	= new THREE.DirectionalLight( 0x448800, 0.5 );
+	dirLight.position.set( 2, -1, -1 ).normalize();
+	scene.addLight( dirLight );
+		
 
 	var material	= new THREE.MeshNormalMaterial();
 	var material	= new THREE.MeshPhongMaterial( {
@@ -67,7 +64,7 @@ function init() {
 		//shininess	: 100.0,
 		color		: 0xFFFFFF,
 		ambient		: 0x222222,
-		specular	: 0x886600,
+		specular	: 0xFF6600,
 		//specular	: 0x221100,
 		//wireframe		: true,
 		//wireframeLinewidth	: 10,
@@ -114,13 +111,15 @@ function init() {
 
 	var cubeMaterial0	= new THREE.MeshPhongMaterial({
 		//color		: 0xffffff,
-		color		: 0x40DD40,
-		ambient		: 0x00DD00,
-		specular	: 0xFF0000,
-		shininess	: 1000,
+		color		: 0x448844,
+		ambient		: 0x44FF44,
+		specular	: 0xAA0101,
+		shininess	: 100,
 		envMap		: refractionCube,
-		combine		: THREE.MixOperation,
-		reflectivity	: 0.75,
+		//combine		: THREE.MixOperation,
+		combine		: THREE.MultiplyOperation,
+		reflectivity	: 0.7,
+		refractionRatio	: 0.95,
 		opacity		: 0.8
 	});
 
@@ -150,7 +149,7 @@ function init() {
 	var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
 	//var geometry	= new THREE.TorusGeometry( 50, 20, 45, 45 );
 	//var geometry	= new THREE.SphereGeometry( 50, 50, 50 );
-	var geometry	= new THREE.SphereGeometry( 70, 50, 50 );
+	var geometry	= new THREE.SphereGeometry( 60, 50, 50 );
 	geometry.computeTangents();
 	
 	// center the geometry
@@ -159,7 +158,7 @@ function init() {
 	
 	// wobble preparation
 	THREEx.GeometryWobble.init(geometry);
-	THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.02);
+	THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.025);
 	
 	// add wireframe
 	//material	= [material, new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } )]; 
@@ -227,8 +226,8 @@ function render(){
 (function(){
 	// move the camera based on a timer
 	var timer	= - new Date().getTime() / 1000 * Math.PI;
-	var angle	= timer/10;
-	angle	= Math.PI/3;
+	var angle	= timer/5;
+	//angle		= Math.PI/3;
 	camera.position.x = 200 * Math.cos( angle );
 	camera.position.z = 200 * Math.sin( angle );
 })()
