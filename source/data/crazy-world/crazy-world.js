@@ -9,7 +9,7 @@
 var startTime	= Date.now();
 var container;
 var camera, scene, renderer, stats;
-var mesh;
+var mesh, meshClouds;
 
 // maybe replace that by window... or something
 var userOpts	= {
@@ -32,62 +32,27 @@ if ( !Detector.webgl ){
 	animate();	
 }
 
-function buildHearthMaterial()
-{
-	var planetTexture	= THREE.ImageUtils.loadTexture( "images/earth_atmos_2048.jpg" );
-	var normalTexture	= THREE.ImageUtils.loadTexture( "images/earth_normal_2048.jpg" );
-	var specularTexture	= THREE.ImageUtils.loadTexture( "images/earth_specular_2048.jpg" );
-
-	var shader	= THREE.ShaderUtils.lib[ "normal" ];
-	var uniforms	= THREE.UniformsUtils.clone( shader.uniforms );
-
-	uniforms[ "tNormal" ].texture		= normalTexture;
-	uniforms[ "uNormalScale" ].value	= 0.85;
-
-	uniforms[ "tDiffuse" ].texture		= planetTexture;
-	uniforms[ "tSpecular" ].texture		= specularTexture;
-
-	uniforms[ "enableAO" ].value		= false;
-	uniforms[ "enableDiffuse" ].value	= true;
-	uniforms[ "enableSpecular" ].value	= true;
-
-	uniforms[ "uDiffuseColor" ].value.setHex( 0xffffff );
-	uniforms[ "uSpecularColor" ].value.setHex( 0xaaaaaa );
-	uniforms[ "uAmbientColor" ].value.setHex( 0x000000 );
-
-	uniforms[ "uShininess" ].value		= 30;
-
-	var material	= new THREE.MeshShaderMaterial({
-		fragmentShader	: shader.fragmentShader,
-		vertexShader	: shader.vertexShader,
-		uniforms	: uniforms,
-		lights		: true
-	});
-
-	return material;
-}
 
 // ## Initialize everything
 function init() {
 
 	// create the camera
-	camera	= new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+	camera	= new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
 	camera.position.z	= 80;
-	camera.position.z	= 120;
+	camera.position.z	= 200;
 
 	// create the Scene
 	scene	= new THREE.Scene();
 
 
-	var ambientLight= new THREE.AmbientLight( 0xFBB917, 5 );
+	var ambientLight= new THREE.AmbientLight( 0xFBB917, 1.0 );
 	scene.addLight( ambientLight );
 
-	var dirLight	= new THREE.DirectionalLight( 0xFBB917, 3.0 );
-	var dirLight	= new THREE.DirectionalLight( 0xffffff, 3.0 );
+	var dirLight	= new THREE.DirectionalLight( 0xffffff, 1.0 );
 	dirLight.position.set( 1, 1, 2 ).normalize();
 	scene.addLight( dirLight );
 		
-	var pointLight	= new THREE.PointLight( 0xAA8888, 5, 300.0 );
+	var pointLight	= new THREE.PointLight( 0xAA8888, 0 );
 	pointLight.position.set( 50, 50, 150 );
 	scene.addLight( pointLight );
 	
@@ -124,26 +89,71 @@ function init() {
 	//material.push( new THREE.MeshLambertMaterial( { color: 0xAA8822 } ) );
 	//material.push( new THREE.MeshBasicMaterial( { color: 0xAA8822, wireframe: true } ) );
 
-	//var material	= buildHearthMaterial();
+	var material	= MaterialEarthMapping.buildHearthMaterial();
+
+
+
+(function(){
+	var path = "images/SwedishRoyalCastle/";var format = '.jpg';
+	//var path = "images/skybox/";		var format = '.jpg';
+	//var path = "images/pisa/";		var format = '.png';
+	var urls = [
+			path + 'px' + format, path + 'nx' + format,
+			path + 'py' + format, path + 'ny' + format,
+			path + 'pz' + format, path + 'nz' + format
+		];
+
+	var reflectionCube = THREE.ImageUtils.loadTextureCube( urls );
+	var refractionCube = new THREE.Texture( reflectionCube.image, new THREE.CubeRefractionMapping() );
+
+	//var cubeMaterial3 = new THREE.MeshPhongMaterial( { color: 0x000000, specular:0xaa0000, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.25 } );
+	//var cubeMaterial3 = new THREE.MeshLambertMaterial( { color: 0xff6600, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.3 } );
+	var cubeMaterial3 = new THREE.MeshLambertMaterial( { color: 0x408820, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.5, opacity : 0.4 } );
+	var cubeMaterial2 = new THREE.MeshLambertMaterial( { color: 0xffee00, envMap: refractionCube, refractionRatio: 0.95 } );
+	var cubeMaterial1 = new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: reflectionCube } )
+
+	var cubeMaterial0	= new THREE.MeshLambertMaterial({
+		color		: 0x40DD40,
+		envMap		: refractionCube,
+		combine		: THREE.MixOperation,
+		reflectivity	: 0.8,
+		opacity		: 0.8
+	});
+
+	material	= cubeMaterial0;
+
+
+(function(){
+	// init the cube shadder
+	var shader	= THREE.ShaderUtils.lib["cube"];
+	shader.uniforms["tCube"].texture = reflectionCube;
+
+	var material = new THREE.MeshShaderMaterial({
+		fragmentShader	: shader.fragmentShader,
+		vertexShader	: shader.vertexShader,
+		uniforms	: shader.uniforms
+	});
+
+	// build the skybox Mesh
+	var skyboxMesh	= new THREE.Mesh( new THREE.CubeGeometry( 10000, 10000, 10000, 1, 1, 1, null, true ), material );
+	// add it to the scene
+	scene.addObject( skyboxMesh );
+})()
+	
+})();
 
 
 	var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
 	//var geometry	= new THREE.TorusGeometry( 50, 20, 45, 45 );
 	//var geometry	= new THREE.SphereGeometry( 50, 50, 50 );
-	var geometry	= new THREE.SphereGeometry( 50, 25, 25 );
+	var geometry	= new THREE.SphereGeometry( 70, 50, 50 );
 	geometry.computeTangents();
-
-
-	//var geometry	= new THREE.TextGeometry("node.js", {
-	//	size		: 50,
-	//	height		: 20,
-	//	weight		: 'bold',
-	//	bezelThickness	: 10,
-	//	bezelSize	: 10,
-	//	bezelEnabled	: true
-	//});
+	
+	// center the geometry
+	// is that still needed ? it was to fix text
 	THREEx.GeometryCenter.center(geometry);
-
+	
+	// wobble preparation
 	THREEx.GeometryWobble.init(geometry);
 	THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.02);
 	
@@ -155,22 +165,21 @@ function init() {
 	
 	// add the object to the scene
 	scene.addObject( mesh );
+/**
+ * use this as a base for crazy-wold and "gello drop losts in stratosphere"
+ * -----------------------------------
+ * - material of the subject
+ * - cubemap or not
+ * - animation
+ * - user control
+*/
+
 
 	// build the coulds
-	if( true ){
-		var geometry		= new THREE.SphereGeometry( 50, 50, 50 );
-		THREEx.GeometryCenter.center(geometry);
-		THREEx.GeometryWobble.init(geometry);
-		THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.02);
-
-		var cloudsTexture	= THREE.ImageUtils.loadTexture( "images/earth_clouds_1024.png" );
-		var cloudsMaterial	= new THREE.MeshLambertMaterial( { color: 0xffffff, map: cloudsTexture, transparent:true } );
-		var cloudsScale		= 1.005;
-		meshClouds		= new THREE.Mesh( geometry, cloudsMaterial );
-		meshClouds.scale.set( cloudsScale, cloudsScale, cloudsScale );
-		scene.addObject( meshClouds );		
+	if( false ){
+		meshClouds	= MaterialEarthMapping.buildCloudMesh(50);
+		scene.addObject( meshClouds );
 	}
-
 
 	// create the container element
 	container	= document.createElement( 'div' );
@@ -206,114 +215,14 @@ function animate() {
 var tweenForward, tweenBackward;
 // ## Render the 3D Scene
 function render(){
-	var time	= Date.now()/1000;
-
-
-	var wobble	= function(){
-		THREEx.GeometryWobble.Animate(mesh.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));
-		THREEx.GeometryWobble.Animate(meshClouds.geometry, time/Math.PI*15, new THREE.Vector3(15,25, 00));		
-	}
-	var funkyRotation	= function(){
-		var speed	= 0.05;
-		var rx		=  5.0 *Math.PI/180*speed;
-		var ry		= 12.5 *Math.PI/180*speed;
-		var rz		=  7.5 *Math.PI/180*speed;
-		var inc		= new THREE.Vector3(rx, ry, rz);
-		mesh.rotation.addSelf(inc);
-		meshClouds.rotation.addSelf(inc);
-	}
-	var normalEarthRotation= function(){
-		mesh.rotation.y		+= 0.0125/7.5;
-		meshClouds.rotation.y	+= 3*0.0125/7.5;		
-	}
-	var heartbeat	= function(){
-		var seconds	= (Date.now() - startTime)/1000;
-		var angle	= 1.5*seconds*Math.PI;
-		var scale	= Math.abs(Math.cos(angle));
-
-		var from	= 1.0
-		var to		= 1.1;
-		var value	= from + (to-from) * scale;
-
-		var scaleClouds	= 1.005;
-		mesh.scale.x		= mesh.scale.y		= mesh.scale.z		= value;		
-		meshClouds.scale.x	= meshClouds.scale.y	= meshClouds.scale.z	= scaleClouds * value;		
-	}
-	var zBounce0	= function(){
-			// - may be nice as a vumeter
-		var seconds	= (Date.now() - startTime)/1000;
-		var angle	= seconds*Math.PI;
-		//var angle	= (Date.now() - startTime)/300;
-		//var scale	= 0.3*Math.sin(angle)*Math.sin(angle);
-		var scale	= Math.sin(angle);
-		var scale	= Math.sin(angle)*Math.sin(angle);
-		//var scale	= Math.abs(Math.cos(angle));
-		var scaleClouds	= 1.005;
-		
-		//scale	= 
-		//var width	= 300;
-		//scale= 0;
-		//meshClouds.position.x	= mesh.position.x	= scale * width/2;
-		//meshClouds.position.x	= scale * width/2;
-		//return;
-		var offset	= 1.0;
-		var range	= 0.3;
-		var value	= offset + range * scale;
-		mesh.scale.x	= mesh.scale.y	= mesh.scale.z	= value;		
-		meshClouds.scale.x	= meshClouds.scale.y	= meshClouds.scale.z	= scaleClouds * value;		
-	}
-	var zBounce	= function(){
-		var scaleClouds	= 1.005;
-		var update	= function(){
-			mesh.scale.x		= mesh.scale.y		= mesh.scale.z		= this.v;		
-			meshClouds.scale.x	= meshClouds.scale.y	= meshClouds.scale.z	= scaleClouds * this.v;		
-		};
-
-		// notion of mirror
-		// notion of loop, nb loop
-		
-		if( tweenForward )	return;
-		var loops	= 10;
-		var duration	= 1000/2;
-		
-		var offset	= 1.0;
-		var range	= 0.1;
-		var from	= {v: offset + range};
-		var to		= {v: offset - range};
-
-		var position	= JSON.parse(JSON.stringify(from));
-		tweenForward	= new TWEEN.Tween(position)
-				.to(from, duration)
-				.easing(TWEEN.Easing.Circular.EaseOut)
-				.onUpdate(update);
-		tweenBackward	= new TWEEN.Tween(position)
-				.to(to, duration)
-				.easing(TWEEN.Easing.Circular.EaseIn)
-				.onUpdate(update)
-				.onComplete(function(){
-					loops--;
-
-					var base	= 1.0;
-					var range	= 1/(loops/3+1);
-					from.v	= base + range/2 + range;
-					to.v	= base + range/2 - range;
-
-					if(loops != 0)	return;
-					tweenForward.stop();
-					tweenBackward.stop();
-				});
-		tweenForward.chain( tweenBackward );
-		tweenBackward.chain( tweenForward );
-		tweenForward.start();
-	}
 	
-	// funky rotation
-	//wobble();
-	//funkyRotation();
-	//normalEarthRotation();
-	//zBounce0();
-	zBounce();
-	//heartbeat();
+	// subject animation
+	subjectAnimation();
+
+	// move the camera based on a timer
+	var timer = - new Date().getTime() * 0.0002; 
+	camera.position.x = 150 * Math.cos( timer );
+	camera.position.z = 150 * Math.sin( timer );
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
