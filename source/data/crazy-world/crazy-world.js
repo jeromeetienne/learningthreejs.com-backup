@@ -48,11 +48,11 @@ function init() {
 	var ambientLight= new THREE.AmbientLight( 0xFBB917, 1.0 );
 	scene.addLight( ambientLight );
 
-	var dirLight	= new THREE.DirectionalLight( 0xffffff, 1.0 );
-	dirLight.position.set( 1, 1, 2 ).normalize();
-	scene.addLight( dirLight );
+	//var dirLight	= new THREE.DirectionalLight( 0xffffff, 1.0 );
+	//dirLight.position.set( 1, 1, 2 ).normalize();
+	//scene.addLight( dirLight );
 		
-	var pointLight	= new THREE.PointLight( 0xAA8888, 0 );
+	var pointLight	= new THREE.PointLight( 0xFF8888, 3.0, 4000 );
 	pointLight.position.set( 50, 50, 150 );
 	scene.addLight( pointLight );
 	
@@ -95,7 +95,7 @@ function init() {
 
 (function(){
 	var path = "images/SwedishRoyalCastle/";var format = '.jpg';
-	//var path = "images/skybox/";		var format = '.jpg';
+	var path = "images/skybox/";		var format = '.jpg';
 	//var path = "images/pisa/";		var format = '.png';
 	var urls = [
 			path + 'px' + format, path + 'nx' + format,
@@ -112,11 +112,15 @@ function init() {
 	var cubeMaterial2 = new THREE.MeshLambertMaterial( { color: 0xffee00, envMap: refractionCube, refractionRatio: 0.95 } );
 	var cubeMaterial1 = new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: reflectionCube } )
 
-	var cubeMaterial0	= new THREE.MeshLambertMaterial({
+	var cubeMaterial0	= new THREE.MeshPhongMaterial({
+		//color		: 0xffffff,
 		color		: 0x40DD40,
+		ambient		: 0x00DD00,
+		specular	: 0xFF0000,
+		shininess	: 1000,
 		envMap		: refractionCube,
 		combine		: THREE.MixOperation,
-		reflectivity	: 0.8,
+		reflectivity	: 0.75,
 		opacity		: 0.8
 	});
 
@@ -135,7 +139,7 @@ function init() {
 	});
 
 	// build the skybox Mesh
-	var skyboxMesh	= new THREE.Mesh( new THREE.CubeGeometry( 10000, 10000, 10000, 1, 1, 1, null, true ), material );
+	skyboxMesh	= new THREE.Mesh( new THREE.CubeGeometry( 10000, 10000, 10000, 1, 1, 1, null, true ), material );
 	// add it to the scene
 	scene.addObject( skyboxMesh );
 })()
@@ -219,10 +223,15 @@ function render(){
 	// subject animation
 	subjectAnimation();
 
+
+(function(){
 	// move the camera based on a timer
-	var timer = - new Date().getTime() * 0.0002; 
-	camera.position.x = 150 * Math.cos( timer );
-	camera.position.z = 150 * Math.sin( timer );
+	var timer	= - new Date().getTime() / 1000 * Math.PI;
+	var angle	= timer/10;
+	angle	= Math.PI/3;
+	camera.position.x = 200 * Math.cos( angle );
+	camera.position.z = 200 * Math.sin( angle );
+})()
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
