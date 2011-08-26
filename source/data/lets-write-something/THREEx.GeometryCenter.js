@@ -1,1 +1,0 @@
-../crazy-world/THREEx.GeometryCenter.js
