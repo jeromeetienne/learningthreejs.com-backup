@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Wobly Wobble</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+			body {
+				background-color: #0f0f0f;
+				margin		: 0px;
+				overflow	: hidden;
+			}
+			#info {
+				font-weight	: bolder
+				color		: #f0f0f0;
+				text-align	: center;
+				z-index		: 1;
+				position	: absolute;
+				top		: 0px;
+				width		: 100%;
+				padding		: 5px;
+			} 
+			a {
+				font-weight	: bolder
+				color		: #F0F0FF;
+			}			
+		</style>
+	</head>
+	<body>
+		<div id="info">Wobly Woble - with <a href="http://github.com/mrdoob/three.js" target="_blank">three.js</a></div> 
+		<!-- include javascript files -->
+		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/build/Three.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/js/RequestAnimationFrame.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/js/Detector.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/js/Stats.js"></script>
+<!--		<script type="text/javascript" src="https://raw.github.com/sole/tween.js/master/build/Tween.js"></script>
+-->
+<!--		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/master/examples/js/Tween.js"></script>
+-->
+		<script type="text/javascript" src="tmp/tween.js/src/Tween.js"></script>
+		
+		<script type="text/javascript" src="dat-gui/build/DAT.GUI.js"></script>
+		
+		<script type="text/javascript" src="THREEx.GeometryWobble.js"></script>
+		<script type="text/javascript" src="THREEx.GeometryCenter.js"></script>
+		<script type="text/javascript" src="material.earthMappingCloud.js"></script>
+		<script type="text/javascript" src="material.earthMappingNormal.js"></script>
+		<script type="text/javascript" src="subjectAnimation.js"></script>
+		<script type="text/javascript" src="THREEx.CubeMap.js"></script>
+		<script type="text/javascript" src="crazy-world.js"></script>
+	</body>
+</html>

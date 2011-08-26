@@ -3,14 +3,12 @@ var THREEx		= THREEx || {};
 THREEx.GeometryWobble	= {};
 
 // Geometry Wobble
-// based on paul lewis / areotwist code
+// based on paul lewis / areotwist - http://lab.aerotwist.com/webgl/undulating-monkey/
 
-
-// TODO need to have less hardcoded parameters
 
 THREEx.GeometryWobble.init	= function(geometry)
 {
-	for(var i = 0; i < geometry.vertices.length; i++) {
+	for(var i = 0; i < geometry.vertices.length; i++){
 		var vertex	= geometry.vertices[i];
 		vertex.originalPosition	= vertex.position.clone();
 		vertex.dirVector	= vertex.position.clone().normalize();
@@ -27,6 +25,7 @@ THREEx.GeometryWobble.cpuAxis	= function(geometry, type, factor)
 	
 	for(var i = 0; i < geometry.vertices.length; i++) {
 		var vertex	= geometry.vertices[i];
+// Note: may need more axis ?
 		if( type === 'x' )	vertex.axisValue	= vertex.originalPosition.x * factor;
 		else if( type === 'y' )	vertex.axisValue	= vertex.originalPosition.y * factor;
 		else if( type === 'z' )	vertex.axisValue	= vertex.originalPosition.z * factor;

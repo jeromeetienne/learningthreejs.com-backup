@@ -15,18 +15,19 @@ var projector;
 var mouse = { x: 0, y: 0 }
 
 // ## bootstrap functions
-// initialiaze everything
-init();
-// make it move			
-animate();
+if ( ! Detector.webgl ){
+	Detector.addGetWebGLMessage();
+}else{
+	// initialiaze everything
+	init();
+	// make it move			
+	animate();	
+}
 
 
 
 // ## Initialize everything
 function init() {
-	// test if webgl is supported
-	if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 2000 );
 	camera.position.y	= 50;
