@@ -92,7 +92,7 @@ function init() {
 
 (function(){
 	var path = "images/SwedishRoyalCastle/";var format = '.jpg';
-	var path = "images/skybox/";		var format = '.jpg';
+	//var path = "images/skybox/";		var format = '.jpg';
 	//var path = "images/pisa/";		var format = '.png';
 	var urls = [
 			path + 'px' + format, path + 'nx' + format,
@@ -111,16 +111,16 @@ function init() {
 
 	var cubeMaterial0	= new THREE.MeshPhongMaterial({
 		//color		: 0xffffff,
-		color		: 0x448844,
+		color		: 0x88FF88,
 		ambient		: 0x44FF44,
-		specular	: 0xAA0101,
-		shininess	: 100,
+		specular	: 0xFF4040,
+		shininess	: 1000,
 		envMap		: refractionCube,
 		//combine		: THREE.MixOperation,
 		combine		: THREE.MultiplyOperation,
 		reflectivity	: 0.7,
 		refractionRatio	: 0.95,
-		opacity		: 0.8
+		//opacity		: 0.2
 	});
 
 	material	= cubeMaterial0;
