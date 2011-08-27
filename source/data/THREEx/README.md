@@ -15,3 +15,5 @@
   * how to handle this ?
   * an examples directory like three.js ?
     * why not ?
+* how to handle the maturity of it ?
+  * many arent too finished
