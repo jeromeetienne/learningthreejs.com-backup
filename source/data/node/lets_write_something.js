@@ -30,7 +30,7 @@ function init() {
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 2000 );
 	camera.position.y	= 0;
-	camera.position.z	= 300;
+	camera.position.z	= 600;
 	camera.target.position.y= 0;
 
 	// create the Scene
@@ -50,6 +50,13 @@ function init() {
 	pointLight.position.set( 0, 100, 50 );
 	scene.addLight( pointLight );
 
+
+
+(function(){
+	triangleMesh	= buildNodeLogo();
+	triangleMesh.position.z	= 300;
+	scene.addChild( triangleMesh );
+}())
 
 
 	//var textGeo	= new THREE.TextGeometry( "Hello");
@@ -116,15 +123,7 @@ function init() {
 		comments: "http://news.ycombinator.com/item?id=2862566",
 		link	: "http://status.aws.amazon.com/"
 	})
-	scene.addChild(mesh)
-
-/**
- * THREEx.hoverable.js
- * - make an object hoverable
- *   - default to : go blue + underline
- * - make object clickable
-*/
-
+	//scene.addChild(mesh)
 
 /**
  * - TODO find a simple way to complete this one
@@ -168,6 +167,7 @@ if(false){
 	container.onclick	= onDocumentClick;
 	
 (function(){
+	return;
 	var update	= function(){
 		mesh.position.y = position.y;
 	}
@@ -274,6 +274,9 @@ function render()
 	//mesh.rotation.x += 0.02;
 	//mesh.rotation.y += 0.0125;
 	//mesh.rotation.z += 0.0175;
+
+	//triangleMesh.rotation.z += 2 * Math.PI/180;
+	triangleMesh.rotation.x += 2 * Math.PI/180;
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );
