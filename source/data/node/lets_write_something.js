@@ -19,16 +19,18 @@ var mouse = { x: 0, y: 0 }
 if( ! Detector.webgl ){
 	Detector.addGetWebGLMessage();
 }else{
-buildNodeBackground()
 	// initialiaze everything
-//	init();
+	init();
 	// make it move			
-//	animate();
+	animate();
 }
 
 
 // ## Initialize everything
 function init() {
+
+	buildNodeBackground();
+	
 	// create the camera
 	camera = new THREE.Camera( 70, window.innerWidth / window.innerHeight, 1, 2000 );
 	camera.position.y	= 0;
@@ -43,11 +45,9 @@ function init() {
 	scene.fog	= new THREE.Fog( 0xf0f0f0, 250, 1200 );
 
 	var dirLight	= new THREE.DirectionalLight( 0xffffff, 0.8 );
-	dirLight.position.set( 0, 0, 1 );
-	dirLight.position.normalize();
+	dirLight.position.set( 0, 0, 1 ).normalize();
 	scene.addLight( dirLight );
-	
-	
+		
 	var pointLight	= new THREE.PointLight( 0x8080f0, 1.5 );
 	pointLight.position.set( 0, 100, 50 );
 	scene.addLight( pointLight );
@@ -115,8 +115,8 @@ function render()
 {
 	// make the animation
 	triangleMesh.rotation.x += 2 * Math.PI/180;
-	triangleMesh.rotation.y += 2 * Math.PI/180;
-	triangleMesh.rotation.z += 2 * Math.PI/180;
+	//triangleMesh.rotation.y += 2 * Math.PI/180;
+	//triangleMesh.rotation.z += 2 * Math.PI/180;
 
 	// actually display the scene in the Dom element
 	renderer.render( scene, camera );

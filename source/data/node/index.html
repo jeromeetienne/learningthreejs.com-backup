@@ -6,8 +6,13 @@
 		<style type="text/css">
 			body {
 				background-color: #101010;
-				margin: 0px;
-				overflow: hidden;
+				margin		: 0px;
+				overflow	: hidden;
+			}
+			#nodeBackgroundCanvas {
+				z-index	: -1;
+				position: absolute;
+				top	: 0px; width: 100%;
 			}
 			#info {
 				text-align:center;
@@ -42,6 +47,7 @@
 		<script type="text/javascript" src="http://localhost/~jerome/three.js//examples/fonts/droid/droid_serif_bold.typeface.js"></script>
 
 		<script type="text/javascript" src="../THREEx/THREEx.LogoTurtle.js"></script>
+		<script type="text/javascript" src="../THREEx/THREEx.GeometryCenter.js"></script>
 
 <!-- TODO put that in a single file ? all dependant from logoShape -->
 		<script type="text/javascript" src="nodeLogo/nodeLogo.js"></script>

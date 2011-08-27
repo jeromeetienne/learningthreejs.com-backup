@@ -1,5 +1,3 @@
-
-
 //////////////////////////////////////////////////////////////////////////////////
 //		NodeLogoBackground						//
 //////////////////////////////////////////////////////////////////////////////////
@@ -14,8 +12,9 @@ var NodeLogoBackground	= function(opts)
 	this._height	= this._ctx.canvas.height;
 	
 	// erase the background	
-	this._clearCanvas("#e0e0e0");
-		
+	this._clearCanvas();
+
+	// build all the nodes
 	this._nodes	= [];
 	for(var i = 0; i < this._nbNodes; i++){
 		var node	= new NodeLogoBackground.Node({
@@ -28,7 +27,8 @@ var NodeLogoBackground	= function(opts)
 		
 		node.render();		
 	}
-	
+
+	// build all the links
 	this._links	= [];
 	for(var i = 0; i < this._nbLinks; i++){
 		var nodeIdx1	= Math.floor(Math.random()*this._nbNodes);
@@ -45,13 +45,11 @@ var NodeLogoBackground	= function(opts)
 	}
 }
 
-NodeLogoBackground.prototype._clearCanvas	= function(fillStyle)
+NodeLogoBackground.prototype._clearCanvas	= function()
 {
 	var ctx		= this._ctx;
-	fillStyle	= fillStyle	|| "#ffffff";
 	ctx.save();
-	ctx.fillStyle	= fillStyle;
-	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	ctx.restore();
 }
 
@@ -65,8 +63,7 @@ NodeLogoBackground.Link	= function(opts)
 	this._node1	= opts.node1	|| console.assert(false, "node1 MUST be defined");
 	this._node2	= opts.node2	|| console.assert(false, "node2 MUST be defined");
 	this._style	= opts.style	|| "#8BC84B";
-	
-	
+
 	var range1	= this._node1.opts().radius;
 	var range2	= this._node2.opts().radius;
 	
@@ -175,6 +172,7 @@ function buildNodeBackground()
 	var canvasEl	= document.createElement('canvas');
 	canvasEl.width	= window.innerWidth;
 	canvasEl.height	= window.innerHeight;
+	canvasEl.id	= "nodeBackgroundCanvas";
 
 console.log("canvas", canvasEl)
 	
