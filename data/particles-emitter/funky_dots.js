@@ -37,8 +37,8 @@ function buildObjectParticlesWebgl(nParticles)
 		var geometry	= new THREE.Geometry();
 		geometry.colors = [];			
 		var material	= new THREE.ParticleBasicMaterial({
-			map		: THREE.ImageUtils.loadTexture( "lensFlare/Flare1.png" ),
-			//map		: THREE.ImageUtils.loadTexture( "ball.png" ),
+			map		: THREE.ImageUtils.loadTexture( "images/lensFlare/Flare1.png" ),
+			//map		: THREE.ImageUtils.loadTexture( "images/ball.png" ),
 			vertexColors	: true,
 			size		: 16,
 			blending	: THREE.AdditiveBlending,
@@ -125,7 +125,7 @@ console.log("containerObj", containerObj, containerObj.children[0].geometry);
 	var rangeY = (geometry.boundingBox.y[1] - geometry.boundingBox.y[0]);
 	var rangeZ = (geometry.boundingBox.z[1] - geometry.boundingBox.z[0]);
 	
-	for(var i = 0; i < parameters.iterations; i++) {
+	for(var i = 0; i < parameters.iterations; i++){
 		geometry.colors[i].setHSV(
 			Math.pow(0.09	, Math.abs(vertices[i].position.x / rangeX)) 	* 0.8,
 			Math.pow(0.002	, Math.abs(vertices[i].position.y / rangeY)) 	* 0.7,
@@ -188,7 +188,6 @@ function init()
 /**
  * Use blending to make the color cooler good with webgl
 */
-
 	
 	// maybe replace that by window... or something
 	var parameters = {
