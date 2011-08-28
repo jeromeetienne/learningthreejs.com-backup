@@ -25,7 +25,7 @@ THREEx.Particle.item.prototype.reset	= function()
 	//position.multiplyScalar( randomRange(0,0) );
 	
 (function(){
-	var angle	= randomRange( (90-90) * Math.PI/180, (90+90) * Math.PI/180);
+	var angle	= randomRange( (90-30) * Math.PI/180, (90+30) * Math.PI/180);
 	position.x	= Math.cos(angle);
 	position.y	= Math.sin(angle);
 	position.z	= 0;
@@ -43,7 +43,7 @@ THREEx.Particle.item.prototype.reset	= function()
 
 	this._gravity		= new THREE.Vector3(0, -0.05, 0);	
 
-	this._color		= new THREE.Color(0xFFaa00);
+	this._color		= new THREE.Color(0xFF5510);
 
 	this._rotation		= this._params.rotationSrc;
 	this._rotationInc	= this._params.rotationInc;
@@ -82,7 +82,9 @@ THREEx.Particle.item.prototype.update	= function()
 	this._position	.addSelf( this._speed );
 	
 	this._size	+= this._sizeInc;
+
 	this._rotation	+= this._rotationInc;
+	
 	this._opacity	+= this._opacityInc;
 	this._opacity	= Math.max(this._opacity, 0.0)
 }

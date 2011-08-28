@@ -74,7 +74,7 @@ THREEx.Particle.Emitter.prototype.update	= function()
 	var attributes	= material.attributes;
 
 	// emit particle if needed
-	for(var i = 0, nbEmitted = 0; i < this._nbItems && nbEmitted !== this._params.emitRate; i++){
+	for(var i = 0, nbEmitted = 0; i < this._nbItems && nbEmitted < this._params.emitRate; i++){
 		var item	= this._items[i];
 		if( item.isUnvisible() === false )	continue;
 		item.reset();

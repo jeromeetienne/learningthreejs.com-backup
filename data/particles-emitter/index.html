@@ -67,14 +67,13 @@
 			varying float	vRotation;
  
 			void main() {
-				vec2 offset	= vec2( 0.5, 0.5);
+				const vec2 offset	= vec2(0.5, 0.5);
 				vec2 p 		= gl_PointCoord;
 
 				p 	= p - offset;
 				vec2 t 	= p;
 				p.x	= t.x * cos(vRotation) - t.y * sin(vRotation);
 				p.y 	= t.y * cos(vRotation) + t.x * sin(vRotation);
-
 				p 	= p + offset;
 
 				gl_FragColor	= vec4( color * vColor, vOpacity );
