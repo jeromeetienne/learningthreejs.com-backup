@@ -14,23 +14,26 @@ THREEx.Particle.item.prototype._reset	= function()
 
 	this._position	= new THREE.Vector3( 0,0,0 );
 	var position	= this._position;
-	
+
 	position.x	= Math.random()*2-1;
-	position.y	= Math.random()*2-1;
+	//position.y	= Math.random()*2-1;
 	position.z	= Math.random()*2-1;
-	position.multiplyScalar(10);
+	position.normalize();
+	//position.multiplyScalar( randomRange(0,0) );
 	
-	this._deletedAt		= Date.now() + 3000;
+	this._deletedAt		= Date.now() + 2000;
 
 	this._acceleration	= new THREE.Vector3(0, 0, 0);
 
-	this._speed		= new THREE.Vector3()
-	this._speed.x		= randomRange(-1, 1);
-	this._speed.y		= randomRange(0.4, .5);
-	this._speed.x		= randomRange(-1, 1);
+	this._speed		= new THREE.Vector3();
+	this._speed.copy(this._position).normalize();
+	this._speed.y		= randomRange(1,3)
+	//this._speed.x		= randomRange(-1, 1);
+	//this._speed.y		= randomRange(0.4, .5);
+	//this._speed.x		= randomRange(-1, 1);
 	this._speed.normalize().multiplyScalar( randomRange(1, 5) );
 
-	this._gravity		= new THREE.Vector3(0, -0.04, 0);	
+	this._gravity		= new THREE.Vector3(0, -0.05, 0);	
 }
 
 

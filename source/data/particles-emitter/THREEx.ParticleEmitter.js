@@ -4,7 +4,7 @@ THREEx.Particle	= THREEx.Particle	|| {};
 THREEx.Particle.Emitter	= function(opts)
 {
 	this._items	= [];
-	this._nbItems	= 2000;
+	this._nbItems	= 5000;
 
 	
 	this._buildObject3d();
@@ -21,15 +21,16 @@ THREEx.Particle.Emitter.prototype._buildObject3d	= function()
 		//map		: THREE.ImageUtils.loadTexture( "images/ball.png" ),
 
 		vertexColors	: true,
-		size		: 16,
-		
+		size		: 24,
+		depthTest	: false,	
 		blending	: THREE.AdditiveBlending,
+		//blending	: THREE.SubtractiveBlending,
+		//blending	: THREE.MultiplyBlending,
 		transparent	: true
 	});
 	material.color.setRGB( 0.2, 1.0, 0.7 );
 	
 	this._particleSys	= new THREE.ParticleSystem( geometry, material );
-	this._particleSys.sortParticles = true;
 }
 
 
