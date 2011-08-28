@@ -1,6 +1,5 @@
 var container, stats, containerObj;
-var camera, scene, renderer, particle;
-var sprite;
+var camera, scene, renderer;
 var mouseX = 0, mouseY = 0;
 var particleSys;
 
@@ -19,7 +18,7 @@ function init()
 	document.body.appendChild( container );
 	// create the Camera
 	camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 100000 );
-	camera.position.z = 400;
+	camera.position.z	= 400;
 	
 	// build the scene
 	scene = new THREE.Scene();
@@ -28,45 +27,9 @@ function init()
 	containerObj	= new THREE.Object3D();
 	scene.addChild(containerObj)
 
-
-if(false){
-	var geometry	= new THREE.Geometry();
-	geometry.colors = [];			
-	var material	= new THREE.ParticleBasicMaterial({
-		//map		: THREE.ImageUtils.loadTexture( "images/lensFlare/Flare1.png" ),
-		map		: THREE.ImageUtils.loadTexture( "images/ball.png" ),
-		vertexColors	: true,
-		size		: 16,
-		
-		blending	: THREE.AdditiveBlending,
-		transparent	: true
-	});
-	material.color.setRGB( 0.2, 1.0, 0.7 );
-	particleSys	= new THREE.ParticleSystem( geometry, material );
-	particleSys.sortParticles = true;
-	//particleSys.dynamic = true;
-	containerObj.addChild( particleSys );
-
-	for(var i = 0; i < 10000; i++){
-		var v3	= new THREE.Vector3( 0,0,0 );
-		v3.x	= Math.random()*2-1;
-		v3.y	= Math.random()*2-1;
-		v3.z	= Math.random()*2-1;
-		v3.multiplyScalar(300)
-		geometry.vertices.push( new THREE.Vertex( v3 ) );
-		
-		geometry.colors.push( new THREE.Color( 0xffffff ) );
-	}
-
-	particleSys.geometry.__dirtyVertices = true;
-	particleSys.updateMatrix();
-}
-
 	Emitter	= new THREEx.Particle.Emitter();
 	containerObj.addChild( Emitter.object3d() );
 	
-
-
 	// init the renderer
 	renderer	= new THREE.WebGLRenderer({
 		antialias		: true,
@@ -107,7 +70,7 @@ function render()
 {
 	// move the camera
 	if( true ){		
-		camera.position.x += ( mouseX - camera.position.x ) * .05;
+		camera.position.x += (   mouseX - camera.position.x ) * .05;
 		camera.position.y += ( - mouseY - camera.position.y ) * .05;
 	}
 	// animate the cube
