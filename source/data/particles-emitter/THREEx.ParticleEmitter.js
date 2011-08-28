@@ -65,29 +65,6 @@ THREEx.Particle.Emitter.prototype.update	= function()
 	this._particleSys.updateMatrix();
 }
 
-THREEx.Particle.Emitter.prototype._updateGeometry	= function()
-{
-	var geometry	= this._particleSys.geometry;
-
-	geometry.vertices	= [];
-	geometry.colors		= [];
-
-	for(var i = 0; i < 10000; i++){
-		var v3	= new THREE.Vector3( 0,0,0 );
-		v3.x	= Math.random()*2-1;
-		v3.y	= Math.random()*2-1;
-		v3.z	= Math.random()*2-1;
-		v3.multiplyScalar(300)
-
-		geometry.vertices.push( new THREE.Vertex( v3 ) );
-		geometry.colors.push( new THREE.Color( 0xffffff ) );
-	}
-
-	geometry.__dirtyVertices = true;
-
-	this._particleSys.updateMatrix();
-}
-
 THREEx.Particle.Emitter.prototype.object3d	= function()
 {
 	return this._particleSys;
