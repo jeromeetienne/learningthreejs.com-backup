@@ -17,11 +17,14 @@ if( !Detector.webgl ){
 function buildGui(parameters, callback)
 {
 	var gui = new DAT.GUI({
-		height	: 7 * 32 - 1
+		height	: 8 * 32 - 1
 	});
 	var change	= function(){
 		callback(parameters)
 	};
+
+	gui.add(parameters, 'emitRate').min(1).max(100)
+		.onFinishChange(change);
 
 	gui.add(parameters, 'timeToLive').min(200).max(5*1000)
 		.onFinishChange(change);
@@ -55,6 +58,8 @@ function init()
 	scene = new THREE.Scene();
 
 	var parameters	= {
+		emitRate	: 40,
+
 		timeToLive	: 2000,
 		
 		opacitySrc	: 1.0,

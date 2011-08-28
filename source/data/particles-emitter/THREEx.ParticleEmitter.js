@@ -6,7 +6,7 @@ THREEx.Particle.Emitter	= function(opts)
 	this._params	= opts.params	|| console.assert(false);
 
 	this._items	= [];
-	this._nbItems	= 5000;
+	this._nbItems	= 10000;
 
 	this._buildObject3d();
 	this._createGeometry();
@@ -73,6 +73,14 @@ THREEx.Particle.Emitter.prototype.update	= function()
 	var material	= this._particleSys.materials[0];
 	var attributes	= material.attributes;
 
+	// emit particle if needed
+	for(var i = 0, nbEmitted = 0; i < this._nbItems && nbEmitted !== this._params.emitRate; i++){
+		var item	= this._items[i];
+		if( item.isUnvisible() === false )	continue;
+		item.reset();
+		nbEmitted++;
+	}
+	
 	for(var i = 0; i < this._nbItems; i++){
 		var item	= this._items[i];
 		item.update();

@@ -5,10 +5,11 @@ THREEx.Particle.item	= function(opts)
 {
 	this._params	= opts.params	|| console.assert(false);
 
-	this._reset();
+	this.reset();
+	this._kill();
 }
 
-THREEx.Particle.item.prototype._reset	= function()
+THREEx.Particle.item.prototype.reset	= function()
 {
 	function randomRange(min, max) {
 		return min + Math.random()*(max-min); 
@@ -54,10 +55,25 @@ THREEx.Particle.item.prototype._reset	= function()
 	this._opacityInc	= this._params.opacityInc;
 }
 
+THREEx.Particle.item.prototype.isUnvisible	= function()
+{
+	return this._opacity === 0.0;
+}
+
+THREEx.Particle.item.prototype._kill	= function()
+{
+	this._opacity	= 0.0;
+}
+
 
 THREEx.Particle.item.prototype.update	= function()
 {
-	if( Date.now() > this._deletedAt )	this._reset();
+	if( Date.now() > this._deletedAt ){
+		this._kill();
+		return;
+	}
+	if( this.isUnvisible() ) return;
+	
 	
 	this._speed	.addSelf( this._speedInc );
 	this._speed	.addSelf( this._gravity );
@@ -68,6 +84,7 @@ THREEx.Particle.item.prototype.update	= function()
 	this._size	+= this._sizeInc;
 	this._rotation	+= this._rotationInc;
 	this._opacity	+= this._opacityInc;
+	this._opacity	= Math.max(this._opacity, 0.0)
 }
 
 
