@@ -11,6 +11,37 @@ if( !Detector.webgl ){
 	animate();	
 }
 
+/**
+ * Build ui with Data.GUI
+*/
+function buildGui(parameters, callback)
+{
+	var gui = new DAT.GUI({
+		height	: 7 * 32 - 1
+	});
+	var change	= function(){
+		callback(parameters)
+	};
+
+	gui.add(parameters, 'timeToLive').min(200).max(5*1000)
+		.onFinishChange(change);
+
+	gui.add(parameters, 'opacitySrc').min(0.0).max(1.0)
+		.onFinishChange(change);
+	gui.add(parameters, 'opacityInc').min(-0.05).max(0)
+		.onFinishChange(change);
+
+	gui.add(parameters, 'sizeSrc').min(2).max(32)
+		.onFinishChange(change);
+	gui.add(parameters, 'sizeInc').min(-1).max(1)
+		.onFinishChange(change);
+
+	gui.add(parameters, 'rotationSrc').min(0.0).max(2*Math.PI)
+		.onFinishChange(change);
+	gui.add(parameters, 'rotationInc').min(-0.05).max(0.05)
+		.onFinishChange(change);
+}
+
 function init()
 {
 	// create the container
@@ -23,11 +54,29 @@ function init()
 	// build the scene
 	scene = new THREE.Scene();
 
+	var parameters	= {
+		timeToLive	: 2000,
+		
+		opacitySrc	: 1.0,
+		opacityInc	: 0.0,
+		
+		sizeSrc		: 16.0,
+		sizeInc		:  0.0,
+
+		rotationSrc	:  0.0,
+		rotationInc	:  0.0,
+	};
+	buildGui(parameters, function(){
+		
+	})
+
 	// define the containerObj of all the particle
 	containerObj	= new THREE.Object3D();
 	scene.addChild(containerObj)
 
-	Emitter	= new THREEx.Particle.Emitter();
+	Emitter	= new THREEx.Particle.Emitter({
+		params	: parameters
+	});
 	containerObj.addChild( Emitter.object3d() );
 	
 	// init the renderer

@@ -3,66 +3,98 @@ THREEx.Particle	= THREEx.Particle	|| {};
 
 THREEx.Particle.Emitter	= function(opts)
 {
+	this._params	= opts.params	|| console.assert(false);
+
 	this._items	= [];
 	this._nbItems	= 5000;
 
-	
 	this._buildObject3d();
 	this._createGeometry();
+}
+
+THREEx.Particle.Emitter.prototype._buildMaterialShader	= function()
+{
+	var attributes = {
+		aRotation	: { type: 'f', value: [] },
+		aSize		: { type: 'f', value: [] },
+		aColor		: { type: 'c', value: [] },
+		aOpacity	: { type: 'f', value: [] }
+	};
+
+	var uniforms = {
+		color		: { type: "c", value: new THREE.Color( 0xFFFFFF ) },
+		texture		: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/lensFlare/Flare1.png" ) }
+		//texture		: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/ball.png" ) }
+		//texture		: { type: "t", texture: THREE.ImageUtils.loadTexture( "images/lensFlare/Shine1.png" ) }
+	};
+
+	var material = new THREE.MeshShaderMaterial({
+		uniforms	: uniforms,
+		attributes	: attributes,
+		vertexShader	: document.getElementById( 'vertexshader' ).textContent,
+		fragmentShader	: document.getElementById( 'fragmentshader' ).textContent,
+
+		blending	: THREE.AdditiveBlending,
+		depthTest	: false,
+		transparent	: true
+	});
+
+	for(var i = 0; i < this._nbItems; i++ ){
+		attributes.aSize	.value[i]	= 8;
+		attributes.aRotation	.value[i]	= 0;
+		attributes.aColor	.value[i]	= new THREE.Color( 0x000000 );
+		attributes.aOpacity	.value[i]	= 1.0;
+	}
+	return material;
 }
 
 THREEx.Particle.Emitter.prototype._buildObject3d	= function()
 {
 	var geometry	= new THREE.Geometry();
-	geometry.colors = [];
-	
-	var material	= new THREE.ParticleBasicMaterial({
-		map		: THREE.ImageUtils.loadTexture( "images/lensFlare/Flare1.png" ),
-		//map		: THREE.ImageUtils.loadTexture( "images/ball.png" ),
-
-		vertexColors	: true,
-		size		: 24,
-		depthTest	: false,	
-		blending	: THREE.AdditiveBlending,
-		//blending	: THREE.SubtractiveBlending,
-		//blending	: THREE.MultiplyBlending,
-		transparent	: true
-	});
-	material.color.setRGB( 0.2, 1.0, 0.7 );
-	
+	var material	= this._buildMaterialShader();	
 	this._particleSys	= new THREE.ParticleSystem( geometry, material );
 }
 
-
 THREEx.Particle.Emitter.prototype._createGeometry	= function()
 {
-	var geometry	= this._particleSys.geometry;
-	
+	var geometry	= this._particleSys.geometry;	
 	for(var i = 0; i < this._nbItems; i++){
-		var item	= new THREEx.Particle.item();
-
+		var item	= new THREEx.Particle.item({
+			params	: this._params
+		});
 		this._items.push(item);
-
 		geometry.vertices.push( new THREE.Vertex( item.position() ) );
-
-		geometry.colors.push( new THREE.Color( 0xffffff ) );
 	}
 }
 
 THREEx.Particle.Emitter.prototype.update	= function()
 {
 	var geometry	= this._particleSys.geometry;
+	var material	= this._particleSys.materials[0];
+	var attributes	= material.attributes;
 
 	for(var i = 0; i < this._nbItems; i++){
 		var item	= this._items[i];
-		var vertex	= geometry.vertices[i];
 		item.update();
+
+		var vertex	= geometry.vertices[i];
 		vertex.position.copy( item.position() );
+
+		// update the attributes
+		attributes.aSize	.value[i]	= item.size();
+		attributes.aRotation	.value[i]	= item.rotation();
+		attributes.aColor	.value[i]	= item.color();
+		attributes.aOpacity	.value[i]	= item.opacity();
 	}
 
-	geometry.__dirtyVertices = true;
+	// mark the attributes as dirty
+	attributes.aSize	.needsUpdate	= true;
+	attributes.aRotation	.needsUpdate	= true;
+	attributes.aColor	.needsUpdate	= true;
+	attributes.aOpacity	.needsUpdate	= true;
 
-	this._particleSys.updateMatrix();
+	// mark geometry as dirty
+	geometry.__dirtyVertices = true;
 }
 
 THREEx.Particle.Emitter.prototype.object3d	= function()
