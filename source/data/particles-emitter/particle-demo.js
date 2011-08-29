@@ -17,13 +17,23 @@ function buildGui(parameters, callback)
 {
 	urlCacheInit	= function(opts){
 		if( !window.location.hash )	return
-		var urlParams	= JSON.parse(window.location.hash.substring(1));
+		var hashStr	= window.location.hash.substring(1);
+		var urlParams	= JSON.parse(decodeURIComponent(hashStr));
 		Object.keys(urlParams).forEach(function(key){
-			parameters[key]	= urlParams[key]
+			parameters[key]	= urlParams[key];
 		}.bind(this));
 	}
 	urlCacheUpdate	= function(opts){
-		window.location.hash	= '#'+JSON.stringify(parameters);		
+		var urlParams	= {};
+		if( window.location.hash ){
+			urlParams	= JSON.parse(decodeURIComponent(location.hash.substring(1)));
+		}
+
+		Object.keys(opts).forEach(function(key){
+			urlParams[key]	= opts[key];
+		}.bind(this));
+
+		window.location.hash	= '#'+encodeURIComponent(JSON.stringify(urlParams));
 	}
 
 	var gui = new DAT.GUI({
