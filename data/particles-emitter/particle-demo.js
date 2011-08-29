@@ -1,7 +1,6 @@
 var container, stats, containerObj;
 var camera, scene, renderer;
 var mouseX = 0, mouseY = 0;
-var particleSys;
 
 // detect if webgl is needed and available
 if( !Detector.webgl ){
@@ -16,12 +15,48 @@ if( !Detector.webgl ){
 */
 function buildGui(parameters, callback)
 {
+	urlCacheInit	= function(opts){
+		if( !window.location.hash )	return
+		var urlParams	= JSON.parse(window.location.hash.substring(1));
+		Object.keys(urlParams).forEach(function(key){
+			parameters[key]	= urlParams[key]
+		}.bind(this));
+	}
+	urlCacheUpdate	= function(opts){
+		window.location.hash	= '#'+JSON.stringify(parameters);		
+	}
+
 	var gui = new DAT.GUI({
-		height	: 8 * 32 - 1
+		height	: 15 * 32 - 1
 	});
 	var change	= function(){
-		callback(parameters)
+		// get parameters values from cache if needed
+		urlCacheUpdate(parameters)
+		callback && callback(parameters)
 	};
+	
+	// get parameters values from cache if needed
+	urlCacheInit(parameters)
+	// init the cache with current parameters values
+	urlCacheUpdate(parameters)
+	
+	gui.add(parameters, 'originAzValue').min(-Math.PI).max(Math.PI)
+		.onFinishChange(change);
+	gui.add(parameters, 'originAzRange').min(-Math.PI).max(Math.PI)
+		.onFinishChange(change);
+
+	gui.add(parameters, 'originOffsetValue').min(0).max(100)
+		.onFinishChange(change);
+	gui.add(parameters, 'originOffsetRange').min(0).max(30)
+		.onFinishChange(change);
+
+	gui.add(parameters, 'speedValue').min(1).max(2)
+		.onFinishChange(change);
+	gui.add(parameters, 'speedRange').min(0).max(2)
+		.onFinishChange(change);
+
+	gui.add(parameters, 'gravity').min(0).max(0.2)
+		.onFinishChange(change);
 
 	gui.add(parameters, 'emitRate').min(1).max(100)
 		.onFinishChange(change);
@@ -50,14 +85,67 @@ function init()
 	// create the container
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
+
+	// init the renderer
+	renderer	= new THREE.WebGLRenderer({
+		antialias		: true,
+		preserveDrawingBuffer	: true		
+	});
+	//renderer.sortObjects = true;
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	container.appendChild( renderer.domElement );
+
 	// create the Camera
-	camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 100000 );
-	camera.position.z	= 400;
+	if( false ){
+		camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 100000 );
+		camera.position.z	= 400;		
+	}else{
+		camera = new THREE.TrackballCamera({
+			fov: 25,
+			aspect: window.innerWidth / window.innerHeight,
+			near: 50,
+			far: 1e7,
+
+			rotateSpeed: 1.0,
+			zoomSpeed: 1.2,
+			panSpeed: 0.2,
+
+			noZoom: false,
+			noPan: false,
+
+			staticMoving: false,
+			dynamicDampingFactor: 0.3,
+
+			minDistance: 200,
+			maxDistance: 500,
+
+			keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
+
+			domElement: renderer.domElement,
+		});
+		camera.position.z	= 1000;
+	}
 	
 	// build the scene
 	scene = new THREE.Scene();
 
+	// define the containerObj of all the particle
+	containerObj	= new THREE.Object3D();
+	scene.addChild(containerObj)
+
+	// parameters
 	var parameters	= {
+		originAzValue	: Math.PI/2,
+		originAzRange	: 30 * Math.PI/180,
+
+		originOffsetValue	: 0.5,
+		originOffsetRange	: 0.5,
+
+		speedValue	: 1.5,
+		speedRange	: 0.5,
+
+		gravity		: 0.05,
+
 		emitRate	: 30,
 
 		timeToLive	: 2000,
@@ -69,29 +157,17 @@ function init()
 		sizeInc		:  0.0,
 
 		rotationSrc	:  0.0,
-		rotationInc	:  0.0,
+		rotationInc	:  0.0
 	};
-	buildGui(parameters, function(){
-		
-	})
+	buildGui(parameters);
 
-	// define the containerObj of all the particle
-	containerObj	= new THREE.Object3D();
-	scene.addChild(containerObj)
-
+	// build the emitter
 	Emitter	= new THREEx.Particle.Emitter({
+		nbItems	: 5000,
 		params	: parameters
 	});
-	containerObj.addChild( Emitter.object3d() );
+	containerObj.addChild( Emitter.container() );
 	
-	// init the renderer
-	renderer	= new THREE.WebGLRenderer({
-		antialias		: true,
-		preserveDrawingBuffer	: true		
-	});
-	//renderer.sortObjects = true;
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	container.appendChild( renderer.domElement );
 
 	// init the Stats
 	stats	= new Stats();
@@ -123,10 +199,11 @@ function animate() {
 function render()
 {
 	// move the camera
-	if( true ){		
+	if( false ){		
 		camera.position.x += (   mouseX - camera.position.x ) * .05;
 		camera.position.y += ( - mouseY - camera.position.y ) * .05;
 	}
+
 	// animate the cube
 	if( false ){
 		containerObj.rotation.x += 0.4*0.02;
