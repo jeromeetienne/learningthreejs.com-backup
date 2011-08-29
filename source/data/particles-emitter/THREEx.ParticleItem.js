@@ -1,6 +1,8 @@
 var THREEx	= THREEx 		|| {};
 THREEx.Particle	= THREEx.Particle	|| {};
 
+// TODO the update could be done in GPU, so less js
+
 THREEx.Particle.item	= function()
 {
 	this.reset();

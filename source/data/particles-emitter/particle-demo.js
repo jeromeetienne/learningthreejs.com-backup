@@ -1,7 +1,6 @@
 var container, stats, containerObj;
 var camera, scene, renderer;
 var mouseX = 0, mouseY = 0;
-var particleSys;
 
 // detect if webgl is needed and available
 if( !Detector.webgl ){
@@ -16,13 +15,28 @@ if( !Detector.webgl ){
 */
 function buildGui(parameters, callback)
 {
+	urlCacheInit	= function(opts){
+		if( !window.location.hash )	return
+		var urlParams	= JSON.parse(window.location.hash.substring(1));
+		Object.keys(urlParams).forEach(function(key){
+			parameters[key]	= urlParams[key]
+		}.bind(this));
+	}
+	urlCacheUpdate	= function(opts){
+		window.location.hash	= '#'+JSON.stringify(parameters);		
+	}
+
 	var gui = new DAT.GUI({
 		height	: 15 * 32 - 1
 	});
 	var change	= function(){
+		urlCacheUpdate(parameters)
 		callback && callback(parameters)
 	};
-
+	
+	urlCacheInit(parameters)
+	urlCacheUpdate(parameters)
+	
 	gui.add(parameters, 'originAzValue').min(-Math.PI).max(Math.PI)
 		.onFinishChange(change);
 	gui.add(parameters, 'originAzRange').min(-Math.PI).max(Math.PI)
