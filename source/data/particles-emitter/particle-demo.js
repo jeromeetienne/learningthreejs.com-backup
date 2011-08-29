@@ -138,7 +138,9 @@ function init()
 	// call THREEx.WindowResize
 	// - TODO is that enougth for trackboll camera ?
 	// - webgl_trackballcamera_earth.html got more
-	THREEx.WindowResize(renderer, camera);	
+	THREEx.WindowResize(renderer, camera);
+	
+	THREEx.ImageDrop(renderer)
 
 	// build the scene
 	scene = new THREE.Scene();
