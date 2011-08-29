@@ -264,7 +264,7 @@ if(false){
 					position:	'absolute',
 					top:		'0px',
 					right:		'0px'
-				}).appendTo('body')
+				}).appendTo('body');
 				//window.open(imgUrl, "super", "height=200, width=200");
 			};
 			reader.readAsDataURL(file);
