@@ -17,11 +17,29 @@ if( !Detector.webgl ){
 function buildGui(parameters, callback)
 {
 	var gui = new DAT.GUI({
-		height	: 8 * 32 - 1
+		height	: 15 * 32 - 1
 	});
 	var change	= function(){
-		callback(parameters)
+		callback && callback(parameters)
 	};
+
+	gui.add(parameters, 'originAzValue').min(-Math.PI).max(Math.PI)
+		.onFinishChange(change);
+	gui.add(parameters, 'originAzRange').min(-Math.PI).max(Math.PI)
+		.onFinishChange(change);
+
+	gui.add(parameters, 'originOffsetValue').min(0).max(100)
+		.onFinishChange(change);
+	gui.add(parameters, 'originOffsetRange').min(0).max(30)
+		.onFinishChange(change);
+
+	gui.add(parameters, 'speedValue').min(1).max(2)
+		.onFinishChange(change);
+	gui.add(parameters, 'speedRange').min(0).max(2)
+		.onFinishChange(change);
+
+	gui.add(parameters, 'gravity').min(0).max(0.2)
+		.onFinishChange(change);
 
 	gui.add(parameters, 'emitRate').min(1).max(100)
 		.onFinishChange(change);
@@ -94,7 +112,23 @@ function init()
 	// build the scene
 	scene = new THREE.Scene();
 
+	// define the containerObj of all the particle
+	containerObj	= new THREE.Object3D();
+	scene.addChild(containerObj)
+
+	// parameters
 	var parameters	= {
+		originAzValue	: Math.PI/2,
+		originAzRange	: 30 * Math.PI/180,
+
+		originOffsetValue	: 0.5,
+		originOffsetRange	: 0.5,
+
+		speedValue	: 1.5,
+		speedRange	: 0.5,
+
+		gravity		: 0.05,
+
 		emitRate	: 30,
 
 		timeToLive	: 2000,
@@ -106,18 +140,15 @@ function init()
 		sizeInc		:  0.0,
 
 		rotationSrc	:  0.0,
-		rotationInc	:  0.0,
+		rotationInc	:  0.0
 	};
 	buildGui(parameters);
 
-	// define the containerObj of all the particle
-	containerObj	= new THREE.Object3D();
-	scene.addChild(containerObj)
-
+	// build the emitter
 	Emitter	= new THREEx.Particle.Emitter({
 		params	: parameters
 	});
-	containerObj.addChild( Emitter.object3d() );
+	containerObj.addChild( Emitter.container() );
 	
 
 	// init the Stats
@@ -154,6 +185,7 @@ function render()
 		camera.position.x += (   mouseX - camera.position.x ) * .05;
 		camera.position.y += ( - mouseY - camera.position.y ) * .05;
 	}
+
 	// animate the cube
 	if( false ){
 		containerObj.rotation.x += 0.4*0.02;
