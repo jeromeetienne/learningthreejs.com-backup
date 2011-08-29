@@ -67,6 +67,57 @@ THREEx.Particle.Emitter.prototype._createGeometry	= function()
 	}
 }
 
+THREEx.Particle.Emitter.prototype._emitItem	= function(itemIdx)
+{
+	var item	= this._items[itemIdx];
+	var opts	= {};
+	function randomRange(min, max) {
+		return min + Math.random()*(max-min); 
+	}
+
+	opts.position	= new THREE.Vector3( 0,0,0 );
+	var position	= opts.position;
+
+	//position.x	= Math.random()*2-1;
+	//position.y	= Math.random()*2-1;
+	//position.z	= Math.random()*2-1;
+	position.normalize();
+	//position.multiplyScalar( randomRange(0,0) );
+	
+(function(){
+	var angle	= randomRange( (90-30) * Math.PI/180, (90+30) * Math.PI/180);
+	position.x	= Math.cos(angle);
+	position.y	= Math.sin(angle);
+	position.z	= 0;
+	position.normalize().multiplyScalar( randomRange(0,1) );
+})();
+
+	opts.deleteIn	= this._params.timeToLive;
+
+
+	opts.speed	= new THREE.Vector3();
+	opts.speed.copy(opts.position).normalize();
+	//opts.speed.normalize().multiplyScalar( randomRange(1, 2) );
+	opts.speed.normalize().multiplyScalar( randomRange(1, 2) );
+
+	opts.speedInc	= new THREE.Vector3(0, 0, 0);
+	opts.speedMul	= new THREE.Vector3(1.0, 1.0, 1.0);
+	opts.speedInc.addSelf(new THREE.Vector3(0, -0.05, 0));
+
+	opts.color	= new THREE.Color(0xFF5510);
+
+	opts.rotation	= this._params.rotationSrc;
+	opts.rotationInc= this._params.rotationInc;
+
+	opts.size	= this._params.sizeSrc;
+	opts.sizeInc	= this._params.sizeInc;
+
+	opts.opacity	= this._params.opacitySrc;
+	opts.opacityInc	= this._params.opacityInc;
+
+	item.start(opts);
+}
+
 THREEx.Particle.Emitter.prototype.update	= function()
 {
 	var geometry	= this._particleSys.geometry;
@@ -82,7 +133,7 @@ THREEx.Particle.Emitter.prototype.update	= function()
 	for(var i = 0, nbEmitted = 0; i < this._nbItems && nbEmitted < this._params.emitRate; i++){
 		var item	= this._items[i];
 		if( item.isUnvisible() === false )	continue;
-		item.reset();
+		this._emitItem(i);
 		nbEmitted++;
 	}
 	

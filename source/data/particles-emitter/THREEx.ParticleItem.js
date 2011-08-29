@@ -9,7 +9,7 @@ THREEx.Particle.item	= function(opts)
 	this._kill();
 }
 
-THREEx.Particle.item.prototype.reset0	= function()
+THREEx.Particle.item.prototype.reset	= function()
 {
 	this._deleteIn	= 2000;
 
@@ -30,9 +30,19 @@ THREEx.Particle.item.prototype.reset0	= function()
 
 	this._opacity	= 1.0;
 	this._opacityInc= 0;
+	
+	return this;
 }
 
-THREEx.Particle.item.prototype.reset	= function()
+THREEx.Particle.item.prototype.start	= function(params)
+{
+	Object.keys(params).forEach(function(param){
+		console.assert( this['_'+param] !== undefined, 'param '+param+' isnt defined' );
+		this['_'+param]	= params[param];
+	}.bind(this));
+}
+
+THREEx.Particle.item.prototype.emit	= function(opts)
 {
 	function randomRange(min, max) {
 		return min + Math.random()*(max-min); 
@@ -94,7 +104,7 @@ THREEx.Particle.item.prototype.update	= function(deltaTime)
 {
 	if( this._deleteIn > 0 ){
 		this._deleteIn	-= deltaTime;
-		if( this._deleteIn <= 0 )	return this._kill();
+		if( this._deleteIn <= 0 )	this._kill();
 	}
 	if( this.isUnvisible() ) return;
 	
@@ -109,7 +119,7 @@ THREEx.Particle.item.prototype.update	= function(deltaTime)
 	this._rotation	+= this._rotationInc;
 	
 	this._opacity	+= this._opacityInc;
-	this._opacity	= Math.max(this._opacity, 0.0)
+	this._opacity	= Math.max(this._opacity, 0.0);
 }
 
 
