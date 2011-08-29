@@ -130,8 +130,9 @@ function init()
 
 			keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
 
-			domElement: renderer.domElement,
+			domElement: renderer.domElement
 		});
+
 		camera.position.z	= 1;
 	}
 
