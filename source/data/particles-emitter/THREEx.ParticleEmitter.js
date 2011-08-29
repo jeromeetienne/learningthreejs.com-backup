@@ -72,6 +72,11 @@ THREEx.Particle.Emitter.prototype.update	= function()
 	var geometry	= this._particleSys.geometry;
 	var material	= this._particleSys.materials[0];
 	var attributes	= material.attributes;
+	
+	// compute the deltaTime since the last update - with 60hz by default
+	if( ! this._lastUpdateAt )	this._lastUpdateAt = Date.now() - 1/60 * 1000;
+	var deltaTime		= Date.now() - this._lastUpdateAt;
+	this._lastUpdateAt	= Date.now();
 
 	// emit particle if needed
 	for(var i = 0, nbEmitted = 0; i < this._nbItems && nbEmitted < this._params.emitRate; i++){
@@ -83,7 +88,7 @@ THREEx.Particle.Emitter.prototype.update	= function()
 	
 	for(var i = 0; i < this._nbItems; i++){
 		var item	= this._items[i];
-		item.update();
+		item.update(deltaTime);
 
 		var vertex	= geometry.vertices[i];
 		vertex.position.copy( item.position() );

@@ -9,6 +9,29 @@ THREEx.Particle.item	= function(opts)
 	this._kill();
 }
 
+THREEx.Particle.item.prototype.reset0	= function()
+{
+	this._deleteIn	= 2000;
+
+	this._position	= new THREE.Vector3( 0,0,0 );
+
+	this._speed	= new THREE.Vector3();
+	this._speed.copy(this._position).normalize().multiplyScalar( 2 );
+	this._speedInc	= new THREE.Vector3(0, -0.05, 0);
+	this._speedMul	= new THREE.Vector3(1.0, 1.0, 1.0);
+
+	this._color	= new THREE.Color(0xFFFFFF);
+
+	this._rotation	= 0*Math.PI/180;
+	this._rotationInc = 0;
+
+	this._size	= 16;
+	this._sizeInc	= 0;
+
+	this._opacity	= 1.0;
+	this._opacityInc= 0;
+}
+
 THREEx.Particle.item.prototype.reset	= function()
 {
 	function randomRange(min, max) {
@@ -32,16 +55,17 @@ THREEx.Particle.item.prototype.reset	= function()
 	position.normalize().multiplyScalar( randomRange(0,1) );
 })();
 
-	this._deletedAt		= Date.now() + this._params.timeToLive;
+	this._deleteIn	= this._params.timeToLive;
 
-	this._speedInc	= new THREE.Vector3(0, 0, 0);
-	this._friction	= new THREE.Vector3(1.0, 1.0, 1.0);
 
 	this._speed	= new THREE.Vector3();
 	this._speed.copy(this._position).normalize();
-	this._speed.normalize().multiplyScalar( randomRange(1, 3) );
+	//this._speed.normalize().multiplyScalar( randomRange(1, 2) );
+	this._speed.normalize().multiplyScalar( randomRange(1, 2) );
 
-	this._gravity		= new THREE.Vector3(0, -0.05, 0);	
+	this._speedInc	= new THREE.Vector3(0, 0, 0);
+	this._speedMul	= new THREE.Vector3(1.0, 1.0, 1.0);
+	this._speedInc.addSelf(new THREE.Vector3(0, -0.05, 0));
 
 	this._color		= new THREE.Color(0xFF5510);
 
@@ -66,18 +90,17 @@ THREEx.Particle.item.prototype._kill	= function()
 }
 
 
-THREEx.Particle.item.prototype.update	= function()
+THREEx.Particle.item.prototype.update	= function(deltaTime)
 {
-	if( Date.now() > this._deletedAt ){
-		this._kill();
-		return;
+	if( this._deleteIn > 0 ){
+		this._deleteIn	-= deltaTime;
+		if( this._deleteIn <= 0 )	return this._kill();
 	}
 	if( this.isUnvisible() ) return;
 	
 	
+	this._speed	.multiplySelf( this._speedMul );
 	this._speed	.addSelf( this._speedInc );
-	this._speed	.addSelf( this._gravity );
-	this._speed	.multiplySelf( this._friction );
 
 	this._position	.addSelf( this._speed );
 	

@@ -50,9 +50,46 @@ function init()
 	// create the container
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
+
+	// init the renderer
+	renderer	= new THREE.WebGLRenderer({
+		antialias		: true,
+		preserveDrawingBuffer	: true		
+	});
+	//renderer.sortObjects = true;
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	container.appendChild( renderer.domElement );
+
 	// create the Camera
-	camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 100000 );
-	camera.position.z	= 400;
+	if( false ){
+		camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 100000 );
+		camera.position.z	= 400;		
+	}else{
+		camera = new THREE.TrackballCamera({
+			fov: 25,
+			aspect: window.innerWidth / window.innerHeight,
+			near: 50,
+			far: 1e7,
+
+			rotateSpeed: 1.0,
+			zoomSpeed: 1.2,
+			panSpeed: 0.2,
+
+			noZoom: false,
+			noPan: false,
+
+			staticMoving: false,
+			dynamicDampingFactor: 0.3,
+
+			minDistance: 200,
+			maxDistance: 500,
+
+			keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
+
+			domElement: renderer.domElement,
+		});
+		camera.position.z	= 1000;
+	}
 	
 	// build the scene
 	scene = new THREE.Scene();
@@ -71,9 +108,7 @@ function init()
 		rotationSrc	:  0.0,
 		rotationInc	:  0.0,
 	};
-	buildGui(parameters, function(){
-		
-	})
+	buildGui(parameters);
 
 	// define the containerObj of all the particle
 	containerObj	= new THREE.Object3D();
@@ -84,14 +119,6 @@ function init()
 	});
 	containerObj.addChild( Emitter.object3d() );
 	
-	// init the renderer
-	renderer	= new THREE.WebGLRenderer({
-		antialias		: true,
-		preserveDrawingBuffer	: true		
-	});
-	//renderer.sortObjects = true;
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	container.appendChild( renderer.domElement );
 
 	// init the Stats
 	stats	= new Stats();
@@ -123,7 +150,7 @@ function animate() {
 function render()
 {
 	// move the camera
-	if( true ){		
+	if( false ){		
 		camera.position.x += (   mouseX - camera.position.x ) * .05;
 		camera.position.y += ( - mouseY - camera.position.y ) * .05;
 	}
