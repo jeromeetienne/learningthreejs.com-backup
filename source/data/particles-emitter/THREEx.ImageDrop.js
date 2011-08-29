@@ -23,9 +23,10 @@ THREEx.ImageDrop	= function(renderer, callback)
 		// - without it the image replace the current page
 		event.preventDefault();		
 	}
-	
-	document.addEventListener("drop", onDrop, false);
-	document.addEventListener("dragover", onDragOver, false);
+
+	// TODO here bind renderer.element or something
+	document.addEventListener("drop"	, onDrop	, false);
+	document.addEventListener("dragover"	, onDragOver	, false);
 	
 	return {
 		unbind	: function(){
