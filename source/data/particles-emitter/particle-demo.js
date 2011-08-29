@@ -133,7 +133,7 @@ function init()
 
 			domElement: renderer.domElement,
 		});
-		camera.position.z	= 1000;
+		camera.position.z	= 1;
 	}
 	
 	// build the scene
