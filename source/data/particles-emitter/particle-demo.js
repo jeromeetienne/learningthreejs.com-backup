@@ -48,8 +48,13 @@ function buildGui(parameters, callback)
 	// get parameters values from cache if needed
 	urlCacheInit(parameters)
 	// init the cache with current parameters values
-	urlCacheUpdate(parameters)
+	//urlCacheUpdate(parameters)
 	
+	gui.add(parameters, 'emitRate').min(1).max(100)
+		.onFinishChange(change);
+	gui.add(parameters, 'timeToLive').min(200).max(5*1000)
+		.onFinishChange(change);
+
 	gui.add(parameters, 'originAzValue').min(-Math.PI).max(Math.PI)
 		.onFinishChange(change);
 	gui.add(parameters, 'originAzRange').min(-Math.PI).max(Math.PI)
@@ -66,12 +71,6 @@ function buildGui(parameters, callback)
 		.onFinishChange(change);
 
 	gui.add(parameters, 'gravity').min(0).max(0.2)
-		.onFinishChange(change);
-
-	gui.add(parameters, 'emitRate').min(1).max(100)
-		.onFinishChange(change);
-
-	gui.add(parameters, 'timeToLive').min(200).max(5*1000)
 		.onFinishChange(change);
 
 	gui.add(parameters, 'opacitySrc').min(0.0).max(1.0)
@@ -135,7 +134,12 @@ function init()
 		});
 		camera.position.z	= 1;
 	}
-	
+
+	// call THREEx.WindowResize
+	// - TODO is that enougth for trackboll camera ?
+	// - webgl_trackballcamera_earth.html got more
+	THREEx.WindowResize(renderer, camera);	
+
 	// build the scene
 	scene = new THREE.Scene();
 
@@ -145,6 +149,10 @@ function init()
 
 	// parameters
 	var parameters	= {
+		emitRate	: 30,
+
+		timeToLive	: 2000,
+		
 		originAzValue	: Math.PI/2,
 		originAzRange	: 30 * Math.PI/180,
 
@@ -156,10 +164,6 @@ function init()
 
 		gravity		: 0.05,
 
-		emitRate	: 30,
-
-		timeToLive	: 2000,
-		
 		opacitySrc	: 1.0,
 		opacityInc	: 0.0,
 		
