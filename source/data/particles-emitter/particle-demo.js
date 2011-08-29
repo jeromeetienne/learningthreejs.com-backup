@@ -163,6 +163,7 @@ function init()
 
 	// build the emitter
 	Emitter	= new THREEx.Particle.Emitter({
+		nbItems	: 5000,
 		params	: parameters
 	});
 	containerObj.addChild( Emitter.container() );

@@ -4,7 +4,7 @@ THREEx.Particle	= THREEx.Particle	|| {};
 THREEx.Particle.Emitter	= function(opts)
 {
 	this._params	= opts.params	|| console.assert(false);
-	this._nbItems	= opts.nbItems !== undefined ? opts.nbItems : 10000;
+	this._nbItems	= opts.nbItems !== undefined ? opts.nbItems : 5000;
 
 	this._items	= [];
 
