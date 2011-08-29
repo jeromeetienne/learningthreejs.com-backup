@@ -58,7 +58,7 @@ function init()
 	scene = new THREE.Scene();
 
 	var parameters	= {
-		emitRate	: 40,
+		emitRate	: 30,
 
 		timeToLive	: 2000,
 		
