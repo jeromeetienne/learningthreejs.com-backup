@@ -30,11 +30,14 @@ function buildGui(parameters, callback)
 		height	: 15 * 32 - 1
 	});
 	var change	= function(){
+		// get parameters values from cache if needed
 		urlCacheUpdate(parameters)
 		callback && callback(parameters)
 	};
 	
+	// get parameters values from cache if needed
 	urlCacheInit(parameters)
+	// init the cache with current parameters values
 	urlCacheUpdate(parameters)
 	
 	gui.add(parameters, 'originAzValue').min(-Math.PI).max(Math.PI)
