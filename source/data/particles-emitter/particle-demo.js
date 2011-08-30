@@ -142,6 +142,8 @@ function init()
 	// - TODO should i add a callback to that ?
 	THREEx.WindowResize(renderer, camera);
 	
+	// FIXME failed attemps
+	// - seems to fail if the data url
 	THREEx.ImageDrop(renderer, function(image){
 		var material		= Emitter.container().materials[0];
 		var uniforms		= material.uniforms;

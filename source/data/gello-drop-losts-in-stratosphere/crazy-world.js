@@ -154,7 +154,7 @@ function init() {
 	
 	// center the geometry
 	// is that still needed ? it was to fix text
-	THREEx.GeometryCenter.center(geometry);
+	THREEx.GeometryUtils.center(geometry);
 	
 	// wobble preparation
 	THREEx.GeometryWobble.init(geometry);

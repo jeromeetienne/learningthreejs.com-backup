@@ -12,12 +12,12 @@ function buildNodeLogo()
 	var geometryE	= NodeLogo.shapeE(100)		.extrude( extrudeSettings );
 	var geometryEh	= NodeLogo.shapeO(100/4)	.extrude( extrudeSettings );
 
-	THREEx.GeometryCenter.attachRightLeft(geometryN, geometryO, 20)
-	THREEx.GeometryCenter.attachRightLeft(geometryO, geometryD, 20)
-	THREEx.GeometryCenter.attachRightLeft(geometryD, geometryE, 20)
+	THREEx.GeometryUtils.attachRightLeft(geometryN, geometryO, 20)
+	THREEx.GeometryUtils.attachRightLeft(geometryO, geometryD, 20)
+	THREEx.GeometryUtils.attachRightLeft(geometryD, geometryE, 20)
 
-	var eMiddle	= THREEx.GeometryCenter.middlePoint(geometryE);
-	THREEx.GeometryCenter.translate(geometryEh, eMiddle);
+	var eMiddle	= THREEx.GeometryUtils.middlePoint(geometryE);
+	THREEx.GeometryUtils.translate(geometryEh, eMiddle);
 
 	var geometries	= [geometryN, geometryO, geometryD, geometryE, geometryEh];
 	
@@ -26,10 +26,10 @@ function buildNodeLogo()
 	geometries.forEach(function(geometry){
 		THREE.GeometryUtils.merge(tmpGeometry, geometry);
 	})
-	var middle	= THREEx.GeometryCenter.middlePoint(tmpGeometry).negate();
+	var middle	= THREEx.GeometryUtils.middlePoint(tmpGeometry).negate();
 	middle.y	= 0;
 	geometries.forEach(function(geometry){
-		THREEx.GeometryCenter.translate(geometry, middle);
+		THREEx.GeometryUtils.translate(geometry, middle);
 	})
 
 

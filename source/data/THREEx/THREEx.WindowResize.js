@@ -1,15 +1,18 @@
-// This THREEx helper makes it easy to handle window resize. It will update
-// renderer and camera when window is resized
+// This THREEx helper makes it easy to handle window resize.
+// It will update renderer and camera when window is resized.
 //
 // # Usage
 //
-// **Start updating renderer and camera**
+// **Step 1**: Start updating renderer and camera
 //
 // ```var windowResize = THREEx.WindowResize(aRenderer, aCamera)```
 //    
-// **Stop updating**
+// **Step 2**: Start updating renderer and camera
 //
-// ```windowResize.unbind()```
+// ```windowResize.stop()```
+// # Code
+
+//
 
 /** @namespace */
 var THREEx	= THREEx 		|| {};
@@ -28,10 +31,14 @@ THREEx.WindowResize	= function(renderer, camera){
 		camera.aspect	= window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
 	}
+	// bind the resize event
 	window.addEventListener('resize', callback, false);
+	// return .stop() the function to stop watching window resize
 	return {
-		// function to call to unbind this event
-		unbind	: function(){
+		/**
+		 * Stop watching window resize
+		*/
+		stop	: function(){
 			window.removeEventListener('resize', callback);
 		}
 	};
