@@ -8,7 +8,7 @@ var MaterialEarthMapping	= MaterialEarthMapping	|| {}
 MaterialEarthMapping.buildCloudMesh	= function(sphereRadius)
 {
 	var geometry		= new THREE.SphereGeometry( sphereRadius, 50, 50 );
-	THREEx.GeometryCenter.center(geometry);
+	THREEx.GeometryUtils.center(geometry);
 	THREEx.GeometryWobble.init(geometry);
 	THREEx.GeometryWobble.cpuAxis(geometry, 'x', 0.02);
 

@@ -4,13 +4,61 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-08-29T15:09:27+02:00</updated>
+  <updated>2011-08-30T12:53:22+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Window Resize For Your Demos</title>
+    <link href="http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/"/>
+    <updated>2011-08-30T11:24:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos</id>
+    <content type="html">&lt;p&gt;It is cool when you look at a demo and it is resized automatically
+when you change the dimension of the browser's window. To switch it fullscreen
+or such.
+&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;THREEx.WindowResize&lt;/a&gt; is an little piece of code.
+It helps you do exactly that on your own demos in a single line.&lt;/p&gt;
+
+&lt;h2&gt;Let's include the script&lt;/h2&gt;
+
+&lt;p&gt;You download it from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;here&lt;/a&gt; and include
+it in your page like this&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src='THREEx.WindowResize.js'&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Let's use it&lt;/h2&gt;
+
+&lt;p&gt;Now that the script is included, simply call the following line, and you are done!
+Your renderer will follow the window size.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREEx.WindowResize(renderer, camera);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;As usual you got a &lt;code&gt;renderer&lt;/code&gt; and a &lt;code&gt;camera&lt;/code&gt; variable, just pass
+them to the function and they will be updated on window resize.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;For more details, see the &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.WindowResize.html&quot;&gt;annoted source&lt;/a&gt; of
+&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;THREEx.WindowResize&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Tween.js for Smooth Animation</title>

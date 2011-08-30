@@ -1,6 +1,6 @@
 var THREEx		= THREEx || {};
 
-THREEx.GeometryCenter	= {};
+THREEx.GeometryUtils	= {};
 
 // TODO
 // - add translate
@@ -10,7 +10,7 @@ THREEx.GeometryCenter	= {};
 // - possibility a matrix to reduce computation ?
 // - rename it to GeometryUtils
 
-THREEx.GeometryCenter.center	= function(geometry, noX, noY, noZ)
+THREEx.GeometryUtils.center	= function(geometry, noX, noY, noZ)
 {
 	// compute bounding box
 	geometry.computeBoundingBox();
@@ -24,7 +24,7 @@ THREEx.GeometryCenter.center	= function(geometry, noX, noY, noZ)
 	return this.translate(geometry, delta)
 }
 
-THREEx.GeometryCenter.middlePoint	= function(geometry)
+THREEx.GeometryUtils.middlePoint	= function(geometry)
 {
 	// compute bounding box
 	geometry.computeBoundingBox();
@@ -38,7 +38,7 @@ THREEx.GeometryCenter.middlePoint	= function(geometry)
 	return point;
 }
 
-THREEx.GeometryCenter.attachRightLeft	= function(geometry1, geometry2, delta)
+THREEx.GeometryUtils.attachRightLeft	= function(geometry1, geometry2, delta)
 {
 	if( delta === undefined )	delta	= 0;
 	// compute bounding box
@@ -56,7 +56,7 @@ THREEx.GeometryCenter.attachRightLeft	= function(geometry1, geometry2, delta)
 	return this;
 }
 
-THREEx.GeometryCenter.scale	= function(geometry, scale)
+THREEx.GeometryUtils.scale	= function(geometry, scale)
 {
 	// change all geometry.vertices
 	for(var i = 0; i < geometry.vertices.length; i++) {
@@ -71,7 +71,7 @@ THREEx.GeometryCenter.scale	= function(geometry, scale)
 	return this;
 }
 
-THREEx.GeometryCenter.translate	= function(geometry, delta)
+THREEx.GeometryUtils.translate	= function(geometry, delta)
 {
 	// change all geometry.vertices
 	for(var i = 0; i < geometry.vertices.length; i++) {

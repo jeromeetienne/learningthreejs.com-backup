@@ -5,10 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Learning Three.js: Category: ui</title>
+  <title>Learning Three.js: Window Resize For Your Demos</title>
   <meta name="author" content="Jerome Etienne">
-  
-    <meta name="description" content="Category: ui"/>
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://learningthreejs.comblog/categories/ui/index.html"/>
+  <link rel="canonical" href="http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -96,36 +94,120 @@
   <div id="main">
     <div id="content">
       <div>
-<article>
+<article class="hentry">
   
   <header>
-    <h1 class="entry-title">Category: Ui</h1>
+    
+      <h1 class="entry-title">Window Resize for Your Demos</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-30 11:24:00 +0200" pubdate  updated >Aug 30<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>It is cool when you look at a demo and it is resized automatically
+when you change the dimension of the browser&#8217;s window. To switch it fullscreen
+or such.
+<a href="/data/THREEx/THREEx.WindowResize.js">THREEx.WindowResize</a> is an little piece of code.
+It helps you do exactly that on your own demos in a single line.</p>
 
-  
-  <h2>2011</h2>
+<h2>Let&#8217;s include the script</h2>
 
-<article>
-  
-<h1><a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos/">dat-gui - Simple UI for Demos</a></h1>
-<time datetime="2011-08-14 19:42:00 +0200" pubdate><span class='month'>Aug</span> <span class='day'>14</span> <span class='year'>2011</span></time>
+<p>You download it from <a href="/data/THREEx/THREEx.WindowResize.js">here</a> and include
+it in your page like this</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/demo/'>demo</a>, <a class='category' href='/blog/categories/library/'>library</a>, <a class='category' href='/blog/categories/ui/'>ui</a></span>
-</footer>
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&#39;THREEx.WindowResize.js&#39;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</div></code></pre></td></tr></table></div>
+
+<!-- more -->
 
 
-</article>
+<h2>Let&#8217;s use it</h2>
 
+<p>Now that the script is included, simply call the following line, and you are done!
+Your renderer will follow the window size.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">WindowResize</span><span class="p">(</span><span class="nx">renderer</span><span class="p">,</span> <span class="nx">camera</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p>As usual you got a <code>renderer</code> and a <code>camera</code> variable, just pass
+them to the function and they will be updated on window resize.</p>
+
+<h2>Conclusion</h2>
+
+<p>For more details, see the <a href="/data/THREEx/docs/THREEx.WindowResize.html">annoted source</a> of
+<a href="/data/THREEx/THREEx.WindowResize.js">THREEx.WindowResize</a>.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Jerome Etienne</span></span>
+
+      
+
+
+
+
+<time datetime="2011-08-30 11:24:00 +0200" pubdate  updated >Aug 30<span>th</span>, 2011</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/THREEx/'>THREEx</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'learningthreejs';
+  var disqus_identifier = 'http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/';
+  var disqus_url = 'http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 

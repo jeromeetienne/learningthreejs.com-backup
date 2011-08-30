@@ -1,6 +1,7 @@
 /** @namespace */
 var THREEx	= THREEx	|| {};
 
+// TODO should those relative polar coord function be INSIDE path already ?
 
 THREEx.LogoTurtle	= function()
 {
