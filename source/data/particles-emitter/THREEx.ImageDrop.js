@@ -13,7 +13,13 @@ THREEx.ImageDrop	= function(renderer, callback)
 			var reader	= new FileReader();
 			reader.onload = function (event) {
 				var imageUrl	= event.target.result;
-				callback(imageUrl);
+imageUrl	= 'images/lensFlare/Shine1.png';
+				var image	= new Image();
+				image.onload	= function(){
+					callback(image);
+				};
+				image.crossOrigin = '';
+				image.src	= imageUrl;
 			};
 			reader.readAsDataURL(file);
 		}
@@ -36,7 +42,7 @@ THREEx.ImageDrop	= function(renderer, callback)
 	}
 }
 
-THREEx.ImageDrop.defaultCallback	= function(imageUrl)
+THREEx.ImageDrop.defaultCallback	= function(image)
 {
-	window.open(imageUrl);
+	window.open(image.src);
 }

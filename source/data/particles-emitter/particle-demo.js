@@ -139,9 +139,19 @@ function init()
 	// call THREEx.WindowResize
 	// - TODO is that enougth for trackboll camera ?
 	// - webgl_trackballcamera_earth.html got more
+	// - TODO should i add a callback to that ?
 	THREEx.WindowResize(renderer, camera);
 	
-	THREEx.ImageDrop(renderer)
+	THREEx.ImageDrop(renderer, function(image){
+		var material		= Emitter.container().materials[0];
+		var uniforms		= material.uniforms;
+		var texture		= uniforms['texture'].texture;
+		//texture.image.src	= image.src;
+		texture.image		= image;
+		texture.needsUpdate	= true;
+		//uniforms['texture'].needsUpdate	= true;
+console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", image, "oldimage", texture.image);
+	})
 
 	// build the scene
 	scene = new THREE.Scene();
@@ -184,7 +194,6 @@ function init()
 		params	: parameters
 	});
 	containerObj.addChild( Emitter.container() );
-	
 
 	// init the Stats
 	stats	= new Stats();
