@@ -65,7 +65,7 @@ function buildGui(parameters, callback)
 	gui.add(parameters, 'originOffsetRange').min(0).max(30)
 		.onFinishChange(change);
 
-	gui.add(parameters, 'speedValue').min(1).max(2)
+	gui.add(parameters, 'speedValue').min(0.2).max(2)
 		.onFinishChange(change);
 	gui.add(parameters, 'speedRange').min(0).max(2)
 		.onFinishChange(change);
@@ -78,7 +78,7 @@ function buildGui(parameters, callback)
 	gui.add(parameters, 'opacityInc').min(-0.05).max(0)
 		.onFinishChange(change);
 
-	gui.add(parameters, 'sizeSrc').min(2).max(32)
+	gui.add(parameters, 'sizeSrc').min(2).max(128)
 		.onFinishChange(change);
 	gui.add(parameters, 'sizeInc').min(-1).max(1)
 		.onFinishChange(change);
@@ -133,7 +133,7 @@ function init()
 			domElement: renderer.domElement
 		});
 
-		camera.position.z	= 1;
+		camera.position.z	= 2;
 	}
 
 	// call THREEx.WindowResize
