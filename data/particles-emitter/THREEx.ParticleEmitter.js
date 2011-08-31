@@ -3,16 +3,34 @@ THREEx.Particle	= THREEx.Particle	|| {};
 
 THREEx.Particle.Emitter	= function(opts)
 {
-	this._params	= opts.params	|| console.assert(false);
+	this._params	= opts.params		|| console.assert(false);
 	this._nbItems	= opts.nbItems !== undefined ? opts.nbItems : 5000;
 
 	this._items	= [];
 
-	this._buildObject3d();
 	this._createGeometry();
+	this._createMaterial();
+
+	this._particleSys	= new THREE.ParticleSystem( this._geometry, this._material );
 }
 
-THREEx.Particle.Emitter.prototype._buildMaterialShader	= function()
+/**
+ * Create the geometry for all the particles
+*/
+THREEx.Particle.Emitter.prototype._createGeometry	= function()
+{
+	this._geometry	= new THREE.Geometry();
+	for(var i = 0; i < this._nbItems; i++){
+		var item	= new THREEx.Particle.item();
+		this._items.push(item);
+		this._geometry.vertices.push( new THREE.Vertex( item.position() ) );
+	}
+}
+
+/**
+ * Create the material
+*/
+THREEx.Particle.Emitter.prototype._createMaterial	= function()
 {
 	var attributes = {
 		aRotation	: { type: 'f', value: [] },
@@ -21,50 +39,36 @@ THREEx.Particle.Emitter.prototype._buildMaterialShader	= function()
 		aOpacity	: { type: 'f', value: [] }
 	};
 
-	var uniforms = {
-		color		: { type: "c", value: new THREE.Color( 0xFFFFFF ) },
-		texture		: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/lensFlare/Flare1.png" ) }
-		//texture		: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/ball.png" ) }
-		//texture		: { type: "t", texture: THREE.ImageUtils.loadTexture( "images/lensFlare/Shine1.png" ) }
-	};
-
-	var material = new THREE.MeshShaderMaterial({
-		uniforms	: uniforms,
-		attributes	: attributes,
-		vertexShader	: document.getElementById( 'vertexshader' ).textContent,
-		fragmentShader	: document.getElementById( 'fragmentshader' ).textContent,
-
-		blending	: THREE.AdditiveBlending,
-		depthTest	: false,
-		transparent	: true
-	});
-
 	for(var i = 0; i < this._nbItems; i++ ){
 		attributes.aSize	.value[i]	= 8;
 		attributes.aRotation	.value[i]	= 0;
 		attributes.aColor	.value[i]	= new THREE.Color( 0x000000 );
 		attributes.aOpacity	.value[i]	= 1.0;
 	}
-	return material;
+
+	var uniforms = {
+		color		: { type: "c", value: new THREE.Color( 0xFFFFFF ) },
+		//texture		: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/lensFlare/Flare1.png" ) }
+		//texture		: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/ball.png" ) }
+		texture		: { type: "t", texture: THREE.ImageUtils.loadTexture( this._params.textureUrl ) }
+	};
+
+	this._material = new THREE.MeshShaderMaterial({
+		uniforms	: uniforms,
+		attributes	: attributes,
+		vertexShader	: document.getElementById( 'vertexshader' ).textContent,
+		fragmentShader	: document.getElementById( 'fragmentshader' ).textContent,
+
+		blending	: THREE.AdditiveBlending,
+		transparent	: true,
+
+		depthTest	: false,
+	});
 }
 
-THREEx.Particle.Emitter.prototype._buildObject3d	= function()
-{
-	var geometry	= new THREE.Geometry();
-	var material	= this._buildMaterialShader();	
-	this._particleSys	= new THREE.ParticleSystem( geometry, material );
-}
-
-THREEx.Particle.Emitter.prototype._createGeometry	= function()
-{
-	var geometry	= this._particleSys.geometry;	
-	for(var i = 0; i < this._nbItems; i++){
-		var item	= new THREEx.Particle.item();
-		this._items.push(item);
-		geometry.vertices.push( new THREE.Vertex( item.position() ) );
-	}
-}
-
+/**
+ * Emit one particle
+*/
 THREEx.Particle.Emitter.prototype._emitItem	= function(itemIdx)
 {
 	var item	= this._items[itemIdx];
@@ -94,8 +98,9 @@ THREEx.Particle.Emitter.prototype._emitItem	= function(itemIdx)
 	opts.speedInc	= new THREE.Vector3(0, 0, 0);
 	opts.speedInc.addSelf(new THREE.Vector3(0, - this._params.gravity, 0));
 
-	opts.color	= new THREE.Color(0xFF5510);
-
+	opts.color	= this._params.color.clone();
+	opts.colorInc	= this._params.colorInc.clone();
+	
 	opts.rotation	= this._params.rotationSrc;
 	opts.rotationInc= this._params.rotationInc;
 
@@ -108,13 +113,17 @@ THREEx.Particle.Emitter.prototype._emitItem	= function(itemIdx)
 	item.start(opts);
 }
 
+
+/**
+ * Update the particle emitter
+*/
 THREEx.Particle.Emitter.prototype.update	= function()
 {
 	var geometry	= this._particleSys.geometry;
 	var material	= this._particleSys.materials[0];
 	var attributes	= material.attributes;
 	
-	// compute the deltaTime since the last update - with 60hz by default
+	// compute the deltaTime in msec since the last update - with 60hz by default
 	if( ! this._lastUpdateAt )	this._lastUpdateAt = Date.now() - 1/60 * 1000;
 	var deltaTime		= Date.now() - this._lastUpdateAt;
 	this._lastUpdateAt	= Date.now();

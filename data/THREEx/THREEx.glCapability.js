@@ -31,7 +31,6 @@ THREEx.glCapability	= function(gl)
 	var sloti	= ['ALIASED_LINE_WIDTH_RANGE', 'ALIASED_POINT_SIZE_RANGE', 'MAX_VIEWPORT_DIMS'];
 	
 	var info	= {};
-	
 	var collect	= function(arr){
 		arr.forEach(function(parameter){
 			//console.log('parameter', parameter)

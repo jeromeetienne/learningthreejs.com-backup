@@ -24,6 +24,7 @@ THREEx.Particle.item.prototype.reset	= function()
 	this._speedMul	= new THREE.Vector3(1.0, 1.0, 1.0);
 
 	this._color	= new THREE.Color(0xFFFFFF);
+	this._colorInc	= new THREE.Color(0x000000);
 
 	this._rotation	= 0*Math.PI/180;
 	this._rotationInc = 0;
@@ -81,6 +82,11 @@ THREEx.Particle.item.prototype.update	= function(deltaTime)
 	this._speed	.addSelf( this._speedInc );
 
 	this._position	.addSelf( this._speed );
+
+	this._color.r	+= this._colorInc.r;
+	this._color.g	+= this._colorInc.g;
+	this._color.b	+= this._colorInc.b;
+	
 	
 	this._size	+= this._sizeInc;
 
