@@ -36,57 +36,113 @@ function buildGui(parameters, callback)
 		window.location.hash	= '#'+encodeURIComponent(JSON.stringify(urlParams));
 	}
 
-	var gui = new DAT.GUI({
-		height	: 15 * 32 - 1
-	});
+// Notice this belongs to the DAT.GUI class (uppercase)
+// and not an instance thereof.
+DAT.GUI.autoPlace = false;
+
 	var change	= function(){
 		// get parameters values from cache if needed
-		urlCacheUpdate(parameters)
+		//urlCacheUpdate(parameters)
 		callback && callback(parameters)
 	};
 	
 	// get parameters values from cache if needed
-	urlCacheInit(parameters)
+	//urlCacheInit(parameters)
 	// init the cache with current parameters values
 	//urlCacheUpdate(parameters)
 	
-	gui.add(parameters, 'emitRate').min(1).max(100)
+	var gui1 = new DAT.GUI({
+		height	: 15 * 32 - 1
+	});
+	gui1.domElement.style.position	= 'absolute';
+	gui1.domElement.style.top	= '0px';
+	gui1.domElement.style.right	= '0px';
+	gui1.domElement.style['z-index']= '9999';
+	document.body.appendChild(gui1.domElement);	
+	
+	gui1.add(parameters, 'emitRate').min(1).max(100)
 		.onFinishChange(change);
-	gui.add(parameters, 'timeToLive').min(200).max(5*1000)
-		.onFinishChange(change);
-
-	gui.add(parameters, 'originAzValue').min(-Math.PI).max(Math.PI)
-		.onFinishChange(change);
-	gui.add(parameters, 'originAzRange').min(-Math.PI).max(Math.PI)
-		.onFinishChange(change);
-
-	gui.add(parameters, 'originOffsetValue').min(0).max(100)
-		.onFinishChange(change);
-	gui.add(parameters, 'originOffsetRange').min(0).max(30)
-		.onFinishChange(change);
-
-	gui.add(parameters, 'speedValue').min(0.2).max(2)
-		.onFinishChange(change);
-	gui.add(parameters, 'speedRange').min(0).max(2)
+	gui1.add(parameters, 'timeToLive').min(200).max(5*1000)
 		.onFinishChange(change);
 
-	gui.add(parameters, 'gravity').min(0).max(0.2)
+	gui1.add(parameters, 'originAzValue').min(-Math.PI).max(Math.PI)
+		.onFinishChange(change);
+	gui1.add(parameters, 'originAzRange').min(-Math.PI).max(Math.PI)
 		.onFinishChange(change);
 
-	gui.add(parameters, 'opacitySrc').min(0.0).max(1.0)
+	gui1.add(parameters, 'originOffsetValue').min(0).max(100)
 		.onFinishChange(change);
-	gui.add(parameters, 'opacityInc').min(-0.05).max(0)
-		.onFinishChange(change);
-
-	gui.add(parameters, 'sizeSrc').min(2).max(128)
-		.onFinishChange(change);
-	gui.add(parameters, 'sizeInc').min(-1).max(1)
+	gui1.add(parameters, 'originOffsetRange').min(0).max(30)
 		.onFinishChange(change);
 
-	gui.add(parameters, 'rotationSrc').min(0.0).max(2*Math.PI)
+	gui1.add(parameters, 'speedValue').min(0.2).max(2)
 		.onFinishChange(change);
-	gui.add(parameters, 'rotationInc').min(-0.05).max(0.05)
+	gui1.add(parameters, 'speedRange').min(0).max(2)
 		.onFinishChange(change);
+
+	gui1.add(parameters, 'gravity').min(0).max(0.2)
+		.onFinishChange(change);
+
+	gui1.add(parameters, 'opacitySrc').min(0.0).max(1.0)
+		.onFinishChange(change);
+	gui1.add(parameters, 'opacityInc').min(-0.05).max(0)
+		.onFinishChange(change);
+
+	gui1.add(parameters, 'sizeSrc').min(2).max(128)
+		.onFinishChange(change);
+	gui1.add(parameters, 'sizeInc').min(-1).max(1)
+		.onFinishChange(change);
+
+	gui1.add(parameters, 'rotationSrc').min(0.0).max(2*Math.PI)
+		.onFinishChange(change);
+	gui1.add(parameters, 'rotationInc').min(-0.05).max(0.05)
+		.onFinishChange(change);
+		
+
+(function(){
+	var gui2	= new DAT.GUI({
+		height	: 7 * 32 - 1
+	});
+	gui2.domElement.style.position	= 'absolute';
+	gui2.domElement.style.top	= '0px';
+	gui2.domElement.style.left	= '0px';
+	gui1.domElement.style['z-index']= '9999';
+	document.body.appendChild(gui2.domElement);	
+
+	
+	var tmpParams	= {
+		colorR		: parameters.color.r,
+		colorG		: parameters.color.g,
+		colorB		: parameters.color.b,
+		colorIncR	: parameters.colorInc.r,
+		colorIncG	: parameters.colorInc.g,
+		colorIncB	: parameters.colorInc.b,
+		texture		: "images/lensFlare/Flare1.png"
+	};
+
+	var changeColor	= function(){
+		parameters.color.setRGB(tmpParams.colorR,tmpParams.colorG,tmpParams.colorB)
+		parameters.colorInc.setRGB(tmpParams.colorIncR,tmpParams.colorIncG,tmpParams.colorIncB)
+	}
+
+	gui2.add(tmpParams, 'colorR')		.min(0.0).max(1.0).onChange(changeColor);
+	gui2.add(tmpParams, 'colorG')		.min(0.0).max(1.0).onChange(changeColor);
+	gui2.add(tmpParams, 'colorB')		.min(0.0).max(1.0).onChange(changeColor);
+	gui2.add(tmpParams, 'colorIncR')	.min(-1.0).max(1.0).onChange(changeColor);
+	gui2.add(tmpParams, 'colorIncG')	.min(-1.0).max(1.0).onChange(changeColor);
+	gui2.add(tmpParams, 'colorIncB')	.min(-1.0).max(1.0).onChange(changeColor);
+	
+
+	gui2.add(tmpParams, 'texture').options({
+		"flare"	: "images/lensFlare/Flare1.png",
+		"ball"	: "images/ball.png",
+		"shine"	: "images/lensFlare/Shine1.png"
+	}).onChange(function(){
+		console.log("texture change")
+	});
+		
+}());	
+
 }
 
 function init()
@@ -178,6 +234,11 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 		speedRange	: 0.5,
 
 		gravity		: 0.05,
+		
+		color		: new THREE.Color(0xFF5510),
+		colorInc	: new THREE.Color().setRGB(0,0,0),
+		//colorInc	: new THREE.Color().setRGB(-0.1,-0.05,0.09),
+		
 
 		opacitySrc	: 1.0,
 		opacityInc	: 0.0,
@@ -200,7 +261,7 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 	// init the Stats
 	stats	= new Stats();
 	stats.domElement.style.position	= 'absolute';
-	stats.domElement.style.top	= '0px';
+	stats.domElement.style.bottom	= '0px';
 	container.appendChild( stats.domElement );
 
 	// listen to mousemove to animate the scene
@@ -218,8 +279,11 @@ function onDocumentMouseMove(event)
 
 //
 function animate() {
+
 	requestAnimationFrame( animate );
+
 	Emitter.update();
+
 	render();
 	stats.update();
 }

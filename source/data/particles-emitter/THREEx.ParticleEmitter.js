@@ -12,7 +12,7 @@ THREEx.Particle.Emitter	= function(opts)
 	this._createGeometry();
 }
 
-THREEx.Particle.Emitter.prototype._buildMaterialShader	= function()
+THREEx.Particle.Emitter.prototype._createMaterial	= function()
 {
 	var attributes = {
 		aRotation	: { type: 'f', value: [] },
@@ -23,9 +23,9 @@ THREEx.Particle.Emitter.prototype._buildMaterialShader	= function()
 
 	var uniforms = {
 		color		: { type: "c", value: new THREE.Color( 0xFFFFFF ) },
-		texture		: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/lensFlare/Flare1.png" ) }
+		//texture		: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/lensFlare/Flare1.png" ) }
 		//texture		: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "images/ball.png" ) }
-		//texture		: { type: "t", texture: THREE.ImageUtils.loadTexture( "images/lensFlare/Shine1.png" ) }
+		texture		: { type: "t", texture: THREE.ImageUtils.loadTexture( "images/lensFlare/Shine1.png" ) }
 	};
 
 	var material = new THREE.MeshShaderMaterial({
@@ -51,7 +51,7 @@ THREEx.Particle.Emitter.prototype._buildMaterialShader	= function()
 THREEx.Particle.Emitter.prototype._buildObject3d	= function()
 {
 	var geometry	= new THREE.Geometry();
-	var material	= this._buildMaterialShader();	
+	var material	= this._createMaterial();	
 	this._particleSys	= new THREE.ParticleSystem( geometry, material );
 }
 
@@ -94,8 +94,9 @@ THREEx.Particle.Emitter.prototype._emitItem	= function(itemIdx)
 	opts.speedInc	= new THREE.Vector3(0, 0, 0);
 	opts.speedInc.addSelf(new THREE.Vector3(0, - this._params.gravity, 0));
 
-	opts.color	= new THREE.Color(0xFF5510);
-
+	opts.color	= this._params.color.clone();
+	opts.colorInc	= this._params.colorInc.clone();
+	
 	opts.rotation	= this._params.rotationSrc;
 	opts.rotationInc= this._params.rotationInc;
 
