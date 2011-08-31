@@ -117,7 +117,6 @@ DAT.GUI.autoPlace = false;
 		colorIncR	: parameters.colorInc.r,
 		colorIncG	: parameters.colorInc.g,
 		colorIncB	: parameters.colorInc.b,
-		texture		: "images/lensFlare/Flare1.png"
 	};
 
 	var changeColor	= function(){
@@ -133,12 +132,25 @@ DAT.GUI.autoPlace = false;
 	gui2.add(tmpParams, 'colorIncB')	.min(-1.0).max(1.0).onChange(changeColor);
 	
 
-	gui2.add(tmpParams, 'texture').options({
+	gui2.add(parameters, 'textureUrl').options({
 		"flare"	: "images/lensFlare/Flare1.png",
 		"ball"	: "images/ball.png",
 		"shine"	: "images/lensFlare/Shine1.png"
 	}).onChange(function(){
-		console.log("texture change")
+		console.log("texture change", containerObj)
+
+		scene.removeChild(containerObj)
+
+		// define the containerObj of all the particle
+		containerObj	= new THREE.Object3D();
+		scene.addChild(containerObj)
+		Emitter	= new THREEx.Particle.Emitter({
+			nbItems	: 5000,
+			params	: parameters
+		});
+		containerObj.addChild( Emitter.container() );
+
+		
 	});
 		
 }());	
@@ -239,6 +251,7 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 		colorInc	: new THREE.Color().setRGB(0,0,0),
 		//colorInc	: new THREE.Color().setRGB(-0.1,-0.05,0.09),
 		
+		textureUrl	: "images/lensFlare/Flare1.png",
 
 		opacitySrc	: 1.0,
 		opacityInc	: 0.0,
