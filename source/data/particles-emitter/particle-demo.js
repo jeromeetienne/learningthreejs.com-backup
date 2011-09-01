@@ -249,7 +249,6 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 		
 		color		: new THREE.Color(0xFF5510),
 		colorInc	: new THREE.Color().setRGB(0,0,0),
-		//colorInc	: new THREE.Color().setRGB(-0.1,-0.05,0.09),
 		
 		textureUrl	: "images/lensFlare/Flare1.png",
 

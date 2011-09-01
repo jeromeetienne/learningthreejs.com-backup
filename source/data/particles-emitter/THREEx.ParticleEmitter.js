@@ -129,6 +129,7 @@ THREEx.Particle.Emitter.prototype.update	= function()
 	this._lastUpdateAt	= Date.now();
 
 	// emit particle if needed
+	// TODO should emitRate be dependant of time ?
 	for(var i = 0, nbEmitted = 0; i < this._nbItems && nbEmitted < this._params.emitRate; i++){
 		var item	= this._items[i];
 		if( item.isDead() === false )	continue;
