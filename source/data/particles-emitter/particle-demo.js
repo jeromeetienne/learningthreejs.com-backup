@@ -52,7 +52,7 @@ DAT.GUI.autoPlace = false;
 	//urlCacheUpdate(parameters)
 	
 	var gui1 = new DAT.GUI({
-		height	: 15 * 32 - 1
+		height	: 17 * 32 - 1
 	});
 	gui1.domElement.style.position	= 'absolute';
 	gui1.domElement.style.top	= '0px';
@@ -65,15 +65,14 @@ DAT.GUI.autoPlace = false;
 	gui1.add(parameters, 'timeToLive').min(200).max(5*1000)
 		.onFinishChange(change);
 
-	gui1.add(parameters, 'originAzValue').min(-Math.PI).max(Math.PI)
-		.onFinishChange(change);
-	gui1.add(parameters, 'originAzRange').min(-Math.PI).max(Math.PI)
-		.onFinishChange(change);
+	gui1.add(parameters, 'originZaValue').min(-Math.PI).max(Math.PI)	.onFinishChange(change);
+	gui1.add(parameters, 'originZaRange').min(-Math.PI).max(Math.PI)	.onFinishChange(change);
 
-	gui1.add(parameters, 'originOffsetValue').min(0).max(100)
-		.onFinishChange(change);
-	gui1.add(parameters, 'originOffsetRange').min(0).max(30)
-		.onFinishChange(change);
+	gui1.add(parameters, 'originZhValue').min(0).max(100)		.onFinishChange(change);
+	gui1.add(parameters, 'originZhRange').min(0).max(30)		.onFinishChange(change);
+
+	gui1.add(parameters, 'originRadiusValue').min(0).max(100)	.onFinishChange(change);
+	gui1.add(parameters, 'originRadiusRange').min(0).max(30)	.onFinishChange(change);
 
 	gui1.add(parameters, 'speedValue').min(0.2).max(2)
 		.onFinishChange(change);
@@ -239,11 +238,14 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 
 		timeToLive	: 2000,
 		
-		originAzValue	: Math.PI/2,
-		originAzRange	: 30 * Math.PI/180,
+		originZaValue	: Math.PI/2,
+		originZaRange	: 30 * Math.PI/180,
 
-		originOffsetValue	: 0.5,
-		originOffsetRange	: 0.5,
+		originZhValue	: 20,
+		originZhRange	: 10,
+
+		originRadiusValue	: 0.5,
+		originRadiusRange	: 0.5,
 
 		speedValue	: 1.5,
 		speedRange	: 0.5,
