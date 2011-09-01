@@ -1,10 +1,10 @@
 var THREEx	= THREEx 		|| {};
 THREEx.Particle	= THREEx.Particle	|| {};
 
-THREEx.Particle.Emitter	= function(opts)
+THREEx.Particle.Emitter	= function(params)
 {
-	this._params	= opts.params		|| console.assert(false);
-	this._nbItems	= opts.nbItems !== undefined ? opts.nbItems : 5000;
+	this._params	= params	|| console.assert(false);
+	this._nbItems	= this._params.nbItems !== undefined ? this._params.nbItems : 5000;
 
 	this._items	= [];
 

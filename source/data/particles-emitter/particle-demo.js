@@ -60,10 +60,8 @@ DAT.GUI.autoPlace = false;
 	gui1.domElement.style['z-index']= '9999';
 	document.body.appendChild(gui1.domElement);	
 	
-	gui1.add(parameters, 'emitRate').min(1).max(100)
-		.onFinishChange(change);
-	gui1.add(parameters, 'timeToLive').min(200).max(5*1000)
-		.onFinishChange(change);
+	gui1.add(parameters, 'emitRate').min(1).max(100)		.onFinishChange(change);
+	gui1.add(parameters, 'timeToLive').min(200).max(5*1000)		.onFinishChange(change);
 
 	gui1.add(parameters, 'originZaValue').min(-Math.PI).max(Math.PI)	.onFinishChange(change);
 	gui1.add(parameters, 'originZaRange').min(-Math.PI).max(Math.PI)	.onFinishChange(change);
@@ -74,28 +72,19 @@ DAT.GUI.autoPlace = false;
 	gui1.add(parameters, 'originRadiusValue').min(0).max(100)	.onFinishChange(change);
 	gui1.add(parameters, 'originRadiusRange').min(0).max(30)	.onFinishChange(change);
 
-	gui1.add(parameters, 'speedValue').min(0.2).max(2)
-		.onFinishChange(change);
-	gui1.add(parameters, 'speedRange').min(0).max(2)
-		.onFinishChange(change);
+	gui1.add(parameters, 'speedValue').min(0.2).max(2)		.onFinishChange(change);
+	gui1.add(parameters, 'speedRange').min(0).max(2)		.onFinishChange(change);
 
-	gui1.add(parameters, 'gravity').min(0).max(0.2)
-		.onFinishChange(change);
+	gui1.add(parameters, 'gravity').min(0).max(0.2)			.onFinishChange(change);
 
-	gui1.add(parameters, 'opacitySrc').min(0.0).max(1.0)
-		.onFinishChange(change);
-	gui1.add(parameters, 'opacityInc').min(-0.05).max(0)
-		.onFinishChange(change);
+	gui1.add(parameters, 'opacitySrc').min(0.0).max(1.0)		.onFinishChange(change);
+	gui1.add(parameters, 'opacityInc').min(-0.05).max(0)		.onFinishChange(change);
 
-	gui1.add(parameters, 'sizeSrc').min(2).max(128)
-		.onFinishChange(change);
-	gui1.add(parameters, 'sizeInc').min(-1).max(1)
-		.onFinishChange(change);
+	gui1.add(parameters, 'sizeSrc').min(2).max(128)			.onFinishChange(change);
+	gui1.add(parameters, 'sizeInc').min(-1).max(1)			.onFinishChange(change);
 
-	gui1.add(parameters, 'rotationSrc').min(0.0).max(2*Math.PI)
-		.onFinishChange(change);
-	gui1.add(parameters, 'rotationInc').min(-0.05).max(0.05)
-		.onFinishChange(change);
+	gui1.add(parameters, 'rotationSrc').min(0.0).max(2*Math.PI)	.onFinishChange(change);
+	gui1.add(parameters, 'rotationInc').min(-0.05).max(0.05)	.onFinishChange(change);
 		
 
 (function(){
@@ -115,7 +104,7 @@ DAT.GUI.autoPlace = false;
 		colorB		: parameters.color.b,
 		colorIncR	: parameters.colorInc.r,
 		colorIncG	: parameters.colorInc.g,
-		colorIncB	: parameters.colorInc.b,
+		colorIncB	: parameters.colorInc.b
 	};
 
 	var changeColor	= function(){
@@ -137,7 +126,7 @@ DAT.GUI.autoPlace = false;
 		"shine"			: "images/lensFlare/Shine1.png",
 		"continous_smoke"	: "images/osg-data/continous_smoke.png",
 		"smoke"			: "images/osg-data/smoke.png",
-		"reflect"		: "images/osg-data/reflect.png",
+		"reflect"		: "images/osg-data/reflect.png"
 	}).onChange(function(){
 		console.log("texture change", containerObj)
 
@@ -146,10 +135,7 @@ DAT.GUI.autoPlace = false;
 		scene.addChild(containerObj);
 		
 		// define the containerObj of all the particle
-		Emitter	= new THREEx.Particle.Emitter({
-			nbItems	: 5000,
-			params	: parameters
-		});
+		Emitter	= new THREEx.Particle.Emitter(parameters);
 		containerObj.addChild( Emitter.container() );
 
 		
@@ -234,16 +220,17 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 
 	// parameters
 	var parameters	= {
-		emitRate	: 30,
+		nbItems		: 10000,
+		textureUrl	: "images/lensFlare/Flare1.png",
 
+
+		emitRate	: 30,
 		timeToLive	: 2000,
 		
 		originZaValue	: Math.PI/2,
 		originZaRange	: 30 * Math.PI/180,
-
-		originZhValue	: 20,
-		originZhRange	: 10,
-
+		originZhValue	: 0,
+		originZhRange	: 0,
 		originRadiusValue	: 0.5,
 		originRadiusRange	: 0.5,
 
@@ -255,7 +242,6 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 		color		: new THREE.Color(0xFF5510),
 		colorInc	: new THREE.Color().setRGB(0,0,0),
 		
-		textureUrl	: "images/lensFlare/Flare1.png",
 
 		opacitySrc	: 1.0,
 		opacityInc	: 0.0,
@@ -269,10 +255,7 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 	buildGui(parameters);
 
 	// build the emitter
-	Emitter	= new THREEx.Particle.Emitter({
-		nbItems	: 10000,
-		params	: parameters
-	});
+	Emitter	= new THREEx.Particle.Emitter(parameters);
 	containerObj.addChild( Emitter.container() );
 
 	// init the Stats
