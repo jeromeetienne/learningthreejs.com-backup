@@ -11,12 +11,14 @@ THREEx.ImageDrop	= function(renderer, callback)
 			var file	= event.dataTransfer.files[i];
 			// TODO what about checking it is an image
 			var reader	= new FileReader();
-			reader.onload = function (event) {
+			reader.onload = function (event){
 				var imageUrl	= event.target.result;
+
 // hmmm apparently i got trouble when the imageUrl is a dataUrl
 // - not sure why, but if i put the normal url in there. it works...
 // - if i put the dataUrl, nothing worked
 imageUrl	= 'images/lensFlare/Shine1.png';
+
 				var image	= new Image();
 				image.onload	= function(){
 					callback(image);
