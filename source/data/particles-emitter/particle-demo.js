@@ -133,17 +133,20 @@ DAT.GUI.autoPlace = false;
 	
 
 	gui2.add(parameters, 'textureUrl').options({
-		"flare"	: "images/lensFlare/Flare1.png",
-		"ball"	: "images/ball.png",
-		"shine"	: "images/lensFlare/Shine1.png"
+		"flare"			: "images/lensFlare/Flare1.png",
+		"ball"			: "images/ball.png",
+		"shine"			: "images/lensFlare/Shine1.png",
+		"continous_smoke"	: "images/osg-data/continous_smoke.png",
+		"smoke"			: "images/osg-data/smoke.png",
+		"reflect"		: "images/osg-data/reflect.png",
 	}).onChange(function(){
 		console.log("texture change", containerObj)
 
-		scene.removeChild(containerObj)
-
-		// define the containerObj of all the particle
+		scene.removeChild(containerObj);
 		containerObj	= new THREE.Object3D();
-		scene.addChild(containerObj)
+		scene.addChild(containerObj);
+		
+		// define the containerObj of all the particle
 		Emitter	= new THREEx.Particle.Emitter({
 			nbItems	: 5000,
 			params	: parameters
