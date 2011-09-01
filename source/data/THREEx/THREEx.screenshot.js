@@ -26,7 +26,7 @@ if(typeof THREEx === "undefined")	var THREEx	= {};
 	{
 		mimetype	= mimetype	|| "image/png";
 		var dataUrl	= renderer.domElement.toDataURL(mimetype);
-		return dataUrl;	
+		return dataUrl;
 	}
 
 	/**

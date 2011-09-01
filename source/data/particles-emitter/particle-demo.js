@@ -7,7 +7,7 @@ if( !Detector.webgl ){
 	Detector.addGetWebGLMessage();
 }else{
 	init();
-	animate();	
+	animate();
 }
 
 /**
@@ -36,9 +36,9 @@ function buildGui(parameters, callback)
 		window.location.hash	= '#'+encodeURIComponent(JSON.stringify(urlParams));
 	}
 
-// Notice this belongs to the DAT.GUI class (uppercase)
-// and not an instance thereof.
-DAT.GUI.autoPlace = false;
+	// Notice this belongs to the DAT.GUI class (uppercase)
+	// and not an instance thereof.
+	DAT.GUI.autoPlace = false;
 
 	var change	= function(){
 		// get parameters values from cache if needed
@@ -63,8 +63,8 @@ DAT.GUI.autoPlace = false;
 	gui1.add(parameters, 'emitRate').min(1).max(100)		.onFinishChange(change);
 	gui1.add(parameters, 'timeToLive').min(200).max(5*1000)		.onFinishChange(change);
 
-	gui1.add(parameters, 'originZaValue').min(-Math.PI).max(Math.PI)	.onFinishChange(change);
-	gui1.add(parameters, 'originZaRange').min(-Math.PI).max(Math.PI)	.onFinishChange(change);
+	gui1.add(parameters, 'originZaValue').min(-Math.PI).max(Math.PI).onFinishChange(change);
+	gui1.add(parameters, 'originZaRange').min(-Math.PI).max(Math.PI).onFinishChange(change);
 
 	gui1.add(parameters, 'originZhValue').min(0).max(100)		.onFinishChange(change);
 	gui1.add(parameters, 'originZhRange').min(0).max(30)		.onFinishChange(change);
@@ -165,27 +165,8 @@ function init()
 		camera.position.z	= 400;		
 	}else{
 		camera = new THREE.TrackballCamera({
-			fov: 25,
-			aspect: window.innerWidth / window.innerHeight,
-			near: 50,
-			far: 1e7,
-
-			rotateSpeed: 1.0,
-			zoomSpeed: 1.2,
-			panSpeed: 0.2,
-
-			noZoom: false,
-			noPan: false,
-
-			staticMoving: false,
-			dynamicDampingFactor: 0.3,
-
 			minDistance: 200,
 			maxDistance: 500,
-
-			keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
-
-			domElement: renderer.domElement
 		});
 
 		camera.position.z	= 2;
