@@ -13,6 +13,7 @@ if(typeof THREEx === "undefined")	var THREEx	= {};
 
 // forced closure
 (function(){
+
 	/**
 	 * Take a screenshot of a renderer
 	 * - require WebGLRenderer to have "preserveDrawingBuffer: true" to be set
