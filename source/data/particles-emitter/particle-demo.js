@@ -268,7 +268,7 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 
 	// build the emitter
 	Emitter	= new THREEx.Particle.Emitter({
-		nbItems	: 5000,
+		nbItems	: 10000,
 		params	: parameters
 	});
 	containerObj.addChild( Emitter.container() );
