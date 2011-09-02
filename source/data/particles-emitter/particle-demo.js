@@ -19,9 +19,11 @@ function buildGui(parameters, callback)
 		if( !window.location.hash )	return
 		var hashStr	= window.location.hash.substring(1);
 		var urlParams	= JSON.parse(decodeURIComponent(hashStr));
+console.log("urlParams", urlParams)
 		Object.keys(urlParams).forEach(function(key){
 			parameters[key]	= urlParams[key];
 		}.bind(this));
+console.log("parameters post cache init", parameters)
 	}
 	urlCacheUpdate	= function(opts){
 		var urlParams	= {};
@@ -42,14 +44,14 @@ function buildGui(parameters, callback)
 
 	var change	= function(){
 		// get parameters values from cache if needed
-		//urlCacheUpdate(parameters)
+		urlCacheUpdate(parameters)
 		callback && callback(parameters)
 	};
 	
 	// get parameters values from cache if needed
-	//urlCacheInit(parameters)
+	urlCacheInit(parameters)
 	// init the cache with current parameters values
-	//urlCacheUpdate(parameters)
+	urlCacheUpdate(parameters)
 	
 	var gui1 = new DAT.GUI({
 		height	: 17 * 32 - 1
@@ -59,12 +61,12 @@ function buildGui(parameters, callback)
 	gui1.domElement.style.right	= '0px';
 	gui1.domElement.style['z-index']= '9999';
 	document.body.appendChild(gui1.domElement);	
-	
+
 	gui1.add(parameters, 'emitRate').min(1).max(100)		.onFinishChange(change);
 	gui1.add(parameters, 'timeToLive').min(200).max(5*1000)		.onFinishChange(change);
 
 	gui1.add(parameters, 'originZaValue').min(-Math.PI).max(Math.PI).onFinishChange(change);
-	gui1.add(parameters, 'originZaRange').min(-Math.PI).max(Math.PI).onFinishChange(change);
+	gui1.add(parameters, 'originZaRange').min(0).max(Math.PI).onFinishChange(change);
 
 	gui1.add(parameters, 'originZhValue').min(0).max(100)		.onFinishChange(change);
 	gui1.add(parameters, 'originZhRange').min(0).max(30)		.onFinishChange(change);
@@ -98,32 +100,22 @@ function buildGui(parameters, callback)
 	document.body.appendChild(gui2.domElement);	
 
 	
-	var tmpParams	= {
-		colorR		: parameters.color.r,
-		colorG		: parameters.color.g,
-		colorB		: parameters.color.b,
-		colorIncR	: parameters.colorInc.r,
-		colorIncG	: parameters.colorInc.g,
-		colorIncB	: parameters.colorInc.b
-	};
-
-	var changeColor	= function(){
-		parameters.color.setRGB(tmpParams.colorR,tmpParams.colorG,tmpParams.colorB)
-		parameters.colorInc.setRGB(tmpParams.colorIncR,tmpParams.colorIncG,tmpParams.colorIncB)
-	}
-
-	gui2.add(tmpParams, 'colorR')		.min(0.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorG')		.min(0.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorB')		.min(0.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorIncR')	.min(-1.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorIncG')	.min(-1.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorIncB')	.min(-1.0).max(1.0).onChange(changeColor);
+	gui2.add(parameters.color, 'r').name('colorR')		.min(0.0).max(1.0).onChange(change);
+	gui2.add(parameters.color, 'g').name('colorG')		.min(0.0).max(1.0).onChange(change);
+	gui2.add(parameters.color, 'b').name('colorB')		.min(0.0).max(1.0).onChange(change);
+	gui2.add(parameters.colorInc, 'r').name('colorIncR')	.min(-1.0).max(1.0).onChange(change);
+	gui2.add(parameters.colorInc, 'g').name('colorIncG')	.min(-1.0).max(1.0).onChange(change);
+	gui2.add(parameters.colorInc, 'b').name('colorIncB')	.min(-1.0).max(1.0).onChange(change);
 	
 
 	gui2.add(parameters, 'textureUrl').options({
 		"flare"			: "images/lensFlare/Flare1.png",
 		"smoke"			: "images/osg-data/smoke.png",
 		"ball"			: "images/ball.png",
+
+		"purple_particle"	: "images/tremulous/lasgun/purple_particle.jpg",
+		"lcannon1"		: "images/tremulous/lcannon/primary_1.jpg",
+
 		"shine"			: "images/lensFlare/Shine1.png",
 		"continous_smoke"	: "images/osg-data/continous_smoke.png",
 		"reflect"		: "images/osg-data/reflect.png"
@@ -160,18 +152,18 @@ function init()
 	container.appendChild( renderer.domElement );
 
 	// create the Camera
-	if( true ){
+	if( false ){
 		camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 100000 );
 		camera.position.z	= 400;		
 	}else{
 		camera = new THREE.TrackballCamera({
-			minDistance	: 200,
+			minDistance	: 10,
 			maxDistance	: 500,
 
-			fov	: 25,
-			aspect	: window.innerWidth / window.innerHeight,
-			near	: 50,
-			far	: 1e7,
+			fov		: 25,
+			aspect		: window.innerWidth / window.innerHeight,
+			near		: 5,
+			far		: 1e7,
 
 			rotateSpeed	: 1.0,
 			zoomSpeed	: 1.2,
@@ -183,11 +175,11 @@ function init()
 			staticMoving: false,
 			dynamicDampingFactor: 0.3,
 
-			//keys	: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
+			keys	: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
 
 			domElement: renderer.domElement,
 		});
-		camera.position.z	= 2;
+		camera.position.z	= 100;
 	}
 
 
@@ -237,8 +229,8 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 
 		gravity		: 0.05,
 		
-		color		: new THREE.Color(0xFF5510),
-		colorInc	: new THREE.Color().setRGB(0,0,0),
+		color		: { r: 1.0,  g: 0.33, b: 0.0},
+		colorInc	: { r: 0,  g: 0, b: 0},
 		
 
 		opacitySrc	: 1.0,

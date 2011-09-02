@@ -100,8 +100,8 @@ THREEx.Particle.Emitter.prototype._emitItem	= function(itemIdx)
 	opts.speedInc	= new THREE.Vector3(0, 0, 0);
 	opts.speedInc.addSelf(new THREE.Vector3(0, - this._params.gravity, 0));
 
-	opts.color	= this._params.color.clone();
-	opts.colorInc	= this._params.colorInc.clone();
+	opts.color	= new THREE.Color().setRGB(this._params.color.r, this._params.color.g, this._params.color.b);
+	opts.colorInc	= new THREE.Color().setRGB(this._params.colorInc.r, this._params.colorInc.g, this._params.colorInc.b)
 	
 	opts.rotation	= this._params.rotationSrc;
 	opts.rotationInc= this._params.rotationInc;
