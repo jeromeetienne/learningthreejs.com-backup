@@ -172,12 +172,9 @@ function init()
 	}
 
 	// call THREEx.WindowResize
-	// - TODO is that enougth for trackboll camera ?
-	// - webgl_trackballcamera_earth.html got more
-	// - TODO should i add a callback to that ?
 	THREEx.WindowResize(renderer, camera);
-
-THREEx.Screenshot.bindKey(renderer)
+	// support screenshot
+	THREEx.Screenshot.bindKey(renderer)
 	
 	// FIXME failed attemps
 	// - seems to fail if the data url
