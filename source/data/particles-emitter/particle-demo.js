@@ -68,10 +68,10 @@ console.log("parameters post cache init", parameters)
 	gui1.add(parameters, 'originZaValue').min(-Math.PI).max(Math.PI).onFinishChange(change);
 	gui1.add(parameters, 'originZaRange').min(0).max(Math.PI).onFinishChange(change);
 
-	gui1.add(parameters, 'originZhValue').min(0).max(100)		.onFinishChange(change);
-	gui1.add(parameters, 'originZhRange').min(0).max(30)		.onFinishChange(change);
+	gui1.add(parameters, 'originZhValue').min(0).max(1)		.onFinishChange(change);
+	gui1.add(parameters, 'originZhRange').min(0).max(0.5)		.onFinishChange(change);
 
-	gui1.add(parameters, 'originRadiusValue').min(0).max(100)	.onFinishChange(change);
+	gui1.add(parameters, 'originRadiusValue').min(0.01).max(100)	.onFinishChange(change);
 	gui1.add(parameters, 'originRadiusRange').min(0).max(30)	.onFinishChange(change);
 
 	gui1.add(parameters, 'speedValue').min(0.2).max(2)		.onFinishChange(change);
@@ -103,10 +103,9 @@ console.log("parameters post cache init", parameters)
 	gui2.add(parameters.color, 'r').name('colorR')		.min(0.0).max(1.0).onChange(change);
 	gui2.add(parameters.color, 'g').name('colorG')		.min(0.0).max(1.0).onChange(change);
 	gui2.add(parameters.color, 'b').name('colorB')		.min(0.0).max(1.0).onChange(change);
-	gui2.add(parameters.colorInc, 'r').name('colorIncR')	.min(-1.0).max(1.0).onChange(change);
-	gui2.add(parameters.colorInc, 'g').name('colorIncG')	.min(-1.0).max(1.0).onChange(change);
-	gui2.add(parameters.colorInc, 'b').name('colorIncB')	.min(-1.0).max(1.0).onChange(change);
-	
+	gui2.add(parameters.colorInc, 'r').name('colorIncR')	.min(-0.1).max(0.1).onChange(change);
+	gui2.add(parameters.colorInc, 'g').name('colorIncG')	.min(-0.1).max(0.1).onChange(change);
+	gui2.add(parameters.colorInc, 'b').name('colorIncB')	.min(-0.1).max(0.1).onChange(change);
 
 	gui2.add(parameters, 'textureUrl').options({
 		"flare"			: "images/lensFlare/Flare1.png",
