@@ -7,7 +7,7 @@ if( !Detector.webgl ){
 	Detector.addGetWebGLMessage();
 }else{
 	init();
-	animate();	
+	animate();
 }
 
 /**
@@ -19,9 +19,11 @@ function buildGui(parameters, callback)
 		if( !window.location.hash )	return
 		var hashStr	= window.location.hash.substring(1);
 		var urlParams	= JSON.parse(decodeURIComponent(hashStr));
+console.log("urlParams", urlParams)
 		Object.keys(urlParams).forEach(function(key){
 			parameters[key]	= urlParams[key];
 		}.bind(this));
+console.log("parameters post cache init", parameters)
 	}
 	urlCacheUpdate	= function(opts){
 		var urlParams	= {};
@@ -36,67 +38,55 @@ function buildGui(parameters, callback)
 		window.location.hash	= '#'+encodeURIComponent(JSON.stringify(urlParams));
 	}
 
-// Notice this belongs to the DAT.GUI class (uppercase)
-// and not an instance thereof.
-DAT.GUI.autoPlace = false;
+	// Notice this belongs to the DAT.GUI class (uppercase)
+	// and not an instance thereof.
+	DAT.GUI.autoPlace = false;
 
 	var change	= function(){
 		// get parameters values from cache if needed
-		//urlCacheUpdate(parameters)
+		urlCacheUpdate(parameters)
 		callback && callback(parameters)
 	};
 	
 	// get parameters values from cache if needed
-	//urlCacheInit(parameters)
+	urlCacheInit(parameters)
 	// init the cache with current parameters values
-	//urlCacheUpdate(parameters)
+	urlCacheUpdate(parameters)
 	
 	var gui1 = new DAT.GUI({
-		height	: 15 * 32 - 1
+		height	: 17 * 32 - 1
 	});
 	gui1.domElement.style.position	= 'absolute';
 	gui1.domElement.style.top	= '0px';
 	gui1.domElement.style.right	= '0px';
 	gui1.domElement.style['z-index']= '9999';
 	document.body.appendChild(gui1.domElement);	
-	
-	gui1.add(parameters, 'emitRate').min(1).max(100)
-		.onFinishChange(change);
-	gui1.add(parameters, 'timeToLive').min(200).max(5*1000)
-		.onFinishChange(change);
 
-	gui1.add(parameters, 'originAzValue').min(-Math.PI).max(Math.PI)
-		.onFinishChange(change);
-	gui1.add(parameters, 'originAzRange').min(-Math.PI).max(Math.PI)
-		.onFinishChange(change);
+	gui1.add(parameters, 'emitRate').min(1).max(100)		.onFinishChange(change);
+	gui1.add(parameters, 'timeToLive').min(200).max(5*1000)		.onFinishChange(change);
 
-	gui1.add(parameters, 'originOffsetValue').min(0).max(100)
-		.onFinishChange(change);
-	gui1.add(parameters, 'originOffsetRange').min(0).max(30)
-		.onFinishChange(change);
+	gui1.add(parameters, 'originZaValue').min(-Math.PI).max(Math.PI).onFinishChange(change);
+	gui1.add(parameters, 'originZaRange').min(0).max(Math.PI).onFinishChange(change);
 
-	gui1.add(parameters, 'speedValue').min(0.2).max(2)
-		.onFinishChange(change);
-	gui1.add(parameters, 'speedRange').min(0).max(2)
-		.onFinishChange(change);
+	gui1.add(parameters, 'originZhValue').min(0).max(100)		.onFinishChange(change);
+	gui1.add(parameters, 'originZhRange').min(0).max(30)		.onFinishChange(change);
 
-	gui1.add(parameters, 'gravity').min(0).max(0.2)
-		.onFinishChange(change);
+	gui1.add(parameters, 'originRadiusValue').min(0).max(100)	.onFinishChange(change);
+	gui1.add(parameters, 'originRadiusRange').min(0).max(30)	.onFinishChange(change);
 
-	gui1.add(parameters, 'opacitySrc').min(0.0).max(1.0)
-		.onFinishChange(change);
-	gui1.add(parameters, 'opacityInc').min(-0.05).max(0)
-		.onFinishChange(change);
+	gui1.add(parameters, 'speedValue').min(0.2).max(2)		.onFinishChange(change);
+	gui1.add(parameters, 'speedRange').min(0).max(2)		.onFinishChange(change);
 
-	gui1.add(parameters, 'sizeSrc').min(2).max(128)
-		.onFinishChange(change);
-	gui1.add(parameters, 'sizeInc').min(-1).max(1)
-		.onFinishChange(change);
+	gui1.add(parameters, 'gravity').min(0).max(0.2)			.onFinishChange(change);
 
-	gui1.add(parameters, 'rotationSrc').min(0.0).max(2*Math.PI)
-		.onFinishChange(change);
-	gui1.add(parameters, 'rotationInc').min(-0.05).max(0.05)
-		.onFinishChange(change);
+	gui1.add(parameters, 'opacitySrc').min(0.0).max(1.0)		.onFinishChange(change);
+	gui1.add(parameters, 'opacityInc').min(-0.05).max(0)		.onFinishChange(change);
+
+	gui1.add(parameters, 'sizeSrc').min(2).max(128)			.onFinishChange(change);
+	gui1.add(parameters, 'sizeInc').min(-1).max(1)			.onFinishChange(change);
+
+	gui1.add(parameters, 'rotationSrc').min(0.0).max(2*Math.PI)	.onFinishChange(change);
+	gui1.add(parameters, 'rotationInc').min(-0.05).max(0.05)	.onFinishChange(change);
 		
 
 (function(){
@@ -110,46 +100,35 @@ DAT.GUI.autoPlace = false;
 	document.body.appendChild(gui2.domElement);	
 
 	
-	var tmpParams	= {
-		colorR		: parameters.color.r,
-		colorG		: parameters.color.g,
-		colorB		: parameters.color.b,
-		colorIncR	: parameters.colorInc.r,
-		colorIncG	: parameters.colorInc.g,
-		colorIncB	: parameters.colorInc.b,
-	};
-
-	var changeColor	= function(){
-		parameters.color.setRGB(tmpParams.colorR,tmpParams.colorG,tmpParams.colorB)
-		parameters.colorInc.setRGB(tmpParams.colorIncR,tmpParams.colorIncG,tmpParams.colorIncB)
-	}
-
-	gui2.add(tmpParams, 'colorR')		.min(0.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorG')		.min(0.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorB')		.min(0.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorIncR')	.min(-1.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorIncG')	.min(-1.0).max(1.0).onChange(changeColor);
-	gui2.add(tmpParams, 'colorIncB')	.min(-1.0).max(1.0).onChange(changeColor);
+	gui2.add(parameters.color, 'r').name('colorR')		.min(0.0).max(1.0).onChange(change);
+	gui2.add(parameters.color, 'g').name('colorG')		.min(0.0).max(1.0).onChange(change);
+	gui2.add(parameters.color, 'b').name('colorB')		.min(0.0).max(1.0).onChange(change);
+	gui2.add(parameters.colorInc, 'r').name('colorIncR')	.min(-1.0).max(1.0).onChange(change);
+	gui2.add(parameters.colorInc, 'g').name('colorIncG')	.min(-1.0).max(1.0).onChange(change);
+	gui2.add(parameters.colorInc, 'b').name('colorIncB')	.min(-1.0).max(1.0).onChange(change);
 	
 
 	gui2.add(parameters, 'textureUrl').options({
-		"flare"	: "images/lensFlare/Flare1.png",
-		"ball"	: "images/ball.png",
-		"shine"	: "images/lensFlare/Shine1.png"
+		"flare"			: "images/lensFlare/Flare1.png",
+		"smoke"			: "images/osg-data/smoke.png",
+		"ball"			: "images/ball.png",
+
+		"purple_particle"	: "images/tremulous/lasgun/purple_particle.jpg",
+		"lcannon1"		: "images/tremulous/lcannon/primary_1.jpg",
+
+		"shine"			: "images/lensFlare/Shine1.png",
+		"continous_smoke"	: "images/osg-data/continous_smoke.png",
+		"reflect"		: "images/osg-data/reflect.png"
 	}).onChange(function(){
 		console.log("texture change", containerObj)
 
-		scene.removeChild(containerObj)
-
-		// define the containerObj of all the particle
+		scene.removeChild(containerObj);
 		containerObj	= new THREE.Object3D();
-		scene.addChild(containerObj)
-		Emitter	= new THREEx.Particle.Emitter({
-			nbItems	: 5000,
-			params	: parameters
-		});
+		scene.addChild(containerObj);
+		
+		// define the containerObj of all the particle
+		Emitter	= new THREEx.Particle.Emitter(parameters);
 		containerObj.addChild( Emitter.container() );
-
 		
 	});
 		
@@ -178,38 +157,37 @@ function init()
 		camera.position.z	= 400;		
 	}else{
 		camera = new THREE.TrackballCamera({
-			fov: 25,
-			aspect: window.innerWidth / window.innerHeight,
-			near: 50,
-			far: 1e7,
+			minDistance	: 10,
+			maxDistance	: 500,
 
-			rotateSpeed: 1.0,
-			zoomSpeed: 1.2,
-			panSpeed: 0.2,
+			fov		: 25,
+			aspect		: window.innerWidth / window.innerHeight,
+			near		: 5,
+			far		: 1e7,
 
-			noZoom: false,
-			noPan: false,
+			rotateSpeed	: 1.0,
+			zoomSpeed	: 1.2,
+			panSpeed	: 0.2,
+
+			noZoom	: false,
+			noPan	: false,
 
 			staticMoving: false,
 			dynamicDampingFactor: 0.3,
 
-			minDistance: 200,
-			maxDistance: 500,
+			keys	: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
 
-			keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
-
-			domElement: renderer.domElement
+			domElement: renderer.domElement,
 		});
-
-		camera.position.z	= 2;
+		camera.position.z	= 100;
 	}
 
+
 	// call THREEx.WindowResize
-	// - TODO is that enougth for trackboll camera ?
-	// - webgl_trackballcamera_earth.html got more
-	// - TODO should i add a callback to that ?
 	THREEx.WindowResize(renderer, camera);
-	
+	// support screenshot
+	THREEx.Screenshot.bindKey(renderer);
+
 	// FIXME failed attemps
 	// - seems to fail if the data url
 	THREEx.ImageDrop(renderer, function(image){
@@ -232,25 +210,28 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 
 	// parameters
 	var parameters	= {
-		emitRate	: 30,
+		nbItems		: 10000,
+		textureUrl	: "images/lensFlare/Flare1.png",
 
+
+		emitRate	: 30,
 		timeToLive	: 2000,
 		
-		originAzValue	: Math.PI/2,
-		originAzRange	: 30 * Math.PI/180,
-
-		originOffsetValue	: 0.5,
-		originOffsetRange	: 0.5,
+		originZaValue	: Math.PI/2,
+		originZaRange	: 30 * Math.PI/180,
+		originZhValue	: 0,
+		originZhRange	: 0,
+		originRadiusValue	: 0.5,
+		originRadiusRange	: 0.5,
 
 		speedValue	: 1.5,
 		speedRange	: 0.5,
 
 		gravity		: 0.05,
 		
-		color		: new THREE.Color(0xFF5510),
-		colorInc	: new THREE.Color().setRGB(0,0,0),
+		color		: { r: 1.0,  g: 0.33, b: 0.0},
+		colorInc	: { r: 0,  g: 0, b: 0},
 		
-		textureUrl	: "images/lensFlare/Flare1.png",
 
 		opacitySrc	: 1.0,
 		opacityInc	: 0.0,
@@ -264,10 +245,7 @@ console.log("object3d", texture, "uniforms", uniforms['texture'], "newimage", im
 	buildGui(parameters);
 
 	// build the emitter
-	Emitter	= new THREEx.Particle.Emitter({
-		nbItems	: 5000,
-		params	: parameters
-	});
+	Emitter	= new THREEx.Particle.Emitter(parameters);
 	containerObj.addChild( Emitter.container() );
 
 	// init the Stats

@@ -1,54 +1,119 @@
-/**
- * Define namespace
-*/
-if(typeof THREEx === "undefined")	var THREEx	= {};
-
-/**
- * To make screenshot of the renderer output
- * - may contains ability to resize the image
- * - may contains ability to allow the user to download hte image
- * - What about receiving image from the desktop ?
- *   - here is unlikely the good place but this is a nice feature
-*/
+/** @namespace */
+var THREEx	= THREEx 		|| {};
 
 // forced closure
 (function(){
-	
-	var toDataURL	= function(renderer)
+
+	/**
+	 * Take a screenshot of a renderer
+	 * - require WebGLRenderer to have "preserveDrawingBuffer: true" to be set
+	 * - TODO is it possible to check if this variable is set ? if so check it
+	 *   and make advice in the console.log
+	 *   - maybe with direct access to the gl context...
+	 * 
+	 * @param {Object} renderer to use
+	 * @param {String} mimetype of the output image. default to "image/png"
+	 * @param {String} dataUrl of the image
+	*/
+	var toDataURL	= function(renderer, mimetype)
 	{
-		var dataUrl	= renderer.domElement.toDataURL("image/jpg");
-		console.log("dataUrl", dataUrl)
-		return dataUrl;	
+		mimetype	= mimetype	|| "image/png";
+		var dataUrl	= renderer.domElement.toDataURL(mimetype);
+		return dataUrl;
 	}
 
 	/**
-	 * TODO do something to be able preserve the aspect
+	 * resize an image to another resolution while preserving aspect
+	 *
+	 * @param {String} srcUrl the url of the image to resize
+	 * @param {Number} dstWidth the destination width of the image
+	 * @param {Number} dstHeight the destination height of the image
+	 * @param {Number} callback the callback to notify once completed with callback(newImageUrl)
 	*/
-
-	var resizeTo	= function(imgUrl, width, height, callback){
-		var img 	= new Image();   // Create new Image object
-		img.onload	= function(){
+	var _aspectResize	= function(srcUrl, dstW, dstH, callback){
+		// to compute the width/height while keeping aspect
+		var cpuScaleAspect	= function(maxW, maxH, curW, curH){
+			var ratio	= curH / curW;
+			if( curW >= maxW && ratio <= 1 ){ 
+				curW	= maxW;
+				curH	= maxW * ratio;
+			}else if(curH >= maxH){
+				curH	= maxH;
+				curW	= maxH / ratio;
+			}
+			return { width: curW, height: curH };
+		}
+		// callback once the image is loaded
+		var onLoad	= function(){
+			// init the canvas
 			var canvas	= document.createElement('canvas');
-			canvas.setAttribute('width'	, width);
-			canvas.setAttribute('height'	, height);
+			canvas.width	= dstW;	canvas.height	= dstH;
 			var ctx		= canvas.getContext('2d');
+
 			// TODO is this needed
 			ctx.fillStyle	= "black";
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
-			// actually draw the image
-			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-			//console.dir(document.body)
-		
-			var newDataUrl	= canvas.toDataURL("image/jpg");
-			
-			callback(newDataUrl)
+
+			// scale the image while preserving the aspect
+			var scaled	= cpuScaleAspect(canvas.width, canvas.height, image.width, image.height);
+
+			// actually draw the image on canvas
+			var offsetX	= (canvas.width  - scaled.width )/2;
+			var offsetY	= (canvas.height - scaled.height)/2;
+			ctx.drawImage(image, offsetX, offsetY, scaled.width, scaled.height);
+
+			// dump the canvas to an URL		
+			var mimetype	= "image/png";
+			var newDataUrl	= canvas.toDataURL(mimetype);
+			// notify the url to the caller
+			callback && callback(newDataUrl)
 		}.bind(this);
-		img.src		= imgUrl;
+
+		// Create new Image object
+		var image 	= new Image();
+		image.onload	= onLoad;
+		image.src	= srcUrl;
+	}
+	
+
+	// Super cooked function: THREEx.Screenshot.bindKey(renderer)
+	// and you are done to get screenshot on your demo
+
+	/**
+	 * Bind a key to renderer screenshot
+	*/
+	var bindKey	= function(renderer, opts){
+		// handle parameters
+		opts		= opts	|| {};
+		opts.charCode	= opts.charCode	|| 'p'.charCodeAt(0);
+		opts.width	= opts.width	|| 640;
+		opts.height	= opts.height	|| 480;
+		// callback to handle keypress
+		var onKeyPress	= function(event){
+			// return now if the KeyPress isnt for the proper charCode
+			if( event.which !== opts.charCode )	return;
+			// get the renderer output
+			var dataUrl	= this.toDataURL(renderer);
+			// resize it and open an window with it
+			_aspectResize(dataUrl, opts.width, opts.height, function(url){
+				window.open(url)
+			});
+		}.bind(this);
+
+		// listen to keypress
+		// NOTE: for firefox it seems mandatory to listen to document directly
+		document.addEventListener('keypress', onKeyPress, false);
+
+		return {
+			unbind	: function(){
+				document.removeEventListener('keypress', onKeyPress, false);
+			}
+		};
 	}
 
 	// export it	
 	THREEx.Screenshot	= {
 		toDataURL	: toDataURL,
-		resizeTo	: resizeTo
+		bindKey		: bindKey
 	};
 })();
