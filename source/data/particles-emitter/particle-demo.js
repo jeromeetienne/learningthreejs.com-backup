@@ -160,22 +160,42 @@ function init()
 	container.appendChild( renderer.domElement );
 
 	// create the Camera
-	if( false ){
+	if( true ){
 		camera = new THREE.Camera(30, window.innerWidth / window.innerHeight, 1, 100000 );
 		camera.position.z	= 400;		
 	}else{
 		camera = new THREE.TrackballCamera({
-			minDistance: 200,
-			maxDistance: 500
+			minDistance	: 200,
+			maxDistance	: 500,
+
+			fov	: 25,
+			aspect	: window.innerWidth / window.innerHeight,
+			near	: 50,
+			far	: 1e7,
+
+			rotateSpeed	: 1.0,
+			zoomSpeed	: 1.2,
+			panSpeed	: 0.2,
+
+			noZoom	: false,
+			noPan	: false,
+
+			staticMoving: false,
+			dynamicDampingFactor: 0.3,
+
+			//keys	: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
+
+			domElement: renderer.domElement,
 		});
 		camera.position.z	= 2;
 	}
 
+
 	// call THREEx.WindowResize
 	THREEx.WindowResize(renderer, camera);
 	// support screenshot
-	THREEx.Screenshot.bindKey(renderer)
-	
+	THREEx.Screenshot.bindKey(renderer);
+
 	// FIXME failed attemps
 	// - seems to fail if the data url
 	THREEx.ImageDrop(renderer, function(image){

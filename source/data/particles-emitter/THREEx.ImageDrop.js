@@ -9,7 +9,9 @@ THREEx.ImageDrop	= function(renderer, callback)
 		//console.log("DROPPED nfiles", event.dataTransfer.files.length)
 		for(var i = 0; i < event.dataTransfer.files.length; i++){
 			var file	= event.dataTransfer.files[i];
-			// TODO what about checking it is an image
+			// sanity check - file mimetype MUST be an image
+			console.assert(file.type.match(/^image\//), "only image/* mimetype are accepted");
+			// build the FileReader
 			var reader	= new FileReader();
 			reader.onload = function (event){
 				var imageUrl	= event.target.result;
@@ -17,7 +19,8 @@ THREEx.ImageDrop	= function(renderer, callback)
 // hmmm apparently i got trouble when the imageUrl is a dataUrl
 // - not sure why, but if i put the normal url in there. it works...
 // - if i put the dataUrl, nothing worked
-imageUrl	= 'images/lensFlare/Shine1.png';
+// - works on firefox, not on chrome
+//imageUrl	= 'images/lensFlare/Shine1.png';
 
 				var image	= new Image();
 				image.onload	= function(){

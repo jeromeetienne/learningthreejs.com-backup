@@ -100,12 +100,13 @@ var THREEx	= THREEx 		|| {};
 			});
 		}.bind(this);
 
-		
-		document.body.addEventListener('keypress', onKeyPress, false);
-		
+		// listen to keypress
+		// NOTE: for firefox it seems mandatory to listen to document directly
+		document.addEventListener('keypress', onKeyPress, false);
+
 		return {
 			unbind	: function(){
-				document.body.removeEventListener('keypress', onKeyPress, false);
+				document.removeEventListener('keypress', onKeyPress, false);
 			}
 		};
 	}
