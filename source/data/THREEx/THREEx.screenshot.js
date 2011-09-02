@@ -34,7 +34,7 @@ var THREEx	= THREEx 		|| {};
 		// to compute the width/height while keeping aspect
 		var cpuScaleAspect	= function(maxW, maxH, curW, curH){
 			var ratio	= curH / curW;
-			if( curW >= maxW && ratio <= 1 ){
+			if( curW >= maxW && ratio <= 1 ){ 
 				curW	= maxW;
 				curH	= maxW * ratio;
 			}else if(curH >= maxH){
