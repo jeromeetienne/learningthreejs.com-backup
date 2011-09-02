@@ -1,15 +1,5 @@
-/**
- * Define namespace
-*/
-if(typeof THREEx === "undefined")	var THREEx	= {};
-
-/**
- * To make screenshot of the renderer output
- * - may contains ability to resize the image
- * - may contains ability to allow the user to download hte image
- * - What about receiving image from the desktop ?
- *   - here is unlikely the good place but this is a nice feature
-*/
+/** @namespace */
+var THREEx	= THREEx 		|| {};
 
 // forced closure
 (function(){
@@ -85,6 +75,13 @@ if(typeof THREEx === "undefined")	var THREEx	= {};
 		image.src	= srcUrl;
 	}
 	
+
+	// Super cooked function: THREEx.Screenshot.bindKey(renderer)
+	// and you are done to get screenshot on your demo
+
+	/**
+	 * Bind a key to renderer screenshot
+	*/
 	var bindKey	= function(renderer, opts){
 		// handle parameters
 		opts		= opts	|| {};

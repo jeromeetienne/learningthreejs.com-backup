@@ -166,9 +166,8 @@ function init()
 	}else{
 		camera = new THREE.TrackballCamera({
 			minDistance: 200,
-			maxDistance: 500,
+			maxDistance: 500
 		});
-
 		camera.position.z	= 2;
 	}
 
@@ -177,6 +176,8 @@ function init()
 	// - webgl_trackballcamera_earth.html got more
 	// - TODO should i add a callback to that ?
 	THREEx.WindowResize(renderer, camera);
+
+THREEx.Screenshot.bindKey(renderer)
 	
 	// FIXME failed attemps
 	// - seems to fail if the data url
