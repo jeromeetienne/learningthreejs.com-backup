@@ -25,9 +25,8 @@ Other [renderers](https://github.com/mrdoob/three.js/tree/master/src/renderers) 
 
 ## THREEx helper to make it even simpler
 
-I created [THREEx.screenshot](/data/THREEx/THREEx.screenshot.js), a THREEx helper to
+I wrote [THREEx.screenshot](/data/THREEx/THREEx.screenshot.js), a THREEx helper to
 automatize the process and makes it as simple as possible.
-
 You download it from [here](/data/THREEx/THREEx.screenshot.js) and include
 it in your page like this
 
@@ -35,43 +34,19 @@ it in your page like this
 	<script type="text/javascript" src="THREEx.screenshot.js"></script>
 ```
 
-```javascript
-	opts.charCode	= opts.charCode	|| 'p'.charCodeAt(0);
-	opts.width	= opts.width	|| 640;
-	opts.height	= opts.height	|| 480;
-	opts.callback	= opts.callback	|| function(url){
-		window.open(url);
-	}
-```
-
 Would it be cool if got your own [printscreen](http://en.wikipedia.org/wiki/Print_screen)
 key for your 3D ? The following line will do exactly that.
+Everytime you press *p*, it does a screenshot of the renderer, and open a window containing it.
 
 ```javascript
 	THREEx.Screenshot.bindKey(renderer);
 ```
 
-It will do a screenshot of the renderer everytime you press *p*, and will
-open a window containing the screenshot.
 
-## Wanna customize it ?
-
-It is possible to change defaults behaviors thru ```options```.
 Note the [aspect](http://en.wikipedia.org/wiki/Aspect_ratio_(image\)) of the original image is preserved.
 The default callback behavior is to open a window containing the screenshot, so be carefull it may be
 stopped by popup blockers.
 
-```javascript
-	THREEx.Screenshot.bindKey(renderer, options);
-```
-
-You can tune it with those parameters
-
-  * **options.width** : The width of the screenshot. default to 640 pixels.
-  * **options.height** : The height of the screenshot. default to 480 pixels.
-  * **options.callback** : The callback to call once the screenshot is done.
-  * **options.charCode** : The charCode to bind. default to *p*.
-
-## Conclusion
+It is possible to customize the default behaviors thru options.
 For more details, see the [annoted source](/data/THREEx/docs/THREEx.screenshot.html) of 
 [THREEx.screenshot](/data/THREEx/THREEx.screenshot.js).
