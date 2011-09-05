@@ -136,57 +136,6 @@ on this element to get the screenshot.</p>
 </pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">dataUrl</span> <span class="o">=</span> <span class="nx">renderer</span><span class="p">.</span><span class="nx">domElement</span><span class="p">.</span><span class="nx">toDataURL</span><span class="p">(</span><span class="s2">&quot;image/png&quot;</span><span class="p">);</span>
 </div></code></pre></td></tr></table></div>
 
-<p>A single line and you are <strong>done</strong>! not too hard hey ?
-This line will return a url of the screenshot image in
-png format.
-This url is a <a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data url</a>, a special url which encode
-the content in base64. It looks like that <em>data:image/png;base64,iVBORw0KGgo</em> &#8230;
-Not too readable but quite usefull :)</p>
-
-<p>Btw have you spotted he <code>image/png</code> parameter ? It is the mimetype of the image we will get. If you want
-a <a href="http://en.wikipedia.org/wiki/JPEG">jpeg</a>, just put <code>image/jpeg</code> instead.</p>
-
-<h2>WebGLRenderer special case</h2>
-
-<p>If your scene is renderered with WebGL, you should declare it like that.</p>
-
-<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-<span class='line'>2</span>
-<span class='line'>3</span>
-</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">renderer</span>    <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">WebGLRenderer</span><span class="p">({</span>
-</div><div class='line'>    <span class="nx">preserveDrawingBuffer</span>   <span class="o">:</span> <span class="kc">true</span>  <span class="c1">// required to support .toDataURL()</span>
-</div><div class='line'><span class="p">});</span>
-</div></code></pre></td></tr></table></div>
-
-<p>Notice the option <code>preserveDrawingBuffer</code> ? It is <code>WebGLRenderer</code> specific.
-This is required to support <code>.toDataURL()</code> as explained in the <a href="http://www.khronos.org/registry/webgl/specs/latest/#2.2">spec</a>.
-Other <a href="https://github.com/mrdoob/three.js/tree/master/src/renderers">renderers</a> dont need it.</p>
-
-<h2>THREEx helper to make it even simpler</h2>
-
-<p>I wrote <a href="/data/THREEx/THREEx.screenshot.js">THREEx.screenshot</a>, a THREEx helper to
-automatize the process and makes it as simple as possible.
-You download it from <a href="/data/THREEx/THREEx.screenshot.js">here</a> and include
-it in your page like this</p>
-
-<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;THREEx.screenshot.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</div></code></pre></td></tr></table></div>
-
-<p>Would it be cool if got your own <a href="http://en.wikipedia.org/wiki/Print_screen">printscreen</a>
-key for your 3D ? The following line will do exactly that.
-Everytime you press <em>p</em>, it does a screenshot of the renderer, and open a window containing it.</p>
-
-<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">Screenshot</span><span class="p">.</span><span class="nx">bindKey</span><span class="p">(</span><span class="nx">renderer</span><span class="p">);</span>
-</div></code></pre></td></tr></table></div>
-
-<p>Note the <a href="http://en.wikipedia.org/wiki/Aspect_ratio_(image)">aspect</a> of the original image is preserved.
-The default callback behavior is to open a window containing the screenshot, so be carefull it may be
-stopped by popup blockers.
-It is possible to customize the default behaviors thru options.
-For more details, see the <a href="/data/THREEx/docs/THREEx.screenshot.html">annoted source</a> of
-<a href="/data/THREEx/THREEx.screenshot.js">THREEx.screenshot</a>.</p>
 </div>
   <footer>
     <a rel="full-article" href="/blog/2011/09/03/screenshot-in-javascript/">Read on &rarr;</a>

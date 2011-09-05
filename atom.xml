@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-09-05T09:35:11+02:00</updated>
+  <updated>2011-09-05T11:56:04+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -38,6 +38,9 @@ on this element to get the screenshot.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;```&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
 
 &lt;p&gt;A single line and you are &lt;strong&gt;done&lt;/strong&gt;! not too hard hey ?
 This line will return a url of the screenshot image in
