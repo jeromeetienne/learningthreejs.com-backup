@@ -1,23 +1,25 @@
 ---
 layout: post
-title: "How to Do a Screenshot in Javascript"
+title: "Screenshot in Javascript"
 date: 2011-09-03 10:01
 comments: true
 categories: [basics, three.js, THREEx]
 ---
 
-Suppose you got 3D scene in [three.js](http://google.com), and you would like to make a screenshot
-of it. It has been recently added to three.js.
-This post will explain how to do that.
-Additionnaly, if you want more simplicity, [THREEx.screenshot](/data/THREEx/THREEx.screenshot.js) helper is provided.
+Sometime it would be cool if you could take a screenshot of your demo to share with your friends.
+This post will explain how to do that single a single line.
+Additionnaly, [THREEx.screenshot](/data/THREEx/THREEx.screenshot.js) helper is provided at the end
+if you want to add printscreen key in your demos without hasles.
 
-## Lets get started
+## Let's get started
 
-As usual you got a ```renderer``` variable to render your 3D scene. It contains a ```domElement```
-property. It is a [DOM element](http://en.wikipedia.org/wiki/Document_Object_Model) on which it renders,
+So as usual you got a ```renderer``` variable to render your 3D scene. This renderer
+contains a ```domElement``` property.
+It is a [DOM element](http://en.wikipedia.org/wiki/Document_Object_Model) on which it renders,
 who would have guessed ?
-We will use the ```.toDataURL()``` method on this element
-([more details](http://www.w3.org/TR/html5/the-canvas-element.html#dom-canvas-todataurl)).
+We will use the ```.toDataURL()```
+[method](http://www.w3.org/TR/html5/the-canvas-element.html#dom-canvas-todataurl)
+on this element to get the screenshot.
 
 ```javascript
 	var dataUrl = renderer.domElement.toDataURL("image/png");
@@ -72,7 +74,6 @@ Everytime you press *p*, it does a screenshot of the renderer, and open a window
 Note the [aspect](http://en.wikipedia.org/wiki/Aspect_ratio_(image\)) of the original image is preserved.
 The default callback behavior is to open a window containing the screenshot, so be carefull it may be
 stopped by popup blockers.
-
 It is possible to customize the default behaviors thru options.
 For more details, see the [annoted source](/data/THREEx/docs/THREEx.screenshot.html) of 
 [THREEx.screenshot](/data/THREEx/THREEx.screenshot.js).
