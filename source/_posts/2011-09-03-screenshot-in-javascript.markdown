@@ -25,6 +25,8 @@ on this element to get the screenshot.
 	var dataUrl = renderer.domElement.toDataURL("image/png");
 ```
 
+<!-- more -->
+
 A single line and you are **done**! not too hard hey ?
 This line will return a url of the screenshot image in
 png format.
