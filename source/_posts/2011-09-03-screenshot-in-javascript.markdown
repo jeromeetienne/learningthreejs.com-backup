@@ -7,7 +7,36 @@ categories: [basics, three.js, THREEx]
 ---
 
 Suppose you got 3D scene in [three.js](http://google.com), and you would like to make a screenshot
-of it. 
+of it. It has been recently added to three.js.
+This post will explain how to do that.
+Additionnaly, if you want more simplicity, [THREEx.screenshot](/data/THREEx/THREEx.screenshot.js) helper is provided.
+
+## Lets get started
+
+As usual you got a ```renderer``` variable to render your 3D scene. It contains a ```domElement```
+property. It is a [DOM element](http://en.wikipedia.org/wiki/Document_Object_Model) on which it renders,
+who would have guessed ?
+We will use the ```.toDataURL()``` method on this element
+([more details](http://www.w3.org/TR/html5/the-canvas-element.html#dom-canvas-todataurl)).
+
+```javascript
+	var dataUrl = renderer.domElement.toDataURL("image/png");
+```
+
+A single line and you are **done**! not too hard hey ?
+This line will return a url of the screenshot image in
+png format.
+This url is a [data url](http://en.wikipedia.org/wiki/Data_URI_scheme), a special url which encode
+the content in base64. It looks like that *data:image/png;base64,iVBORw0KGgo* ...
+Not too readable but quite usefull :)
+
+Btw have you spotted he ```image/png``` parameter ? It is the mimetype of the image we will get. If you want
+a [jpeg](http://en.wikipedia.org/wiki/JPEG), just put ```image/jpeg``` instead.
+
+
+## WebGLRenderer special case
+
+If your scene is renderered with WebGL, you should declare it like that.
 
 ```javascript
 	var renderer	= new THREE.WebGLRenderer({
@@ -19,9 +48,6 @@ Notice the option ```preserveDrawingBuffer``` ? It is ```WebGLRenderer``` specif
 This is required to support ```.toDataURL()``` as explained in the [spec](http://www.khronos.org/registry/webgl/specs/latest/#2.2).
 Other [renderers](https://github.com/mrdoob/three.js/tree/master/src/renderers) dont need it.
 
-```javascript
-	var dataUrl = renderer.domElement.toDataURL(mimetype);
-```
 
 ## THREEx helper to make it even simpler
 
