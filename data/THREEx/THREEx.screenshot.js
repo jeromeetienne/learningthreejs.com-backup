@@ -84,20 +84,22 @@ var THREEx	= THREEx 		|| {};
 	*/
 	var bindKey	= function(renderer, opts){
 		// handle parameters
-		opts		= opts	|| {};
+		opts		= opts		|| {};
 		opts.charCode	= opts.charCode	|| 'p'.charCodeAt(0);
 		opts.width	= opts.width	|| 640;
 		opts.height	= opts.height	|| 480;
+		opts.callback	= opts.callback	|| function(url){
+			window.open(url);
+		};
+
 		// callback to handle keypress
 		var onKeyPress	= function(event){
 			// return now if the KeyPress isnt for the proper charCode
 			if( event.which !== opts.charCode )	return;
 			// get the renderer output
 			var dataUrl	= this.toDataURL(renderer);
-			// resize it and open an window with it
-			_aspectResize(dataUrl, opts.width, opts.height, function(url){
-				window.open(url)
-			});
+			// resize it and notify the callback
+			_aspectResize(dataUrl, opts.width, opts.height, callback);
 		}.bind(this);
 
 		// listen to keypress

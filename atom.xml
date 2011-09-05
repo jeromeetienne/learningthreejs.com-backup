@@ -4,13 +4,101 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-09-02T17:55:28+02:00</updated>
+  <updated>2011-09-05T09:35:11+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Screenshot in Javascript</title>
+    <link href="http://learningthreejs.com/blog/2011/09/03/screenshot-in-javascript/"/>
+    <updated>2011-09-03T10:01:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/09/03/screenshot-in-javascript</id>
+    <content type="html">&lt;p&gt;Sometime it would be cool if you could take a screenshot of your demo to share with your friends.
+This post will explain how to do that single a single line.
+Additionnaly, &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.screenshot.js&quot;&gt;THREEx.screenshot&lt;/a&gt; helper is provided at the end
+if you want to add printscreen key in your demos without hasles.&lt;/p&gt;
+
+&lt;h2&gt;Let's get started&lt;/h2&gt;
+
+&lt;p&gt;So as usual you got a &lt;code&gt;renderer&lt;/code&gt; variable to render your 3D scene. This renderer
+contains a &lt;code&gt;domElement&lt;/code&gt; property.
+It is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Document_Object_Model&quot;&gt;DOM element&lt;/a&gt; on which it renders,
+who would have guessed ?
+We will use the &lt;code&gt;.toDataURL()&lt;/code&gt;
+&lt;a href=&quot;http://www.w3.org/TR/html5/the-canvas-element.html#dom-canvas-todataurl&quot;&gt;method&lt;/a&gt;
+on this element to get the screenshot.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var dataUrl = renderer.domElement.toDataURL(&quot;image/png&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;A single line and you are &lt;strong&gt;done&lt;/strong&gt;! not too hard hey ?
+This line will return a url of the screenshot image in
+png format.
+This url is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Data_URI_scheme&quot;&gt;data url&lt;/a&gt;, a special url which encode
+the content in base64. It looks like that &lt;em&gt;data:image/png;base64,iVBORw0KGgo&lt;/em&gt; ...
+Not too readable but quite usefull :)&lt;/p&gt;
+
+&lt;p&gt;Btw have you spotted he &lt;code&gt;image/png&lt;/code&gt; parameter ? It is the mimetype of the image we will get. If you want
+a &lt;a href=&quot;http://en.wikipedia.org/wiki/JPEG&quot;&gt;jpeg&lt;/a&gt;, just put &lt;code&gt;image/jpeg&lt;/code&gt; instead.&lt;/p&gt;
+
+&lt;h2&gt;WebGLRenderer special case&lt;/h2&gt;
+
+&lt;p&gt;If your scene is renderered with WebGL, you should declare it like that.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var renderer    = new THREE.WebGLRenderer({
+    preserveDrawingBuffer   : true  // required to support .toDataURL()
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Notice the option &lt;code&gt;preserveDrawingBuffer&lt;/code&gt; ? It is &lt;code&gt;WebGLRenderer&lt;/code&gt; specific.
+This is required to support &lt;code&gt;.toDataURL()&lt;/code&gt; as explained in the &lt;a href=&quot;http://www.khronos.org/registry/webgl/specs/latest/#2.2&quot;&gt;spec&lt;/a&gt;.
+Other &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/renderers&quot;&gt;renderers&lt;/a&gt; dont need it.&lt;/p&gt;
+
+&lt;h2&gt;THREEx helper to make it even simpler&lt;/h2&gt;
+
+&lt;p&gt;I wrote &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.screenshot.js&quot;&gt;THREEx.screenshot&lt;/a&gt;, a THREEx helper to
+automatize the process and makes it as simple as possible.
+You download it from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.screenshot.js&quot;&gt;here&lt;/a&gt; and include
+it in your page like this&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script type=&quot;text/javascript&quot; src=&quot;THREEx.screenshot.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Would it be cool if got your own &lt;a href=&quot;http://en.wikipedia.org/wiki/Print_screen&quot;&gt;printscreen&lt;/a&gt;
+key for your 3D ? The following line will do exactly that.
+Everytime you press &lt;em&gt;p&lt;/em&gt;, it does a screenshot of the renderer, and open a window containing it.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREEx.Screenshot.bindKey(renderer);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Note the &lt;a href=&quot;http://en.wikipedia.org/wiki/Aspect_ratio_(image)&quot;&gt;aspect&lt;/a&gt; of the original image is preserved.
+The default callback behavior is to open a window containing the screenshot, so be carefull it may be
+stopped by popup blockers.
+It is possible to customize the default behaviors thru options.
+For more details, see the &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.screenshot.html&quot;&gt;annoted source&lt;/a&gt; of
+&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.screenshot.js&quot;&gt;THREEx.screenshot&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Window Resize For Your Demos</title>
