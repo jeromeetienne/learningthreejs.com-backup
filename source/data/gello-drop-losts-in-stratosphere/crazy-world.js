@@ -196,6 +196,9 @@ function init() {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
 	
+	// call THREEx.WindowResize
+	THREEx.WindowResize(renderer, camera);
+	
 	// init the Stats and append it to the Dom - performance vuemeter
 	stats = new Stats();
 	stats.domElement.style.position = 'absolute';
