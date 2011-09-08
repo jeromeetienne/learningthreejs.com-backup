@@ -4,7 +4,9 @@ var mouseX = 0, mouseY = 0;
 
 // detect if webgl is needed and available
 if( !Detector.webgl ){
-	Detector.addGetWebGLMessage();
+	// Dont show webgl message if inIFrame
+	var inIFrame	= (window.location != window.parent.location) ? true : false;
+	if( !inIFrame )	Detector.addGetWebGLMessage();
 }else{
 	init();
 	animate();
