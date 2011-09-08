@@ -149,7 +149,7 @@ function init() {
 	var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
 	//var geometry	= new THREE.TorusGeometry( 50, 20, 45, 45 );
 	//var geometry	= new THREE.SphereGeometry( 50, 50, 50 );
-	var geometry	= new THREE.SphereGeometry( 60, 50, 50 );
+	var geometry	= new THREE.SphereGeometry( 80, 50, 50 );
 	geometry.computeTangents();
 	
 	// center the geometry
@@ -195,6 +195,9 @@ function init() {
 	});
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
+	
+	// call THREEx.WindowResize
+	THREEx.WindowResize(renderer, camera);
 	
 	// init the Stats and append it to the Dom - performance vuemeter
 	stats = new Stats();

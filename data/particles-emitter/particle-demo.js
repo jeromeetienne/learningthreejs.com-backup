@@ -71,8 +71,8 @@ console.log("parameters post cache init", parameters)
 	gui1.add(parameters, 'originZhValue').min(0).max(1)		.onFinishChange(change);
 	gui1.add(parameters, 'originZhRange').min(0).max(0.5)		.onFinishChange(change);
 
-	gui1.add(parameters, 'originRadiusValue').min(0.01).max(100)	.onFinishChange(change);
-	gui1.add(parameters, 'originRadiusRange').min(0).max(30)	.onFinishChange(change);
+	gui1.add(parameters, 'originRadiusValue').min(0.01).max(30)	.onFinishChange(change);
+	gui1.add(parameters, 'originRadiusRange').min(0).max(15)	.onFinishChange(change);
 
 	gui1.add(parameters, 'speedValue').min(0.2).max(2)		.onFinishChange(change);
 	gui1.add(parameters, 'speedRange').min(0).max(2)		.onFinishChange(change);
@@ -83,7 +83,7 @@ console.log("parameters post cache init", parameters)
 	gui1.add(parameters, 'opacityInc').min(-0.05).max(0)		.onFinishChange(change);
 
 	gui1.add(parameters, 'sizeSrc').min(2).max(128)			.onFinishChange(change);
-	gui1.add(parameters, 'sizeInc').min(-1).max(1)			.onFinishChange(change);
+	gui1.add(parameters, 'sizeInc').min(-5).max(5)			.onFinishChange(change);
 
 	gui1.add(parameters, 'rotationSrc').min(0.0).max(2*Math.PI)	.onFinishChange(change);
 	gui1.add(parameters, 'rotationInc').min(-0.05).max(0.05)	.onFinishChange(change);
