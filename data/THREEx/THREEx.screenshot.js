@@ -99,7 +99,7 @@ var THREEx	= THREEx 		|| {};
 			// get the renderer output
 			var dataUrl	= this.toDataURL(renderer);
 			// resize it and notify the callback
-			_aspectResize(dataUrl, opts.width, opts.height, callback);
+			_aspectResize(dataUrl, opts.width, opts.height, opts.callback);
 		}.bind(this);
 
 		// listen to keypress
