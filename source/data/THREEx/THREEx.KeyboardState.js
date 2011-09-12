@@ -20,7 +20,7 @@
 // ```keyboard.destroy()```
 //
 // # Code
-
+//
 
 /** @namespace */
 var THREEx	= THREEx 		|| {};
