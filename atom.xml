@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-09-12T19:50:33+02:00</updated>
+  <updated>2011-09-12T19:51:18+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -13,10 +13,10 @@
 
   
   <entry>
-    <title>Let's Do a Game: Keyboard</title>
-    <link href="http://learningthreejs.com/blog/2011/09/12/lets-do-a-game-keyboard-handling/"/>
+    <title>Let's Do a 3D Game: Keyboard</title>
+    <link href="http://learningthreejs.com/blog/2011/09/12/lets-do-a-3D-game-keyboard/"/>
     <updated>2011-09-12T17:31:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/09/12/lets-do-a-game-keyboard-handling</id>
+    <id>http://learningthreejs.com/blog/2011/09/12/lets-do-a-3D-game-keyboard</id>
     <content type="html">&lt;p&gt;This post is the first of a serie &lt;em&gt;lets do a 3d game&lt;/em&gt;.
 Its goal is to build together a 3D game.
 The &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;serie&lt;/a&gt; will walk you down the gamedev path.
