@@ -169,88 +169,6 @@ it in your page like this</p>
     
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/09/10/playing-with-dynamic-geometry/">Playing With Dynamic Geometry</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-09-10 09:16:00 +0200" pubdate  updated >Sep 10<span>th</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In this article, we will play with dynamic Geometry</p>
-
-<p><a href="http://en.wikipedia.org/wiki/Polygon_mesh">mesh</a></p>
-
-<h2>Demo</h2>
-
-<p>Show, dont tell: here is <a href="/data/lost-gello-drop/">lost-gello-drop</a>.</p>
-
-<p>The drop is mainly about dynamic
-geometry we gonna see here.</p>
-
-<p>The background is a sky map, a technic
-explained in a <a href="/blog/2011/08/15/lets-do-a-sky/">previous article</a>.</p>
-
-<h2>Conclusion</h2>
-
-<p>For more details, see the <a href="/data/THREEx/docs/THREEx.GeometryUtils.html">annoted source</a> of
-<a href="/data/THREEx/THREEx.GeometryUtils.js">THREEx.GeometryUtils</a>.</p>
-
-<h2>THREEx.GeometryUtils</h2>
-
-<p>This THREEx helper provide various basic functions for <code>THREE.Geometry</code>.
-It is able to scale, translate, center a geometry. Other functions may be
-added soon.
-The API is chained for convenience.</p>
-
-<p><code>.scale()</code> to make the geometry twice larger in <code>y</code></p>
-
-<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-<span class='line'>2</span>
-</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">scale</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-</div><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">scale</span><span class="p">);</span>
-</div></code></pre></td></tr></table></div>
-
-<p><code>.translate()</code> to make the geometry move 100 further in <code>x</code></p>
-
-<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-<span class='line'>2</span>
-</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">translation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-</div><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">translation</span><span class="p">);</span>
-</div></code></pre></td></tr></table></div>
-
-<p><code>.center()</code> to center the geometry on its middle point</p>
-
-<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">center</span><span class="p">(</span><span class="nx">geometry</span><span class="p">);</span>
-</div></code></pre></td></tr></table></div>
-
-<p><code>.middlePoint()</code> to compute the middle point of a geometry</p>
-
-<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">middlePoint</span><span class="p">(</span><span class="nx">geometry</span><span class="p">);</span>
-</div></code></pre></td></tr></table></div>
-</div>
-  <footer>
-    <a rel="full-article" href="/blog/2011/09/10/playing-with-dynamic-geometry/">Read on &rarr;</a>
-  </footer>
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/2011/09/03/screenshot-in-javascript/">Screenshot in Javascript</a></h1>
     
     
@@ -660,10 +578,6 @@ a web server on it, and go in <code>/examples</code>.</p>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/09/10/playing-with-dynamic-geometry/">Playing With Dynamic Geometry</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2011/09/03/screenshot-in-javascript/">Screenshot in Javascript</a>
       </li>
     
@@ -673,6 +587,10 @@ a web server on it, and go in <code>/examples</code>.</p>
     
       <li class="post">
         <a href="/blog/2011/08/17/tweenjs-for-smooth-animation/">Tween.js for Smooth Animation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/15/lets-do-a-sky/">Lets Do a Sky</a>
       </li>
     
   </ul>
