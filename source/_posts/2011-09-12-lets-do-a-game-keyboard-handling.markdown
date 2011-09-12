@@ -31,7 +31,8 @@ In a game, a keyboard handler is a bit special. Usually this is done with events
 , e.g. [jQuery.bind()](http://api.jquery.com/bind/)
 or [hotkeys](https://github.com/jeresig/jquery.hotkeys).
 But we are doing a game and all games revolve around a [game loop](http://en.wikipedia.org/wiki/Game_programming#Game_structure).
-So the keyboard must be queryable at any time during this loop, as opposed to event-drivent.
+So the keyboard must be queryable at any time during this loop, as opposed
+to [event-driven](http://en.wikipedia.org/wiki/Event-driven_architecture).
 Our code should keep tracks of which key and which modifier is pressed.
 Let's call it *KeyboardState*.
 
