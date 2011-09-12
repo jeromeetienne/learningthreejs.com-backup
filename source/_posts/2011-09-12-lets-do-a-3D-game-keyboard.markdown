@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Let's Do a Game: Keyboard"
+title: "Let's Do a 3D Game: Keyboard"
 date: 2011-09-12 17:31
 comments: true
 categories: [tutorial3dgame, three.js]
