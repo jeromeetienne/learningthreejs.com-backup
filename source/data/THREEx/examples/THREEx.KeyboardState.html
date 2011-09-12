@@ -2,10 +2,13 @@
 <body>
 	<script src="../THREEx.KeyboardState.js"></script>
 	<script>
-	var keyboardState	= new THREEx.KeyboardState();
-	keyboardState.on("keydown", "A", function(){
-		
-	})
+	var keyboard	= new THREEx.KeyboardState();
+
+	setInterval(function(){
+		var key		= "shift";
+		var pressed	= keyboard.pressed(key);
+		console.log("key", key, "pressed", pressed);
+	}, 100);
 	</script>
 </body>
 </html>

@@ -8,11 +8,10 @@
 // **Step 1**: Create the object
 //
 // ```var keyboard	= new THREEx.KeyboardState();```
-//    
+//
 // **Step 2**: Query the keyboard state
 //
-// TODO do which API for the key ? use of the string ?
-// ```keyboard.isPressed()```
+// ```keyboard.pressed("shift+A")```
 //
 // **Step 3**: Stop listening to the keyboard
 //
@@ -47,6 +46,7 @@ THREEx.KeyboardState	= function()
 }
 
 /**
+ * To stop listening of the keyboard events
 */
 THREEx.KeyboardState.prototype.destroy	= function()
 {
@@ -56,11 +56,15 @@ THREEx.KeyboardState.prototype.destroy	= function()
 	element.removeEventListener("keyup", this._onKeyUp, false);
 }
 
+THREEx.KeyboardState.MODIFIERS	= ['shift', 'ctrl', 'alt', 'meta'];
 
+/**
+ * to process the keyboard dom event
+*/
 THREEx.KeyboardState.prototype._onKeyChange	= function(event, pressed)
 {
 	// log to debug
-	console.log("onKeyChange", event, pressed, event.keyCode, event.shiftKey, event.ctrlKey, event.altKey, event.metaKey)
+	//console.log("onKeyChange", event, pressed, event.keyCode, event.shiftKey, event.ctrlKey, event.altKey, event.metaKey)
 
 	// update this._keyCodes
 	var keyCode		= event.keyCode;
@@ -71,4 +75,22 @@ THREEx.KeyboardState.prototype._onKeyChange	= function(event, pressed)
 	this._modifiers['ctrl']	= event.ctrlKey;
 	this._modifiers['alt']	= event.altKey;
 	this._modifiers['meta']	= event.metaKey;
+}
+
+/**
+ * query keyboard state to know if a key is pressed of not
+ *
+ * @param {String} keyDesc the description of the key. format : modifiers+key e.g shift+A
+ * @returns {Boolean} true if the key is pressed, false otherwise
+*/
+THREEx.KeyboardState.prototype.pressed	= function(keyDesc)
+{
+	var keys	= keyDesc.split("+");
+	for(var i = 0; i < keys.length; i++){
+		var key		= keys[i];
+		var isModifier	= THREEx.KeyboardState.MODIFIERS.indexOf( key ) !== -1;
+		var isPressed	= isModifier ? this._modifiers[key] : this._keyCodes[key.charCodeAt(0)];
+		if( !isPressed)	return false;
+	};
+	return true;
 }
