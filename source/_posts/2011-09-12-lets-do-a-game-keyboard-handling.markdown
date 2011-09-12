@@ -12,14 +12,14 @@ The [serie](/blog/categories/tutorial3dgame/) will walk you down the gamedev pat
 It will describe the various parts of a web game: input handling, map generation,
 collision, physics, sounds, graphics etc...
 Obviously we will glue them to make an actual game. Quite a bit of work
-but im super exited !
+but im super excited !
 
 It will be a [marble](http://en.wikipedia.org/wiki/Marble_Madness)
 game. Not sure which kind yet, but they are
 [many](http://www.youtube.com/results?search_query=marble+video+game).
 I did [pacmaze](http://pacmaze.com), a pacman in 3D  and [buddymaze](http://buddymaze.com),
 a multi-player first personn shooter. But this one gonna be from scratch, thus we will
-discover things as togeher :)
+discover things as together :)
 
 We will try each part of the game to be as reussable as possible.
 First part will be the **keyboard handling**. It isnt the hardest, nor the most important, but it is
