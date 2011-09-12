@@ -11,6 +11,8 @@
 //
 // **Step 2**: Query the keyboard state
 //
+// This will return true if shift and A are pressed, false otherwise
+//
 // ```keyboard.pressed("shift+A")```
 //
 // **Step 3**: Stop listening to the keyboard
