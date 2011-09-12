@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Learning Three.js: Lets Do a Cube</title>
+  <title>Learning Three.js: Playing With Dynamic Geometry</title>
   <meta name="author" content="Jerome Etienne">
   
 
@@ -16,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/"/>
+  <link rel="canonical" href="http://learningthreejs.com/blog/2011/09/10/playing-with-dynamic-geometry/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -98,7 +98,7 @@
   
   <header>
     
-      <h1 class="entry-title">Lets Do a Cube</h1>
+      <h1 class="entry-title">Playing With Dynamic Geometry</h1>
     
     
       <p class="meta">
@@ -106,7 +106,7 @@
 
 
 
-<time datetime="2011-08-06 00:00:00 +0200" pubdate  updated >Aug 6<span>th</span>, 2011</time>
+<time datetime="2011-09-10 09:16:00 +0200" pubdate  updated >Sep 10<span>th</span>, 2011</time>
 
 
 </p>
@@ -114,23 +114,59 @@
   </header>
 
 
-<div class="entry-content"><p>Here is the first lesson! I started with something real simple, a <strong>cube</strong>.
-I wasnt sure how to present the lesson, so i did
-an <a href="/data/lets_do_a_cube/docs/lets_do_a_cube.html">annotated source of the example</a>
-to get things started.
-I kept it small as possible to simplicity sake.
-It is only 70 lines of javascript for a <em>webgl simplistic demo</em>. I hope it shows that webgl
-is quite accessible.</p>
+<div class="entry-content"><p>In this article, we will play with dynamic Geometry</p>
 
-<p>You can see this <a href="/data/lets_do_a_cube/lets_do_a_cube.html">example live</a> or in the
-screencast below.</p>
+<p><a href="http://en.wikipedia.org/wiki/Polygon_mesh">mesh</a></p>
 
-<center>
-    <iframe width="425" height="349" src="http://www.youtube.com/embed/8PrXCBOllTg" frameborder="0" allowfullscreen></iframe>
-</center>
+<h2>Demo</h2>
 
+<p>Show, dont tell: here is <a href="/data/lost-gello-drop/">lost-gello-drop</a>.</p>
 
+<p>The drop is mainly about dynamic
+geometry we gonna see here.</p>
 
+<p>The background is a sky map, a technic
+explained in a <a href="/blog/2011/08/15/lets-do-a-sky/">previous article</a>.</p>
+
+<h2>Conclusion</h2>
+
+<p>For more details, see the <a href="/data/THREEx/docs/THREEx.GeometryUtils.html">annoted source</a> of
+<a href="/data/THREEx/THREEx.GeometryUtils.js">THREEx.GeometryUtils</a>.</p>
+
+<h2>THREEx.GeometryUtils</h2>
+
+<p>This THREEx helper provide various basic functions for <code>THREE.Geometry</code>.
+It is able to scale, translate, center a geometry. Other functions may be
+added soon.
+The API is chained for convenience.</p>
+
+<p><code>.scale()</code> to make the geometry twice larger in <code>y</code></p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">scale</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</div><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">scale</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p><code>.translate()</code> to make the geometry move 100 further in <code>x</code></p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">translation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</div><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">translation</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p><code>.center()</code> to center the geometry on its middle point</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">center</span><span class="p">(</span><span class="nx">geometry</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p><code>.middlePoint()</code> to compute the middle point of a geometry</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">middlePoint</span><span class="p">(</span><span class="nx">geometry</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
 </div>
 
 
@@ -146,7 +182,7 @@ screencast below.</p>
 
 
 
-<time datetime="2011-08-06 00:00:00 +0200" pubdate  updated >Aug 6<span>th</span>, 2011</time>
+<time datetime="2011-09-10 09:16:00 +0200" pubdate  updated >Sep 10<span>th</span>, 2011</time>
 
 
 
@@ -154,7 +190,7 @@ screencast below.</p>
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/basic/'>basic</a>, <a class='category' href='/blog/categories/webgl/'>webgl</a>
+    <a class='category' href='/blog/categories/THREEx/'>THREEx</a>, <a class='category' href='/blog/categories/basic/'>basic</a>, <a class='category' href='/blog/categories/three-js/'>three.js</a>
   
 </span>
 
@@ -163,7 +199,7 @@ screencast below.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/09/10/playing-with-dynamic-geometry/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2011/09/10/playing-with-dynamic-geometry/" >Tweet</a>
   
   
   <g:plusone size="medium"></g:plusone>
@@ -179,8 +215,8 @@ screencast below.</p>
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'learningthreejs';
-  var disqus_identifier = 'http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/';
-  var disqus_url = 'http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/';
+  var disqus_identifier = 'http://learningthreejs.com/blog/2011/09/10/playing-with-dynamic-geometry/';
+  var disqus_url = 'http://learningthreejs.com/blog/2011/09/10/playing-with-dynamic-geometry/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

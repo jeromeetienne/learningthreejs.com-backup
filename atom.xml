@@ -4,13 +4,174 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-09-09T11:07:08+02:00</updated>
+  <updated>2011-09-12T19:50:33+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Let's Do a Game: Keyboard</title>
+    <link href="http://learningthreejs.com/blog/2011/09/12/lets-do-a-game-keyboard-handling/"/>
+    <updated>2011-09-12T17:31:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/09/12/lets-do-a-game-keyboard-handling</id>
+    <content type="html">&lt;p&gt;This post is the first of a serie &lt;em&gt;lets do a 3d game&lt;/em&gt;.
+Its goal is to build together a 3D game.
+The &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;serie&lt;/a&gt; will walk you down the gamedev path.
+It will describe the various parts of a web game: input handling, map generation,
+collision, physics, sounds, graphics etc...
+Obviously we will glue them to make an actual game. Quite a bit of work
+but im super excited !&lt;/p&gt;
+
+&lt;p&gt;It will be a &lt;a href=&quot;http://en.wikipedia.org/wiki/Marble_Madness&quot;&gt;marble&lt;/a&gt;
+game. Not sure which kind yet, but they are
+&lt;a href=&quot;http://www.youtube.com/results?search_query=marble+video+game&quot;&gt;many&lt;/a&gt;.
+I did &lt;a href=&quot;http://pacmaze.com&quot;&gt;pacmaze&lt;/a&gt;, a pacman in 3D  and &lt;a href=&quot;http://buddymaze.com&quot;&gt;buddymaze&lt;/a&gt;,
+a multi-player first personn shooter. But this one gonna be from scratch, thus we will
+discover things as together :)&lt;/p&gt;
+
+&lt;p&gt;We will try each part of the game to be as reussable as possible.
+First part will be the &lt;strong&gt;keyboard handling&lt;/strong&gt;. It isnt the hardest, nor the most important, but it is
+super simple. Perfect to get us started.&lt;/p&gt;
+
+&lt;h2&gt;Lets get started&lt;/h2&gt;
+
+&lt;p&gt;In a game, a keyboard handler is a bit special. Usually this is done with events
+, e.g. &lt;a href=&quot;http://api.jquery.com/bind/&quot;&gt;jQuery.bind()&lt;/a&gt;
+or &lt;a href=&quot;https://github.com/jeresig/jquery.hotkeys&quot;&gt;hotkeys&lt;/a&gt;.
+But we are doing a game and all games revolve around a &lt;a href=&quot;http://en.wikipedia.org/wiki/Game_programming#Game_structure&quot;&gt;game loop&lt;/a&gt;.
+So the keyboard must be queryable at any time during this loop, as opposed
+to &lt;a href=&quot;http://en.wikipedia.org/wiki/Event-driven_architecture&quot;&gt;event-driven&lt;/a&gt;.
+Our code should keep tracks of which key and which modifier is pressed.
+Let's call it &lt;em&gt;KeyboardState&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Let's include the script&lt;/h2&gt;
+
+&lt;p&gt;You download it from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.KeyboardState.js&quot;&gt;here&lt;/a&gt; and include
+it in your page like this&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src='THREEx.KeyboardState.js'&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;How to use it ?&lt;/h2&gt;
+
+&lt;p&gt;Now that the script is included, create a &lt;code&gt;keyboard&lt;/code&gt; variable like this.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var keyboard = new THREEx.KeyboardState();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;After that you can query the current status of the keyboard with &lt;code&gt;.pressed(&quot;W&quot;)&lt;/code&gt;. For
+example if you want shift+H to display help, do the following.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if( keyboard.pressed(&quot;shift+H&quot;) )     displayHelp();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;If you ever want to stop listening to the keyboard, just use this line&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;keyboard.destroy()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;For more details on &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.KeyboardState.js&quot;&gt;THREEx.KeyboardState&lt;/a&gt;,
+see its &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.KeyboardState.html&quot;&gt;annoted source&lt;/a&gt;.
+We have seen it is quite simple to use.
+Ok now we got the keyboard handling for our game. Nice but it seems a bit virtual for now.
+But i think the game will become more concret when we gonna have stuff moving on the screen.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Playing With Dynamic Geometry</title>
+    <link href="http://learningthreejs.com/blog/2011/09/10/playing-with-dynamic-geometry/"/>
+    <updated>2011-09-10T09:16:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/09/10/playing-with-dynamic-geometry</id>
+    <content type="html">&lt;p&gt;In this article, we will play with dynamic Geometry&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Polygon_mesh&quot;&gt;mesh&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Demo&lt;/h2&gt;
+
+&lt;p&gt;Show, dont tell: here is &lt;a href=&quot;http://learningthreejs.com/data/lost-gello-drop/&quot;&gt;lost-gello-drop&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The drop is mainly about dynamic
+geometry we gonna see here.&lt;/p&gt;
+
+&lt;p&gt;The background is a sky map, a technic
+explained in a &lt;a href=&quot;http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/&quot;&gt;previous article&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;For more details, see the &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.GeometryUtils.html&quot;&gt;annoted source&lt;/a&gt; of
+&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.GeometryUtils.js&quot;&gt;THREEx.GeometryUtils&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;THREEx.GeometryUtils&lt;/h2&gt;
+
+&lt;p&gt;This THREEx helper provide various basic functions for &lt;code&gt;THREE.Geometry&lt;/code&gt;.
+It is able to scale, translate, center a geometry. Other functions may be
+added soon.
+The API is chained for convenience.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;.scale()&lt;/code&gt; to make the geometry twice larger in &lt;code&gt;y&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var scale = new THREE.Vector3(1,2,1);
+THREEx.GeometryUtils.scale(geometry, scale);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;.translate()&lt;/code&gt; to make the geometry move 100 further in &lt;code&gt;x&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var translation = new THREE.Vector3(100,0,0);
+THREEx.GeometryUtils.translate(geometry, translation);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;.center()&lt;/code&gt; to center the geometry on its middle point&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREEx.GeometryUtils.center(geometry);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;.middlePoint()&lt;/code&gt; to compute the middle point of a geometry&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREEx.GeometryUtils.middlePoint(geometry);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Screenshot in Javascript</title>

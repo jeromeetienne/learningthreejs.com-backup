@@ -26,6 +26,13 @@
 //   THREEx.GeometryUtils.center(geometry);
 // ```
 
+// ## middlePoint
+// To compute the middle point of a geometry
+
+// ```
+//   THREEx.GeometryUtils.middlePoint(geometry);
+// ```
+
 // # Code
 
 //

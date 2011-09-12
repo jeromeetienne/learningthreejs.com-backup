@@ -101,6 +101,156 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/12/lets-do-a-game-keyboard-handling/">Let&#8217;s Do a Game: Keyboard</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-09-12 17:31:00 +0200" pubdate  updated >Sep 12<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post is the first of a serie <em>lets do a 3d game</em>.
+Its goal is to build together a 3D game.
+The <a href="/blog/categories/tutorial3dgame/">serie</a> will walk you down the gamedev path.
+It will describe the various parts of a web game: input handling, map generation,
+collision, physics, sounds, graphics etc&#8230;
+Obviously we will glue them to make an actual game. Quite a bit of work
+but im super excited !</p>
+
+<p>It will be a <a href="http://en.wikipedia.org/wiki/Marble_Madness">marble</a>
+game. Not sure which kind yet, but they are
+<a href="http://www.youtube.com/results?search_query=marble+video+game">many</a>.
+I did <a href="http://pacmaze.com">pacmaze</a>, a pacman in 3D  and <a href="http://buddymaze.com">buddymaze</a>,
+a multi-player first personn shooter. But this one gonna be from scratch, thus we will
+discover things as together :)</p>
+
+<p>We will try each part of the game to be as reussable as possible.
+First part will be the <strong>keyboard handling</strong>. It isnt the hardest, nor the most important, but it is
+super simple. Perfect to get us started.</p>
+
+<h2>Lets get started</h2>
+
+<p>In a game, a keyboard handler is a bit special. Usually this is done with events
+, e.g. <a href="http://api.jquery.com/bind/">jQuery.bind()</a>
+or <a href="https://github.com/jeresig/jquery.hotkeys">hotkeys</a>.
+But we are doing a game and all games revolve around a <a href="http://en.wikipedia.org/wiki/Game_programming#Game_structure">game loop</a>.
+So the keyboard must be queryable at any time during this loop, as opposed
+to <a href="http://en.wikipedia.org/wiki/Event-driven_architecture">event-driven</a>.
+Our code should keep tracks of which key and which modifier is pressed.
+Let&#8217;s call it <em>KeyboardState</em>.</p>
+
+<h2>Let&#8217;s include the script</h2>
+
+<p>You download it from <a href="/data/THREEx/THREEx.KeyboardState.js">here</a> and include
+it in your page like this</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&#39;THREEx.KeyboardState.js&#39;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</div></code></pre></td></tr></table></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/09/12/lets-do-a-game-keyboard-handling/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/10/playing-with-dynamic-geometry/">Playing With Dynamic Geometry</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-09-10 09:16:00 +0200" pubdate  updated >Sep 10<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In this article, we will play with dynamic Geometry</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Polygon_mesh">mesh</a></p>
+
+<h2>Demo</h2>
+
+<p>Show, dont tell: here is <a href="/data/lost-gello-drop/">lost-gello-drop</a>.</p>
+
+<p>The drop is mainly about dynamic
+geometry we gonna see here.</p>
+
+<p>The background is a sky map, a technic
+explained in a <a href="/blog/2011/08/15/lets-do-a-sky/">previous article</a>.</p>
+
+<h2>Conclusion</h2>
+
+<p>For more details, see the <a href="/data/THREEx/docs/THREEx.GeometryUtils.html">annoted source</a> of
+<a href="/data/THREEx/THREEx.GeometryUtils.js">THREEx.GeometryUtils</a>.</p>
+
+<h2>THREEx.GeometryUtils</h2>
+
+<p>This THREEx helper provide various basic functions for <code>THREE.Geometry</code>.
+It is able to scale, translate, center a geometry. Other functions may be
+added soon.
+The API is chained for convenience.</p>
+
+<p><code>.scale()</code> to make the geometry twice larger in <code>y</code></p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">scale</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</div><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">scale</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p><code>.translate()</code> to make the geometry move 100 further in <code>x</code></p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">translation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</div><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">translation</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p><code>.center()</code> to center the geometry on its middle point</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">center</span><span class="p">(</span><span class="nx">geometry</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p><code>.middlePoint()</code> to compute the middle point of a geometry</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">THREEx</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">middlePoint</span><span class="p">(</span><span class="nx">geometry</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/09/10/playing-with-dynamic-geometry/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/03/screenshot-in-javascript/">Screenshot in Javascript</a></h1>
     
     
@@ -506,6 +656,14 @@ a web server on it, and go in <code>/examples</code>.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/09/12/lets-do-a-game-keyboard-handling/">Let&#8217;s Do a Game: Keyboard</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/10/playing-with-dynamic-geometry/">Playing With Dynamic Geometry</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/09/03/screenshot-in-javascript/">Screenshot in Javascript</a>
       </li>
     
@@ -515,14 +673,6 @@ a web server on it, and go in <code>/examples</code>.</p>
     
       <li class="post">
         <a href="/blog/2011/08/17/tweenjs-for-smooth-animation/">Tween.js for Smooth Animation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/08/15/lets-do-a-sky/">Lets Do a Sky</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/08/14/dat-gui-simple-ui-for-demos/">dat-gui - Simple UI for Demos</a>
       </li>
     
   </ul>
