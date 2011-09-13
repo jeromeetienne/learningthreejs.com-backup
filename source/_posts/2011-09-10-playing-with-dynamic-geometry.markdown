@@ -2,7 +2,7 @@
 layout: post
 title: "Playing With Dynamic Geometry"
 date: 2011-09-10 09:16
-published: true
+published: false
 comments: true
 categories: [three.js, basic, THREEx]
 ---
