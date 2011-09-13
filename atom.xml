@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-09-12T20:26:08+02:00</updated>
+  <updated>2011-09-13T10:13:07+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -17,9 +17,9 @@
     <link href="http://learningthreejs.com/blog/2011/09/12/lets-do-a-3D-game-keyboard/"/>
     <updated>2011-09-12T17:31:00+02:00</updated>
     <id>http://learningthreejs.com/blog/2011/09/12/lets-do-a-3D-game-keyboard</id>
-    <content type="html">&lt;p&gt;This post is the first of a serie &lt;em&gt;lets do a 3d game&lt;/em&gt;.
-Its goal is to build together a 3D game.
-The &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;serie&lt;/a&gt; will walk you down the gamedev path.
+    <content type="html">&lt;p&gt;This post is the first of a series &lt;strong&gt;Let's do a 3d game&lt;/strong&gt;.
+The &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;series&lt;/a&gt; will walk you down the path of
+game developement.
 It will describe the various parts of a web game: input handling, map generation,
 collision, physics, sounds, graphics etc...
 Obviously we will glue them to make an actual game. Quite a bit of work
@@ -32,11 +32,11 @@ I did &lt;a href=&quot;http://pacmaze.com&quot;&gt;pacmaze&lt;/a&gt;, a pacman i
 a multi-player first personn shooter. But this one gonna be from scratch, thus we will
 discover things as together :)&lt;/p&gt;
 
-&lt;p&gt;We will try each part of the game to be as reussable as possible.
-First part will be the &lt;strong&gt;keyboard handling&lt;/strong&gt;. It isnt the hardest, nor the most important, but it is
+&lt;p&gt;We will try to code each part of the game to be as reusable as possible.
+The first part will be the &lt;strong&gt;keyboard handling&lt;/strong&gt;. It isnt the hardest, nor the most important, but it is
 super simple. Perfect to get us started.&lt;/p&gt;
 
-&lt;h2&gt;Lets get started&lt;/h2&gt;
+&lt;h2&gt;Let's get started&lt;/h2&gt;
 
 &lt;p&gt;In a game, a keyboard handler is a bit special. Usually this is done with events
 , e.g. &lt;a href=&quot;http://api.jquery.com/bind/&quot;&gt;jQuery.bind()&lt;/a&gt;
