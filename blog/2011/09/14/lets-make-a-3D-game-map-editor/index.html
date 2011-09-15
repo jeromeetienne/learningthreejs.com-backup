@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Learning Three.js: Three.js Installation</title>
+  <title>Learning Three.js: Let's Make a 3D Games: Map Editor</title>
   <meta name="author" content="Jerome Etienne">
   
 
@@ -16,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://learningthreejs.com/blog/2011/07/15/threejs-installation/"/>
+  <link rel="canonical" href="http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -98,7 +98,7 @@
   
   <header>
     
-      <h1 class="entry-title">Three.js Installation</h1>
+      <h1 class="entry-title">Let&#8217;s Make a 3D Games: Map Editor</h1>
     
     
       <p class="meta">
@@ -106,7 +106,7 @@
 
 
 
-<time datetime="2011-07-15 00:00:00 +0200" pubdate  updated >Jul 15<span>th</span>, 2011</time>
+<time datetime="2011-09-14 19:07:00 +0200" pubdate  updated >Sep 14<span>th</span>, 2011</time>
 
 
 </p>
@@ -114,70 +114,78 @@
   </header>
 
 
-<div class="entry-content"><p><a href="https://github.com/mrdoob/three.js">Three.js</a> is a 3D library in javascript. According
-to <a href="http://mrdoob.com/">mrdoob</a>, its author, three.js is</p>
+<div class="entry-content"><p>This is a new article of the &#8220;Let&#8217;s Make a 3D Game&#8221; <a href="/blog/categories/tutorial3dgame/">series</a>.
+In the previous one, we focused
+on <a href="/blog/2011/09/12/lets-Make-a-3D-game-keyboard/">keyboard</a>. We will
+focus on <em>map editor</em> for this one.
+In most games, the player moves around a map, sometime they are
+called <a href="http://en.wikipedia.org/wiki/Level_(video_gaming)">levels</a>.
+<em>Maps</em> are a key part of a game. They describes the world the player lives in,
+its rules, its limits, its geography.
+Additionnaly when a player completes a map, he
+goes in another better/harder map. It gives a sense
+progression which is fun. Players like fun things :)</p>
 
-<blockquote><p>The aim of the project is to create a lightweight 3D engine with a very low level of<br/>complexity — in other words, for dummies. The engine can render using canvas, svg and WebGL.</p><footer><strong>mrdoob</strong><cite>tree.js Author</cite></footer></blockquote>
+<h2>So let&#8217;s make a map editor</h2>
 
+<p><img class='right ' src='/data/lets_make_a_game_map_editor/images/200px-Voxels.svg.png' width='' height='' alt='Example' title='Example'></p>
 
-<h2>Step 1: get the source</h2>
+<p>So i searched for a way to do map for our <em>marble game</em>.
+I wanted something <strong>very reusable and hackable</strong>,
+something you could easily use in your own games.
+I picked <a href="http://en.wikipedia.org/wiki/Voxel">voxels</a>
+The illustration from <a href="http://en.wikipedia.org/wiki/File:Voxels.svg">wikipedia</a>
+on the right, may help understanding.
+They are easy to code, simple to understand, yet efficient and flexible.
+On top of that, one of <a href="https://github.com/mrdoob/three.js/tree/master/examples">three.js examples</a> is a
+<a href="http://mrdoob.github.com/three.js/examples/webgl_interactive_voxelpainter.html">voxel painter</a>
+in WebGL. So most of the work was already done for us!</p>
 
-<p>The source are available <a href="https://github.com/mrdoob/three.js">here</a>. Use
-the following command</p>
+<p>Only two features were missing to make it a <a href="http://en.wikipedia.org/wiki/Level_editor">map editor</a>.
+<strong>First</strong>, we need to load and save those maps.
+Thus we can edit those maps, and tune them until to get a good <a href="http://en.wikipedia.org/wiki/Gameplay">gameplay</a>.
+<strong>Second</strong>, the map must be composed of various type of cubes.
+Different type of cubes will have different purposes in the game. e.g. one cube
+may be wood or be water, one may make your explode on contact, one may
+make you teleport, anything you want.
+So i did those modifications and came up with
+this <a href="http://jeromeetienne.github.com/marbleGame/editor">editor</a>.</p>
 
-<div><figure role=code><figcaption><span>how to get the source - example.sh </span></figcaption>
- <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-</pre></td><td class='code' width='100%'><pre><code class='sh'><div class='line'>git clone https://github.com/mrdoob/three.js.git
-</div></code></pre></td></tr></table></div></figure></div>
-
-
-<p>It will provide the whole source on your local disk. You are done, just point
-a web server on it, and go in <code>/examples</code>.</p>
-
-<!--more-->
-
-
-<h2>Step 2: Description of the folder structure</h2>
-
-<ul>
-<li><code>/utils</code> it is a bunch of utilities (see <a href="https://github.com/mrdoob/three.js/tree/master/utils">here</a>).
-You can find the script to <a href="https://github.com/mrdoob/three.js/blob/master/utils/build.sh">build the releases</a>
-(concatenate the files, minify them, all that).</li>
-<li><code>/build</code> It is an administrative directory where the build release is stored. Not really important
-for a user, it is more for a developper of the library itself.</li>
-<li><code>/src</code> It is the library code in itself. We will study that in more details later. Meanwhile dont hesitate
-to go look: it is rather small and clean.</li>
-<li><code>/examples</code> It is a list of all the examples. They kinda are the documentation of three.js, try
-them. They are the meat, if you like something, just do view-source:
-
-<ul>
-<li>some of them are for &lt;canvas> rendering, most of them are for WebGL. Three.js is able to render 3D scene
-on canvas, Dom, SVG and obviously WebGL (with various level of support). See <a href="https://github.com/mrdoob/three.js/tree/master/src/renderers">here</a>
-for details.</li>
-<li>Some are focused on <a href="https://github.com/mrdoob/three.js/tree/master/src/extras/geometries">geometry</a> i.e.
-the shape of the objects. See <a href="http://mrdoob.github.com/three.js/examples/webgl_geometry_colors.html">here</a>
-, <a href="http://mrdoob.github.com/three.js/examples/canvas_geometry_cube.html">here</a>
-and <a href="http://mrdoob.github.com/three.js/examples/canvas_geometry_cube.html">here</a></li>
-<li>Some are focused on the <a href="https://github.com/mrdoob/three.js/tree/master/src/materials">material</a> i.e.
-kindof the colors and the texture of the objects. See
-<a href="http://mrdoob.github.com/three.js/examples/webgl_materials_texture_filters.html">here</a>,
-<a href="http://mrdoob.github.com/three.js/examples/webgl_materials_texture_filters.html">here</a> and
-<a href="http://mrdoob.github.com/three.js/examples/webgl_materials_normalmap.html">here</a>.</li>
-<li>Others are focused on <a href="https://github.com/mrdoob/three.js/tree/master/src/lights">light</a>, there are different
-type of light sources. See
-<a href="http://mrdoob.github.com/three.js/examples/canvas_lights_pointlights.html">here</a>,
-<a href="http://mrdoob.github.com/three.js/examples/canvas_lights_pointlights_smooth.html">here</a> and
-<a href="http://mrdoob.github.com/three.js/examples/webgl_lights_pointlights.html">here</a></li>
-<li>Some are focused on <a href="https://github.com/mrdoob/three.js/tree/master/src/extras/physics">collisions</a>. See
-<a href="http://mrdoob.github.com/three.js/examples/webgl_collisions_trigger.html">here</a>,
-<a href="http://mrdoob.github.com/three.js/examples/webgl_collisions_reaction.html">here</a> and
-<a href="http://mrdoob.github.com/three.js/examples//webgl_collisions_mesh.html">here</a>.</li>
-</ul>
-</li>
-</ul>
+<!-- more -->
 
 
-<p>Point a web server on <code>three.js</code> source tree and go in <code>/examples</code> to try them. It is fun!</p>
+<h2>Now Let&#8217;s Use This Editor</h2>
+
+<p><img class='right ' src='/data/lets_make_a_game_map_editor/images/webgl-rocks.png' width='' height='' alt='Example' title='Example'></p>
+
+<p>The <a href="http://jeromeetienne.github.com/marbleGame/editor">editor</a>
+got an inline help on top. So it should be rather simple.
+Once you are done, you save the map, the editor
+will open a window containing a string
+describing the saved data. Just copy this data in a file.
+To load it back, you just have to drag/drop this file on the
+editor window. It is as simple as that.</p>
+
+<h2>How To Use Saved Maps</h2>
+
+<p>You load the file you saved into your javascript.
+Maps are stored in <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>. It is a data format
+which fits well with javascript.
+&#8220;Everything should be made as simple as possible, but no simpler&#8221;
+as a <a href="http://en.wikipedia.org/wiki/Albert_Einstein">cool guy</a> said.
+So following the <a href="http://en.wikipedia.org/wiki/Occam%27s_razor">occam razor</a>,
+this format is just
+an <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array">Array</a> with
+each element is one <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object">Object</a>
+representing a voxel.
+The object properties are: <code>x</code>, <code>y</code>, <code>z</code>being the
+coordinates of this voxel, and <code>t</code> being its type.</p>
+
+<h2>Progress</h2>
+
+<p>Yesterday, i started coding <a href="http://jeromeetienne.github.com/marbleGame">early visuals</a>
+for the game. Ok it takes some imaginations to see where it will goes. But it
+will improve i promise :)</p>
 </div>
 
 
@@ -193,7 +201,7 @@ type of light sources. See
 
 
 
-<time datetime="2011-07-15 00:00:00 +0200" pubdate  updated >Jul 15<span>th</span>, 2011</time>
+<time datetime="2011-09-14 19:07:00 +0200" pubdate  updated >Sep 14<span>th</span>, 2011</time>
 
 
 
@@ -201,7 +209,7 @@ type of light sources. See
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/basic/'>basic</a>, <a class='category' href='/blog/categories/webgl/'>webgl</a>
+    <a class='category' href='/blog/categories/three-js/'>three.js</a>, <a class='category' href='/blog/categories/tutorial3dgame/'>tutorial3dgame</a>
   
 </span>
 
@@ -210,7 +218,7 @@ type of light sources. See
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/07/15/threejs-installation/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2011/07/15/threejs-installation/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor/" >Tweet</a>
   
   
   <g:plusone size="medium"></g:plusone>
@@ -226,8 +234,8 @@ type of light sources. See
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'learningthreejs';
-  var disqus_identifier = 'http://learningthreejs.com/blog/2011/07/15/threejs-installation/';
-  var disqus_url = 'http://learningthreejs.com/blog/2011/07/15/threejs-installation/';
+  var disqus_identifier = 'http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor/';
+  var disqus_url = 'http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

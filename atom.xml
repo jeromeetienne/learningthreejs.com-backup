@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-09-13T10:13:07+02:00</updated>
+  <updated>2011-09-15T14:00:09+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -13,11 +13,91 @@
 
   
   <entry>
-    <title>Let's Do a 3D Game: Keyboard</title>
-    <link href="http://learningthreejs.com/blog/2011/09/12/lets-do-a-3D-game-keyboard/"/>
+    <title>Let's Make a 3D Games: Map Editor</title>
+    <link href="http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor/"/>
+    <updated>2011-09-14T19:07:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor</id>
+    <content type="html">&lt;p&gt;This is a new article of the &quot;Let's Make a 3D Game&quot; &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;series&lt;/a&gt;.
+In the previous one, we focused
+on &lt;a href=&quot;http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/&quot;&gt;keyboard&lt;/a&gt;. We will
+focus on &lt;em&gt;map editor&lt;/em&gt; for this one.
+In most games, the player moves around a map, sometime they are
+called &lt;a href=&quot;http://en.wikipedia.org/wiki/Level_(video_gaming)&quot;&gt;levels&lt;/a&gt;.
+&lt;em&gt;Maps&lt;/em&gt; are a key part of a game. They describes the world the player lives in,
+its rules, its limits, its geography.
+Additionnaly when a player completes a map, he
+goes in another better/harder map. It gives a sense
+progression which is fun. Players like fun things :)&lt;/p&gt;
+
+&lt;h2&gt;So let's make a map editor&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/lets_make_a_game_map_editor/images/200px-Voxels.svg.png' width='' height='' alt='Example' title='Example'&gt;&lt;/p&gt;
+
+&lt;p&gt;So i searched for a way to do map for our &lt;em&gt;marble game&lt;/em&gt;.
+I wanted something &lt;strong&gt;very reusable and hackable&lt;/strong&gt;,
+something you could easily use in your own games.
+I picked &lt;a href=&quot;http://en.wikipedia.org/wiki/Voxel&quot;&gt;voxels&lt;/a&gt;
+The illustration from &lt;a href=&quot;http://en.wikipedia.org/wiki/File:Voxels.svg&quot;&gt;wikipedia&lt;/a&gt;
+on the right, may help understanding.
+They are easy to code, simple to understand, yet efficient and flexible.
+On top of that, one of &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples&quot;&gt;three.js examples&lt;/a&gt; is a
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_interactive_voxelpainter.html&quot;&gt;voxel painter&lt;/a&gt;
+in WebGL. So most of the work was already done for us!&lt;/p&gt;
+
+&lt;p&gt;Only two features were missing to make it a &lt;a href=&quot;http://en.wikipedia.org/wiki/Level_editor&quot;&gt;map editor&lt;/a&gt;.
+&lt;strong&gt;First&lt;/strong&gt;, we need to load and save those maps.
+Thus we can edit those maps, and tune them until to get a good &lt;a href=&quot;http://en.wikipedia.org/wiki/Gameplay&quot;&gt;gameplay&lt;/a&gt;.
+&lt;strong&gt;Second&lt;/strong&gt;, the map must be composed of various type of cubes.
+Different type of cubes will have different purposes in the game. e.g. one cube
+may be wood or be water, one may make your explode on contact, one may
+make you teleport, anything you want.
+So i did those modifications and came up with
+this &lt;a href=&quot;http://jeromeetienne.github.com/marbleGame/editor&quot;&gt;editor&lt;/a&gt;.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Now Let's Use This Editor&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/lets_make_a_game_map_editor/images/webgl-rocks.png' width='' height='' alt='Example' title='Example'&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://jeromeetienne.github.com/marbleGame/editor&quot;&gt;editor&lt;/a&gt;
+got an inline help on top. So it should be rather simple.
+Once you are done, you save the map, the editor
+will open a window containing a string
+describing the saved data. Just copy this data in a file.
+To load it back, you just have to drag/drop this file on the
+editor window. It is as simple as that.&lt;/p&gt;
+
+&lt;h2&gt;How To Use Saved Maps&lt;/h2&gt;
+
+&lt;p&gt;You load the file you saved into your javascript.
+Maps are stored in &lt;a href=&quot;http://en.wikipedia.org/wiki/JSON&quot;&gt;JSON&lt;/a&gt;. It is a data format
+which fits well with javascript.
+&quot;Everything should be made as simple as possible, but no simpler&quot;
+as a &lt;a href=&quot;http://en.wikipedia.org/wiki/Albert_Einstein&quot;&gt;cool guy&lt;/a&gt; said.
+So following the &lt;a href=&quot;http://en.wikipedia.org/wiki/Occam%27s_razor&quot;&gt;occam razor&lt;/a&gt;,
+this format is just
+an &lt;a href=&quot;https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array&quot;&gt;Array&lt;/a&gt; with
+each element is one &lt;a href=&quot;https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object&quot;&gt;Object&lt;/a&gt;
+representing a voxel.
+The object properties are: &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;, &lt;code&gt;z&lt;/code&gt;being the
+coordinates of this voxel, and &lt;code&gt;t&lt;/code&gt; being its type.&lt;/p&gt;
+
+&lt;h2&gt;Progress&lt;/h2&gt;
+
+&lt;p&gt;Yesterday, i started coding &lt;a href=&quot;http://jeromeetienne.github.com/marbleGame&quot;&gt;early visuals&lt;/a&gt;
+for the game. Ok it takes some imaginations to see where it will goes. But it
+will improve i promise :)&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Let's Make a 3D Game: Keyboard</title>
+    <link href="http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/"/>
     <updated>2011-09-12T17:31:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/09/12/lets-do-a-3D-game-keyboard</id>
-    <content type="html">&lt;p&gt;This post is the first of a series &lt;strong&gt;Let's do a 3d game&lt;/strong&gt;.
+    <id>http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard</id>
+    <content type="html">&lt;p&gt;This post is the first of a series &lt;strong&gt;Let's Make a 3d game&lt;/strong&gt;.
 The &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;series&lt;/a&gt; will walk you down the path of
 game developement.
 It will describe the various parts of a web game: input handling, map generation,
