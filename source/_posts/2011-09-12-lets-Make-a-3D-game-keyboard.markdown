@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Let's Do a 3D Game: Keyboard"
+title: "Let's Make a 3D Game: Keyboard"
 date: 2011-09-12 17:31
 comments: true
 categories: [tutorial3dgame, three.js]
 ---
 
-This post is the first of a series **Let's do a 3d game**.
+This post is the first of a series **Let's Make a 3d game**.
 The [series](/blog/categories/tutorial3dgame/) will walk you down the path of
 game developement.
 It will describe the various parts of a web game: input handling, map generation,

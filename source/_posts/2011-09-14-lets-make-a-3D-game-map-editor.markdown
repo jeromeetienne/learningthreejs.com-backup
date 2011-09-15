@@ -1,11 +1,15 @@
 ---
 layout: post
-title: "Let's Make a Game: Map Editor"
+title: "Let's Make a 3D Games: Map Editor"
 date: 2011-09-14 19:07
 comments: true
 categories: [tutorial3dgame, three.js]
 ---
 
+This is a new article of the "Let's Make a 3D Game" [series](/blog/categories/tutorial3dgame/).
+In the previous one, we focused
+on [keyboard](/blog/2011/09/12/lets-Make-a-3D-game-keyboard/). We will
+focus on *map editor* for this one.
 In most games, the player moves around a map, sometime they are
 called [levels](http://en.wikipedia.org/wiki/Level_\(video_gaming\)).
 *Maps* are a key part of a game. They describes the world the player lives in,
@@ -38,6 +42,8 @@ may be wood or be water, one may make your explode on contact, one may
 make you teleport, anything you want.
 So i did those modifications and came up with
 this [editor](http://jeromeetienne.github.com/marbleGame/editor).
+
+<!-- more -->
 
 ## Now Let's Use This Editor
 
