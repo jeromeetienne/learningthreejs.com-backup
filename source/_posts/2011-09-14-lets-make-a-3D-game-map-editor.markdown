@@ -25,7 +25,7 @@ progression which is fun. Players like fun things :)
 So i searched for a way to do map for our *marble game*.
 I wanted something **very reusable and hackable**,
 something you could easily use in your own games.
-I picked [voxels](http://en.wikipedia.org/wiki/Voxel)
+I picked [voxels](http://en.wikipedia.org/wiki/Voxel).
 The illustration from [wikipedia](http://en.wikipedia.org/wiki/File:Voxels.svg)
 on the right, may help understanding.
 They are easy to code, simple to understand, yet efficient and flexible.
