@@ -4,13 +4,130 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-09-15T14:09:23+02:00</updated>
+  <updated>2011-09-16T12:11:29+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Performance: Caching Material</title>
+    <link href="http://learningthreejs.com/blog/2011/09/16/performance-caching-material/"/>
+    <updated>2011-09-16T10:25:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/09/16/performance-caching-material</id>
+    <content type="html">&lt;p&gt;This article is about performance and how caching can improve them.
+In WebGL, it is important not to push the same textures multiple times to the GPU.
+It uselessly slow down the rendering.
+As a rules of thumbs, the less data are exchanged between the cpu and the gpu, the better
+it is for performance.&lt;/p&gt;
+
+&lt;h2&gt;A Basic Caching&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt; handles cache cleanly and
+eleguantly. If you instanciate
+a javascript object
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/textures/Texture.js&quot;&gt;THREE.texture&lt;/a&gt;
+or
+a &lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/materials/Material.js&quot;&gt;THREE.Material&lt;/a&gt;
+only once, it will be pushed only once to the GPU.
+It is the simplest way to avoid pushing them multiple times.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var material = new THREE.MeshLambertMaterial({map:THREE.ImageUtils.loadTexture( 'foo.jpg')});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Then you use this material as many times as you want, &lt;code&gt;foo.jpg&lt;/code&gt; will be sent
+only once to the GPU. For example, let's create many
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js&quot;&gt;spheres&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var mesh = new THREE.Mesh( new THREE.SphereGeometry( 75, 20, 10 ), material );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;This solution is simple and eleguant but may not be practical with a large code,
+like a &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;game&lt;/a&gt;.
+In such case, you can use &lt;a href=&quot;https://github.com/jeromeetienne/MicroCache.js&quot;&gt;microcache.js&lt;/a&gt;.
+It is a micro library to handle in-memory cache which works in node and browser.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;So Let's Cache with microcache.js&lt;/h2&gt;
+
+&lt;p&gt;It needs only 3 lines. To install &lt;a href=&quot;https://github.com/jeromeetienne/MicroCache.js&quot;&gt;microcache.js&lt;/a&gt;,
+download it and copy this line.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;microcache.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;To instanciate a cache, use the following line.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;renderer._microCache = new MicroCache();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;As you likely noticed, it is attaching the cache to the renderer.
+Why do we do that ?
+First, it is required to support multiple renderers on the same page, each with it own cache.
+Additionnaly if you stop using a renderer, the cache will be automatically dropped
+by javascript &lt;a href=&quot;http://en.wikipedia.org/wiki/Garbage_collection_(computer_science)&quot;&gt;garbage collector&lt;/a&gt;.
+Two nice features.
+Now lets create a texture and cache it.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var texture = renderer._microCache.getSet('heavy', THREE.ImageUtils.loadTexture('foo.png'));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;This is it. It is &lt;em&gt;as simple as that&lt;/em&gt;.
+Now maybe you wonder &quot;yeah but how do i know what need to be cached&quot;...
+I completly agree, it is always nice to get diagnostics from the system when
+optimizing performance.&lt;/p&gt;
+
+&lt;h2&gt;Now Let's Diagnose&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/performance-tip-caching-material/webgl-inspector-texture.png' width='' height='' alt='Example' title='Example'&gt;&lt;/p&gt;
+
+&lt;p&gt;You can check what is pushed to the GPU with
+&lt;a href=&quot;http://benvanik.github.com/WebGL-Inspector/&quot;&gt;WebGL inspector&lt;/a&gt;.
+It is a firebug-like to &quot;debug, diagnose, and explore WebGL scenes&quot;.
+You can see the texture tabs on the right. If you spot
+duplicates in there, you found rooms for optimization :)
+You can embed it in your own page application with a single line.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;https://github.com/benvanik/WebGL-Inspector/blob/master/core/embed.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;That's All Folks&lt;/h2&gt;
+
+&lt;p&gt;As Terje Mathisen said, &quot;All programming is an exercise in caching.&quot;
+Caching is a efficient way to optimize your code.
+It is simple with &lt;a href=&quot;https://github.com/jeromeetienne/MicroCache.js&quot;&gt;microcache.js&lt;/a&gt;.
+The code is available on github &lt;a href=&quot;https://github.com/jeromeetienne/MicroCache.js&quot;&gt;here&lt;/a&gt; under MIT license.
+If you hit bugs, fill issues on github. Feel free to fork, modify and have fun with it :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Let's Make a 3D Game: Map Editor</title>

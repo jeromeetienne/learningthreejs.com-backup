@@ -101,6 +101,69 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/16/performance-caching-material/">Performance: Caching Material</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-09-16 10:25:00 +0200" pubdate  updated >Sep 16<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This article is about performance and how caching can improve them.
+In WebGL, it is important not to push the same textures multiple times to the GPU.
+It uselessly slow down the rendering.
+As a rules of thumbs, the less data are exchanged between the cpu and the gpu, the better
+it is for performance.</p>
+
+<h2>A Basic Caching</h2>
+
+<p><a href="https://github.com/mrdoob/three.js/">three.js</a> handles cache cleanly and
+eleguantly. If you instanciate
+a javascript object
+<a href="https://github.com/mrdoob/three.js/blob/master/src/textures/Texture.js">THREE.texture</a>
+or
+a <a href="https://github.com/mrdoob/three.js/blob/master/src/materials/Material.js">THREE.Material</a>
+only once, it will be pushed only once to the GPU.
+It is the simplest way to avoid pushing them multiple times.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">material</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshLambertMaterial</span><span class="p">({</span><span class="nx">map</span><span class="o">:</span><span class="nx">THREE</span><span class="p">.</span><span class="nx">ImageUtils</span><span class="p">.</span><span class="nx">loadTexture</span><span class="p">(</span> <span class="s1">&#39;foo.jpg&#39;</span><span class="p">)});</span>
+</div></code></pre></td></tr></table></div>
+
+<p>Then you use this material as many times as you want, <code>foo.jpg</code> will be sent
+only once to the GPU. For example, let&#8217;s create many
+<a href="https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js">spheres</a>.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">mesh</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Mesh</span><span class="p">(</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">SphereGeometry</span><span class="p">(</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span> <span class="p">),</span> <span class="nx">material</span> <span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p>This solution is simple and eleguant but may not be practical with a large code,
+like a <a href="/blog/categories/tutorial3dgame/">game</a>.
+In such case, you can use <a href="https://github.com/jeromeetienne/MicroCache.js">microcache.js</a>.
+It is a micro library to handle in-memory cache which works in node and browser.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/09/16/performance-caching-material/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/14/lets-make-a-3D-game-map-editor/">Let&#8217;s Make a 3D Game: Map Editor</a></h1>
     
     
@@ -565,57 +628,10 @@ on the topic, it was fun, i will clearly do more :)</p>
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/07/15/threejs-installation/">Three.js Installation</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-07-15 00:00:00 +0200" pubdate  updated >Jul 15<span>th</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/mrdoob/three.js">Three.js</a> is a 3D library in javascript. According
-to <a href="http://mrdoob.com/">mrdoob</a>, its author, three.js is</p>
-
-<blockquote><p>The aim of the project is to create a lightweight 3D engine with a very low level of<br/>complexity — in other words, for dummies. The engine can render using canvas, svg and WebGL.</p><footer><strong>mrdoob</strong><cite>tree.js Author</cite></footer></blockquote>
-
-
-<h2>Step 1: get the source</h2>
-
-<p>The source are available <a href="https://github.com/mrdoob/three.js">here</a>. Use
-the following command</p>
-
-<div><figure role=code><figcaption><span>how to get the source - example.sh </span></figcaption>
- <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-</pre></td><td class='code' width='100%'><pre><code class='sh'><div class='line'>git clone https://github.com/mrdoob/three.js.git
-</div></code></pre></td></tr></table></div></figure></div>
-
-
-<p>It will provide the whole source on your local disk. You are done, just point
-a web server on it, and go in <code>/examples</code>.</p>
-
-</div>
-  <footer>
-    <a rel="full-article" href="/blog/2011/07/15/threejs-installation/">Read on &rarr;</a>
-  </footer>
-
-
-  </article>
-
 <nav role="pagination">
   <div>
+    
+      <a class="prev" href="/page2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -640,6 +656,10 @@ a web server on it, and go in <code>/examples</code>.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/09/16/performance-caching-material/">Performance: Caching Material</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/09/14/lets-make-a-3D-game-map-editor/">Let&#8217;s Make a 3D Game: Map Editor</a>
       </li>
     
@@ -653,10 +673,6 @@ a web server on it, and go in <code>/examples</code>.</p>
     
       <li class="post">
         <a href="/blog/2011/08/30/window-resize-for-your-demos/">Window Resize For Your Demos</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/08/17/tweenjs-for-smooth-animation/">Tween.js for Smooth Animation</a>
       </li>
     
   </ul>
