@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Let's Make a 3D Games: Map Editor"
+title: "Let's Make a 3D Game: Map Editor"
 date: 2011-09-14 19:07
 comments: true
 categories: [tutorial3dgame, three.js]
