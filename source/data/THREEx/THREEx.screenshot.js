@@ -1,6 +1,9 @@
 /** @namespace */
 var THREEx	= THREEx 		|| {};
 
+// TODO http://29a.ch/2011/9/11/uploading-from-html5-canvas-to-imgur-data-uri
+// able to upload your screenshot without running servers
+
 // forced closure
 (function(){
 
@@ -85,6 +88,7 @@ var THREEx	= THREEx 		|| {};
 	var bindKey	= function(renderer, opts){
 		// handle parameters
 		opts		= opts		|| {};
+// FIXME this modification of opts parameters is a bug. remove it
 		opts.charCode	= opts.charCode	|| 'p'.charCodeAt(0);
 		opts.width	= opts.width	|| 640;
 		opts.height	= opts.height	|| 480;
@@ -98,6 +102,8 @@ var THREEx	= THREEx 		|| {};
 			if( event.which !== opts.charCode )	return;
 			// get the renderer output
 			var dataUrl	= this.toDataURL(renderer);
+// FIXME dont resize if not explicitly asked
+// * resize == async so if callback is a window open, it triggers the pop blocker
 			// resize it and notify the callback
 			_aspectResize(dataUrl, opts.width, opts.height, opts.callback);
 		}.bind(this);
