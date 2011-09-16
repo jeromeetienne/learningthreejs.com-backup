@@ -1,6 +1,9 @@
 /** @namespace */
 var THREEx	= THREEx 		|| {};
 
+// TODO http://29a.ch/2011/9/11/uploading-from-html5-canvas-to-imgur-data-uri
+// able to upload your screenshot without running servers
+
 // forced closure
 (function(){
 
