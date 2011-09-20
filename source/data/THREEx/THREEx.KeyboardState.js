@@ -45,9 +45,8 @@ THREEx.KeyboardState	= function()
 	this._onKeyUp	= function(event){ this._onKeyChange(event, false);}.bind(this);
 
 	// bind keyEvents
-	var element	= document.body;
-	element.addEventListener("keydown", this._onKeyDown, false);
-	element.addEventListener("keyup", this._onKeyUp, false);
+	document.addEventListener("keydown", this._onKeyDown, false);
+	document.addEventListener("keyup", this._onKeyUp, false);
 }
 
 /**
@@ -56,9 +55,8 @@ THREEx.KeyboardState	= function()
 THREEx.KeyboardState.prototype.destroy	= function()
 {
 	// unbind keyEvents
-	var element	= document.body;
-	element.removeEventListener("keydown", this._onKeyDown, false);
-	element.removeEventListener("keyup", this._onKeyUp, false);
+	document.removeEventListener("keydown", this._onKeyDown, false);
+	document.removeEventListener("keyup", this._onKeyUp, false);
 }
 
 THREEx.KeyboardState.MODIFIERS	= ['shift', 'ctrl', 'alt', 'meta'];
