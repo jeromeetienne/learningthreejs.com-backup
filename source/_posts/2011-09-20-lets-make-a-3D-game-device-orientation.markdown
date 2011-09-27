@@ -9,18 +9,18 @@ categories: [three.js, html5, tutorial3dgame]
 Here is another article of the "Let's Make a 3D Game" [series](/blog/categories/tutorial3dgame/).
 It is about **device orientation**, another input you can use for your games.
 We have already seen how to handle the [keyboard](/blog/2011/09/12/lets-Make-a-3D-game-keyboard/) input.
-Device orientation input is more instinctive tho because the user doesnt need to learn controls.
+Device orientation input is more instinctive tho. The user doesnt need to learn controls.
 It is already enabled in our game [marblesoccer](http://marblesoccer.com).
-Here is a [video](http://www.youtube.com/watch?v=P1qNnZUyoeo) of me playing with it.
+Here is a [video](http://www.youtube.com/watch?v=kW4oHaHCilo) of me playing with it.
 
 <center>
-	<iframe width="425" height="349" src="http://www.youtube.com/embed/P1qNnZUyoeo" frameborder="0" allowfullscreen></iframe>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/kW4oHaHCilo" frameborder="0" allowfullscreen></iframe>
 </center>
 
 <!-- more -->
 
-You need a computer which support WebGL *and* device orientation to play
-with it tho. Unfortunatly, macbook is the only computer i know able to do that.
+You need a computer which support WebGL *and* device orientation to actually play
+with it. Unfortunatly, macbook is the only computer i know able to do that.
 On one hand, most smartphones already support *device orientation API*.
 On the other hand, smartphones support for WebGL is sparse at best.
 So this input will become very usefull if we start supporting
@@ -31,7 +31,7 @@ available on phones, such as canvas or DOM.
 
 As usual, i did a little helper to make it easier for you to include it in
 your games. It is called [THREEx.DeviceOrientationState](/data/THREEx/THREEx.DeviceOrientationState.js).
-You download it from [here](/data/THREEx/THREEx.DeviceOrientationState.js) and include
+You download this API from [here](/data/THREEx/THREEx.DeviceOrientationState.js) and include
 it in your page like this
 
 ```html
