@@ -4,13 +4,133 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-09-16T12:11:29+02:00</updated>
+  <updated>2011-09-28T14:57:00+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Let's Make a 3D Game: Device Orientation</title>
+    <link href="http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation/"/>
+    <updated>2011-09-20T10:35:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation</id>
+    <content type="html">&lt;p&gt;Here is another article of the &quot;Let's Make a 3D Game&quot; &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;series&lt;/a&gt;.
+It is about &lt;strong&gt;device orientation&lt;/strong&gt;, another input you can use for your games.
+We have already seen how to handle the &lt;a href=&quot;http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/&quot;&gt;keyboard&lt;/a&gt; input.
+Device orientation input is more instinctive tho. The user doesnt need to learn controls.
+It is already enabled in our game &lt;a href=&quot;http://marblesoccer.com&quot;&gt;marblesoccer&lt;/a&gt;.
+Here is a &lt;a href=&quot;http://www.youtube.com/watch?v=kW4oHaHCilo&quot;&gt;video&lt;/a&gt; of me playing with it.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/kW4oHaHCilo&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;p&gt;You need a computer which support WebGL &lt;em&gt;and&lt;/em&gt; device orientation to actually play
+with it. Unfortunatly, macbook is the only computer i know able to do that.
+On one hand, most smartphones already support &lt;em&gt;device orientation API&lt;/em&gt;.
+On the other hand, smartphones support for WebGL is sparse at best.
+So this input will become very usefull if we start supporting
+&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/renderers&quot;&gt;three.js renderers&lt;/a&gt;
+available on phones, such as canvas or DOM.&lt;/p&gt;
+
+&lt;h2&gt;Let's get started&lt;/h2&gt;
+
+&lt;p&gt;As usual, i did a little helper to make it easier for you to include it in
+your games. It is called &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.DeviceOrientationState.js&quot;&gt;THREEx.DeviceOrientationState&lt;/a&gt;.
+You download this API from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.DeviceOrientationState.js&quot;&gt;here&lt;/a&gt; and include
+it in your page like this&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src='THREEx.DeviceOrientationState.js'&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;How to use it ?&lt;/h2&gt;
+
+&lt;p&gt;Now that the script is included, create a &lt;code&gt;device&lt;/code&gt; variable like this.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var device = new THREEx.DeviceOrientationState();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;After that, if you want the angle the device with the x axis, just use
+&lt;code&gt;.angleX()&lt;/code&gt; function. You can use &lt;code&gt;.angleY()&lt;/code&gt; and &lt;code&gt;.angleZ()&lt;/code&gt;, you
+guessed which angle they provide.
+Suppose you want a &lt;code&gt;THREE.Mesh&lt;/code&gt; to stay still on y axis while you are moving the device,
+just copy this line&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mesh.rotation.y = device.angleY();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;If you ever want to stop listening to the device orientation, just use this line&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;device.destroy()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;What about the standard ?&lt;/h2&gt;
+
+&lt;p&gt;Sometime it may be interesting to understand the root of things.
+Let's do a rapid introduction of the device orientation API itself.
+For authoritative details, the &lt;a href=&quot;http://www.w3.org/TR/orientation-event/&quot;&gt;spec&lt;/a&gt;
+is always a nice place.
+If you want more info on it, &lt;a href=&quot;http://www.html5rocks.com/en/tutorials/device/orientation/&quot;&gt;html5rocks&lt;/a&gt;
+or &lt;a href=&quot;https://developer.mozilla.org/en/detecting_device_orientation&quot;&gt;mdn&lt;/a&gt;
+articles are a good start.
+First let's bind the event.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;window.addEventListener('deviceorientation',  callback, false);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Here is an example of callback&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function callback(event){
+    console.log(&quot;orientation gamma:&quot;, event.gamma, &quot;beta&quot;, event.beta, &quot;alpha&quot;, event.alpha);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Be carefull tho, gamma, beta, alpha may not be set depending on the device your game is
+running on. For example on macbook, &lt;code&gt;alpha&lt;/code&gt; is always &lt;code&gt;null&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;For more details on &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.DeviceOrientationState.js&quot;&gt;THREEx.DeviceOrientationState&lt;/a&gt;,
+see its &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.DeviceOrientationState.html&quot;&gt;annoted source&lt;/a&gt;.
+It is a simple and instinctive way to control the player.
+It is closer to real-life and thus provides a more immersive experience.
+In the future we will likely do be
+a &lt;a href=&quot;http://www.youtube.com/watch?v=-sEJ4Lo0cm8&quot;&gt;virtual joystick&lt;/a&gt; for touch enabled device.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Performance: Caching Material</title>
@@ -153,7 +273,7 @@ progression which is fun. Players like fun things :)&lt;/p&gt;
 &lt;p&gt;So i searched for a way to do map for our &lt;em&gt;marble game&lt;/em&gt;.
 I wanted something &lt;strong&gt;very reusable and hackable&lt;/strong&gt;,
 something you could easily use in your own games.
-I picked &lt;a href=&quot;http://en.wikipedia.org/wiki/Voxel&quot;&gt;voxels&lt;/a&gt;
+I picked &lt;a href=&quot;http://en.wikipedia.org/wiki/Voxel&quot;&gt;voxels&lt;/a&gt;.
 The illustration from &lt;a href=&quot;http://en.wikipedia.org/wiki/File:Voxels.svg&quot;&gt;wikipedia&lt;/a&gt;
 on the right, may help understanding.
 They are easy to code, simple to understand, yet efficient and flexible.
