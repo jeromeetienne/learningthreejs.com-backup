@@ -8,16 +8,16 @@ published: true
 ---
 
 This article is about merging geometry and how it can improve performance.
-In WebGL, it is important to reduce the number of [gl](http://www.khronos.org/registry/webgl/specs/latest/) calls as much as possible.
+It is important for perfomance to reduce the number of [WebGL](http://www.khronos.org/registry/webgl/specs/latest/) calls as much as possible.
 The rules of thumbs is *the less data are exchanged between the cpu and the gpu, the better it is for performance*.
 
-Teaser time ! The [demo](/data/performance-merging-geometry/) is rendering many cubes and put them randomly in the space.
+The [demo](/data/performance-merging-geometry/) is rendering many cubes and put them randomly in the space.
 {% img left /data/performance-merging-geometry/images/demo-screenshot-2000.png 240 120 %}
 {% img right /data/performance-merging-geometry/images/demo-screenshot-120000.png 240 120 %}
 It is a simplictic way to measure the performance, but it will do for us.
-My computer is able to display 2000 cubes at 30fps if the geometries arent merged. See the screenshot on the left.
-But if the geometry are merged, it displays *120000* cubes at 30fps. See the screenshot on the right.
-Pretty obvious. This is **60 times** more cubes!!!
+If the geometries arent merged, my computer is able to display *2000* cubes at 30fps. See on the left.
+But if the geometry are merged, it displays *120000* cubes at 30fps. See on the right.
+Screenshots make it pretty obvious :) This is **60 times** more cubes!!!
 
 <!-- more -->
 
@@ -29,7 +29,7 @@ A geometry is the shape of the 3D object. three.js got already
 [cube](https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CubeGeometry.js) or
 [sphere](https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js)
 are the common ones.
-This post is about merging them, so lets do it.
+This post is about merging them, so lets do that.
 This line will merge ```otherGeometry``` into ```geometry```.
 
 ```javascript
@@ -70,6 +70,6 @@ Or you can no more remove or add a object without recomputing the whole geometry
 
 So merging geometry reduces the amount of webgl calls, so dramatically improve
 performance (x60 time in our little demo). It is simple enougth to add to your
-demos or games when they have large static geometries. Use it as much as possible.
+demos or games when they have large static geometries. So use it as much as possible.
 That's all folks. I hope it has been usefull :)
 
