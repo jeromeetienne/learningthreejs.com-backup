@@ -4,7 +4,7 @@ title: "Performance: Merging Geometry"
 date: 2011-10-05 11:29
 comments: true
 categories: [three.js, performance]
-published: false
+published: true
 ---
 
 This article is about merging geometry and how it can improve performance.
@@ -42,9 +42,10 @@ A geometry is the shape of the 3D object. three.js got already
 [CubeGeometry](https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CubeGeometry.js) or
 [Sphere](https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js)
 are the common ones.
+This post is about merging them, so lets do it.
 
 ## Now lets merge them
-This post is about merging them. The call to use is
+The call to use is ```THREE.GeometryUtils.merge```
 in [THREE.Geometry](https://github.com/mrdoob/three.js/blob/master/src/extras/GeometryUtils.js).
 This line will merge ```otherGeometry``` into ```geometry```.
 
