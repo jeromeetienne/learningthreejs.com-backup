@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 	<head>
-		<title>three.js webgl - geometry hierarchy</title>
+		<title>learningtreejs - Merging Geometry</title>
 		<meta charset="utf-8">
 		<style type="text/css">
 			body {
@@ -11,10 +11,22 @@
 				font-weight: bold;
 				overflow:hidden;
 			}
+			#info {
+				color		: #202020;
+				text-align	: center;
+				z-index		: 1;
+				position	: absolute;
+				top		: 0px;
+				width		: 100%;
+				padding		: 5px;
+			} 
+			a {
+				color		: #0080bb;
+			}
 		</style>
 	</head>
 	<body>
-
+		<div id="info"><a href="/blog/2011/10/05/performance-merging-geometry/" target="_blank">LearningThree.js</a> - Performance: Merging Geometry</div>
 		<script type="text/javascript" src="http://mrdoob.github.com/three.js/build/Three.js"></script>
 
 		<script type="text/javascript" src="http://mrdoob.github.com/three.js/examples/js/RequestAnimationFrame.js"></script>
@@ -52,11 +64,16 @@
 				var geometry = new THREE.CubeGeometry( 50, 50, 50 );
 				var material = new THREE.MeshNormalMaterial();				
 
-				group = new THREE.Object3D();
-				
-				var mergedGeo	= new THREE.Geometry();
+				var nCubes	= 50000;
+				var doMerge	= true;
 
-				for ( var i = 0; i < 200000; i ++ ) {
+				if( doMerge ){
+					var mergedGeo	= new THREE.Geometry();
+				}else{
+					group = new THREE.Object3D();					
+				}
+
+				for ( var i = 0; i < nCubes; i ++ ) {
 
 					var mesh = new THREE.Mesh( geometry, material );
 					mesh.position.x = Math.random() * 2000 - 1000;
@@ -65,15 +82,20 @@
 					mesh.rotation.x = Math.random() * 360 * ( Math.PI / 180 );
 					mesh.rotation.y = Math.random() * 360 * ( Math.PI / 180 );
 
-					mesh.matrixAutoUpdate = false;
-					mesh.updateMatrix();
-
-					//group.addChild( mesh );
-					THREE.GeometryUtils.merge(mergedGeo, mesh);
+					if( doMerge ){
+						THREE.GeometryUtils.merge(mergedGeo, mesh);						
+					}else{
+						mesh.matrixAutoUpdate = false;
+						mesh.updateMatrix();
+						group.addChild( mesh );	
+					}
 				}
-				group	= new THREE.Mesh( mergedGeo, material );
-				group.matrixAutoUpdate = false;
-				group.updateMatrix();
+				if( doMerge ){
+					mergedGeo.computeFaceNormals();
+					group	= new THREE.Mesh( mergedGeo, material );
+					group.matrixAutoUpdate = false;
+					group.updateMatrix();
+				}
 
 				scene.addObject( group );
 
