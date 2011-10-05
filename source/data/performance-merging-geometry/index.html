@@ -65,13 +65,13 @@
 					mesh.rotation.x = Math.random() * 360 * ( Math.PI / 180 );
 					mesh.rotation.y = Math.random() * 360 * ( Math.PI / 180 );
 
-					//mesh.matrixAutoUpdate = false;
-					//mesh.updateMatrix();
+					mesh.matrixAutoUpdate = false;
+					mesh.updateMatrix();
 
 					//group.addChild( mesh );
 					THREE.GeometryUtils.merge(mergedGeo, mesh);
 				}
-				group	= new THREE.Mesh( mergedGeo, new THREE.MeshFaceMaterial() );
+				group	= new THREE.Mesh( mergedGeo, material );
 				group.matrixAutoUpdate = false;
 				group.updateMatrix();
 
