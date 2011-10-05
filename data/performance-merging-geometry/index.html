@@ -21,12 +21,23 @@
 				padding		: 5px;
 			} 
 			a {
-				color		: #0080bb;
+				color		: #FF69B4;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="info"><a href="/blog/2011/10/05/performance-merging-geometry/" target="_blank">LearningThree.js</a> - Performance: Merging Geometry</div>
+		<div id="info">
+			<a href="/blog/2011/10/05/performance-merging-geometry/" target="_blank">LearningThree.js</a> - Performance: Merging Geometry
+			<br/>
+			demo:
+			<a href="./#%7B%22nCubes%22%3A2000%2C%22doMerge%22%3Afalse%7D" onclick="window.location.href=this.href;window.location.reload();">2000 not merged</a>
+			-
+			<a href="./#%7B%22nCubes%22%3A3000%2C%22doMerge%22%3Afalse%7D" onclick="window.location.href=this.href;window.location.reload();">3000 not merged</a>
+			-
+			<a href="./#%7B%22nCubes%22%3A50000%2C%22doMerge%22%3Atrue%7D" onclick="window.location.href=this.href;window.location.reload();">50000 merged</a>
+			-
+			<a href="./#%7B%22nCubes%22%3A120000%2C%22doMerge%22%3Atrue%7D" onclick="window.location.href=this.href;window.location.reload();">120000 merged</a>
+		</div>
 		<script type="text/javascript" src="http://mrdoob.github.com/three.js/build/Three.js"></script>
 
 		<script type="text/javascript" src="http://mrdoob.github.com/three.js/examples/js/RequestAnimationFrame.js"></script>
@@ -47,8 +58,22 @@
 
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
+			var urlHashJSON	= {
+				read	: function(){
+					if( !window.location.hash )	return undefined;
+					var hashStr	= window.location.hash.substring(1);
+					var options	= JSON.parse(decodeURIComponent(hashStr));
+					return options;
+				},
+				write	: function(options){
+					var hashStr	= encodeURIComponent(JSON.stringify(options));
+					window.location.hash	= '#'+hashStr;
+				}
+			}
+
 			init();
 			animate();
+			
 
 			function init() {
 
@@ -64,9 +89,16 @@
 				var geometry = new THREE.CubeGeometry( 50, 50, 50 );
 				var material = new THREE.MeshNormalMaterial();				
 
-				var nCubes	= 50000;
-				var doMerge	= true;
 
+				var options	= urlHashJSON.read()	|| {};
+				options.nCubes	= options.nCubes !== undefined	? options.nCubes	: 2000;
+				options.doMerge	= options.doMerge !== undefined	? options.doMerge	: false;
+
+				var nCubes	= options.nCubes;
+				var doMerge	= options.doMerge;
+				
+				urlHashJSON.write(options)
+				
 				if( doMerge ){
 					var mergedGeo	= new THREE.Geometry();
 				}else{
@@ -76,9 +108,9 @@
 				for ( var i = 0; i < nCubes; i ++ ) {
 
 					var mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = Math.random() * 2000 - 1000;
-					mesh.position.y = Math.random() * 2000 - 1000;
-					mesh.position.z = Math.random() * 2000 - 1000;
+					mesh.position.x = Math.random() * 3000 - 1500;
+					mesh.position.y = Math.random() * 3000 - 1500;
+					mesh.position.z = Math.random() * 3000 - 1500;
 					mesh.rotation.x = Math.random() * 360 * ( Math.PI / 180 );
 					mesh.rotation.y = Math.random() * 360 * ( Math.PI / 180 );
 

@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Learning Three.js: Lets Do a Cube</title>
+  <title>Learning Three.js: Performance: Merging Geometry</title>
   <meta name="author" content="Jerome Etienne">
   
 
@@ -16,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/"/>
+  <link rel="canonical" href="http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -98,7 +98,7 @@
   
   <header>
     
-      <h1 class="entry-title">Lets Do a Cube</h1>
+      <h1 class="entry-title">Performance: Merging Geometry</h1>
     
     
       <p class="meta">
@@ -106,7 +106,7 @@
 
 
 
-<time datetime="2011-08-06 00:00:00 +0200" pubdate  updated >Aug 6<span>th</span>, 2011</time>
+<time datetime="2011-10-05 11:29:00 +0200" pubdate  updated >Oct 5<span>th</span>, 2011</time>
 
 
 </p>
@@ -114,23 +114,67 @@
   </header>
 
 
-<div class="entry-content"><p>Here is the first lesson! I started with something real simple, a <strong>cube</strong>.
-I wasnt sure how to present the lesson, so i did
-an <a href="/data/lets_do_a_cube/docs/lets_do_a_cube.html">annotated source of the example</a>
-to get things started.
-I kept it small as possible to simplicity sake.
-It is only 70 lines of javascript for a <em>webgl simplistic demo</em>. I hope it shows that webgl
-is quite accessible.</p>
+<div class="entry-content"><p>This article is about merging geometry and how it can improve performance.
+In WebGL, it is important to reduce the <a href="http://www.khronos.org/registry/webgl/specs/latest/">gl</a>
+calls as much as possible.
+As always, the rules of thumbs is <em>the less data are exchanged between the cpu and
+the gpu, the better it is for performance</em>.</p>
 
-<p>You can see this <a href="/data/lets_do_a_cube/lets_do_a_cube.html">example live</a> or in the
-screencast below.</p>
+<p>Just as a teaser,
+the <a href="/data/performance-merging-geometry/">demo</a> is rendering random cubes, to measure the performance.
+My computer is able to display 2000 cubes at 30fps if the geometries arent merged.
+But if the geometry are merged, it displays <em>120000</em> cubes at 30fps.
+This is <strong>60 times</strong> more cubes thanks to geometry merging.
+Far from negligable!</p>
 
-<center>
-    <iframe width="425" height="349" src="http://www.youtube.com/embed/8PrXCBOllTg" frameborder="0" allowfullscreen></iframe>
-</center>
+<p><img class='' src='/data/performance-merging-geometry/images/demo-screenshot.png' width='' height='' alt='' title=''></p>
+
+<!-- more -->
 
 
+<h1>The demo</h1>
 
+<p>The <a href="/data/performance-merging-geometry/">demo</a> is directly derived from a <a href="http://mrdoob.github.com/three.js/examples/webgl_geometry_hierarchy.html">three.js example</a>.
+I just added controls to let the user play various parameters.</p>
+
+<ul>
+<li>how to merge geometry</li>
+<li>when to merge geometry</li>
+<li>why to merge geometry</li>
+<li>link with MeshFaceMaterial</li>
+</ul>
+
+
+<h2>So Let&#8217;s play with geometry</h2>
+
+<p>A geometry is the shape of the 3D object. three.js got already
+<a href="https://github.com/mrdoob/three.js/tree/master/src/extras/geometries">several predefined</a> for you.
+<a href="https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/PlaneGeometry.js">Plane</a>,
+<a href="https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CubeGeometry.js">CubeGeometry</a> or
+<a href="https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js">Sphere</a>
+are the common ones.
+This post is about merging them, so lets do it.</p>
+
+<h2>Now lets merge them</h2>
+
+<p>The call to use is <code>THREE.GeometryUtils.merge</code>
+in <a href="https://github.com/mrdoob/three.js/blob/master/src/extras/GeometryUtils.js">THREE.Geometry</a>.
+This line will merge <code>otherGeometry</code> into <code>geometry</code>.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">THREE</span><span class="p">.</span><span class="nx">GeometryUtils</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">otherGeometry</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p>In fact, it will more concatenate the 2 <code>THREE.Geometry</code> than actually merge them.
+No duplicate is removed in the process.</p>
+
+<h2>merging geometry with mesh</h2>
+
+<p>Usefull for <code>mesh.position</code></p>
+
+<p>usefull for material, <code>new THREE.MeshFaceMaterial()</code></p>
+
+<p>explain with other geometry and mesh</p>
 </div>
 
 
@@ -146,7 +190,7 @@ screencast below.</p>
 
 
 
-<time datetime="2011-08-06 00:00:00 +0200" pubdate  updated >Aug 6<span>th</span>, 2011</time>
+<time datetime="2011-10-05 11:29:00 +0200" pubdate  updated >Oct 5<span>th</span>, 2011</time>
 
 
 
@@ -154,7 +198,7 @@ screencast below.</p>
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/basic/'>basic</a>, <a class='category' href='/blog/categories/webgl/'>webgl</a>
+    <a class='category' href='/blog/categories/performance/'>performance</a>, <a class='category' href='/blog/categories/three-js/'>three.js</a>
   
 </span>
 
@@ -163,7 +207,7 @@ screencast below.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/" >Tweet</a>
   
   
   <g:plusone size="medium"></g:plusone>
@@ -179,8 +223,8 @@ screencast below.</p>
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'learningthreejs';
-  var disqus_identifier = 'http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/';
-  var disqus_url = 'http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/';
+  var disqus_identifier = 'http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/';
+  var disqus_url = 'http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
