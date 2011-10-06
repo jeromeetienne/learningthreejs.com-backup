@@ -13,13 +13,12 @@ THREEx.SkyMap.buildMesh	= function(urls, opts)
 	
 	// init the cube shadder
 	var shader	= THREE.ShaderUtils.lib["cube"];
-	shader.uniforms["tCube"].texture	= texture;
-
-	// init the material with the shadder
+	var uniforms	= THREE.UniformsUtils.clone( shader.uniforms );
+	uniforms['tCube'].texture= textureCube;
 	var material = new THREE.MeshShaderMaterial({
 		fragmentShader	: shader.fragmentShader,
 		vertexShader	: shader.vertexShader,
-		uniforms	: shader.uniforms	// should that be cloned ?
+		uniforms	: uniforms
 	});
 
 	// build the geometry

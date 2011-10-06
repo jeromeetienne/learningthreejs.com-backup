@@ -50,9 +50,13 @@ for the front on Y axis and so on.
     var textureCube = THREE.ImageUtils.loadTextureCube( urls );
 ```
 
-## Step 2: Lets init the shadder
+## Step 2: Lets init the shader
 
-Then we init the shadder for the cube. It is rather standard, dont forget to init ```tCube``` uniform
+Then we init the shader for the cube.
+A [shader](http://en.wikipedia.org/wiki/Shader) is a program which run
+directly on the graphic card. It uses a special C-like language, run
+super fast as it is massively paralelle.
+It is rather standard, dont forget to init ```tCube``` uniform
 with your textures.
 
 ``` javascript
