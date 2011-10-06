@@ -4,13 +4,93 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-10-06T13:47:04+02:00</updated>
+  <updated>2011-10-06T13:50:06+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Performance: Merging Geometry</title>
+    <link href="http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/"/>
+    <updated>2011-10-05T11:29:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry</id>
+    <content type="html">&lt;p&gt;This article is about merging geometry and how it can improve performance.
+It is important for perfomance to reduce the number of &lt;a href=&quot;http://www.khronos.org/registry/webgl/specs/latest/&quot;&gt;WebGL&lt;/a&gt; calls as much as possible.
+The rules of thumbs is &lt;em&gt;the less data are exchanged between the cpu and the gpu, the better it is for performance&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://learningthreejs.com/data/performance-merging-geometry/&quot;&gt;demo&lt;/a&gt; is rendering many cubes and put them randomly in the space.
+&lt;img class='left ' src='http://learningthreejs.com/data/performance-merging-geometry/images/demo-screenshot-2000.png' width='240' height='120' alt='' title=''&gt;
+&lt;img class='right ' src='http://learningthreejs.com/data/performance-merging-geometry/images/demo-screenshot-120000.png' width='240' height='120' alt='' title=''&gt;
+It is a simplictic way to measure the performance, but it will do for us.
+If the geometries arent merged, my computer is able to display &lt;em&gt;2000&lt;/em&gt; cubes at 30fps. See on the left.
+But if the geometry are merged, it displays &lt;em&gt;120000&lt;/em&gt; cubes at 30fps. See on the right.
+Screenshots make it pretty obvious :) This is &lt;strong&gt;60 times&lt;/strong&gt; more cubes!!!&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;So Let's Merge Geometries&lt;/h2&gt;
+
+&lt;p&gt;A geometry is the shape of the 3D object. three.js got already
+&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/extras/geometries&quot;&gt;several predefined&lt;/a&gt; for you.
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/PlaneGeometry.js&quot;&gt;plane&lt;/a&gt;,
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CubeGeometry.js&quot;&gt;cube&lt;/a&gt; or
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js&quot;&gt;sphere&lt;/a&gt;
+are the common ones.
+This post is about merging them, so lets do that.
+This line will merge &lt;code&gt;otherGeometry&lt;/code&gt; into &lt;code&gt;geometry&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREE.GeometryUtils.merge(geometry, otherGeometry);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;THREE.GeometryUtils.merge()&lt;/code&gt; is in &lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/GeometryUtils.js&quot;&gt;THREE.GeometryUtils&lt;/a&gt; with other geometry related functions.
+Btw it is more a concatenation than an actual merge them. No duplicate is removed in the process.&lt;/p&gt;
+
+&lt;h2&gt;Combo: merging geometry with mesh&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;THREE.GeometryUtils.merge()&lt;/code&gt; supports to merge geometries with meshes too.
+In this case, the function will honor the mesh position/orientation.
+As a bonus, if your mesh uses &lt;code&gt;THREE.MeshFaceMaterial&lt;/code&gt;, materials will be copied along.
+It is quite convenient when building a large geometry, or when optimising existing scenes with meshes.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var mesh = new THREE.Mesh(new THREE.CubeGeometry(10,10,10), new THREE.MeshNormalMaterial());
+mesh.position.x = 30;
+mesh.rotation.y = Math.PI/3;
+THREE.GeometryUtils.merge(geometry, mesh);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;This will merge a &lt;code&gt;THREE.CubeGeometry&lt;/code&gt; with a translation of &lt;code&gt;30&lt;/code&gt; on &lt;code&gt;x&lt;/code&gt;
+and a rotation of &lt;code&gt;Math.PI/3&lt;/code&gt; on &lt;code&gt;y&lt;/code&gt;.
+Simple enougth hey ? what about Limitations ?&lt;/p&gt;
+
+&lt;h2&gt;When to use it ?&lt;/h2&gt;
+
+&lt;p&gt;The answer is &lt;em&gt;whenever possible&lt;/em&gt; due to the performance improvement.
+The merged geometry will act as a single atomic shape.
+So it is perfect with static geometry.
+But it may not be suitable in all cases.
+For example, it won't be possible to move the merged objects independantly from each other.
+Or you can no more remove or add a object without recomputing the whole geometry.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;So merging geometry reduces the amount of webgl calls, so dramatically improve
+performance (x60 time in our little demo). It is simple enougth to add to your
+demos or games when they have large static geometries. So use it as much as possible.
+That's all folks. I hope it has been usefull :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Let's Make a 3D Game: Device Orientation</title>
