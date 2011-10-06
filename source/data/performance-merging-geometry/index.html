@@ -30,6 +30,8 @@
 			<a href="/blog/2011/10/05/performance-merging-geometry/" target="_blank">LearningThree.js</a> - Performance: Merging Geometry
 			(based on three.js <a href="http://mrdoob.github.com/three.js/examples/webgl_geometry_hierarchy.html">example</a>)
 			<br/>
+			<span id="generationMsg"></span>
+			<br/>
 			demo:
 			<a href="./#%7B%22nCubes%22%3A2000%2C%22doMerge%22%3Afalse%7D" onclick="window.location.href=this.href;window.location.reload();">2000 not merged</a>
 			-
@@ -38,9 +40,9 @@
 			<a href="./#%7B%22nCubes%22%3A50000%2C%22doMerge%22%3Atrue%7D" onclick="window.location.href=this.href;window.location.reload();">50000 merged</a>
 			-
 			<a href="./#%7B%22nCubes%22%3A120000%2C%22doMerge%22%3Atrue%7D" onclick="window.location.href=this.href;window.location.reload();">120000 merged</a>
+			
 		</div>
 		<script type="text/javascript" src="http://mrdoob.github.com/three.js/build/Three.js"></script>
-
 		<script type="text/javascript" src="http://mrdoob.github.com/three.js/examples/js/RequestAnimationFrame.js"></script>
 		<script type="text/javascript" src="http://mrdoob.github.com/three.js/examples/js/Stats.js"></script>
 
@@ -49,6 +51,8 @@
 			var container, stats;
 
 			var camera, scene, renderer;
+
+			var mergedGeo;
 
 			var geometry, group;
 
@@ -71,6 +75,48 @@
 					window.location.hash	= '#'+hashStr;
 				}
 			}
+			function generateCube(nCubes, doMerge, generated){
+				var geometry 	= new THREE.CubeGeometry( 50, 50, 50 );
+				var material 	= new THREE.MeshNormalMaterial();
+
+				document.getElementById("generationMsg").innerHTML	= (nCubes-generated)+ " cubes to generate";
+
+				for ( var i = 0; i < 1000 && nCubes > generated; i++, generated++ ) {
+
+					var mesh = new THREE.Mesh( geometry, material );
+					mesh.position.x = Math.random() * 3000 - 1500;
+					mesh.position.y = Math.random() * 3000 - 1500;
+					mesh.position.z = Math.random() * 3000 - 1500;
+					mesh.rotation.x = Math.random() * 360 * ( Math.PI / 180 );
+					mesh.rotation.y = Math.random() * 360 * ( Math.PI / 180 );
+					
+					if( doMerge ){
+						THREE.GeometryUtils.merge(mergedGeo, mesh);						
+					}else{
+						mesh.matrixAutoUpdate = false;
+						mesh.updateMatrix();
+						group.addChild( mesh );	
+					}
+				
+				}
+				if( nCubes !== generated){
+					setTimeout(function(){	generateCube(nCubes, doMerge, generated);	}, 0)
+					
+				}
+
+				if( nCubes === generated ){
+					document.getElementById("generationMsg").innerHTML	= generated+ " cubes generated";
+
+					if( doMerge ){
+						mergedGeo.computeFaceNormals();
+						group	= new THREE.Mesh( mergedGeo, material );
+						group.matrixAutoUpdate = false;
+						group.updateMatrix();
+					}
+	
+					scene.addObject( group );					
+				}
+			}
 
 			init();
 			animate();
@@ -87,10 +133,6 @@
 				scene = new THREE.Scene();
 				scene.fog = new THREE.Fog( 0xffffff, 1, 10000 );
 
-				var geometry = new THREE.CubeGeometry( 50, 50, 50 );
-				var material = new THREE.MeshNormalMaterial();				
-
-
 				var options	= urlHashJSON.read()	|| {};
 				options.nCubes	= options.nCubes !== undefined	? options.nCubes	: 2000;
 				options.doMerge	= options.doMerge !== undefined	? options.doMerge	: false;
@@ -100,37 +142,9 @@
 				
 				urlHashJSON.write(options)
 				
-				if( doMerge ){
-					var mergedGeo	= new THREE.Geometry();
-				}else{
-					group = new THREE.Object3D();					
-				}
-
-				for ( var i = 0; i < nCubes; i ++ ) {
-
-					var mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = Math.random() * 3000 - 1500;
-					mesh.position.y = Math.random() * 3000 - 1500;
-					mesh.position.z = Math.random() * 3000 - 1500;
-					mesh.rotation.x = Math.random() * 360 * ( Math.PI / 180 );
-					mesh.rotation.y = Math.random() * 360 * ( Math.PI / 180 );
-
-					if( doMerge ){
-						THREE.GeometryUtils.merge(mergedGeo, mesh);						
-					}else{
-						mesh.matrixAutoUpdate = false;
-						mesh.updateMatrix();
-						group.addChild( mesh );	
-					}
-				}
-				if( doMerge ){
-					mergedGeo.computeFaceNormals();
-					group	= new THREE.Mesh( mergedGeo, material );
-					group.matrixAutoUpdate = false;
-					group.updateMatrix();
-				}
-
-				scene.addObject( group );
+				group 		= new THREE.Object3D();					
+				mergedGeo	= new THREE.Geometry();
+				setTimeout(function(){	generateCube(nCubes, doMerge, 0);	}, 0)
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
