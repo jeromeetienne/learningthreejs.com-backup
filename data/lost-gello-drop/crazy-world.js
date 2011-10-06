@@ -1,6 +1,6 @@
 // This source is the javascript needed to build a simple moving
 // mesh in **three.js** based on this
-// [example](https://raw.github.com/mrdoob/three.js/master/examples/canvas_geometry_mesh.html)
+// [example](https://raw.github.com/mrdoob/three.js/r44/examples/canvas_geometry_mesh.html)
 // It is the source about this [blog post](/blog/2011/08/06/lets-do-a-cube/).
 
 // ## Now lets start
