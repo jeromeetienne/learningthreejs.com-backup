@@ -37,11 +37,12 @@ function init() {
 	
 	// init the cube shadder
 	var shader	= THREE.ShaderUtils.lib["cube"];
-	shader.uniforms["tCube"].texture = textureCube;
+	var uniforms	= THREE.UniformsUtils.clone( shader.uniforms );
+	uniforms['tCube'].texture= textureCube;
 	var material = new THREE.MeshShaderMaterial({
 		fragmentShader	: shader.fragmentShader,
 		vertexShader	: shader.vertexShader,
-		uniforms	: shader.uniforms
+		uniforms	: uniforms
 	});
 
 	// build the skybox Mesh
