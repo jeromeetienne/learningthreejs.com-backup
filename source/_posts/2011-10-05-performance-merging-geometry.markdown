@@ -4,7 +4,7 @@ title: "Performance: Merging Geometry"
 date: 2011-10-05 11:29
 comments: true
 categories: [three.js, performance]
-published: true
+published: false
 ---
 
 This article is about merging geometry and how it can improve performance.
