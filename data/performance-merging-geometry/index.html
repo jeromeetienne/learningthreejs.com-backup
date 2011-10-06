@@ -78,12 +78,15 @@
 			function generateCube(nCubes, doMerge, generated){
 				var geometry 	= new THREE.CubeGeometry( 50, 50, 50 );
 				var material 	= new THREE.MeshNormalMaterial();
+				var mesh	= new THREE.Mesh( geometry, material );
 
 				document.getElementById("generationMsg").innerHTML	= (nCubes-generated)+ " cubes to generate";
 
 				for ( var i = 0; i < 1000 && nCubes > generated; i++, generated++ ) {
 
-					var mesh = new THREE.Mesh( geometry, material );
+					if( !doMerge ){
+						mesh	= new THREE.Mesh( geometry, material );
+					}
 					mesh.position.x = Math.random() * 3000 - 1500;
 					mesh.position.y = Math.random() * 3000 - 1500;
 					mesh.position.z = Math.random() * 3000 - 1500;
@@ -91,7 +94,7 @@
 					mesh.rotation.y = Math.random() * 360 * ( Math.PI / 180 );
 					
 					if( doMerge ){
-						THREE.GeometryUtils.merge(mergedGeo, mesh);						
+						THREE.GeometryUtils.merge(mergedGeo, mesh);
 					}else{
 						mesh.matrixAutoUpdate = false;
 						mesh.updateMatrix();
