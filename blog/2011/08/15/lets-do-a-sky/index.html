@@ -181,12 +181,12 @@ with your textures.</p>
 <span class='line'>7</span>
 <span class='line'>8</span>
 </pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">shader</span> <span class="o">=</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">ShaderUtils</span><span class="p">.</span><span class="nx">lib</span><span class="p">[</span><span class="s2">&quot;cube&quot;</span><span class="p">];</span>
-</div><div class='line'><span class="kd">var</span> <span class="nx">uniforms</span>    <span class="o">=</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">UniformsUtils</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">uniforms</span> <span class="p">);</span>
+</div><div class='line'><span class="kd">var</span> <span class="nx">uniforms</span> <span class="o">=</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">UniformsUtils</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">uniforms</span> <span class="p">);</span>
 </div><div class='line'><span class="nx">uniforms</span><span class="p">[</span><span class="s1">&#39;tCube&#39;</span><span class="p">].</span><span class="nx">texture</span><span class="o">=</span> <span class="nx">textureCube</span><span class="p">;</span> <span class="c1">// textureCube has been init before</span>
 </div><div class='line'><span class="kd">var</span> <span class="nx">material</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshShaderMaterial</span><span class="p">({</span>
 </div><div class='line'>    <span class="nx">fragmentShader</span>  <span class="o">:</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">fragmentShader</span><span class="p">,</span>
 </div><div class='line'>    <span class="nx">vertexShader</span>    <span class="o">:</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">vertexShader</span><span class="p">,</span>
-</div><div class='line'><span class="nx">uniforms</span>    <span class="o">:</span> <span class="nx">uniforms</span>
+</div><div class='line'>    <span class="nx">uniforms</span>    <span class="o">:</span> <span class="nx">uniforms</span>
 </div><div class='line'><span class="p">});</span>
 </div></code></pre></td></tr></table></div>
 

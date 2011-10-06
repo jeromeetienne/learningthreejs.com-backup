@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-10-06T14:35:38+02:00</updated>
+  <updated>2011-10-06T20:55:50+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -865,12 +865,12 @@ with your textures.&lt;/p&gt;
 &lt;p&gt;``` javascript&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var shader = THREE.ShaderUtils.lib[&quot;cube&quot;];
-var uniforms    = THREE.UniformsUtils.clone( shader.uniforms );
+var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
 uniforms['tCube'].texture= textureCube; // textureCube has been init before
 var material = new THREE.MeshShaderMaterial({
     fragmentShader  : shader.fragmentShader,
     vertexShader    : shader.vertexShader,
-uniforms    : uniforms
+    uniforms    : uniforms
 });
 &lt;/code&gt;&lt;/pre&gt;
 
