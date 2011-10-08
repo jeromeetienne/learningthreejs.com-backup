@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>My first Three.js</title>
+<style type="text/css">
+	/*Make sure there is no whitespace around our container element*/
+	body,html{margin:0;padding:0;}
+	/*If there is any more content than what would fit in the viewport, hide it. So no scrollbars.*/
+	body{overflow:hidden;}
+	/*Center the text in our h2 element*/
+	h2{text-align:center;}
+</style>
+
+</head>
+
+<body>
+<div id="container">
+    <br /><br /><br /><br /><br />
+    <h2>LOADING...</h2>
+</div>
+
+<script type="text/javascript" src="js/Three.js"></script>
+<script type="text/javascript" src="js/Detector.js"></script>
+<script type="text/javascript" src="js/RequestAnimationFrame.js"></script>
+<script type="text/javascript" src="js/Stats.js"></script>
+
+<script type="text/javascript">
+	//==Best practice: setup the needed variables, these are global variables. 
+	//So they are also attached to the window object. E.g. window.container would work as well.
+	//More info: http://snook.ca/archives/javascript/global_variable
+	var container, renderer, stats, scene, camera, controls;
+	//Set up the desired width and height of the render size. Declaring it improves javascript performance by caching it. 
+	//It's also declared as a global variable, so it can be changed anywhere in the code. E.g. on window resize.
+	//==Best practice: CAPITALS are used to indicate it being a global variable.
+	var RENDERWIDTH = window.innerWidth;
+	var RENDERHEIGHT = window.innerHeight;
+	//Provide var to store independent WebGL check result. So it will also work if you decide to use something else but Detector.js
+	var WebGLSupported = Detector.webgl;
+	
+	//Fetch the div with id="container" (DOM element) and cache it.
+	container = document.getElementById( 'container' );
+	
+	//Detect if WebGL is supported
+	if ( ! Detector.webgl ) {
+		//WebGL is not supported, output what is causing the issue and where to get more info:
+		Detector.addGetWebGLMessage();
+		//Empty the container E.g. Remove the LOADING...
+		container.innerHTML = "";
+	}
+	
+	//Make sure to call the init() function to run it once at start up
+	init();
+	//Start the whole animation/looping of renders to make it update the renderer.
+	animate();
+	
+	//==Best practice: setup a function to be called only once on start up
+	function init(){
+		//Set up the renderer. If WebGL is supported use the most advanced renderer, otherwise use the basic canvas renderer.
+		renderer = WebGLSupported ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer();
+		//Set up a "screen resolution" for the renderer. In other words what size to render to. In this case use browser viewport width and height.
+		renderer.setSize( RENDERWIDTH, RENDERHEIGHT );
+		
+		//Empty the container E.g. Remove the LOADING...
+		container.innerHTML = "";
+		//Attach the renderer to the container
+		container.appendChild( renderer.domElement );
+		
+		//Initialise the Stats object
+		stats = new Stats();
+		//Apply CSS styling using JavaScript
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.top = '0px';
+		//Adds the stats to the container
+		container.appendChild( stats.domElement );
+		
+		//Create a scene
+		scene = new THREE.Scene();
+		
+		//Create a camera
+			//new THREE.PerspectiveCamera(fov,aspect ration, near, far);
+			//Set field of view. Higher number is wider view, but more destortion.
+			//The approximate field of view of a human eye is 95° out, 75° down, 60° in, 60° up.
+			//Source: http://en.wikipedia.org/wiki/Human_eye#Field_of_view
+			//Aspect ratio of the camera. Dynamically calculated based on width divided by height.
+			//More info: http://en.wikipedia.org/wiki/Digital_photography#A_comparison_of_frame_aspect_ratios
+			//Camera will only show objects in the viewing frustum. 
+			//More info: http://en.wikipedia.org/wiki/Viewing_frustum
+			//Anything nearer to the camera than this will not be shown.
+			//Anything further away from the camera than this will not be shown.
+			//https://github.com/mrdoob/three.js/blob/master/src/cameras/PerspectiveCamera.js
+		camera = new THREE.PerspectiveCamera( 75, RENDERWIDTH / RENDERHEIGHT, 1, 20000 );
+		
+		// Position the camera (x,y,z)
+		camera.position.set( -400, 10, 200 );
+		
+		//Controlling the camera
+		//Bind to controls to camera object
+		controls = new THREE.FirstPersonControls( camera );
+		//Set speed to move forward with
+		controls.movementSpeed = 1000;
+		//Set speed to look around with
+		controls.lookSpeed = 0.125;
+		//Can we look vertical (up/down) with this camera
+		controls.lookVertical = true;
+		//Do we want to limit the vertical movement
+		controls.constrainVertical = false;
+				
+		//Adding geometry
+		//Create the geometry of a plane (width, height, segmentsWidth, segmentsHeight)
+		//https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/PlaneGeometry.js
+		var planeGeo = new THREE.PlaneGeometry(800, 800);
+		//Create the material for the plane
+		//Check if we are using WebGL or basic canvas and use the best when possible.
+		var materialClass = WebGLSupported ? THREE.MeshLambertMaterial : THREE.MeshBasicMaterial;
+		//Create a red color material (0x + RRGGBB) where R = hexadecimal red value, G = hexadecimal green value, B = hexadecimal blue value
+		var colorRed =  new materialClass( { color: 0xFF0000 } );
+		//Actually create the geometry of a plane with the specified material
+		var plane = new THREE.Mesh(planeGeo, colorRed);
+		//We can rotate the plane
+		plane.rotation.x = -Math.PI/2;
+		//We can set a position(x,y,z)
+		plane.position.set(0,0,0);
+		//We need to place it in a scene
+		scene.add(plane);		
+		
+		//Create the geometry of a sphere (radius, segmentsWidth, segmentsHeight)
+		//https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js
+		var sphere =  new THREE.Mesh( new THREE.SphereGeometry( 50, 16, 16), new THREE.MeshLambertMaterial({color: 0xCC0000}) );
+		sphere.position.set(0,0,0);
+		scene.add( sphere );
+		
+		//Create the geometry of a cube (width, height, depth, segmentsWidth, segmentsHeight, segmentsDepth, materials, sides)
+		//https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CubeGeometry.js
+		var cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200), new THREE.MeshBasicMaterial( { color: 0xe0e0e0 } ));
+		cube.position.set(0,0,400);
+		scene.add( cube );
+	}
+	
+	function render(){
+		//Update the controls
+		controls.update();
+		//Make the renderer render the specified scene and camera and outputs it to the placeholder DOM element.
+		//To render a different scene or camera, just pass the right object as the parameters.
+		//For now we only have 1 scene called "scene" and only 1 camera called "camera".
+		renderer.render( scene, camera );
+	}
+	function animate(){
+		//Requests for animating a frame, calling the animate function again and thus going into a loop.
+		//More info: http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+		requestAnimationFrame( animate );
+
+		//Call the render() function and thus rendering the scene.
+		render();
+		//Update the stats to show the FPS.
+		stats.update();
+	}
+</script>
+</body>
+</html>

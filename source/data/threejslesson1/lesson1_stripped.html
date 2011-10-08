@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>My first Three.js</title>
+<style type="text/css">
+	body,html{margin:0;padding:0;}
+	body{overflow:hidden;}
+	h2{text-align:center;}
+</style>
+
+</head>
+
+<body>
+<div id="container">
+    <br /><br /><br /><br /><br />
+    <h2>LOADING...</h2>
+</div>
+
+<script type="text/javascript" src="js/Three.js"></script>
+<script type="text/javascript" src="js/Detector.js"></script>
+<script type="text/javascript" src="js/RequestAnimationFrame.js"></script>
+<script type="text/javascript" src="js/Stats.js"></script>
+
+<script type="text/javascript">
+	var container, renderer, stats, scene, camera, controls;
+	var RENDERWIDTH = window.innerWidth;
+	var RENDERHEIGHT = window.innerHeight;
+	var WebGLSupported = Detector.webgl;
+	
+	container = document.getElementById( 'container' );
+	
+	if ( ! Detector.webgl ) {
+		Detector.addGetWebGLMessage();
+		container.innerHTML = "";
+	}
+	
+	init();
+	animate();
+	
+	function init(){
+		renderer = WebGLSupported ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer();
+		renderer.setSize( RENDERWIDTH, RENDERHEIGHT );
+		
+		container.innerHTML = "";
+		container.appendChild( renderer.domElement );
+		
+		stats = new Stats();
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.top = '0px';
+		container.appendChild( stats.domElement );
+		
+		//Create a scene
+		scene = new THREE.Scene();
+		
+		//Create a camera
+		camera = new THREE.PerspectiveCamera( 75, RENDERWIDTH / RENDERHEIGHT, 1, 20000 );
+		camera.position.set( -400, 10, 200 );
+		
+		//Controlling the camera
+		controls = new THREE.FirstPersonControls( camera );
+		controls.movementSpeed = 1000;
+		controls.lookSpeed = 0.125;
+		controls.lookVertical = true;
+		controls.constrainVertical = false;
+				
+		//Adding geometry
+		var planeGeo = new THREE.PlaneGeometry(800, 800);
+		var materialClass = WebGLSupported ? THREE.MeshLambertMaterial : THREE.MeshBasicMaterial;
+		var colorRed =  new materialClass( { color: 0xFF0000 } );
+		var plane = new THREE.Mesh(planeGeo, colorRed);
+		plane.rotation.x = -Math.PI/2;
+		plane.position.set(0,0,0);
+		scene.add(plane);		
+		
+		var sphere =  new THREE.Mesh( new THREE.SphereGeometry( 50, 16, 16), new THREE.MeshLambertMaterial({color: 0xCC0000}) );
+		sphere.position.set(0,0,0);
+		scene.add( sphere );
+		
+		var cube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200), new THREE.MeshBasicMaterial( { color: 0xe0e0e0 } ));
+		cube.position.set(0,0,400);
+		scene.add( cube );
+	}
+	
+	function render(){
+		controls.update();
+		renderer.render( scene, camera );
+	}
+	function animate(){
+		requestAnimationFrame( animate );
+
+		render();
+		stats.update();
+	}
+</script>
+</body>
+</html>
