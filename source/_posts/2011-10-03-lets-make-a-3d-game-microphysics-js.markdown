@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Lets Make a 3D Game: microphysics.js"
-published: false
+published: true
 date: 2011-10-03 12:36
 comments: true
 categories: [physics, tutorial3dgame]
@@ -114,11 +114,18 @@ After a step, you can read the new position of each body.
 
 * **HERE** you put the doc in THREEx docco header
 
+# Initialisation
+
 You instanciate the physics engine, like that.
 
 ```javascript
-	var microphysics	= new THREEx.Microphysics();
+	var microphysics	= new THREEx.Microphysics(opts);
 ```
+
+```opts``` is optional.
+```opts.timeStep``` controls the frequency of the world update.
+The smaller it is the more accurate is the physics but the longer it is to compute.
+It defaults to ```1/60```.
 
 Then you start it
 
@@ -126,11 +133,17 @@ Then you start it
 	microphysics.start();
 ```
 
+# Binding THREE.Mesh to microphysics.js
+
 Of course we need to add some mesh in the world. After this line, the ```mesh```
 position is driven by the physics.
 
 ```javascript
-	microphysics.addMesh(mesh);
+	microphysics.bindMesh(mesh);
+```
+
+```javascript
+	microphysics.unbindMesh(mesh);
 ```
 
 In your render loop, add this line. It will first update the physics world and
@@ -140,8 +153,9 @@ then move accordingly any ```THREE.Mesh``` you added.
 	microphysics.update(scene);	
 ```
 
-If you need to have direct access to microphysics.js,
-, do the following to get the body from a ```mesh```
+# Needs a Direct Access ?
+
+If you need to have direct access to microphysics.js, this will give your the body bound to a ```mesh```.
 
 ```javascript
 	mesh._vphyBody;	// the microphysics.js body
