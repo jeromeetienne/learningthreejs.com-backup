@@ -61,11 +61,12 @@ with your textures.
 
 ``` javascript
     var shader = THREE.ShaderUtils.lib["cube"];
-    shader.uniforms["tCube"].texture = textureCube; // textureCube has been init before
+    var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
+    uniforms['tCube'].texture= textureCube;	// textureCube has been init before
     var material = new THREE.MeshShaderMaterial({
-        fragmentShader  : shader.fragmentShader,
-        vertexShader    : shader.vertexShader,
-        uniforms        : shader.uniforms
+        fragmentShader	: shader.fragmentShader,
+        vertexShader	: shader.vertexShader,
+        uniforms	: uniforms
     });
 ```
 
