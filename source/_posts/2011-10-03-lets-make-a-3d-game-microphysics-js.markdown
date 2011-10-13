@@ -18,76 +18,120 @@ Well no, it is hard, long and im lazy :)
 
 ### Use an existing one ?
 i tried some and left unimpressed. All those are new experimental stuff.
-Documentation is inexistant. They are issued from existing libraries in other languages, sometime
-multiple conversions in a row. I experienced major bugs when i tried. were that bugs ? or was it me
-miusing it ? quite possible as the doc is inexistant.
-i didnt feel it would be a reliable dependancy for our game.
+Documentation is inexistant.
+They are issued from existing libraries in other languages and convert them to js, sometime multiple conversions in a row.
+I experienced major bugs when i tried. Were those bugs ? Was it me misusing it ?
+Quite possible as the doc is inexistant.
+All in all, i didnt feel it would be a reliable dependancy for our game.
 
 ### Ask somebody else to do it ?
-We got a winner !!! [@pyalot](http://twitter.com/#!/pyalot) from [codeflow.org](http://codeflow.org/)
-did one taylor made for us. It is called *microphysics.js*.
-less than 500 lines at the moment.
-bite-sized, eleguant, efficient, small engouth to be understood.
-Currently it implements moving spheres and static
-boxes (or [AABB](http://en.wikipedia.org/wiki/Axis-aligned_bounding_box) as we like to say).
-Aka all we need for [marblesoccer](http://marblesoccer.com), the good thing about tailor-made.
-We are in business.
+We got a **winner!**
+[@pyalot](http://twitter.com/#!/pyalot) from [codeflow.org](http://codeflow.org/) did one taylor-made for us: **microphysics.js**!!
+
+It is bite-sized, eleguant and efficient.
+Less than 500 lines at the moment!!
+It is small engouth to be understood which is important for a tutorial blog.
+Currently it implements moving spheres and static boxes (or [AABB](http://en.wikipedia.org/wiki/Axis-aligned_bounding_box) as we like to say).
+All we need for [marblesoccer](http://marblesoccer.com), the good thing about tailor-made.
+We are in business!
+So lets see how to use it.
 
 
+# Microphysics.js
 
-## Microphysics.js
+First step, you download it [here](https://raw.github.com/jeromeetienne/microphysics.js/master/codeflow/physics.js).
+Then include it in your own code with this line.
 
-* what is a body
+```html
+    <script src="physics.js"></script>
+```
 
-* what is a Sphere.. a ball
-* a AABB in general
+Then you instanciate the physics ```world``` like this.
 
 ```javascript
 	var world = new vphy.World()
 ```
 
+Now you start it. Dont forget to give it the date as you see it.
+
 ```javascript
 	world.start(Date.now()/1000);
 ```
 
-```javascript
-	var timeStep	= 1/60;
-	world.step(timePrecision, Date.now()/1000);
-```
-
-# Bodies
+The ```world``` is now fully initialized.
+You just have to periodically update it in your game/render loop.
 
 ```javascript
-	var body	= new vphy.body({
-		x : 1,
-		y : 20,
-		z : 99,
-		restitution	: 0.6
-	});
+	var timeStep	= 1/180;
+	world.step(timeStep, Date.now()/1000);
 ```
 
-```javascript
-	var body = new vphy.AABB({
-		width	: 1,
-		height	: 1,
-		depth	: 1
-	});
-```
+The ```timeStep``` parameter is the precision of the physics engine, expressed in seconds.
+Quite a subtle tradeoff.
+The smaller it is, the more accurate is the physics, but the slower it is to compute.
+Up to you to find the balance that fit your needs.
+
+## Bodies
+
+A [body](http://en.wikipedia.org/wiki/Rigid_body) is a solid object that you put in your world.
+microphysics bodies can be spheres or static boxes.
+Lets start right away by creating a sphere. 
 
 ```javascript
 	var sphere	= new vphy.Sphere({
-		radius		: 20,
+		x : 10,
+		y : 10,
+		z : 10,
+		restitution	: 0.6,
+		radius : 5,
 	});
 ```
 
+This will position it at ```(10,10,10)``` in the world.
+[restitution](http://en.wikipedia.org/wiki/Coefficient_of_restitution) will determine how
+bouncy is this during a collision.
+A [bouncing ball](http://www.youtube.com/watch?v=2Bb8P7dfjVw) restitute a lot.
+A [falling eggs](http://www.youtube.com/watch?feature=player_detailpage&v=ehVQM0I0PSU#t=131s) restutites less :)
+This declaration seems quite verbose at first.
+Don't worry those parameters got sensible defaults, no need to specify them all.
 
-After a step, you can read the new position of each body.
+Now lets add it to our world
+
+```javascript
+    world.add(sphere);
+```
+
+If you need to remove it, just do ```world.remove(sphere)```. Not too hard hey ?
+Now lets create a static box.
+Boxes are called *AABB*.
+It stands for [Axis-aligned bounding box](http://en.wikipedia.org/wiki/Axis-aligned_bounding_box).
+It is graphic jarguon for the smallest box containing your object.
+```x, y, z, resitution``` are valid for all bodies, sphere or AABB.
+So we wont review them again.
+
+```javascript
+    var body = new vphy.AABB({
+        width : 1,
+        height: 1,
+        depth : 1
+    });
+```
+
+```width```, ```height``` and ```depth``` gives the dimensions of the box.
+After ```world.step()```, you can read the new position of each body. Quite usefull
+to push back the resulting physics in your 3D scene :)
 
 ```javascript
 	var pos	= body.getPosition();	// x = pos[0], y = pos[1], z = pos[2]
 ```
 
+Ok, so we got a ```world``` with solid objects in it, all bound to [physics laws](http://en.wikipedia.org/wiki/Physical_law).
+Now what about moving them ?
+This is done by applying [forces](http://en.wikipedia.org/wiki/Force) to them.
+
 # Attractors
+
+* TODO what is an attractor
 
 how to push gravity
 
@@ -114,6 +158,10 @@ how to make a custom attractor, for example you want to make a sphere move with 
 	});
 ```
 
+## Conclusion
+
+
+
 
 ## Notes on Box2D
 Box2D is an excelent 2D physics engine.
@@ -123,13 +171,13 @@ Box2D is an excelent 2D physics engine.
 [of](http://blog.sethladd.com/2011/09/box2d-with-complex-and-concave-objects.html)
 [good](http://blog.sethladd.com/2011/09/box2d-and-polygons-for-javascript.html)
 [things](http://blog.sethladd.com/2011/09/box2d-web-workers-better-performance.html)
-to explain box2D.
+to explain box2D. Ok, box2D is a converted one but it of very good quality.
 
-Ok, box2D is a converted one but it works excelently.
-So why not using box2D ? it is of very good quality. Well because it is
-2D and we do 3D :) It would be such a tough limitation.
+So why not using box2D ?
+Well because it is 2D  and we do 3D.
+What an insight, hey :)
+It would be such a tough limitation.
 This webgl + box2D strategy can produce excelent stuff tho, like this
-[game demo](http://game.2x.io/) from [@einaros](http://twitter.com/#!/einaros).
-look very closely the physics when object
-move, it is amazingly realistic, it is all box2D.
+[game demo](http://game.2x.io/) from [@einaros](http://twitter.com/#!/einaros) .
+Take a close look at the physics when object move, it is amazingly realistic, it is all box2D.
 
