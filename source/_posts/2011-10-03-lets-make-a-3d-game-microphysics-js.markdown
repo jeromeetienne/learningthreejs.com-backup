@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Lets Make a 3D Game: microphysics.js"
-published: true
+published: false
 date: 2011-10-03 12:36
 comments: true
 categories: [physics, tutorial3dgame]
@@ -214,10 +214,13 @@ It would be such a tough limitation.
 This webgl + box2D strategy can produce excelent results tho, like this
 [game demo](http://game.2x.io/) from [@einaros](http://twitter.com/#!/einaros).
 Take a close look at the physics when object move, it is amazingly
-realistic and& it is all box2D.
+realistic and it is all box2D.
 * **Ask somebody else to do it ? **
 We got a *winner!* [@pyalot](http://twitter.com/#!/pyalot) from [codeflow.org](http://codeflow.org/) 
 
+
+## Credits
+All images are from [wikipedia](http://en.wikipedia.org). All hard work is from [@pyalot](http://twitter.com/#!/pyalot)
 
 ## Conclusion
 
@@ -225,10 +228,7 @@ This is the first post about physics.
 It presented microphysics.js API.
 Thus you can start playing with it immediatly.
 More posts will come shortly.
-At least, one about performance
-and
-another one on how to easily bind microphysics to your three.js game.
-That’s all folks. Have fun with microphysics.js :)
-
-
+At least, one about performance and another one on how to easily bind microphysics to your three.js game.
+That's all folks.
+Have fun with microphysics.js :)
 
