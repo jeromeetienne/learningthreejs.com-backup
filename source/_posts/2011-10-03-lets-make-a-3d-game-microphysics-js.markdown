@@ -7,32 +7,30 @@ comments: true
 categories: [physics, tutorial3dgame]
 ---
 
-This post is about physics.
+This post is part of the ["Lets make a 3D game"](/blog/categories/tutorial3dgame/) series.
+3D and physics simulation always go well together
+[even](http://www.youtube.com/watch?v=Rd7TyU9RdQk)
+[more](http://www.youtube.com/watch?v=o_xr8Htj9GI)
+[so](http://www.youtube.com/watch?v=Xfrzi-yVcsM)
+[with](http://www.youtube.com/watch?v=uvCbc8vFUMo)
+[marble](http://www.youtube.com/watch?v=7lBUBBW_sF0)
+[games](http://www.youtube.com/watch?v=c7npJ3E-ydA).
+One is required for [marblesoccer](http://marblesoccer.com) but i wasnt
+convinced by current 3d physics engines. I explain why at the end.
+Fortuntaly, [@pyalot](http://twitter.com/#!/pyalot) from [codeflow.org](http://codeflow.org/)
+has been kind enougth to write one taylor-made for us: **microphysics.js**!!
 
-3D and physics
-together
-
-# TODO
-* add images
-  * stuff from space
-* the playground isnt ready
-  * publish article without it ?
-  * only a small demo 
-
-[@pyalot](http://twitter.com/#!/pyalot) from [codeflow.org](http://codeflow.org/) did one taylor-made for us: **microphysics.js**!!
+{% img right /data/lets-make-a-3d-game-microphysics-js/images/200px-Freebodydiagram3_pn.svg.png %}
 
 It is bite-sized, eleguant and efficient.
 Less than 500 lines at the moment!!
-It is small engouth to be understood which is important for a tutorial blog.
-Currently it implements moving spheres and static boxes (or [AABB](http://en.wikipedia.org/wiki/Axis-aligned_bounding_box) as we like to say).
-All we need for [marblesoccer](http://marblesoccer.com), the good thing about tailor-made.
-We are in business!
-
-It is quite experimental tho.
-Not that it is buggy.
+It is small engouth to be understood, important feature for a tutorial blog.
+It is a work in progress tho.
 We aren't aware of any bugs.
-But the API is expected to move.
-features will be added.
+New features will be added and the API is expected to move.
+Currently it implements moving spheres and static boxes (or [AABB](http://en.wikipedia.org/wiki/Axis-aligned_bounding_box) as we like to say).
+This is all we need for [marblesoccer](http://marblesoccer.com), the good thing about tailor-made.
+*We are in business!!!*
 
 ## Let's get started
 
@@ -43,6 +41,8 @@ Then include it in your own code with this line.
 ```html
     <script src="physics.js"></script>
 ```
+
+<!-- more -->
 
 ## Let's Create a World
 
@@ -79,7 +79,7 @@ Up to you to find the balance that fit your needs.
 
 {% img left /data/lets-make-a-3d-game-microphysics-js/images/The_shining_heres_johnny.jpg %}
 
-Don't worry, this is not about kill people and dispose of their dead bodies :)
+Don't worry, this is not about killing people and dispose of their dead bodies :)
 In physics, A [body](http://en.wikipedia.org/wiki/Rigid_body) is a solid object that you put in your world.
 microphysics bodies can be spheres or static boxes.
 Lets start right away by creating a sphere. 
@@ -183,46 +183,52 @@ It accesses ```player``` via
 [closure](https://developer.mozilla.org/en/JavaScript/Guide/Closures)
 , read current keyboard state and accelerate in the proper direction.
 
-## Conclusion
-
-
-
 ## Motivation
 
-The need for physics is clear from [marblesoccer](http://marblesoccer.com).
-All those marbles must move and react together in a instinctive way.
+The need for 3D physics is clear for [marblesoccer](http://marblesoccer.com).
+Marble in physics are fun, generic and instinctive for the player.
 Ok so how to get a 3D physics engine ?
 
-### Do it yourself?
+* **Do it yourself ? **
 Well no, it is hard, long and im lazy :)
-
-### Use an existing one ?
+* **Use an existing one ? **
 i tried some and left unimpressed. All those are new experimental stuff.
 Documentation is inexistant.
 They are issued from existing libraries in other languages and convert them to js, sometime multiple conversions in a row.
 I experienced major bugs when i tried. Were those bugs ? Was it me misusing it ?
 Quite possible as the doc is inexistant.
 All in all, i didnt feel it would be a reliable dependancy for our game.
-
-### Ask somebody else to do it ?
-We got a **winner!**
-[@pyalot](http://twitter.com/#!/pyalot) from [codeflow.org](http://codeflow.org/) did one taylor-made for us: **microphysics.js**!!
-
-## Notes on Box2D
-Box2D is an excelent 2D physics engine.
+* **Used a 2D one, like Box2D ? **
+Box2D is kind of special.
 [Seth Ladd](http://blog.sethladd.com/) recently did
 [a](http://blog.sethladd.com/2011/09/box2d-collision-damage-for-javascript.html)
 [lot](http://blog.sethladd.com/2011/09/box2d-impulse-and-javascript.html)
 [of](http://blog.sethladd.com/2011/09/box2d-with-complex-and-concave-objects.html)
 [good](http://blog.sethladd.com/2011/09/box2d-and-polygons-for-javascript.html)
 [things](http://blog.sethladd.com/2011/09/box2d-web-workers-better-performance.html)
-to explain box2D. Ok, box2D is a converted one but it of very good quality.
-
+to explain box2D. Ok, box2D is a converted one but it is of very good quality.
 So why not using box2D ?
-Well because it is 2D  and we do 3D.
+Well because it is 2D and we do 3D.
 Quite an insight, hey :)
 It would be such a tough limitation.
-This webgl + box2D strategy can produce excelent stuff tho, like this
+This webgl + box2D strategy can produce excelent results tho, like this
 [game demo](http://game.2x.io/) from [@einaros](http://twitter.com/#!/einaros).
-Take a close look at the physics when object move, it is amazingly realistic, it is all box2D.
+Take a close look at the physics when object move, it is amazingly
+realistic and& it is all box2D.
+* **Ask somebody else to do it ? **
+We got a *winner!* [@pyalot](http://twitter.com/#!/pyalot) from [codeflow.org](http://codeflow.org/) 
+
+
+## Conclusion
+
+This is the first post about physics.
+It presented microphysics.js API.
+Thus you can start playing with it immediatly.
+More posts will come shortly.
+At least, one about performance
+and
+another one on how to easily bind microphysics to your three.js game.
+That’s all folks. Have fun with microphysics.js :)
+
+
 
