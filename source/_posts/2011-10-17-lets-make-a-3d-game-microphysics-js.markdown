@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Lets Make a 3D Game: microphysics.js"
-published: false
-date: 2011-10-03 12:36
+published: true
+date: 2011-10-17 12:36
 comments: true
 categories: [physics, tutorial3dgame]
 ---
@@ -17,20 +17,27 @@ This post is part of the ["Lets make a 3D game"](/blog/categories/tutorial3dgame
 [games](http://www.youtube.com/watch?v=c7npJ3E-ydA).
 One is required for [marblesoccer](http://marblesoccer.com) but i wasnt
 convinced by current 3d physics engines. I explain why at the end.
-Fortuntaly, [@pyalot](http://twitter.com/#!/pyalot) from [codeflow.org](http://codeflow.org/)
-has been kind enougth to write one taylor-made for us: **microphysics.js**!!
+Fortunatly, [@pyalot](http://twitter.com/#!/pyalot) from [codeflow.org](http://codeflow.org/)
+has been kind enough to write one taylor-made for us: **microphysics.js**!!
 
-{% img right /data/lets-make-a-3d-game-microphysics-js/images/200px-Freebodydiagram3_pn.svg.png %}
-
-It is bite-sized, eleguant and efficient.
+It is bite-sized, elegant and efficient.
 Less than 500 lines at the moment!!
-It is small engouth to be understood, important feature for a tutorial blog.
+It is small engouh to be understood, important feature for a tutorial blog.
 It is a work in progress tho.
 We aren't aware of any bugs.
 New features will be added and the API is expected to move.
 Currently it implements moving spheres and static boxes (or [AABB](http://en.wikipedia.org/wiki/Axis-aligned_bounding_box) as we like to say).
 This is all we need for [marblesoccer](http://marblesoccer.com), the good thing about tailor-made.
 *We are in business!!!*
+
+Below is a screencast of me doing a short introduction of the 
+[playground](http://jeromeetienne.github.com/microphysics.js/playground/).
+This just a page for you to experiment with microphysics.js.
+
+<center>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/DI5PV2_sLoM" frameborder="0" allowfullscreen></iframe>
+</center>
+
 
 ## Let's get started
 
@@ -43,6 +50,7 @@ Then include it in your own code with this line.
 ```
 
 <!-- more -->
+
 
 ## Let's Create a World
 
