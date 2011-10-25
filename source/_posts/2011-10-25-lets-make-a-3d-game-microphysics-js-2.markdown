@@ -1,0 +1,71 @@
+---
+layout: post
+title: "Lets Make a 3D Game: microphysics.js 2"
+published: false
+date: 2011-10-25 18:16
+comments: true
+categories: [physics, tutorial3dgame]
+---
+
+[THREEx.microphysics.js](https://raw.github.com/jeromeetienne/microphysics.js/master/THREEx.microphysics.js) is a THREEx wrapper for microphysics.js.
+It helps binding [three.js](https://github.com/mrdoob/three.js/) objects to [microphysics.js](/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/).
+The API is chained for convenience.
+
+## Let's get started
+
+So lets see how to use it.
+First step, you download it
+[here](https://raw.github.com/jeromeetienne/microphysics.js/master/THREEx.microphysics.js).
+Then include it in your own code with this line.
+
+```html
+    <script src="THREEx.microphysics.js"></script>
+```
+
+## Initialisation
+
+You instanciate the physics engine, like that.
+
+```javascript
+    var microphysics = new THREEx.Microphysics(opts);
+```
+
+```opts``` is optional.
+```opts.timeStep``` controls the frequency of the world update.
+The smaller it is the more accurate is the physics but the longer it is to compute.
+It defaults to ```1/60```. Once instanciated, you start it.
+
+```javascript
+    microphysics.start();
+```
+
+## Binding THREE.Mesh
+
+Of course we need to add some mesh in the world. After this line, the ```mesh```
+is bound to microphysics.js, so its position is driven by the physics. 
+
+```javascript
+    microphysics.bindMesh(mesh, opts);
+```
+
+```mesh.position``` is honored.
+If you need to unbind a ```mesh```, just do
+
+```javascript
+    microphysics.unbindMesh(mesh);
+```
+
+## Updating the physics
+
+In your render loop, just add this line. It will first update the physics world and
+then move accordingly any ```THREE.Mesh``` you bound.
+
+```javascript
+    microphysics.update(scene);	
+```
+
+## Needs a Direct Access ?
+
+If you need to have direct access to microphysics.js, uses
+```microphysics.body(mesh)``` to get the ```vphy.Body``` bound to ```mesh```.
+To access ```vphy.World```, just use ```microphysics.word()```.
