@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Lets Make a 3D Game: microphysics.js 2"
+title: "Lets Make a 3D Game: helper for microphysics.js"
 published: false
 date: 2011-10-25 18:16
 comments: true
