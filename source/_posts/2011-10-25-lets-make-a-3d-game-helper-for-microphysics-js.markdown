@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Lets Make a 3D Game: helper for microphysics.js"
+title: "Lets Make a 3D Game: microphysics.js, even easier"
 published: true
 date: 2011-10-25 18:16
 comments: true
@@ -10,7 +10,6 @@ categories: [physics, tutorial3dgame]
 This post is part of the ["Lets make a 3D game"](/blog/categories/tutorial3dgame/) series.
 It is a follow up from the previous article on [microphysics.js](/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/).
 It will describe how to easily include **microphysics.js** in your three.js games.
-
 [THREEx.microphysics.js](https://raw.github.com/jeromeetienne/microphysics.js/master/THREEx.microphysics.js) is a THREEx wrapper for microphysics.js.
 It helps binding [three.js](https://github.com/mrdoob/three.js/) objects to [microphysics.js](/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/).
 The API is chained for convenience.
@@ -25,6 +24,8 @@ Then include it in your own code with this line.
 ```html
     <script src="THREEx.microphysics.js"></script>
 ```
+
+<!-- more -->
 
 ## Initialisation
 
@@ -60,13 +61,25 @@ If you need to unbind a ```mesh```, just do
 ```
 
 At the time of this writing, microphysics.js support only moving sphere and static
-boxes, so geometry may only be ``THREE.SphereGeometry``` or ```THREE.CubeGeometry```.
-If your mesh got another geometry, use ```opts.geometry``` to say you want the mesh
+boxes, so geometry may only be ```THREE.SphereGeometry``` or ```THREE.CubeGeometry```.
+If your mesh got another geometry, use ```opts.geometry``` to say how you wish the mesh
 to be handled.
 
 ```javascript
     microphysics.bindMesh(mesh, {
-	geometry	: new THREE.CubeGeometry(200,200,200);
+         geometry	: new THREE.CubeGeometry(200,200,200);
+    });
+```
+
+It is also possible to overwrite ```Mesh.position``` with ```opts.position```, or
+to send options directly to microphysics.js with ```opts.physics```.
+
+```javascript
+    microphysics.bindMesh(mesh, {
+        // to overwrite the Mesh.position
+        position	: { x : 1, y : 1, z : 2 },
+        // to pass options directly to microphysics.js
+        physics		: { restitution	: 0.98 }
     });
 ```
 
@@ -76,7 +89,7 @@ In your render loop, just add this line. It will first update the physics world 
 then move accordingly any ```THREE.Mesh``` you bound.
 
 ```javascript
-    microphysics.update(scene);	
+    microphysics.update();	
 ```
 
 ## Needs a Direct Access ?
@@ -90,6 +103,7 @@ To access ```vphy.World```, just use ```microphysics.word()```.
 In the previous article on [microphysics.js](/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/),
 we learned how to use microphysics.js directly. This article makes it really easy to include
 in your [three.js](https://github.com/mrdoob/three.js/) demo/game.
-It is so nice to use that the [playground](http://jeromeetienne.github.com/microphysics.js/playground/)
-is coded with it. That's all folks. Have fun :)
+It is so nice that it is what is used in the
+[playground](http://jeromeetienne.github.com/microphysics.js/playground/).
+That's all for today folks. Have fun :)
 
