@@ -101,6 +101,53 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/11/02/lets-make-a-3d-game-helper-for-microphysics-js/">Lets Make a 3D Game: microphysics.js, Even Easier</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-11-02 18:16:00 +0100" pubdate  updated >Nov 2<span>nd</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post is part of the <a href="/blog/categories/tutorial3dgame/">&#8220;Lets make a 3D game&#8221;</a> series.
+It is a follow up from the previous article on <a href="/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/">microphysics.js</a>.
+It will describe how to easily include <strong>microphysics.js</strong> in your three.js games.
+<a href="https://raw.github.com/jeromeetienne/microphysics.js/master/THREEx.microphysics.js">THREEx.microphysics.js</a> is a THREEx wrapper for microphysics.js.
+It helps binding <a href="https://github.com/mrdoob/three.js/">three.js</a> objects to <a href="/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/">microphysics.js</a>.
+The API is chained for convenience.</p>
+
+<h2>Let&#8217;s get started</h2>
+
+<p>So lets see how to use it.
+First step, you download it
+<a href="https://raw.github.com/jeromeetienne/microphysics.js/master/THREEx.microphysics.js">here</a>.
+Then include it in your own code with this line.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;THREEx.microphysics.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</div></code></pre></td></tr></table></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/11/02/lets-make-a-3d-game-helper-for-microphysics-js/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/">Lets Make a 3D Game: microphysics.js</a></h1>
     
     
@@ -597,58 +644,6 @@ Many others exist for our delight as you can see <a href="http://sole.github.com
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/15/lets-do-a-sky/">Lets Do a Sky</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-08-15 12:26:00 +0200" pubdate  updated >Aug 15<span>th</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This tutorial is about doing a sky. It makes a nice panorama with a nice immersive effect.
-This is much simpler than people would expect : only 3 steps for a total around 20 lines.
-You can find a <a href="/data/lets_do_a_sky/lets_do_a_sky.html">live demo</a> of it. It may be a
-easy addition to your effects. This is simple and efficient.</p>
-
-<h1>Background</h1>
-
-<p><img class='right ' src='/data/lets_do_a_sky/images/Panorama_cube_map.png' width='' height='' alt='Close up' title='Close up'>
-Technically this is called a <a href="http://en.wikipedia.org/wiki/Cube_mapping">cube mapping</a>.
-Why that ? because the principle is so simple: we create a large cube, apply some images
-on each face of this cube and put the camera inside it. That&#8217;s it.</p>
-
-<p>The illustration (from <a href="http://en.wikipedia.org/wiki/User:SharkD/Images">SharkD</a> at <a href="http://en.wikipedia.org/wiki/File:Panorama_cube_map.png">wikipedia</a>)
-on the right, may help understanding.
-On the <em>bottom left</em>, you can see a 3D scene with a dot in the middle&#8230; This is
-where the camera will be positionned.
-On the <em>bottom right</em>, you can see the same 3D scene, with the large cube and now the
-camera is inside.
-The kind of cross <em>on the top half</em> are the images used as texture.
-Those are the ones which gonna be applied inside the large sky cube. If you go to
-the <a href="/data/lets_do_a_sky/lets_do_a_sky.html">demo</a>,
-open your browser debugger and look at downloaded images, you will see those 6 images.</p>
-
-</div>
-  <footer>
-    <a rel="full-article" href="/blog/2011/08/15/lets-do-a-sky/">Read on &rarr;</a>
-  </footer>
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -677,6 +672,10 @@ open your browser debugger and look at downloaded images, you will see those 6 i
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/11/02/lets-make-a-3d-game-helper-for-microphysics-js/">Lets Make a 3D Game: microphysics.js, even easier</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/">Lets Make a 3D Game: microphysics.js</a>
       </li>
     
@@ -690,10 +689,6 @@ open your browser debugger and look at downloaded images, you will see those 6 i
     
       <li class="post">
         <a href="/blog/2011/09/16/performance-caching-material/">Performance: Caching Material</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/14/lets-make-a-3D-game-map-editor/">Let&#8217;s Make a 3D Game: Map Editor</a>
       </li>
     
   </ul>
