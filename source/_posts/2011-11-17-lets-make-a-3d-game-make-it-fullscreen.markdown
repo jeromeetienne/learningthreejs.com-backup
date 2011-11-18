@@ -3,7 +3,7 @@ layout: post
 title: "Lets Make a 3D Game: Make It Fullscreen"
 date: 2011-11-17 07:59
 comments: true
-categories: 
+categories: [tutorial3dgame, THREEx, html5]
 ---
 
 This post is part of the ["Lets make a 3D game"](/blog/categories/tutorial3dgame/) series.
