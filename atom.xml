@@ -4,13 +4,141 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-11-02T02:16:08+01:00</updated>
+  <updated>2011-11-18T13:16:19+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Lets Make a 3D Game: Make It Fullscreen</title>
+    <link href="http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/"/>
+    <updated>2011-11-17T07:59:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen</id>
+    <content type="html">&lt;p&gt;This post is part of the &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;&quot;Lets make a 3D game&quot;&lt;/a&gt; series.
+It is about the &lt;a href=&quot;http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html&quot;&gt;fullscreen API&lt;/a&gt;.
+This API allows to make DOM elements fullscreen.
+Fullscreen is quite important for games.
+It provides a larger display so a more immersive experience for your players.
+All that from javascript, so no more needed to ask &quot;please f11&quot; to your
+players, isnt that sweet ? :)&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/lets-make-a-3d-game-make-it-fullscreen/images/fullscreen-icon.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html&quot;&gt;fullscreen API&lt;/a&gt;
+is still in discussion, but the basics are settled. At the time of this writing,
+it is available in
+&lt;a href=&quot;http://blog.pearce.org.nz/2011/11/firefoxs-html-full-screen-api-enabled.html&quot;&gt;firefox nightly&lt;/a&gt;,
+&lt;a href=&quot;http://peter.sh/2011/01/javascript-full-screen-api-navigation-timing-and-repeating-css-gradients/&quot;&gt;webkit nightly&lt;/a&gt;and
+&lt;a href=&quot;http://updates.html5rocks.com/2011/10/Let-Your-Content-Do-the-Talking-Fullscreen-API&quot;&gt;chrome stable&lt;/a&gt;.
+It has been already added in &lt;a href=&quot;http://marblesoccer.com&quot;&gt;marbleSoccer&lt;/a&gt;.
+The icon is from &lt;a href=&quot;http://thenounproject.com/&quot;&gt;The Noun Project&lt;/a&gt;, a source of nice and clean icons.
+Try it out! Click on it to toggle fullscreen state. If you dont see the icon, your browser
+doesn't yet have the fullscreen API.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe webkitallowfullscreen mozallowfullscreen allowfullscreen width=&quot;100%&quot; height=&quot;320&quot; src=&quot;http://marblesoccer.com&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;p&gt;Ok now is time for code :)&lt;/p&gt;
+
+&lt;h2&gt;Let's get started&lt;/h2&gt;
+
+&lt;p&gt;As usual, i provide a little helper to make it easier for you to include it in
+your games. It is called &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.FullScreen.js&quot;&gt;THREEx.FullScreen.js&lt;/a&gt;.
+It hides the prefix of each vender and the little discrepencies between their API
+implementation.
+You download this file from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.FullScreen.js&quot;&gt;here&lt;/a&gt; and include
+it in your page like this&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src='THREEx.FullScreen.js'&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;How to use it ?&lt;/h2&gt;
+
+&lt;p&gt;The API is simple, only 4 calls. Lets see them one by one.
+To test if it is possible to have fullscreen on your system, do&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREEx.FullScreen.available();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;To test if fullscreen is currently activated on your page&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREEx.FullScreen.activated();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;To Request fullscreen on a given element, just do&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREEx.FullScreen.request(element);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;If element isnt provided, it defaults to &lt;code&gt;document.body&lt;/code&gt;.
+To cancel fullscreen on your page, use this line.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREEx.FullScreen.cancel();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Quite straight forward, no ? :) As an example, let's make a toggle&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if( THREEx.FullScreen.activated() ){
+    THREEx.FullScreen.cancel();
+}else{
+    THREEx.FullScreen.request();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;What about the standard ?&lt;/h2&gt;
+
+&lt;p&gt;There is a &lt;a href=&quot;http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html&quot;&gt;w3c proposal&lt;/a&gt; in dicussion.
+John dyer has written an in-depth &lt;a href=&quot;http://johndyer.name/native-fullscreen-javascript-api-plus-jquery-plugin/&quot;&gt;summary&lt;/a&gt;.
+Mozilla provides details on &lt;a href=&quot;https://wiki.mozilla.org/Gecko:FullScreenAPI&quot;&gt;their API&lt;/a&gt;.
+At the time of this writing
+It is available in
+&lt;a href=&quot;http://blog.pearce.org.nz/2011/11/firefoxs-html-full-screen-api-enabled.html&quot;&gt;firefox nightly&lt;/a&gt;,
+&lt;a href=&quot;http://peter.sh/2011/01/javascript-full-screen-api-navigation-timing-and-repeating-css-gradients/&quot;&gt;webkit nightly&lt;/a&gt;
+and
+&lt;a href=&quot;http://updates.html5rocks.com/2011/10/Let-Your-Content-Do-the-Talking-Fullscreen-API&quot;&gt;chrome stable&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;For more details on &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.FullScreen.js&quot;&gt;THREEx.FullScreen&lt;/a&gt;,
+see its &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.FullScreen.html&quot;&gt;annoted source&lt;/a&gt;.
+It is a simple to add in your game.
+It provides a more immersive experience to your players.
+On a related subject, we will soon likely do a post about embedding your game in another page.
+It is usefull when you want to include it in a blog, in facebook or other game plateforms.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Lets Make a 3D Game: microphysics.js, even easier</title>
