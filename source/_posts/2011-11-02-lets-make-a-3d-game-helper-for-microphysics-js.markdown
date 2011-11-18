@@ -2,7 +2,7 @@
 layout: post
 title: "Lets Make a 3D Game: microphysics.js, even easier"
 published: true
-date: 2011-10-25 18:16
+date: 2011-11-02 18:16
 comments: true
 categories: [physics, tutorial3dgame]
 ---

@@ -39,7 +39,7 @@ This just a page for you to experiment with microphysics.js.
 </center>
 
 
-## Let's get started
+## Let's get started 
 
 So lets see how to use it.
 First step, you download it [here](https://raw.github.com/jeromeetienne/microphysics.js/master/codeflow/physics.js).
