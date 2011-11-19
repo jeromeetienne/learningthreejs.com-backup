@@ -2,84 +2,84 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://learningthreejs.com/blog/2011/07/15/threejs-installation/</loc>
-        <lastmod>2011-08-25T01:43:56+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs/</loc>
-        <lastmod>2011-08-25T01:43:56+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/</loc>
-        <lastmod>2011-08-25T01:43:56+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/</loc>
-        <lastmod>2011-08-25T01:43:56+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/</loc>
-        <lastmod>2011-10-06T14:37:18+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation/</loc>
-        <lastmod>2011-08-25T01:43:56+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/</loc>
-        <lastmod>2011-08-30T12:51:13+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/09/03/screenshot-in-javascript/</loc>
-        <lastmod>2011-09-05T11:54:36+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/</loc>
-        <lastmod>2011-09-15T13:56:05+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor/</loc>
-        <lastmod>2011-09-27T13:15:44+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/09/16/performance-caching-material/</loc>
-        <lastmod>2011-09-16T12:11:12+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation/
         </loc>
-        <lastmod>2011-09-27T21:13:51+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/</loc>
-        <lastmod>2011-10-06T13:49:54+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/</loc>
-        <lastmod>2011-10-17T15:35:48+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/11/02/lets-make-a-3d-game-helper-for-microphysics-js/
         </loc>
-        <lastmod>2011-11-02T02:15:03+01:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/
         </loc>
-        <lastmod>2011-11-18T13:17:28+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://learningthreejs.com/</loc>
-        <lastmod>2011-11-18T13:17:28+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://learningthreejs.com/blog/archives/</loc>
-        <lastmod>2011-11-18T13:17:28+01:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/about/</loc>
-        <lastmod>2011-08-25T01:43:56+02:00</lastmod>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://learningthreejs.com/blog/archives/</loc>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://learningthreejs.com/</loc>
+        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
     </url>
 </urlset>
