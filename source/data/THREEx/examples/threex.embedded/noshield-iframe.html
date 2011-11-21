@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<style>
+			body .noFocusMessage		{ display	: block;	}
+			body .withFocusMessage 		{ display	: none;		}
+			body:focus .noFocusMessage 	{ display	: none;		}
+			body:focus .withFocusMessage 	{ display	: block;	}
+			body 		{ background-color	: red;	}
+			body:focus 	{ background-color	: lightgreen;	}
+		</style>
+	</head>
+	<body tabindex=1>
+		<h1>Iframe WITHOUT shielding events</h1>
+		<span class="noFocusMessage">Got <b>NO</b> Focus. Click to get focus.</span> 
+		<span class="withFocusMessage">Got Focus! Move arrow to make the host page scroll.</span> 
+		</script>
+	</body>
+</html>
