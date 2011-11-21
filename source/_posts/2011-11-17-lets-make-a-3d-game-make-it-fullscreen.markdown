@@ -77,7 +77,8 @@ To cancel fullscreen on your page, use this line.
 	THREEx.FullScreen.cancel();
 ```
 
-Quite straight forward, no ? :) As an example, let's make a toggle
+Quite straight forward, no ? :) As an example, let's make a toggle, the same used
+in [marbleSoccer](http://marblesoccer.com).
 
 ```javascript
 	if( THREEx.FullScreen.activated() ){

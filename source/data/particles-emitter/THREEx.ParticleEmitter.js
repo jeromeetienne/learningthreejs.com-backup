@@ -1,3 +1,4 @@
+/** @namespace */
 var THREEx	= THREEx 		|| {};
 THREEx.Particle	= THREEx.Particle	|| {};
 
