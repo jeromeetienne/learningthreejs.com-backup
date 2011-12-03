@@ -86,7 +86,7 @@ duplicates in there, you found rooms for optimization :)
 You can embed it in your own page application with a single line.
 
 ```html
-    <script src="https://github.com/benvanik/WebGL-Inspector/blob/master/core/embed.js"></script>
+    <script src="https://raw.github.com/benvanik/WebGL-Inspector/master/core/embed.js"></script>
 ```
 
 ## That's All Folks
