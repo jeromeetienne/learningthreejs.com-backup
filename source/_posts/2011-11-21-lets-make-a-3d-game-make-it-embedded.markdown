@@ -16,13 +16,6 @@ categories: [tutorial3dgame, THREEx, html5]
 * intro + conclusion
 * what about the THREEx
 * a demo of the game
-* complete event shielding writing
-
-
-
-When your game is embedded
-It is running in a iframe.
-It is likely smaller on screen.
 
 ## Let's go play in an iframe
 
@@ -43,7 +36,7 @@ allowed to go fullscreen. More details about fullscreen in this
 or in the [spec](http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html).
 
 You may need to determined if your game is embedded or not.
-so . Simply use this line to know if it is in a iframe or not.
+Use this line will tell if it is in a iframe or not.
 
 ```javascript
 	var isInIframe	= (window != window.top);
@@ -98,22 +91,23 @@ Strange section title, hey.
 It means *prevents DOM events from the iframe to interfere with the host page*.
 Not much clearer...
 Maybe with an example ? Let's see the arrows+scroll case.
-
-Show dont tell. Below are 2 iframes: on the left, no shielding happens, on the right
-shielding happens. Try to click on them and use arrows up/down. On the left, the host page scrolls,
-but not on the right.
+Show dont tell.
+Below are 2 iframes: on the left, no shielding happens, on the right shielding happens.
+Try to click on them and use arrows up/down.
 
 <iframe src="/data/THREEx/examples/threex.embedded/noshield-iframe.html" width='50%' height='120px'></iframe>
 <iframe src="/data/THREEx/examples/threex.embedded/withshield-iframe.html" width='49%' height='120px'></iframe>
 
-With a game, it is frequent to use arrows keys to control the player.
+On the left, the host page scrolls, but not on the right.
+Why does this happen ? good question :)
 If our game iframe got the focus and users press up or down, the iframe will received
 [keydown/keyup events](http://www.quirksmode.org/dom/events/keys.html).
-Troubles appear when those events are bubbling to the host page. Those events are
-create a scrolling in host page making the game unplayable. 
+Up to now, all is ok...
+Troubles appear when those events are bubbling to the host page, they may trigger a scrolling.
 
-Here is the code which prevents this behavior. It listens to arrows keydown
-and prevent their default, aka host page scrolling.
+Imagine if the page goes up and down while you play, the game becomes unplayable very fast.
+We don't want that, especially with a game where it is frequent to use arrows keys to control the player.
+So here is the code which prevents this behavior. It listens to arrows keydown and prevent their default, aka host page scrolling.
 
 ```javascript
 	document.addEventListener('keydown', function(event){
