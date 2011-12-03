@@ -6,40 +6,60 @@ comments: true
 categories: [tutorial3dgame, THREEx, html5]
 ---
 
+<iframe src="http://marblesoccer.com"
+	allowfullscreen webkitallowfullscreen mozallowfullscreen
+	width="320" height="240" frameborder="0" style="float: right;">
+</iframe>
+
+## TODO
+
+* intro + conclusion
+* what about the THREEx
+* a demo of the game
+* complete event shielding writing
+
+
 When your game is embedded
 It is running in a iframe.
 It is likely smaller on screen.
 
-# First declare the iframe
+## Let's go play in an iframe
+
+First we declare it like that
 
 ```html
-	<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen
-		width="480" height="320" frameborder="0"
-		src="http://marblesoccer.com">
+	<iframe src="http://marblesoccer.com"
+		allowfullscreen webkitallowfullscreen mozallowfullscreen
+		width="480" height="320" frameborder="0">
 	</iframe>
 ```
 
-For the attributes, it is ```frameborder``` to remove an ugly border,
-```width``` and ```height``` for the dimension,
-```*allowfullscreen``` to allow fullscreen and
-```src``` for your game page.
+The attributes are pretty classics: ```frameborder``` to remove an ugly default border,
+```width``` and ```height``` for size and ```src``` for your game page.
+The ones ending with ```allowfullscreen``` tell the browser that this iframe is
+allowed to go fullscreen. More details about fullscreen in this
+[previous post](/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/)
+or in the [spec](http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html).
 
-# Detect the iframe
-
-You may need to detect if your game page is embedded or not.
+You may need to determined if your game is embedded or not.
+so . Simply use this line to know if it is in a iframe or not.
 
 ```javascript
 	var isInIframe	= (window != window.top);
 ```
 
-# Adapt to the smaller display
+## Fit in a smaller display
 
-When your game is embedded, it is most likely smaller on the screen. How to deal
-with this ? We need to fit to the smaller display.
-It has 2 type: the 3D display where three.js displays the WebGL, and the DOM display
-for all the
+When your game is embedded, it is likely to have a smaller display. How to deal
+with this ?
+First there are 2 type of rendering in our game:
+a 3D display where
+[three.js](https://github.com/mrdoob/three.js/)
+displays the
+[WebGL](http://en.wikipedia.org/wiki/WebGL), and
+a DOM display for
 [OSD](http://en.wikipedia.org/wiki/On-screen_display)
-e.g. score, timers and other popups.
+such as score, timers and other popups.
 
 First *let's fit the 3D display*.
 We have already seen the solution in a previous post about
@@ -55,13 +75,13 @@ Not too hard, hey. Now *lets adapt the DOM display*. It is simply done via CSS.
 Personnaly i used
 [media queries](http://www.w3.org/TR/css3-mediaqueries/)
 for that. 
-It wont try to teach you css, other do that much
-[better](https://developer.mozilla.org/en/CSS/Media_queries),
-[than](http://www.html5rocks.com/en/mobile/mobifying.html#toc-mediaqueries),
+Typically, you may reduce the size of your font or icons.
+I won't try to teach you css, other do that much
+[better](https://developer.mozilla.org/en/CSS/Media_queries)
+[than](http://www.html5rocks.com/en/mobile/mobifying.html#toc-mediaqueries)
 [me](http://thinkvitamin.com/code/media-queries-width-and-height-video-tutorial/).
-Just a pick of what i did. Suppose you want to specify css rules when your
-display is 640px wide or less. Typically, you may reduce the size of your
-font or icons. 
+Just a pick of what i did, not sure at all it is the best way.
+I reduce the OSD display if your game page is 640px or less.
 
 ```css
 	@media all and (max-width: 640px) {
@@ -71,7 +91,7 @@ font or icons.
 	}
 ```
 
-# Shield Events
+## Shield Events
 
 Note:
 
@@ -96,8 +116,7 @@ in our case, the scrolling of the hosting page.
 	}, true);
 ```
 
-<iframe src="/data/THREEx/examples/threex.embedded/noshield-iframe.html" allowfullscreen webkitfullscreen mozallowfullscreen width='320' height='240'></iframe>
-
-<iframe src="/data/THREEx/examples/threex.embedded/withshield-iframe.html" allowfullscreen webkitfullscreen mozallowfullscreen width='320' height='240'></iframe>
+<iframe src="/data/THREEx/examples/threex.embedded/noshield-iframe.html" width='50%' height='120px'></iframe>
+<iframe src="/data/THREEx/examples/threex.embedded/withshield-iframe.html" width='49%' height='120px'></iframe>
 
 
