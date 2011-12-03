@@ -5,14 +5,18 @@
 			body .withFocusMessage 		{ display	: none;		}
 			body:focus .noFocusMessage 	{ display	: none;		}
 			body:focus .withFocusMessage 	{ display	: block;	}
-			body 		{ background-color	: red;	}
-			body:focus 	{ background-color	: lightgreen;	}
+			body 				{ background-color: #DC143C;	}
+			body:focus		 	{ background-color: lightgreen;	}
+			body .title			{ font-size	: 120%;		}
 		</style>
 	</head>
 	<body tabindex=1>
-		<h1>Iframe WITHOUT shielding events</h1>
-		<span class="noFocusMessage">Got <b>NO</b> Focus. Click to get focus.</span> 
-		<span class="withFocusMessage">Got Focus! Move arrow to make the host page scroll.</span> 
+		<span class='title'>WITHOUT shielding events<br></span>
+		<span class="noFocusMessage"><b>Click</b> to get focus</span>
+		<span class="withFocusMessage">
+			Got Focus!<br>
+			Now <b>use arrow UP/DOWN</b> and the host page will scroll as events are not shielded.
+		</span> 
 		</script>
 	</body>
 </html>
