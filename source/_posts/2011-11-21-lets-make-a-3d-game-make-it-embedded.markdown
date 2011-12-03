@@ -19,6 +19,7 @@ categories: [tutorial3dgame, THREEx, html5]
 * complete event shielding writing
 
 
+
 When your game is embedded
 It is running in a iframe.
 It is likely smaller on screen.
@@ -93,19 +94,26 @@ I reduce the OSD display if your game page is 640px or less.
 
 ## Shield Events
 
-Note:
+Strange section title, hey.
+It means *prevents DOM events from the iframe to interfere with the host page*.
+Not much clearer...
+Maybe with an example ? Let's see the arrows+scroll case.
 
-* **1)** demontrate the problem
-  * give it threex demo iframe
-* **2)** describe the problem
-* **3)** fix the problem
+Show dont tell. Below are 2 iframes: on the left, no shielding happens, on the right
+shielding happens. Try to click on them and use arrows up/down. On the left, the host page scrolls,
+but not on the right.
 
-When the iframe got the focus, it will receive the DOM event first and then
-those events will be propagated up to the hosts frame.
+<iframe src="/data/THREEx/examples/threex.embedded/noshield-iframe.html" width='50%' height='120px'></iframe>
+<iframe src="/data/THREEx/examples/threex.embedded/withshield-iframe.html" width='49%' height='120px'></iframe>
 
+With a game, it is frequent to use arrows keys to control the player.
+If our game iframe got the focus and users press up or down, the iframe will received
+[keydown/keyup events](http://www.quirksmode.org/dom/events/keys.html).
+Troubles appear when those events are bubbling to the host page. Those events are
+create a scrolling in host page making the game unplayable. 
 
-Here is the code which listen to the keydown on arrows and prevent their default,
-in our case, the scrolling of the hosting page.
+Here is the code which prevents this behavior. It listens to arrows keydown
+and prevent their default, aka host page scrolling.
 
 ```javascript
 	document.addEventListener('keydown', function(event){
@@ -116,7 +124,5 @@ in our case, the scrolling of the hosting page.
 	}, true);
 ```
 
-<iframe src="/data/THREEx/examples/threex.embedded/noshield-iframe.html" width='50%' height='120px'></iframe>
-<iframe src="/data/THREEx/examples/threex.embedded/withshield-iframe.html" width='49%' height='120px'></iframe>
 
 
