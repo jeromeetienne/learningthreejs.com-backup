@@ -8,14 +8,35 @@ categories: [tutorial3dgame, THREEx, html5]
 
 <iframe src="http://marblesoccer.com"
 	allowfullscreen webkitallowfullscreen mozallowfullscreen
-	width="320" height="240" frameborder="0" style="float: right;">
+	width="420" height="315" frameborder="0" style="float: right; margin-left: 1em;">
 </iframe>
 
-## TODO
+This post is part of the ["Lets make a 3D game"](/blog/categories/tutorial3dgame/) series.
+The previous post
+was on
+[fullscreen API](/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/).
+So here is another one on changing the display size.
+This post is about embedding your game in another page.
+It is usefull when you want to include it in a blog, in facebook or other game plateforms.
 
-* intro + conclusion
-* what about the THREEx
-* a demo of the game
+
+Show dont tell, you can see
+[marbleSoccer](http://marblesoccer.com)
+embedded on the left.
+
+Embedding your game implies various things.
+
+We will see about
+[iframe](http://en.wikipedia.org/wiki/HTML_element#Frames)
+because they are frequently used by game plafeforms for convenience and security purposes.
+
+As your game is hosted in another page, it likely got a smaller display.
+How to support smaller display
+
+and the events shield
+
+For convenience and security purposes, they frequently do it using
+[iframe](http://en.wikipedia.org/wiki/HTML_element#Frames).
 
 ## Let's go play in an iframe
 
@@ -117,6 +138,11 @@ So here is the code which prevents this behavior. It listens to arrows keydown a
 		}
 	}, true);
 ```
+
+## Conclusion
+
+I gathered the code in [threex.embedded](/data/THREEx/threex.embedded.js),
+see its [annoted source](/data/THREEx/docs/threex.embedded.html).
 
 
 
