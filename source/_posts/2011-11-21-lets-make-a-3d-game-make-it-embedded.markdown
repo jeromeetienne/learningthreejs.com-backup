@@ -11,36 +11,36 @@ categories: [tutorial3dgame, THREEx, html5]
 	width="420" height="315" frameborder="0" style="float: right; margin-left: 1em;">
 </iframe>
 
-This post is part of the ["Lets make a 3D game"](/blog/categories/tutorial3dgame/) series.
-The previous post
-was on
+This post is part of the ["Let's make a 3D game"](/blog/categories/tutorial3dgame/) series.
+The previous post was on
 [fullscreen API](/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/).
-So here is another one on changing the display size.
+So here is another one on resizing the display area.
 This post is about embedding your game in another page.
-It is usefull when you want to include it in a blog, in facebook or other game plateforms.
+It is usefull when you want to include it in a blog, in facebook, iGoogle or
+other game plateforms.
 
 
-Show dont tell, you can see
+*Show dont tell*, you can see
 [marbleSoccer](http://marblesoccer.com)
 embedded on the left.
-
 Embedding your game implies various things.
-
-We will see about
+As your game is hosted in another page, it likely got a smaller display area.
+HTML5 [CSS media query](http://www.w3.org/TR/css3-mediaqueries/)
+makes it easy to fit various sizes.
+Another part are the
+[DOM events](http://en.wikipedia.org/wiki/DOM_events)
+from the iframe.
+They will be propagated to the host page and may produce undesirable effects.
+We see how to shield them.
+But first let's see about
 [iframe](http://en.wikipedia.org/wiki/HTML_element#Frames)
-because they are frequently used by game plafeforms for convenience and security purposes.
 
-As your game is hosted in another page, it likely got a smaller display.
-How to support smaller display
-
-and the events shield
-
-For convenience and security purposes, they frequently do it using
-[iframe](http://en.wikipedia.org/wiki/HTML_element#Frames).
 
 ## Let's go play in an iframe
 
-First we declare it like that
+[iframe](http://en.wikipedia.org/wiki/HTML_element#Frames)
+is an easy and secure way to embed a page in another.
+Let's declare it.
 
 ```html
 	<iframe src="http://marblesoccer.com"
@@ -48,6 +48,8 @@ First we declare it like that
 		width="480" height="320" frameborder="0">
 	</iframe>
 ```
+
+<!-- more -->
 
 The attributes are pretty classics: ```frameborder``` to remove an ugly default border,
 ```width``` and ```height``` for size and ```src``` for your game page.
@@ -63,10 +65,10 @@ Use this line will tell if it is in a iframe or not.
 	var isInIframe	= (window != window.top);
 ```
 
-## Fit in a smaller display
+## Fit in a smaller display area
 
-When your game is embedded, it is likely to have a smaller display. How to deal
-with this ?
+When your game is embedded, it is likely to have a smaller display area.
+How to deal with this ?
 First there are 2 type of rendering in our game:
 a 3D display where
 [three.js](https://github.com/mrdoob/three.js/)
@@ -126,9 +128,10 @@ If our game iframe got the focus and users press up or down, the iframe will rec
 Up to now, all is ok...
 Troubles appear when those events are bubbling to the host page, they may trigger a scrolling.
 
-Imagine if the page goes up and down while you play, the game becomes unplayable very fast.
-We don't want that, especially with a game where it is frequent to use arrows keys to control the player.
-So here is the code which prevents this behavior. It listens to arrows keydown and prevent their default, aka host page scrolling.
+Imagine the page going up and down while you play, the game becomes unplayable very fast :)
+So here is the code which prevents this behavior. It listens to arrows
+[keydown events](http://www.quirksmode.org/dom/events/keys.html).
+and prevent their default.
 
 ```javascript
 	document.addEventListener('keydown', function(event){
@@ -141,8 +144,18 @@ So here is the code which prevents this behavior. It listens to arrows keydown a
 
 ## Conclusion
 
-I gathered the code in [threex.embedded](/data/THREEx/threex.embedded.js),
-see its [annoted source](/data/THREEx/docs/threex.embedded.html).
+I gathered the code in
+[threex.embedded](/data/THREEx/threex.embedded.js),
+see its
+[annoted source](/data/THREEx/docs/threex.embedded.html).
+Iframe is a easy and secure way to make your game embeddable.
+We have seen how to handle smaller display area
+with
+[THREEx.WindowResize](/data/THREEx/THREEx.WindowResize.js)
+and
+[media queries](http://www.w3.org/TR/css3-mediaqueries/).
+Additionnaly we even shield DOM events, so we can use arrow keys for player control.
+You are all set! Go embed your game now :)
 
 
 
