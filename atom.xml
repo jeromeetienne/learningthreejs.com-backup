@@ -4,13 +4,188 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-11-19T09:34:51+01:00</updated>
+  <updated>2011-12-05T10:21:46+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Lets Make a 3D Game: Make It Embedded</title>
+    <link href="http://learningthreejs.com/blog/2011/11/21/lets-make-a-3d-game-make-it-embedded/"/>
+    <updated>2011-11-21T16:32:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2011/11/21/lets-make-a-3d-game-make-it-embedded</id>
+    <content type="html">&lt;iframe src=&quot;http://marblesoccer.com&quot;
+    allowfullscreen webkitallowfullscreen mozallowfullscreen
+    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;p&gt;This post is part of the &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;&quot;Let's make a 3D game&quot;&lt;/a&gt; series.
+The previous post was on
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/&quot;&gt;fullscreen API&lt;/a&gt;.
+Here is another one on resizing the display area.
+This post is about embedding your game in another page.
+It is usefull to include it in a blog, in facebook, iGoogle or other game plateforms.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://marblesoccer.com&quot;&gt;MarbleSoccer&lt;/a&gt;
+now contains all the tricks explained in this post.
+&lt;em&gt;Show dont tell&lt;/em&gt;, you can see it embedded on the left.
+Embedding your game implies various things.
+As your game is hosted in another page, it likely got a smaller display area.
+HTML5
+&lt;a href=&quot;http://www.w3.org/TR/css3-mediaqueries/&quot;&gt;CSS media query&lt;/a&gt;
+makes it easy to fit various sizes.
+Another part are the
+&lt;a href=&quot;http://en.wikipedia.org/wiki/DOM_events&quot;&gt;DOM events&lt;/a&gt;
+from the iframe.
+They will be propagated to the host page and may produce undesirable effects.
+We see how to shield them.
+But first let's see about
+&lt;a href=&quot;http://en.wikipedia.org/wiki/HTML_element#Frames&quot;&gt;iframe&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Let's go play in an iframe&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/HTML_element#Frames&quot;&gt;iframe&lt;/a&gt;
+is an easy and secure way to embed a page in another.
+Let's declare it.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;iframe src=&quot;http://marblesoccer.com&quot;
+    allowfullscreen webkitallowfullscreen mozallowfullscreen
+    width=&quot;480&quot; height=&quot;320&quot; frameborder=&quot;0&quot;&amp;gt;
+&amp;lt;/iframe&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;p&gt;The attributes are pretty classics: &lt;code&gt;frameborder&lt;/code&gt; to remove an ugly default border,
+&lt;code&gt;width&lt;/code&gt; and &lt;code&gt;height&lt;/code&gt; for size and &lt;code&gt;src&lt;/code&gt; for your game page.
+The ones ending with &lt;code&gt;allowfullscreen&lt;/code&gt; tell the browser that this iframe is
+allowed to go fullscreen. More about fullscreen in this
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/&quot;&gt;previous post&lt;/a&gt;
+or in the &lt;a href=&quot;http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html&quot;&gt;spec&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You may need to determined if your game is embedded or not.
+Use this line will tell if it is in a iframe or not.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var isInIframe  = (window != window.top);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Fit in a smaller display area&lt;/h2&gt;
+
+&lt;p&gt;When your game is embedded, it is likely to have a smaller display area.
+How to deal with this ?
+First, we have 2 types of rendering in our game:
+a 3D display where
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+displays the
+&lt;a href=&quot;http://en.wikipedia.org/wiki/WebGL&quot;&gt;WebGL&lt;/a&gt;, and
+a DOM display for
+&lt;a href=&quot;http://en.wikipedia.org/wiki/On-screen_display&quot;&gt;OSD&lt;/a&gt;
+such as score, timers and other popups.&lt;/p&gt;
+
+&lt;p&gt;For &lt;em&gt;3D rendering&lt;/em&gt;, we have already seen window resizing in
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/&quot;&gt;this post&lt;/a&gt;.
+Just download
+&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;THREEx.WindowResize&lt;/a&gt;
+and add this line and you are done. Not too hard, hey.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;THREEx.WindowResize(renderer, camera);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now &lt;em&gt;the DOM display&lt;/em&gt;. It may simply be done via CSS
+and
+&lt;a href=&quot;http://www.w3.org/TR/css3-mediaqueries/&quot;&gt;media queries&lt;/a&gt;.
+Typically, you may reduce the size of your font or icons.
+I won't try to teach css, other do that much
+&lt;a href=&quot;https://developer.mozilla.org/en/CSS/Media_queries&quot;&gt;better&lt;/a&gt;
+&lt;a href=&quot;http://www.html5rocks.com/en/mobile/mobifying.html#toc-mediaqueries&quot;&gt;than&lt;/a&gt;
+&lt;a href=&quot;http://thinkvitamin.com/code/media-queries-width-and-height-video-tutorial/&quot;&gt;me&lt;/a&gt;.
+Just a pick of what i did, not sure at all it is the best way.
+I reduce the OSD display if your game page is 640px or less.&lt;/p&gt;
+
+&lt;p&gt;```css&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@media all and (max-width: 640px) {
+    /* here put your style specific for embedded case */
+    body { font-size : 60%; }
+    img { width : 48px; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Shield Events&lt;/h2&gt;
+
+&lt;p&gt;Strange section title, hey.
+It means &lt;em&gt;prevents DOM events from the iframe to interfere with the host page&lt;/em&gt;.
+Not much clearer...
+Maybe with an example ? Let's see the arrows+scroll case.
+Show dont tell.
+Below are 2 iframes: on the left, no shielding happens, on the right shielding happens.
+Try to click on them and use arrows up/down.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://learningthreejs.com/data/THREEx/examples/threex.embedded/noshield-iframe.html&quot; width='50%' height='120px'&gt;&lt;/iframe&gt;
+
+
+&lt;iframe src=&quot;http://learningthreejs.com/data/THREEx/examples/threex.embedded/withshield-iframe.html&quot; width='49%' height='120px'&gt;&lt;/iframe&gt;
+
+
+&lt;p&gt;On the left, the host page scrolls, but not on the right.
+Why does this happen ? good question :)
+If our game iframe got the focus and users press up or down, the iframe will received
+&lt;a href=&quot;http://www.quirksmode.org/dom/events/keys.html&quot;&gt;keydown/keyup events&lt;/a&gt;.
+Up to now, all is ok...
+Troubles appear when those events are bubbling to the host page, they may trigger a scrolling.&lt;/p&gt;
+
+&lt;p&gt;Imagine the page going up and down while you play, the game becomes unplayable very fast :)
+So here is the code which prevents this behavior. It listens to arrows
+&lt;a href=&quot;http://www.quirksmode.org/dom/events/keys.html&quot;&gt;keydown events&lt;/a&gt;.
+and prevent their default.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document.addEventListener('keydown', function(event){
+    // if it is keydown on a arrow, prevent default
+    if( event.keyCode &amp;gt;= 37 &amp;amp;&amp;amp; event.keyCode &amp;lt;= 40 ){
+        event.preventDefault();
+    }
+}, true);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I gathered the code in
+&lt;a href=&quot;http://learningthreejs.com/data/THREEx/threex.embedded.js&quot;&gt;threex.embedded&lt;/a&gt;,
+see its
+&lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/threex.embedded.html&quot;&gt;annoted source&lt;/a&gt;.
+Iframe is a easy and secure way to make your game embeddable.
+We have seen how to handle smaller display area
+with
+&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;THREEx.WindowResize&lt;/a&gt;
+and
+&lt;a href=&quot;http://www.w3.org/TR/css3-mediaqueries/&quot;&gt;media queries&lt;/a&gt;.
+Additionnaly we even shield DOM events, so we can use arrow keys for player control.
+You are all set! Go embed your game now :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Lets Make a 3D Game: Make It Fullscreen</title>
@@ -848,7 +1023,7 @@ You can embed it in your own page application with a single line.&lt;/p&gt;
 
 &lt;p&gt;```html&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;https://github.com/benvanik/WebGL-Inspector/blob/master/core/embed.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;https://raw.github.com/benvanik/WebGL-Inspector/master/core/embed.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;```&lt;/p&gt;
