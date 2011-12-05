@@ -14,18 +14,17 @@ categories: [tutorial3dgame, THREEx, html5]
 This post is part of the ["Let's make a 3D game"](/blog/categories/tutorial3dgame/) series.
 The previous post was on
 [fullscreen API](/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/).
-So here is another one on resizing the display area.
+Here is another one on resizing the display area.
 This post is about embedding your game in another page.
-It is usefull when you want to include it in a blog, in facebook, iGoogle or
-other game plateforms.
+It is usefull to include it in a blog, in facebook, iGoogle or other game plateforms.
 
-
-*Show dont tell*, you can see
-[marbleSoccer](http://marblesoccer.com)
-embedded on the left.
+[MarbleSoccer](http://marblesoccer.com)
+now contains all the tricks explained in this post.
+*Show dont tell*, you can see it embedded on the left.
 Embedding your game implies various things.
 As your game is hosted in another page, it likely got a smaller display area.
-HTML5 [CSS media query](http://www.w3.org/TR/css3-mediaqueries/)
+HTML5
+[CSS media query](http://www.w3.org/TR/css3-mediaqueries/)
 makes it easy to fit various sizes.
 Another part are the
 [DOM events](http://en.wikipedia.org/wiki/DOM_events)
@@ -34,7 +33,6 @@ They will be propagated to the host page and may produce undesirable effects.
 We see how to shield them.
 But first let's see about
 [iframe](http://en.wikipedia.org/wiki/HTML_element#Frames)
-
 
 ## Let's go play in an iframe
 
@@ -54,7 +52,7 @@ Let's declare it.
 The attributes are pretty classics: ```frameborder``` to remove an ugly default border,
 ```width``` and ```height``` for size and ```src``` for your game page.
 The ones ending with ```allowfullscreen``` tell the browser that this iframe is
-allowed to go fullscreen. More details about fullscreen in this
+allowed to go fullscreen. More about fullscreen in this
 [previous post](/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/)
 or in the [spec](http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html).
 
@@ -69,7 +67,7 @@ Use this line will tell if it is in a iframe or not.
 
 When your game is embedded, it is likely to have a smaller display area.
 How to deal with this ?
-First there are 2 type of rendering in our game:
+First, we have 2 types of rendering in our game:
 a 3D display where
 [three.js](https://github.com/mrdoob/three.js/)
 displays the
@@ -78,22 +76,21 @@ a DOM display for
 [OSD](http://en.wikipedia.org/wiki/On-screen_display)
 such as score, timers and other popups.
 
-First *let's fit the 3D display*.
-We have already seen the solution in a previous post about
-[window resizing](/blog/2011/08/30/window-resize-for-your-demos/).
+For *3D rendering*, we have already seen window resizing in
+[this post](/blog/2011/08/30/window-resize-for-your-demos/).
 Just download
-[THREEx.WindowResize](/data/THREEx/THREEx.WindowResize.js) and add this line
+[THREEx.WindowResize](/data/THREEx/THREEx.WindowResize.js)
+and add this line and you are done. Not too hard, hey.
 
 ```javascript
 	THREEx.WindowResize(renderer, camera);
 ```
 
-Not too hard, hey. Now *lets adapt the DOM display*. It is simply done via CSS.
-Personnaly i used
-[media queries](http://www.w3.org/TR/css3-mediaqueries/)
-for that. 
+Now *the DOM display*. It may simply be done via CSS
+and
+[media queries](http://www.w3.org/TR/css3-mediaqueries/).
 Typically, you may reduce the size of your font or icons.
-I won't try to teach you css, other do that much
+I won't try to teach css, other do that much
 [better](https://developer.mozilla.org/en/CSS/Media_queries)
 [than](http://www.html5rocks.com/en/mobile/mobifying.html#toc-mediaqueries)
 [me](http://thinkvitamin.com/code/media-queries-width-and-height-video-tutorial/).
