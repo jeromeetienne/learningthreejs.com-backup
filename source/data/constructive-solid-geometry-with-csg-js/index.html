@@ -72,7 +72,7 @@
 			var material	= new THREE.MeshNormalMaterial({
 				shading: THREE.SmoothShading
 			});
-			var material	= new THREE.MeshPhongMaterial({ ambient: 0x030303, color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.FlatShading });
+			var material	= new THREE.MeshPhongMaterial({ ambient: 0x030303, color: 0xdddddd, specular: 0x808080, shininess: 30, shading: THREE.FlatShading });
 			//var material	= new THREE.MeshLambertMaterial( { color: 0xdddddd, shading: THREE.FlatShading } );
 			//var material	= new THREE.MeshBasicMaterial( { color: 0xdddddd, shading: THREE.FlatShading } );
 
@@ -83,7 +83,7 @@
 			var resultCsg	= cubeCsg;
 
 			var radius	= 1/4;
-			var sphereMesh	= new THREE.Mesh( new THREE.SphereGeometry(radius, 8, 4), material );
+			var sphereMesh	= new THREE.Mesh( new THREE.SphereGeometry(radius, 8, 3), material );
 			
 			var o		= 0.6;
 			var r		= 1;
