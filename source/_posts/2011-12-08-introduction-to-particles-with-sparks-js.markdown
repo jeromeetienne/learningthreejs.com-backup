@@ -26,9 +26,11 @@ and
 
 Here is a demo of what you can do with sparks.js and three.js. Cool no ?
 You want to do the same ? Let me walk you thru the code for particles in this example.
-<!-- <iframe src="http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html" width="100%" height="420" frameborder="0"></iframe> -->
+
+<iframe src="http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html" width="100%" height="420" frameborder="0"></iframe>
 
 ## Notes
+
 * What is an emitter
 * What is a particle
 

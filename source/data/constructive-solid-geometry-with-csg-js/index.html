@@ -1,0 +1,168 @@
+<html>
+	<head>
+		<script src="https://raw.github.com/mrdoob/three.js/r46/build/Three.js"></script>
+		<script src="https://raw.github.com/mrdoob/three.js/r46/examples/js/RequestAnimationFrame.js"></script>
+		<script src="https://raw.github.com/mrdoob/three.js/r46/examples/js/Stats.js"></script>
+		<script src="https://raw.github.com/mrdoob/three.js/r46/examples/js/Detector.js"></script>
+		
+		<script src="vendor/csg.js"></script>
+		<script src="vendor/ThreeCSG.js"></script>
+
+		<script src="../THREEx/THREEx.GeometryUtils.js"></script>
+		<style>
+			body {
+				overflow:hidden;
+				padding:0;
+				margin:0;
+			}
+		</style>
+	</head>
+<body>
+    	<div id="container"></div>
+
+	<script type="text/javascript">
+
+		if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+		var container, stats;
+		var camera, scene, renderer, mesh;
+		var mouseX = 0, mouseY = 0;
+		var windowHalfX = window.innerWidth / 2;
+		var windowHalfY = window.innerHeight / 2;
+
+		init();
+		animate();
+		function init(){
+			renderer = new THREE.WebGLRenderer({antialias: true});
+			renderer.setSize( window.innerWidth, window.innerHeight );
+		
+			document.getElementById('container').appendChild(renderer.domElement);
+			
+			scene = new THREE.Scene();
+			
+			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000 );
+			camera.position.set(0, 0, 3);
+			camera.lookAt(scene.position);
+	
+			//scene.add( new THREE.AmbientLight( 0x202020 ) );
+	
+			var directionalLight = new THREE.DirectionalLight();
+			directionalLight.color.setHSV(0.66, 0.75, 1.0 );
+			directionalLight.position.set( 1, 1, 1).normalize();
+			scene.add( directionalLight );
+			
+			var directionalLight = new THREE.DirectionalLight();
+			directionalLight.color.setHSV( 0.66, 0.5, 0.75 );
+			directionalLight.position.set( -1, -1, -1).normalize();
+			scene.add( directionalLight );
+			
+			pointLight = new THREE.PointLight( 0x000000, 1.5 );
+			pointLight.color.setHSV( 0.33, 0.0, 0.75 );
+			pointLight.position.set( -2, +2, -2);
+			scene.add( pointLight );
+
+			pointLight = new THREE.PointLight( 0x000000, 1.5 );
+			pointLight.color.setHSV( 0.33, 0.0, 0.75 );
+			pointLight.position.set(  2, -2, 2);
+			scene.add( pointLight );
+	
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+			var material	= new THREE.MeshNormalMaterial({
+				shading: THREE.SmoothShading
+			});
+			var material	= new THREE.MeshPhongMaterial({ ambient: 0x030303, color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.FlatShading });
+			//var material	= new THREE.MeshLambertMaterial( { color: 0xdddddd, shading: THREE.FlatShading } );
+			//var material	= new THREE.MeshBasicMaterial( { color: 0xdddddd, shading: THREE.FlatShading } );
+
+			var cubeMesh	= new THREE.Mesh( new THREE.CubeGeometry( 2, 2, 2 ), material );
+			//var cubeMesh	= new THREE.Mesh( new THREE.SphereGeometry( 1, 32, 16), material );
+			//var cubeMesh	= new THREE.Mesh( new THREE.SphereGeometry( 1, 16, 8), material );
+			var cubeCsg	= THREE.CSG.toCSG(cubeMesh);
+			var resultCsg	= cubeCsg;
+
+			var radius	= 1/4;
+			var sphereMesh	= new THREE.Mesh( new THREE.SphereGeometry(radius, 8, 4), material );
+			
+			var o		= 0.6;
+			var r		= 1;
+			var coordinates	= [
+				// Face 6
+				[-o, -o, +r],
+				[-o,  0, +r],
+				[-o, +o, +r],
+				[+o, -o, +r],
+				[+o,  0, +r],
+				[+o, +o, +r],
+				// Face 1
+				[ 0,  0, -r],
+				// Face 4
+				[-r, +o, -o],
+				[-r, -o, -o],
+				[-r, +o, +o],
+				[-r, -o, +o],
+				// Face 3
+				[+r, +o, -o],
+				[+r,  0,  0],
+				[+r, -o, +o],
+				// Face 2
+				[+o, +r, -o],
+				[-o, +r, +o],
+				// Face 5
+				[+o, -r, -o],
+				[-o, -r, -o],
+				[ 0, -r,  0],
+				[+o, -r, +o],
+				[-o, -r, +o],
+			];
+console.profile('building');
+			for(var i = 0; i < coordinates.length; i++){
+				var coords	= coordinates[i];
+
+				sphereMesh.position.x	= coords[0];
+				sphereMesh.position.y	= coords[1];
+				sphereMesh.position.z	= coords[2];
+
+				var sphereCsg	= THREE.CSG.toCSG(sphereMesh);
+				var resultCsg	= resultCsg.subtract(sphereCsg);
+			}
+console.profileEnd();
+
+console.profile('converting to three.js');
+			var resultGeo	= THREE.CSG.fromCSG( resultCsg );
+console.profileEnd();
+
+console.profile('centering');
+			THREEx.GeometryUtils.center(resultGeo);	
+console.profileEnd();
+			mesh = new THREE.Mesh( resultGeo, material );
+
+			scene.add( mesh );
+		}
+		function onDocumentMouseMove(event) {
+
+			mouseX = ( event.clientX - windowHalfX );
+			mouseY = ( event.clientY - windowHalfY );
+
+		}
+		function animate() {
+
+			requestAnimationFrame( animate );
+
+			render();
+			//stats.update();
+
+		}
+
+		function render() {
+
+			camera.position.x += ( +mouseX/40 - camera.position.x ) * .2;
+			camera.position.y += ( -mouseY/40 - camera.position.y ) * .2;
+			camera.lookAt( scene.position );
+
+			renderer.render( scene, camera );
+
+		}
+	</script>
+</body>
+</html>
