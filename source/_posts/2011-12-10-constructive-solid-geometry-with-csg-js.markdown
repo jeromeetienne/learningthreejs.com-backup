@@ -31,8 +31,10 @@ wrote a
 to make it easy to use with
 [three.js](https://github.com/mrdoob/three.js/).
 
-I used all this nice code and wrote a little [demo of a dice](/data/constructive-solid-geometry-with-csg-js/).
-Thus you can click to change the operations, play with it and have a feel of the various operations.
+With all this nice code, i wrote the little
+[demo of a dice](/data/constructive-solid-geometry-with-csg-js/)
+you can see on the right. Thus you can click to change the operations, play
+with it and have a feel of the various operations.
 
 
 ## Let's start
