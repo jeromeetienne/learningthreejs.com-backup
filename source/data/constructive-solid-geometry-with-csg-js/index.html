@@ -44,9 +44,8 @@
 			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000 );
 			camera.position.set(0, 0, 3);
 			camera.lookAt(scene.position);
-	
-			//scene.add( new THREE.AmbientLight( 0x202020 ) );
-	
+			scene.add(camera);
+
 			var directionalLight = new THREE.DirectionalLight();
 			directionalLight.color.setHSV(0.66, 0.75, 1.0 );
 			directionalLight.position.set( 1, 1, 1).normalize();
@@ -72,8 +71,8 @@
 			var material	= new THREE.MeshNormalMaterial({
 				shading: THREE.SmoothShading
 			});
-			var material	= new THREE.MeshPhongMaterial({ ambient: 0x030303, color: 0xdddddd, specular: 0x808080, shininess: 30, shading: THREE.FlatShading });
-			//var material	= new THREE.MeshLambertMaterial( { color: 0xdddddd, shading: THREE.FlatShading } );
+			//var material	= new THREE.MeshPhongMaterial({ ambient: 0x030303, color: 0xdddddd, specular: 0x808080, shininess: 30, shading: THREE.FlatShading });
+			var material	= new THREE.MeshLambertMaterial( { color: 0xaaaaDD, shading: THREE.FlatShading } );
 			//var material	= new THREE.MeshBasicMaterial( { color: 0xdddddd, shading: THREE.FlatShading } );
 
 			var cubeMesh	= new THREE.Mesh( new THREE.CubeGeometry( 2, 2, 2 ), material );
@@ -83,8 +82,9 @@
 			var resultCsg	= cubeCsg;
 
 			var radius	= 1/4;
-			var sphereMesh	= new THREE.Mesh( new THREE.SphereGeometry(radius, 8, 3), material );
-			
+			var sphereMesh	= new THREE.Mesh( new THREE.SphereGeometry(radius, 16, 8), material );
+			//var sphereMesh	= new THREE.Mesh( new THREE.SphereGeometry(radius, 32, 16), material );
+
 			var o		= 0.6;
 			var r		= 1;
 			var coordinates	= [
@@ -116,7 +116,8 @@
 				[+o, -r, +o],
 				[-o, -r, +o],
 			];
-console.profile('building');
+
+			var dots	= new THREE.Geometry();
 			for(var i = 0; i < coordinates.length; i++){
 				var coords	= coordinates[i];
 
@@ -124,18 +125,15 @@ console.profile('building');
 				sphereMesh.position.y	= coords[1];
 				sphereMesh.position.z	= coords[2];
 
-				var sphereCsg	= THREE.CSG.toCSG(sphereMesh);
-				var resultCsg	= resultCsg.subtract(sphereCsg);
+				THREE.GeometryUtils.merge(dots, sphereMesh);
 			}
-console.profileEnd();
+			var sphereCsg	= THREE.CSG.toCSG(dots);
+			var resultCsg	= resultCsg.subtract(sphereCsg);
 
-console.profile('converting to three.js');
 			var resultGeo	= THREE.CSG.fromCSG( resultCsg );
-console.profileEnd();
 
-console.profile('centering');
 			THREEx.GeometryUtils.center(resultGeo);	
-console.profileEnd();
+
 			mesh = new THREE.Mesh( resultGeo, material );
 
 			scene.add( mesh );

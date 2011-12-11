@@ -4,7 +4,7 @@ title: "Contructive Solid Geometry With csg.js"
 date: 2011-12-10 16:30
 comments: true
 categories: [three.js, library]
-published: true
+published: false
 ---
 
 [Constructive solid Geometry](http://en.wikipedia.org/wiki/Constructive_solid_geometry)
