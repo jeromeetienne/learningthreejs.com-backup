@@ -8,10 +8,11 @@ published: true
 ---
 
 This post is about
-[Constructive solid Geometry](http://en.wikipedia.org/wiki/Constructive_solid_geometry).
-, an impressive word :) It is just a way to build complex objects from simpler ones.
+[constructive solid geometry](http://en.wikipedia.org/wiki/Constructive_solid_geometry)
+, an impressive word :)
+In fact, it is just a way to build complex objects from simpler ones.
 Those simple objects are assembled using
-[boolean operations](http://en.wikipedia.org/wiki/Algebra_of_sets)
+[operations](http://en.wikipedia.org/wiki/Algebra_of_sets)
 such as union, difference and intersection.
 
 <iframe src="http://127.0.0.1:4000/constructive-solid-geometry-with-csg-js/"
@@ -31,18 +32,19 @@ to make it easy to use with
 [three.js](https://github.com/mrdoob/three.js/).
 
 I used all this nice code and wrote a little [demo of a dice](/data/constructive-solid-geometry-with-csg-js/).
-Thus you can play with it and have a feel of the various operations.
+Thus you can click to change the operations, play with it and have a feel of the various operations.
 
 
 ## Let's start
 
-You get csg.js from
+So lets see how to use it. First step, you download
+csg.js from
 [here](http://evanw.github.com/csg.js/)
-, Three.js glue from
+, ThreeCSG.js bridge from
 [here](http://chandler.prallfamily.com/labs/three/csg/ThreeCSG.js)
-and add those 2 lines.
+. Then include those line in your own code.
 
-```javascript
+```html
 	<script src="csg.js"></script>
 	<script src="ThreeCSG.js"></script>
 ```
@@ -55,7 +57,7 @@ is a bridge between
 [three.js](https://github.com/mrdoob/three.js/)
 and
 [csg.js](http://evanw.github.com/csg.js/).
-Both libraries use a different format for geometry and
+Both libraries use a different format for geometry.
 [ThreeCSG.js](http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/)
 does the conversion back and forth.
 To convert your three.js geometry to a csg geometry, use this line.
