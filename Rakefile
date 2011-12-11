@@ -186,7 +186,7 @@ task :push do
     message = "Site updated at #{Time.now.utc}"
     system "git commit -m '#{message}'"
     puts "\n## Pushing generated #{deploy_dir} website"
-    system "git push origin #{deploy_branch}"
+    system "git push --force origin #{deploy_branch}"
     puts "\n## Github Pages deploy complete"
   end
 end

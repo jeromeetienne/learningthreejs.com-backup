@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Contructive Solid Geometry With csg.js"
+title: "Constructive Solid Geometry With csg.js"
 date: 2011-12-10 16:30
 comments: true
 categories: [three.js, library]
@@ -15,7 +15,7 @@ Those simple objects are assembled using
 [operations](http://en.wikipedia.org/wiki/Algebra_of_sets)
 such as union, difference and intersection.
 
-<iframe src="http://127.0.0.1:4000/constructive-solid-geometry-with-csg-js/"
+<iframe src="/data/constructive-solid-geometry-with-csg-js/"
 	width="420" height="315" frameborder="0" style="float: right; margin-left: 1em;">
 </iframe>
 
@@ -50,6 +50,8 @@ csg.js from
 	<script src="csg.js"></script>
 	<script src="ThreeCSG.js"></script>
 ```
+
+<!-- more -->
 
 ## Let's convert
 
