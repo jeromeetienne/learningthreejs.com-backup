@@ -4,13 +4,182 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-12-11T12:56:52+01:00</updated>
+  <updated>2011-12-11T19:37:47+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Constructive Solid Geometry With csg.js</title>
+    <link href="http://learningthreejs.com/blog/2011/12/10/constructive-solid-geometry-with-csg-js/"/>
+    <updated>2011-12-10T16:30:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2011/12/10/constructive-solid-geometry-with-csg-js</id>
+    <content type="html">&lt;p&gt;This post is about
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Constructive_solid_geometry&quot;&gt;constructive solid geometry&lt;/a&gt;
+, an impressive word :)
+In fact, it is just a way to build complex objects from simpler ones.
+Those simple objects are assembled using
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Algebra_of_sets&quot;&gt;operations&lt;/a&gt;
+such as union, difference and intersection.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/&quot;
+    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;p&gt;Recently
+&lt;a href=&quot;http://madebyevan.com/&quot;&gt;Evan Wallas&lt;/a&gt;
+released
+&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt;,
+a clean self-contained library to do
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Constructive_solid_geometry&quot;&gt;constructive solid geometry&lt;/a&gt;.
+So &lt;a href=&quot;http://chandler.prallfamily.com/&quot;&gt;Chandler Prall&lt;/a&gt;
+wrote a
+&lt;a href=&quot;http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/&quot;&gt;bridge&lt;/a&gt;
+to make it easy to use with
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;With all this nice code, i wrote the little
+&lt;a href=&quot;http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/&quot;&gt;demo of a dice&lt;/a&gt;
+you can see on the right. Thus you can click to change the operations, play
+with it and have a feel of the various operations.&lt;/p&gt;
+
+&lt;h2&gt;Let's start&lt;/h2&gt;
+
+&lt;p&gt;So lets see how to use it. First step, you download
+csg.js from
+&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;here&lt;/a&gt;
+, ThreeCSG.js bridge from
+&lt;a href=&quot;http://chandler.prallfamily.com/labs/three/csg/ThreeCSG.js&quot;&gt;here&lt;/a&gt;
+. Then include those line in your own code.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;csg.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&quot;ThreeCSG.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Let's convert&lt;/h2&gt;
+
+&lt;p&gt;Ok now that we got the source, let's use it.
+&lt;a href=&quot;http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/&quot;&gt;ThreeCSG.js&lt;/a&gt;
+is a bridge between
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+and
+&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt;.
+Both libraries use a different format for geometry.
+&lt;a href=&quot;http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/&quot;&gt;ThreeCSG.js&lt;/a&gt;
+does the conversion back and forth.
+To convert your three.js geometry to a csg geometry, use this line.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var geometryCsg = THREE.CSG.toCSG(geometryThree);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Then you likely apply
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Algebra_of_sets&quot;&gt;boolean operations&lt;/a&gt;
+on
+&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt; geometry.
+To convert it back to three.js, just do&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var geometryThree   = THREE.CSG.toCSG(geometryCsg);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;You end up with a normal &lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js&quot;&gt;three.js geometry&lt;/a&gt;
+than you can use everywhere, like
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/GeometryUtils.js&quot;&gt;GeometryUtils&lt;/a&gt;
+or
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/objects/Mesh.js&quot;&gt;Mesh&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Let's assemble&lt;/h2&gt;
+
+&lt;p&gt;Now the fun part, lets assemble objects with those misterious
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Algebra_of_sets&quot;&gt;boolean operations&lt;/a&gt;
+on ours
+&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt;
+geometries.
+There are &lt;a href=&quot;http://en.wikipedia.org/wiki/Constructive_solid_geometry&quot;&gt;3 of them&lt;/a&gt;:
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Complement_(set_theory)&quot;&gt;difference&lt;/a&gt;,
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Union_(set_theory)&quot;&gt;union&lt;/a&gt;
+and
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Intersection_(set_theory)&quot;&gt;intersect&lt;/a&gt;.
+To build our dice, first we build a
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CubeGeometry.js&quot;&gt;cube&lt;/a&gt;
+then we subtract a bunch of
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js&quot;&gt;spheres&lt;/a&gt;
+to makes the holes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/images/image-substract-320x240.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;Once you converted your objects, you apply operations on them.
+For the dice, we use &lt;code&gt;.subtract()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cube.substract(spheres)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/images/image-union-320x240.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;But it is possible to use &lt;code&gt;.union()&lt;/code&gt; to add them.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cube.union(spheres)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Or to keep only the common part of both objects with &lt;code&gt;.intersect()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/images/image-intersect-320x240.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;You can chain those operations to your own taste.
+Up to you to be creative :)&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cube.intersect(spheres)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Constructive_solid_geometry&quot;&gt;Constructive solid Geometry&lt;/a&gt;
+is simple and quite powerfull.
+&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt;
+,
+&lt;a href=&quot;http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/&quot;&gt;ThreeCSG.js&lt;/a&gt;
+and
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+makes it real easy to play with.
+You may look at the source of our dice
+&lt;a href=&quot;http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/&quot;&gt;demo&lt;/a&gt;
+to see a working version of this code.
+That's all for today, have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Lets Make a 3D Game: Make It Embedded</title>
