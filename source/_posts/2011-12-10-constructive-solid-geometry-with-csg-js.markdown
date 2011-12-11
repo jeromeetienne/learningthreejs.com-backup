@@ -4,11 +4,13 @@ title: "Contructive Solid Geometry With csg.js"
 date: 2011-12-10 16:30
 comments: true
 categories: [three.js, library]
-published: false
+published: true
 ---
 
-[Constructive solid Geometry](http://en.wikipedia.org/wiki/Constructive_solid_geometry)
-is a way to build complex objects from simpler ones.
+This post is about
+[Constructive solid Geometry](http://en.wikipedia.org/wiki/Constructive_solid_geometry).
+
+It is a way to build complex objects from simpler ones.
 It uses [boolean operations](http://en.wikipedia.org/wiki/Algebra_of_sets) such as
 union, difference and intersection.
 
@@ -20,7 +22,17 @@ from
 from
 [Evan Wallas](http://madebyevan.com/)
 
-## What is this ?
+
+<iframe src="http://127.0.0.1:4000/constructive-solid-geometry-with-csg-js/"
+	width="420" height="315" frameborder="0" style="float: right; margin-left: 1em;">
+</iframe>
+
+
+##
+
+Thus you can build new objects from javascript directly.
+It may be usefull when you want dynamic modeling
+or if like me, you dunno how to use a 3D modeler :)
 
 
 

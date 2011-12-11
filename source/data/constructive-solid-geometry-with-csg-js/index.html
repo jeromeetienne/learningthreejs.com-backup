@@ -15,12 +15,38 @@
 				overflow:hidden;
 				padding:0;
 				margin:0;
+
+				color: #CCCCCC;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+			}
+			#info {
+				position: absolute;
+				top: 0px; width: 100%;
+				padding: 5px;
 			}
 		</style>
 	</head>
 <body>
     	<div id="container"></div>
-
+	<div id="info">
+		<a href="/blog/2011/10/05/performance-merging-geometry/" target="_blank">LearningThree.js</a> - Contructive Solid Geometry
+		- with
+		<a href="http://evanw.github.com/csg.js/" target="_blank">csg.js</a>
+		,
+		<a href="http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/" target="_blank">ThreCSG.js</a>
+		and
+		<a href="https://github.com/mrdoob/three.js/" target="_blank">three.js</a>
+		<br>
+		Operations:
+		<a href="#substract" onclick="window.location.href=this.href;window.location.reload();">subtract</a>
+		-
+		<a href="#union" onclick="window.location.href=this.href;window.location.reload();">union</a>
+		-
+		<a href="#intersect" onclick="window.location.href=this.href;window.location.reload();">intersect</a>
+	</div>
+		
 	<script type="text/javascript">
 
 		if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
@@ -42,7 +68,7 @@
 			scene = new THREE.Scene();
 			
 			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000 );
-			camera.position.set(0, 0, 3);
+			camera.position.set(0, 0, 4);
 			camera.lookAt(scene.position);
 			scene.add(camera);
 
@@ -128,7 +154,17 @@
 				THREE.GeometryUtils.merge(dots, sphereMesh);
 			}
 			var sphereCsg	= THREE.CSG.toCSG(dots);
-			var resultCsg	= resultCsg.subtract(sphereCsg);
+			
+			var operation	= window.location.hash.substr(1) || "substract";
+			if( operation === "substract" ){
+				var resultCsg	= resultCsg.subtract(sphereCsg);
+			}else if( operation === "union" ){
+				var resultCsg	= resultCsg.union(sphereCsg);
+			}else if( operation === "intersect" ){
+				var resultCsg	= resultCsg.intersect(sphereCsg);
+			}else{
+				var resultCsg	= resultCsg.subtract(sphereCsg);
+			}
 
 			var resultGeo	= THREE.CSG.fromCSG( resultCsg );
 
