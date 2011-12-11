@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<script type="text/javascript" src="csg.js"></script>
+<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/r46/build/Three.js"></script>
+<script type="text/javascript" src="ThreeCSG.js"></script>
+
+<script type="text/javascript">
+
+window.onload = function() {
+	
+	var projector = new THREE.Projector( );
+	var renderer = new THREE.WebGLRenderer({antialias: false});
+	renderer.setSize(800, 640);
+
+	document.getElementById('viewport').appendChild(renderer.domElement);
+	
+	var scene = new THREE.Scene();
+	
+	var camera = new THREE.PerspectiveCamera(
+		35,
+		800 / 640,
+		1,
+		10000
+	);
+	camera.position.set(5, 1.8, 5);
+	camera.lookAt(scene.position);
+	
+	var cube = THREE.CSG.toCSG(
+		new THREE.CubeGeometry( 2, 2, 2 ),
+		new THREE.Vector3(-1, 0, 0)
+	);
+	var sphere = THREE.CSG.toCSG(new THREE.SphereGeometry(1.4, 16, 16));
+	var geometry = cube.subtract(sphere);
+	var mesh = new THREE.Mesh(
+		THREE.CSG.fromCSG( geometry ),
+		new THREE.MeshNormalMaterial()
+	);
+	scene.add( mesh );
+	
+	renderer.render(scene, camera);
+	
+}
+
+</script>
+
+</head>
+
+<body>
+    
+	<div id="viewport"></div>
+	
+</body>
+
+</html>
