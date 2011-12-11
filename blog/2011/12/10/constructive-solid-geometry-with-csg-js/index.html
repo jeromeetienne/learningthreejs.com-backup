@@ -186,7 +186,7 @@ on
 To convert it back to three.js, just do</p>
 
 <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">geometryThree</span>   <span class="o">=</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">CSG</span><span class="p">.</span><span class="nx">toCSG</span><span class="p">(</span><span class="nx">geometryCsg</span><span class="p">);</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">geometryThree</span>   <span class="o">=</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">CSG</span><span class="p">.</span><span class="nx">fromCSG</span><span class="p">(</span><span class="nx">geometryCsg</span><span class="p">);</span>
 </div></code></pre></td></tr></table></div>
 
 <p>You end up with a normal <a href="https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js">three.js geometry</a>

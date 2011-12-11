@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-12-11T19:37:47+01:00</updated>
+  <updated>2011-12-11T20:16:13+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -95,7 +95,7 @@ To convert it back to three.js, just do&lt;/p&gt;
 
 &lt;p&gt;```javascript&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;var geometryThree   = THREE.CSG.toCSG(geometryCsg);
+&lt;pre&gt;&lt;code&gt;var geometryThree   = THREE.CSG.fromCSG(geometryCsg);
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;```&lt;/p&gt;
