@@ -78,7 +78,7 @@ To convert it back to three.js, just do
 
 
 ```javascript
-	var geometryThree	= THREE.CSG.toCSG(geometryCsg);
+	var geometryThree	= THREE.CSG.fromCSG(geometryCsg);
 ```
 
 You end up with a normal [three.js geometry](https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js)
