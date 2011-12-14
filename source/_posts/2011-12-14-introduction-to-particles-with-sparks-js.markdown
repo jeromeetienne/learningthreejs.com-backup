@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Introduction to Particles With Sparks.js"
-date: 2011-12-14 12:08
+date: 2011-12-08 16:08
 published: true
 comments: true
 categories: [three.js, library, sparks.js, particles]

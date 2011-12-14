@@ -63,12 +63,12 @@
 		animate();
 		function init(){
 			if( Detector.webgl ){
-				renderer = new THREE.WebGLRenderer({
-					antialias	: true,
+				renderer= new THREE.WebGLRenderer({
+					antialias		: true,
 					preserveDrawingBuffer	: true
 				});				
 			}else{
-				renderer	= renderer = new THREE.CanvasRenderer();
+				renderer= new THREE.CanvasRenderer();
 			}
 			renderer.setSize( window.innerWidth, window.innerHeight );
 		
@@ -84,7 +84,7 @@
 				}
 			});
 
-			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000 );
+			camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.5, 10000 );
 			camera.position.set(0, 0, 4);
 			camera.lookAt(scene.position);
 			scene.add(camera);
