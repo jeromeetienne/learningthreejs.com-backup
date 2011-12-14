@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Introduction to Particles With Sparks.js"
-date: 2011-12-08 16:08
+date: 2011-12-14 12:08
 published: true
 comments: true
 categories: [three.js, library, sparks.js, particles]
@@ -10,7 +10,6 @@ categories: [three.js, library, sparks.js, particles]
 This post is the first of a [serie on particles](/blog/categories/particles).
 It specifically is about 
 [sparks.js](https://github.com/zz85/sparks.js).
-It is the first of a [serie on particles](/blog/categories/particles).
 *sparks.js* is lightweight 3d
 [Particle system](http://en.wikipedia.org/wiki/Particle_system)
 in javascript, for use with
@@ -135,15 +134,17 @@ This one produces a gravity effect with a negative ```y```.
 ```SPARKS.Move()``` makes the particles move in our 3D space.
 ```SPARKS.RandomDrift(x,y,z)``` changes the velocity by adding a random amount at every step.
 
-# Conclusion
+## Conclusion
 
-I hope this introduction got you excited about
+I hope this short introduction got you excited about
 [sparks.js](https://github.com/zz85/sparks.js/).
-I find it clean and flexible.
+Next posts on the
+[particle series](/blog/categories/particles)
+may be a UI editor, stay tuned!
+I find sparks.js clean and flexible.
 Flexibility is very important for particles.
 It helps provide a wide variety of effect in your games/demos.
 For more informations and authoritative answer, see the
 [github repository](https://github.com/zz85/sparks.js/).
-Next posts on the [particle series] may be a UI editor, stay tuned!
 That's all for today folks, have fun.
 
