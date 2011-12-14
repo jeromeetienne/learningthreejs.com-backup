@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Introduction to Particles With Sparks.js"
+title: "Particles: Introduction to Sparks.js"
 date: 2011-12-14 12:08
 published: true
 comments: true
@@ -53,6 +53,8 @@ It is usually composed of 2 big parts: the *emitter* and the *particle* itself.
 Emitter creates particles.
 Particles are usually smallish objects on the screen.
 As you got many particles at the same time, they appears a single mass.
+
+<!-- more -->
 
 ## Let's create an emitter
 
@@ -113,7 +115,7 @@ And the last one.
 The initializer stack is setup the particle at the begining of its life.
 Let's see what happen during this life.
 
-## Actions
+## Let's do some actions
 
 Actions are performed at every step of a particle life.
 Same as with initializers, ```emitter.addAction()``` to push a new action,
