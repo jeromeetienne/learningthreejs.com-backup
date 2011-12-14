@@ -26,13 +26,13 @@ a productive guy :)
 
 The [demo](http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html)
 below is one of the many [three.js examples](https://github.com/mrdoob/three.js/tree/master/examples).
-While im on it, the [example directory](https://github.com/mrdoob/three.js/tree/master/examples) is a gold mine
-to understand how to code three.js. go dig in it :)
+While im on it, the [example directory](https://github.com/mrdoob/three.js/tree/master/examples) is a gold mine.
+Go dig in it to understand how to code three.js :)
 Back to the point, this
 [demo](http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html)
 is rather cool no ?
 You want to do the same ?
-We will walk thru the code for particles in this example.
+During this short post, let me walk you walk thru the code for particles in this example.
 
 <iframe src="http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html" width="100%" height="420" frameborder="0"></iframe>
 
@@ -45,14 +45,14 @@ from
 Then include it in your own code.
 
 ```html
-	<script src="sparks.js"></script>
+	<script src="Sparks.js"></script>
 ```
 
 First a few words on what is a [particle system](http://en.wikipedia.org/wiki/Particle_system).
-It is usually composed of 2 big parts: the emitter and the particle itself.
-Emitter is the one creating particles.
+It is usually composed of 2 big parts: the *emitter* and the *particle* itself.
+Emitter creates particles.
 Particles are usually smallish objects on the screen.
-But you got many particles at the same time, so they appears a single mass.
+As you got many particles at the same time, they appears a single mass.
 
 ## Let's create an emitter
 
@@ -72,7 +72,7 @@ Now let's start emit particles.
 	emitter.start();
 ```
 
-sparks.js has a very flexible core.
+Sparks.js has a very flexible core.
 It mainly uses two stacks of functions.
 *Initializers* is the stack run at the creation of a particle.
 *Actions* is another stack which is run at every step of a particle life.
