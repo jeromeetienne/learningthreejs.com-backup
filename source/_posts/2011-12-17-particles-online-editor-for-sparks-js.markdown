@@ -3,9 +3,13 @@ layout: post
 title: "Particles: Online Editor for Sparks.js"
 date: 2011-12-17 19:11
 comments: true
-published: false
+published: true
 categories: [three.js, library, sparks.js, particles]
 ---
+
+This post is the second of our [serie on particles](/blog/categories/particles).
+It presents a online editor for
+[sparks.js](https://github.com/zz85/sparks.js).
 
 * Present the editor
 * screencast to show to use it
