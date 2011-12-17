@@ -4,13 +4,179 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-12-11T20:16:13+01:00</updated>
+  <updated>2011-12-17T20:09:05+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Introduction to Particles With Sparks.js</title>
+    <link href="http://learningthreejs.com/blog/2011/12/14/introduction-to-particles-with-sparks-js/"/>
+    <updated>2011-12-14T12:08:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2011/12/14/introduction-to-particles-with-sparks-js</id>
+    <content type="html">&lt;p&gt;This post is the first of a &lt;a href=&quot;http://learningthreejs.com/blog/categories/particles&quot;&gt;serie on particles&lt;/a&gt;.
+It specifically is about
+&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;sparks.js&lt;/a&gt;.
+&lt;em&gt;sparks.js&lt;/em&gt; is lightweight 3d
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Particle_system&quot;&gt;Particle system&lt;/a&gt;
+in javascript, for use with
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+and
+&lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;tween.js&lt;/a&gt;.
+It is from
+&lt;a href=&quot;http://www.lab4games.net/zz85/blog/&quot;&gt;zz85&lt;/a&gt;
+who already did
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_geometry_text.html&quot;&gt;3D text&lt;/a&gt;
+and
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_geometry_subdivison.html&quot;&gt;Catmull Clark subdivision&lt;/a&gt;.
+a productive guy :)&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html&quot;&gt;demo&lt;/a&gt;
+below is one of the many &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples&quot;&gt;three.js examples&lt;/a&gt;.
+While im on it, the &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples&quot;&gt;example directory&lt;/a&gt; is a gold mine.
+Go dig in it to understand how to code three.js :)
+Back to the point, this
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html&quot;&gt;demo&lt;/a&gt;
+is rather cool no ?
+You want to do the same ?
+During this short post, let me walk you walk thru the code for particles in this example.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+
+
+&lt;iframe src=&quot;http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html&quot; width=&quot;100%&quot; height=&quot;420&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+
+&lt;h2&gt;Lets Get Started&lt;/h2&gt;
+
+&lt;p&gt;So lets see how to use it. First step, you download
+&lt;a href=&quot;https://raw.github.com/zz85/sparks.js/master/Sparks.js&quot;&gt;sparks.js&lt;/a&gt;
+from
+&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;its github&lt;/a&gt;.
+Then include it in your own code.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;Sparks.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;First a few words on what is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Particle_system&quot;&gt;particle system&lt;/a&gt;.
+It is usually composed of 2 big parts: the &lt;em&gt;emitter&lt;/em&gt; and the &lt;em&gt;particle&lt;/em&gt; itself.
+Emitter creates particles.
+Particles are usually smallish objects on the screen.
+As you got many particles at the same time, they appears a single mass.&lt;/p&gt;
+
+&lt;h2&gt;Let's create an emitter&lt;/h2&gt;
+
+&lt;p&gt;First we create the emitter like this.
+&lt;code&gt;emitter&lt;/code&gt; is the main object we will play with.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var counter = new SPARKS.SteadyCounter( 500 );
+var emitter = new SPARKS.Emitter( counter );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;counter&lt;/code&gt; controls how frequently particles are created. Here it will
+emit 500 particles per seconds.
+Now let's start emit particles.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;emitter.start();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Sparks.js has a very flexible core.
+It mainly uses two stacks of functions.
+&lt;em&gt;Initializers&lt;/em&gt; is the stack run at the creation of a particle.
+&lt;em&gt;Actions&lt;/em&gt; is another stack which is run at every step of a particle life.
+Those functions are run in order.
+Up to you to configure them to fit your needs.
+You can easily code your own &lt;em&gt;initializer&lt;/em&gt; or &lt;em&gt;action&lt;/em&gt;.
+Dont worry it got a bunch of predefined ones.&lt;/p&gt;
+
+&lt;h2&gt;Let's initialize&lt;/h2&gt;
+
+&lt;p&gt;Lets me walk you thru the ones used in our example. The whole stack is below.
+&lt;code&gt;emitter.addInitializer()&lt;/code&gt; to push a new initializer, and &lt;code&gt;emitter.removeInitializer()&lt;/code&gt;
+to remove it, not too hard :)&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;emitterpos = new THREE.Vector3( 0, 0, 0 );
+emitter.addInitializer( new SPARKS.Position( new SPARKS.PointZone( emitterpos ) ) );
+emitter.addInitializer( new SPARKS.Lifetime( 1, 15 ));
+var vector = new THREE.Vector3( 0, -5, 1 );
+emitter.addInitializer( new SPARKS.Velocity( new SPARKS.PointZone( vector ) ) );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;SPARKS.Position(zone)&lt;/code&gt; initializer set the original position of the particle.
+A &lt;code&gt;zone&lt;/code&gt; provide a location in space.
+&lt;code&gt;new SPARKS.PointZone( emitterpos )&lt;/code&gt; means the particles will always start from this specific point in space.
+It is possible to have other zones.
+For example, &lt;code&gt;SPARKS.LineZone( startVector3, endVector3 )&lt;/code&gt; represents a line between 2 points, so
+your particle would start anywhere on this line.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;SPARKS.Lifetime(mintime, maxtime)&lt;/code&gt; initializer set particle's lifetime.
+You can specify a range and a random value will be assigned.
+Don't forget to add &lt;code&gt;SPARKS.Age&lt;/code&gt; action to handle its lifetime.
+And the last one.
+&lt;code&gt;SPARKS.Velocity(zone)&lt;/code&gt; set particle's velocity based on a &lt;code&gt;zone&lt;/code&gt; location.
+The initializer stack is setup the particle at the begining of its life.
+Let's see what happen during this life.&lt;/p&gt;
+
+&lt;h2&gt;Actions&lt;/h2&gt;
+
+&lt;p&gt;Actions are performed at every step of a particle life.
+Same as with initializers, &lt;code&gt;emitter.addAction()&lt;/code&gt; to push a new action,
+&lt;code&gt;emitter.removeAction()&lt;/code&gt; to remove it.
+For our examples the whole action stack is this.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;emitter.addAction( new SPARKS.Age() );
+emitter.addAction( new SPARKS.Accelerate( 0, 0, -50 ) );
+emitter.addAction( new SPARKS.Move() );
+emitter.addAction( new SPARKS.RandomDrift( 90, 100, 2000 ) );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now lets details it.
+We have already seen &lt;code&gt;SPARKS.Age()&lt;/code&gt;. It is handle the lifetime of each particle.
+&lt;code&gt;SPARKS.Accelerate(x,y,z)&lt;/code&gt; changes the velocity by adding a fixed amount at every step.
+This one produces a gravity effect with a negative &lt;code&gt;y&lt;/code&gt;.
+&lt;code&gt;SPARKS.Move()&lt;/code&gt; makes the particles move in our 3D space.
+&lt;code&gt;SPARKS.RandomDrift(x,y,z)&lt;/code&gt; changes the velocity by adding a random amount at every step.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I hope this short introduction got you excited about
+&lt;a href=&quot;https://github.com/zz85/sparks.js/&quot;&gt;sparks.js&lt;/a&gt;.
+Next posts on the
+&lt;a href=&quot;http://learningthreejs.com/blog/categories/particles&quot;&gt;particle series&lt;/a&gt;
+may be a UI editor, stay tuned!
+I find sparks.js clean and flexible.
+Flexibility is very important for particles.
+It helps provide a wide variety of effect in your games/demos.
+For more informations and authoritative answer, see the
+&lt;a href=&quot;https://github.com/zz85/sparks.js/&quot;&gt;github repository&lt;/a&gt;.
+That's all for today folks, have fun.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Constructive Solid Geometry With csg.js</title>
