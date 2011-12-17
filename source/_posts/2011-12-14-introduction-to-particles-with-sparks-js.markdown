@@ -34,6 +34,8 @@ is rather cool no ?
 You want to do the same ?
 During this short post, let me walk you walk thru the code for particles in this example.
 
+<!-- more -->
+
 <iframe src="http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html" width="100%" height="420" frameborder="0"></iframe>
 
 ## Lets Get Started
@@ -92,7 +94,6 @@ to remove it, not too hard :)
 	emitterpos = new THREE.Vector3( 0, 0, 0 );
 	emitter.addInitializer( new SPARKS.Position( new SPARKS.PointZone( emitterpos ) ) );
 	emitter.addInitializer( new SPARKS.Lifetime( 1, 15 ));
-	emitter.addInitializer( new SPARKS.Target( null, setTargetParticle ) );
 	var vector = new THREE.Vector3( 0, -5, 1 );
 	emitter.addInitializer( new SPARKS.Velocity( new SPARKS.PointZone( vector ) ) );
 ```
