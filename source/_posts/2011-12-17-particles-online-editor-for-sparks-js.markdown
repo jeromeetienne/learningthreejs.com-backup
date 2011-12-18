@@ -23,6 +23,7 @@ and
 [shadertoy](http://www.iquilezles.org/apps/shadertoy/)
 from
 [Inigo Quilez](http://www.iquilezles.org/).
+* first a few words about this tendancy to live online editor.
 * live editor produces a result immediatly.
 * It helps design your effect faster
 * very agile design, 
