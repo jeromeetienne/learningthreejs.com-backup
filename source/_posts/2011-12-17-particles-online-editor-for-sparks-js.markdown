@@ -27,6 +27,7 @@ from
 * It helps design your effect faster
 * state in url make it super easy to share
 * bookmarkability
+* name sparkseditor without E
 * ok it makes super long+ugly urls, but
 [url shoterning](http://en.wikipedia.org/wiki/URL_shortening)
 helps us reduces this issue.
