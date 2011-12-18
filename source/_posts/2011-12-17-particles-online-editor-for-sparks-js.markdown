@@ -23,6 +23,8 @@ and
 [shadertoy](http://www.iquilezles.org/apps/shadertoy/)
 from
 [Inigo Quilez](http://www.iquilezles.org/).
+and recently [dablet](http://lea.verou.me/2011/12/introducing-dabblet-an-interactive-css-playground/)
+from [lea verou](http://lea.verou.me/)
 * live editor produces a result immediatly.
 * It helps design your effect faster
 * state in url make it super easy to share
