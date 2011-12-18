@@ -26,9 +26,10 @@ from
 * live editor produces a result immediatly.
 * It helps design your effect faster
 * very agile design, 
-* light on your your foot as brucelee said. Link
-* state in url make it super easy to share
-* bookmarkability
+* light on your your foot as brucelee said. Link.
+* we have bookmarkability. Link. 
+* we do that by storing state in url.
+* it makes it super easy to share your particles effects with others.
 * name sparkseditor without E
 * ok it makes super long+ugly urls, but
 [url shoterning](http://en.wikipedia.org/wiki/URL_shortening)
