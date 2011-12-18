@@ -25,6 +25,8 @@ from
 [Inigo Quilez](http://www.iquilezles.org/).
 * live editor produces a result immediatly.
 * It helps design your effect faster
+* very agile design, 
+* light on your your foot as brucelee said. Link
 * state in url make it super easy to share
 * bookmarkability
 * name sparkseditor without E
@@ -33,8 +35,12 @@ from
 helps us reduces this issue.
 * in our case we use [bitly](https://bitly.com/)
 * html5 is all its power
+* all is static files
+* no specific server to run, no need to admin, no risk to go offline
+* oh and by the way im not even paying to host this application.
+* the web is becoming something real nice :)
 * all works in the browser, no server required, no server which can go offline
-* lower the barrier of entry
+* lower the barrier of entry on sparks.js three.js particles
 * some examples
   * ok but which one ?
   * in iframe ?
