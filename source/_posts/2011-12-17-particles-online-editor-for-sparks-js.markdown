@@ -26,10 +26,12 @@ from
 * live editor produces a result immediatly.
 * It helps design your effect faster
 * state in url make it super easy to share
+* bookmarkability
 * ok it makes super long+ugly urls, but
 [url shoterning](http://en.wikipedia.org/wiki/URL_shortening)
 helps us reduces this issue.
 * in our case we use [bitly](https://bitly.com/)
+* html5 is all its power
 * all works in the browser, no server required, no server which can go offline
 * lower the barrier of entry
 * some examples
