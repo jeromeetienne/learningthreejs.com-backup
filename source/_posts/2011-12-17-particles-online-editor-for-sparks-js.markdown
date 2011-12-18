@@ -31,16 +31,16 @@ from
 * we do that by storing state in url.
 * it makes it super easy to share your particles effects with others.
 * name sparkseditor without E
-* ok it makes super long+ugly urls, but
+* ok All is dandy in our perfect pinky world ? 
+* on the down side, it makes super long+ugly urls, but
 [url shoterning](http://en.wikipedia.org/wiki/URL_shortening)
 helps us reduces this issue.
 * in our case we use [bitly](https://bitly.com/)
 * html5 is all its power
 * all is static files
 * no specific server to run, no need to admin, no risk to go offline
-* oh and by the way im not even paying to host this application.
+* oh and by the way i dont not even have to pay for hosting this application.
 * the web is becoming something real nice :)
-* all works in the browser, no server required, no server which can go offline
 * lower the barrier of entry on sparks.js three.js particles
 * some examples
   * ok but which one ?
@@ -49,6 +49,7 @@ helps us reduces this issue.
 * announce threex.sparks.js
   * in the background, it use a library threex.sparks.js to make it even easier to use.
   * It will be the subject of a future post of our [particles serie](/blog/categories/particles).
+  * put that in conclusion
 * put the editor in its own repo ?
   * what would be the name ?
   * onlineeditorsparks.js ?
