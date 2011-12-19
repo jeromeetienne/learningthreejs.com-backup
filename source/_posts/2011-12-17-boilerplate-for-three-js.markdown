@@ -8,7 +8,16 @@ categories: [three.js, library]
 ---
 
 * inpired by [html5 boilerplate](http://html5boilerplate.com/).
+  * other boilerplate ?
+  * why boilerplate are cool ?
+  
+  * faster to start a project
+  * avoid repetitive tasks
+  * because it is easy to forget
 
+* 
+
+* explain the folder structure
 
 * what is a boilerplate ?
 * see html5 site
@@ -40,13 +49,14 @@ categories: [three.js, library]
 * This project is real early
 
 ## What about the future ?
-* announce a builder for later
+* later, it may be cool to have a builder
+  * possible to make it client only.
   * [jszip](http://jszip.stuartk.co.uk/)
   * [shorttag.js](https://github.com/jeromeetienne/shorttag.js)
 * cleaner output
 
 * how to get it ?
-	
+
 * [Boilerplate for Three.js](https://github.com/jeromeetienne/3bp)
 * [demo](http://jeromeetienne.github.com/3bp)
 
