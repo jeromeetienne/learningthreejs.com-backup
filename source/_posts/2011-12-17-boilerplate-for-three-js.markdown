@@ -3,7 +3,7 @@ layout: post
 title: "Boilerplate for Three.js"
 date: 2011-12-17 19:09
 comments: true
-published: true
+published: false
 categories: [three.js, library]
 ---
 
