@@ -23,7 +23,7 @@ and
 you see *live* the resulting particles effect. 
 I like this *live* aspect a lot :)
 I think it makes your design more direct, lower latency, less overhead.
-More creative in a strange way.
+More creative in a way.
 [Try it out](http://jeromeetienne.github.com/sparkseditor/).
 
 This editor has been made to lower the barrier of entry on
@@ -65,9 +65,8 @@ This helps design your effect faster.
 Be light on your foot kindof style.
 Very agile way to design. 
 
-Additionally, we have *bookmarkability*.
+Additionally, it is easy to share with others because we have *bookmarkability*.
 We do that by storing state in url.
-It makes it very simple to share your particles effects with others.
 On the down side, it makes super long+ugly urls...
 [url shortening](http://en.wikipedia.org/wiki/URL_shortening)
 helps us reduces this issue.
