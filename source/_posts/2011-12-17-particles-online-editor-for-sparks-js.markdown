@@ -78,7 +78,7 @@ This editor is purely static files.
 No specific server to run, no need to admin and no risk to go offline.
 Oh and by the way i dont not even have to pay for hosting this application.
 I think it shows html5 in all its power.
-The web is becoming something real nice :) html5 i love you!
+The web is becoming something real nice :) html5 i love you &hearts;
 
 ## conclusion
 
