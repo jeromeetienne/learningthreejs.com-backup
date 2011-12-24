@@ -32,8 +32,9 @@ by
 [Seb Lee-Delisle](http://sebleedelisle.com/)
 * The screencast below is short introduction about
 [virtualjoystick.js](https://github.com/jeromeetienne/virtualjoystick.js)
-  * go to the library page
+  * go to the github page
   * give the topic
+  * (move stuff on the screen while talking)
   * This is a screencast about virtualjoystick.js
   * This is a a javascript library which emulate a joystick on touch screen
   * This library done while porting marblesoccer to mobile devices
@@ -41,8 +42,9 @@ by
   * it has been widely impired by this post from seb.ly
   * a cool guy, go look at creativejs. Many fun stuff to play with there.
 
-  * explain what does it do ?
-  * the demo works with mouse events too, it is usefull when you develop (or show screencast :). 
+  * so what does this library too do ?
+  * lets play with the demo.
+  * the demo works with mouse events too, a usefull feature when you develop (or shoot screencast :). 
   * you press anywhere on the screen and then drag
   * you got the base and the stick
   * you land the base when you touch
