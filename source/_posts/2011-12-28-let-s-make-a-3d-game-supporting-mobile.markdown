@@ -1,26 +1,26 @@
 ---
 layout: post
 title: "Let’s Make a 3D Game: Supporting Mobile ?"
-date: 2011-12-25 13:46
+date: 2011-12-28 13:46
 comments: true
-categories: 
+categories: [three.js, mobile, canvas2d]
+publish: false
 ---
 
-* this post is about supporting mobile ?
-
-* When doing a
+This post is about supporting mobile.
+We will try to port [marblesoccer](http://marblesoccer.com) on mobile.
+When doing a
 [boilerplate for three.js](http://127.0.0.1:8000/blog/2011/12/20/boilerplate-for-three-js/),
 mobile had to be supported for compatibility.
 So it gave me the idea of this post.
-What about porting our game,
-[marblesoccer](http://marblesoccer.com) on mobile ? crazy :)
+What about porting our game on mobile ?
+Porting a 3D web game to mobile ? crazy :)
 
-* The desktop version looks kindof ok.
+The desktop version looks kindof ok.
 What would be the result of this experiment ?
 Is that even possible ?
 What about usable ?
-
-* This is the purpose of this experiment to find out.
+This is the purpose of this experiment to find out.
 
 ## Mobile isn't desktop
 
@@ -44,28 +44,67 @@ with
 
 ## Porting to canvas 2D
 
-* what need to be done
-* first step is the renderer
-* second is fixing material
-* last step is optimisations.
+So what need to be done ?
+First step is to use the proper renderer when suitable.
+Second is fixing material and geometry to fit canvas2D renderer capability.
+Last step is to look for room of optimisations.
+Ok now let's intanciate the renderer. If webgl is available, use
+```THREE.WebGLRenderer```
+else use
+```THREE.CanvasRenderer```.
+Not too hard hey ?
+We already did that in the
+[boilerplate for three.js](/blog/2011/12/20/boilerplate-for-three-js/)
 
-* if no webgl, fallback on canvas2D
-  * like done in threejsboilerplate
-  * past the code to do it here.
+<iframe src="http://marblesoccer.com?render=canvas&bypasslanding=1"
+	webkitallowfullscreen mozallowfullscreen allowfullscreen 
+	width="420" height="315" frameborder="0" style="float: right; margin-left: 1em;">
+</iframe>
 
-* material
-  * what was before
-  * what did you put ?
-  * and why
 
-* So it results in 3fps on my ipad2 ios4... ouch.
+We simplify geometry to reduce the number of polygon.
+For marble geometry, the sphere got 512 faces on webgl, and only 9 on canvas2d.
+Drastic :)
+What about material ? For webgl, we used 
+[phong](http://en.wikipedia.org/wiki/Phong_shading)
+for fancy lightings,
+We used
+[textures](http://en.wikipedia.org/wiki/Texture_mapping)
+for realistic effects.
+But with canvas2D, those technics cant be used.
+They are way too slow.
+
+
+This is enougth to get it working.
+It display something reasonable on the screen at least.
+We sacrifice a lot tho, no more texture not fancy lighting.
+And now the bad new, it results in 3fps on my ipad2 ios4... ouch.
+
+## More measures
+
+How come performances are so bad ? So i did more measures.
+I disabled the display of map and marbles to see how they impact performance. 
+If we display the map and the marbles, we got 3fps on my ipad2.
+If we display only marbles, no more maps, we got 23fps, much better.
+but still not great... Considere that we are only displaying marbles and they are real simple.
+
+If we display no marble, and no map. we got only 30fps. So all the rest, all the non display
+part is already using a big part of time ? what are we doing ? not much...
+Still we run
+[realistic 3D physics](/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/)
+and ipad2 cpu isnt as fast as usual desktop ones.
+
+
 
 
 ## Time to optimize
 
 Ok it is slow but this is a first try.
 I admit the code isnt not too optimized.
-desktop cpu and gpu performance are so good, i may have been sloppy here and there :)
+[cpu](http://en.wikipedia.org/wiki/Central_processing_unit)
+/
+[gpu](http://en.wikipedia.org/wiki/Graphics_processing_unit)
+performance are so good on desktop, i may have been sloppy here and there :)
 There are areas of optimisations.
 We need to draw less polygons.
 
