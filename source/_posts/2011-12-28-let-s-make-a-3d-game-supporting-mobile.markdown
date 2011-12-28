@@ -4,7 +4,7 @@ title: "Let’s Make a 3D Game: Supporting Mobile ?"
 date: 2011-12-28 13:46
 comments: true
 categories: [three.js, mobile, canvas2d]
-publish: false
+published: false
 ---
 
 This post is about supporting mobile.
@@ -93,8 +93,6 @@ part is already using a big part of time ? what are we doing ? not much...
 Still we run
 [realistic 3D physics](/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/)
 and ipad2 cpu isnt as fast as usual desktop ones.
-
-
 
 
 ## Time to optimize
