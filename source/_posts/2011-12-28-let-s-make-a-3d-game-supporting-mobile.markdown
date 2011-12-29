@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Let’s Make a 3D Game: Supporting Mobile ?"
+title: "Let’s Make a 3D Game: Supporting Mobile"
 date: 2011-12-28 13:46
 comments: true
 categories: [three.js, mobile, canvas2d]
-published: false
+published: true
 ---
 
 This post is about supporting mobile.
@@ -21,6 +21,10 @@ What would be the result of this experiment ?
 Is that even possible ?
 What about usable ?
 This is the purpose of this experiment to find out.
+
+<center>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/Ow_ceac1aEE?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
+</center>
 
 ## Mobile isn't desktop
 
