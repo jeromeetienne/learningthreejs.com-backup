@@ -26,6 +26,8 @@ This is the purpose of this experiment to find out.
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/Ow_ceac1aEE?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
 </center>
 
+<!-- more -->
+
 ## Mobile isn't desktop
 
 Indeed... desktop and mobile are quite different plateforms.
@@ -36,8 +38,8 @@ Here is a good talk on
 [Mobile Web Performance](http://www.youtube.com/watch?v=L2YqfVNHQO4).
 Another thing, mobile got no keyboard, no mouse, but a touch screen
 We need to get a game controller for this environement.
-We will do a [virtual joystick](http://www.youtube.com/watch?v=-sEJ4Lo0cm8)
-and explain it in a later post.
+We use [virtualjoystick.js](https://github.com/jeromeetienne/virtualjoystick.js).
+See details in our [previous post](/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/).
 
 One big thing is that currently, on mobile, WebGL hasnt reached mainstream to say the least.
 No major vendor is shipping phone with webgl, so nobody or close get webgl on phone.
