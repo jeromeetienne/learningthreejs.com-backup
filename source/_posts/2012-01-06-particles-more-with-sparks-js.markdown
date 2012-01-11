@@ -2,6 +2,7 @@
 layout: post
 title: "Particles: More With sparks.js"
 date: 2012-01-06 13:01
+published: false
 comments: true
 categories: [three.js, library, sparks.js, particles]
 ---
@@ -10,7 +11,7 @@ categories: [three.js, library, sparks.js, particles]
 * We already got an
 [introduction about sparks.js](/blog/2011/12/14/particles-introduction-to-sparks-js/)
 and an
-
+[online editor](/blog/2011/12/19/particles-online-editor-for-sparks-js/)
 * This post is on
 [threex](https://github.com/jeromeetienne/threex)
 helper called
@@ -25,6 +26,8 @@ and designed with the
 ```javascript
 	var sparks	= new THREEx.Sparks(opts);
 ```
+
+```sparks.destroy()```
 
 ```javascript
 	sparks.update();
@@ -41,7 +44,7 @@ which contains
 the particles system.
 So you can change its position/rotation in the 3D world.
 
-## meta:
+## [meta] threex
 
 * about threex
 * describe the API
@@ -51,7 +54,3 @@ So you can change its position/rotation in the 3D world.
   * webgl only
   * handle distance
   * handle window resize
-
-## meta:
-
-* about threex

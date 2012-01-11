@@ -33,11 +33,11 @@ by
 The screencast below is short introduction about
 [virtualjoystick.js](https://github.com/jeromeetienne/virtualjoystick.js)
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/viyr_W0z1U8?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 ## Let's Get Started
 

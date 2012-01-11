@@ -22,11 +22,11 @@ Is that even possible ?
 What about usable ?
 This is the purpose of this experiment to find out.
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/Ow_ceac1aEE?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 ## Mobile isn't desktop
 

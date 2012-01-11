@@ -33,12 +33,12 @@ with
 particles.
 The UI is rather simple and obvious. You can find a small presentation in the
 screencast below.
+
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/nu00FhIW5bc?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
 </center>
-
-
-<!-- more -->
 
 ## Live editor rocks
 
