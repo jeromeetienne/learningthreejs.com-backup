@@ -121,6 +121,9 @@ The cylinder geometry was already provided.
 We used
 [THREE.Texture](https://github.com/mrdoob/three.js/blob/master/src/textures/Texture.js)
 offsets to provide the optical illusion of moving.
+
+Later, we may add a [blue phonebooth](http://en.wikipedia.org/wiki/TARDIS)
+and play *doctor who* :)
 The code is available on
 [github](https://github.com/jeromeetienne/tunnelgl)
 under MIT license.
