@@ -3,39 +3,67 @@ layout: post
 title: "Dom Events in 3D Space"
 date: 2012-01-14 11:56
 comments: true
-categories: 
+categories: [threejs, exeperiment]
 ---
 
-* this post present an experiment on pushing the concept of dom events
+This post presents an experiment which implements the concept of dom events
 in 3D Space.
-* We all know the click event trigger when the user click on a webpage.
-* wouldn't it be great to have that but in a 3D page ?
-* In a web page, a
+In a web page, a
 [click](http://www.quirksmode.org/dom/events/click.html)
 event is trigger when a user click on a element.
-* This is common knowledge in webdev.
-* To have that but in a three.js scene ? how great would that be!!
-* So let's do that.
+This is common knowledge in web development.
+What about having that but in a three.js scene ?
+Maybe people will start do 3D user interface with that, who know.
+how great would that be!!
+So let's do that.
 
-* Maybe people will start do 3D user interface with that, who know :)
+[Try it out](http://jeromeetienne.github.com/threex/examples/threex.domevent/).
+The demo contains 3 teapots.
+Each bind a different type of events.
+When the events are trigger, teapots are animated.
+Animations are made by [tween.js](https://github.com/sole/tween.js/), a nice js tweening engine
+seen in a [previous post](/blog/2011/08/17/tweenjs-for-smooth-animation/).
+Play with it to get a feel of it, maybe think about the type of UI you could do in 3D.
 
-* We all know the click event trigger when the user click on a webpage.
-* three.js already had the ability to interact with the mouse.
-* You can see it in action
+<center>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/Ow_ceac1aEE?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
+</center>
+
+<!-- more -->
+
+## let's get started
+
+[three.js](https://github.com/mrdoob/three.js/)
+already has the ability to interact with the mouse.
+You can see it in action
 [here](http://mrdoob.github.com/three.js/examples/webgl_interactive_cubes.html)
 and
 [here](http://mrdoob.github.com/three.js/examples/webgl_interactive_voxelpainter.html).
-
-* Internally it uses
+Internally they use 2 three.js classes:
 [THREE.Projector](https://github.com/mrdoob/three.js/blob/master/src/core/Projector.js)
 and
 [THREE.Ray](https://github.com/mrdoob/three.js/blob/master/src/core/Ray.js).
+[threex.domevent.js](https://github.com/jeromeetienne/threex/blob/master/threex.domevent.js)
+is an higher level api on top of those functions,
+an interface which mimic dom events,
+something closer to the usual web developper.
 
-* We present an higher level api on top of those functions.
-* something closer to the usual web developper
-* an interface which mimic dom events.
+First let's include the source.
+You download [threex.domevent.js](https://github.com/jeromeetienne/threex/blob/master/threex.domevent.js).
+and copy this line in your page.
 
-* so we need to function to bind and unbind events
+```html
+	<script src='threex.domevent.js'></script>
+```
+
+## let's use it
+
+<iframe src="http://jeromeetienne.github.com/threex/examples/threex.domevent"
+	webkitallowfullscreen mozallowfullscreen allowfullscreen 
+	width="420" height="315" frameborder="0" style="float: right; margin-left: 1em;">
+</iframe>
+
+* So we need to function to bind and unbind events
 * There is 2 naming for those functions:
 one is
 [addEventListener](https://developer.mozilla.org/en/DOM/element.addEventListener)
@@ -43,12 +71,11 @@ one is
 [removeEventListener](https://developer.mozilla.org/en/DOM/element.removeEventListener)
 from
 [HTMLElement](http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html)
-the other is
+The other is copied on
+[jQuery](http://jquery.com/) api:
 [on](http://api.jquery.com/on/)
 /
 [off](http://api.jquery.com/off/)
-from
-[jQuery](http://jquery.com/).
 Pick the one you like. They are doing the same thing.
 
 ```javascript
@@ -77,7 +104,7 @@ You could ask:
 yeah but
 [threex.domevent.object3d.js](https://github.com/jeromeetienne/threex/blob/master/threex.domevent.object3d.js)
 modifies
-[THREE.Object3D]
+[THREE.Object3D](https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js)
 class globally, it isnt too clean ?
 Well 
 
@@ -88,16 +115,21 @@ see its [annoted source](http://jeromeetienne.github.com/threex/docs/threex.dome
 
 
 # list of bound events
-* Always in a effort to stay close to usual pratices, the events name are the same as in DOM.
-* i kept the event semantic 
-
-  * click
-  * mouseup
-  * mousedown
-  * mouseenter
-  * mouseleave
+Always in a effort to stay close to usual pratices, the events name are the same as in DOM.
+The semantic is the same too.
+Currently, the available events are
+[click, dblclick, mouseup, mousedown](http://www.quirksmode.org/dom/events/click.html),
+[mouseover and mouse out](http://www.quirksmode.org/dom/events/mouseover.html).
   
+# Conclusion
 
+[src](https://github.com/jeromeetienne/threex/blob/master/threex.domevent.js),
+/
+[doc](http://jeromeetienne.github.com/threex/docs/threex.domevent.html).
 
-# Meta
-* docco comment for both threex
+[src](https://github.com/jeromeetienne/threex/blob/master/threex.domevent.object3d.js),
+/
+[doc](http://jeromeetienne.github.com/threex/docs/threex.domevent.object3d.html).
+
+* We all know the click event trigger when the user click on a webpage.
+* wouldn't it be great to have that but in a 3D page ?

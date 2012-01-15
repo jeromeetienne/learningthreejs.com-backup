@@ -38,7 +38,7 @@ Ok now is time for code :)
 
 As usual, i provide a little helper to make it easier for you to include it in
 your games. It is called [THREEx.FullScreen.js](/data/THREEx/THREEx.FullScreen.js).
-It hides the prefix of each vender and the little discrepencies between their API
+It hides the prefix of each vendor and the little discrepencies between their API
 implementation.
 You download this file from [here](/data/THREEx/THREEx.FullScreen.js) and include
 it in your page like this
