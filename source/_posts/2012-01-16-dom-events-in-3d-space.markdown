@@ -3,7 +3,7 @@ layout: post
 title: "Dom Events in 3D Space"
 date: 2012-01-16 11:56
 comments: true
-categories: [threejs, exeperiment]
+categories: [threejs, experiment]
 ---
 
 This post presents a little experiment.
@@ -28,8 +28,6 @@ Animations are made by [tween.js](https://github.com/sole/tween.js/), a nice js 
 seen in a [previous post](/blog/2011/08/17/tweenjs-for-smooth-animation/).
 Play with it to get a feel of it, maybe think about the type of UI you could do in 3D.
 
-<!-- more -->
-
 ## Let's Get Started
 
 First let's include the source.
@@ -39,6 +37,8 @@ and copy this line in your page.
 ```html
 	<script src='threex.domevent.js'></script>
 ```
+
+<!-- more -->
 
 ## Let's Use It
 
