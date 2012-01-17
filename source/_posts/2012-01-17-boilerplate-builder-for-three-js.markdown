@@ -14,31 +14,24 @@ categories: [three.js, library, boilerplate]
 * With time, we will see which options are relevant.
 * Remove useless ones, adding useful ones.
 
-## Meta
-* why the boilerplate
-* why a builder
-* what is available in the builder
-* how you did it ?
-  * jszip + downloadify to create the .zip
-  * downloadify to download it in the browser
-  * data base64 url index.html for the preview
-
-* write 
+## Making-Of the Builder
 
 The
 [builder](http://jeromeetienne.github.com/threejsboilerplatebuilder/)
-uses
+itself was interesting to build.
+It uses various nice features from the current web.
+It includes
 [twitter bootstrap](http://twitter.github.com/bootstrap/) for css.
 I am quite grateful for this framework.
 It makes it so easy to write a webapp which looks good on the screen.
 I think all the css-impaired of the world should thanks twitter for its bootstrap framework :)
 
-### Download
+### Pure Browser Download
 
 I like to write pure-browser application.
 Thus there is no server to run, only static files.
 It makes it much easier to host your aplication.
-So the
+The
 [builder](http://jeromeetienne.github.com/threejsboilerplatebuilder/)
 has been written as a pure-browser application.
 It uses
@@ -58,7 +51,7 @@ and allow the user to download it.
 All that in pure-browser. cool stuff!
 i love what the web is becoming.
 
-## Preview
+### Boilerplate Preview
 
 The preview is a bit more subtle.
 We start to load the *index.html* template for the boilerplate.
@@ -82,4 +75,20 @@ It looks like long ugly random string.
 ```
     data:text/html;base64,PCFkb2N0eXBlIGh0....
 ```
+
+## Conclusion
+
+That's all folks.
+Have fun.
+
+
+## Meta
+* why the boilerplate
+* why a builder
+* what is available in the builder
+* how you did it ?
+  * jszip + downloadify to create the .zip
+  * downloadify to download it in the browser
+  * data base64 url index.html for the preview
+
 
