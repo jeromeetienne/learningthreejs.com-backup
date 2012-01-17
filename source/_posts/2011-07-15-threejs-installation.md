@@ -6,7 +6,7 @@ categories: [basic, webgl]
 ---
 
 [Three.js](https://github.com/mrdoob/three.js) is a JavaScript 3D library. According
-to [mrdoob](http://mrdoob.com/), its author, Three.js is
+to [Mr.doob](http://mrdoob.com/), its author, Three.js is
 
 {% blockquote Mr.doob, Three.js author %}
 The aim of the project is to create a lightweight 3D engine with a very low level of
