@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Boilerplate Builder for three.js"
-date: 2012-01-17 10:59
+date: 2012-01-19 10:59
 comments: true
-published: true
+published: false
 categories: [three.js, library, boilerplate]
 ---
 
