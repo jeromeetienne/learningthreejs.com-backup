@@ -6,7 +6,9 @@ comments: true
 categories: [threejs, experiment]
 ---
 
-This post presents a little experiment.
+Ever dreamed of a **javascript mesh.on('click', function(){ ... });**?
+
+I have :) This post presents a little experiment.
 What about implementing the concept of
 [dom events](http://www.w3.org/TR/DOM-Level-2-Events/events.html)
 in 3D Space.
@@ -105,7 +107,7 @@ is an higher level api on top of those functions,
 an interface which mimic dom events,
 something closer to the usual web developper.
 
-It is a nice api. clean, short, object oriented and feel usual to web developpers.
+It is a nice api. clean, short, object oriented and feels familiar to web developpers.
 A little hichup tho, it modifies THREE.Object3D class.
 It is a global class, so it may be legitimatly considered unclean by some people.
 If this bother you, simply do ```THREEx.DomEvent.noConflict()``` and use the
