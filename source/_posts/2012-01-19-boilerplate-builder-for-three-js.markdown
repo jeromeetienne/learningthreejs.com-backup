@@ -11,8 +11,16 @@ categories: [three.js, library, boilerplate]
 * more flexibily
 * very fast bootstrapping
 
+* [boilerplate for three.js] project is at early stage.
 * With time, we will see which options are relevant.
 * Remove useless ones, adding useful ones.
+
+* [Try it out](http://jeromeetienne.github.com/threejsboilerplatebuilder/)
+
+<center>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/c2KLj8sie9Q?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
+</center>
+
 
 ## Making-Of the Builder
 
