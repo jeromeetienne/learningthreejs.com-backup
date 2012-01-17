@@ -22,7 +22,7 @@ the following command
 git clone https://github.com/mrdoob/three.js.git
 {% endcodeblock %}
 
-It will download the whole source on your local disk. You are done, just fire up
+It will download the whole source on your local disk. Once you are done, just fire up
 a web server, and go to ```/examples```.
 
 <!--more-->
