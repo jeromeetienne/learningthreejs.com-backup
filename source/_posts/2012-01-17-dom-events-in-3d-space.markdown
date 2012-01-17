@@ -6,7 +6,7 @@ comments: true
 categories: [threejs, experiment]
 ---
 
-Ever dreamed of a **javascript mesh.on('click', function(){ ... });**?
+Ever dreamed of a **object3d.on('click', function(){ ... });**?
 
 I have :) This post presents a little experiment.
 What about implementing the concept of
