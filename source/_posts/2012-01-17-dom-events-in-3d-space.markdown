@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Dom Events in 3D Space"
-date: 2012-01-16 11:56
+date: 2012-01-17 11:56
 comments: true
 categories: [threejs, experiment]
 ---
@@ -27,6 +27,10 @@ When the events are triggered, teapots are animated.
 Animations are made by [tween.js](https://github.com/sole/tween.js/), a nice js tweening engine
 seen in a [previous post](/blog/2011/08/17/tweenjs-for-smooth-animation/).
 Play with it to get a feel of it, maybe think about the type of UI you could do in 3D.
+
+<center>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/c2KLj8sie9Q?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
+</center>
 
 ## Let's Get Started
 
