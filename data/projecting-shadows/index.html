@@ -50,10 +50,6 @@
 				});
 				renderer.shadowMapEnabled	= true;
 				renderer.shadowMapSoft		= false;
-				// TODO is this usefull ?
-				renderer.gammaInput		= true;
-				renderer.gammaOutput		= true;
-				renderer.physicallyBasedShading = true;
 			}else{
 				Detector.addGetWebGLMessage();
 				return true;
@@ -72,8 +68,8 @@
 
 			// put a camera in the scene
 			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 10000 );
-			camera.position.set(-0.5, 0.8, 6);
-			camera.lookAt(new THREE.Vector3(0,0.8,0));
+			camera.position.set(-0.5, 1.5, 7);
+			camera.lookAt(new THREE.Vector3(0, 1., 0));
 			scene.add(camera);
 
 			// create a camera contol
@@ -94,7 +90,6 @@
 
 			// lens flares
 			addLensFlare();
-
 
 			// cube
 			addCubeMap()
@@ -152,7 +147,7 @@
 
 			// stone
 			if( true ){
-				var geometry	= new THREE.CubeGeometry( 5, 0.4, 5 );
+				var geometry	= new THREE.CubeGeometry( 5, 500, 5 );
 				//var geometry	= new THREE.CubeGeometry( 5, 10, 5 );
 				var material	= new THREE.MeshLambertMaterial({
 					color	: 0xaaaaaa,
@@ -164,12 +159,12 @@
 				var mesh	= new THREE.Mesh( geometry, material );
 				//mesh.castShadow		= true;
 				mesh.receiveShadow	= true;
-				mesh.position.y		= -0.2/2;
+				mesh.position.y		= -500/2;
 				mesh.rotation.y		= 7.5*Math.PI/6;
 				sundial.add( mesh );			
 			}
+			// Grass
 			if( false ){
-				// Grass
 				var geometry	= new THREE.CubeGeometry( 200, 1, 200 );
 				var texture	= THREE.ImageUtils.loadTexture( "images/water.jpg" );
 				texture.repeat.set(5,5);
@@ -261,13 +256,13 @@
 		function addCubeMap(){
 			var path = "images/SwedishRoyalCastle/";
 			var path = "images/redsky/";
-			var format = '.jpg33';
+			var path = "images/skybox/";
+			var format = '.jpg';
 			var urls = [
 				path + 'px' + format, path + 'nx' + format,
 				path + 'py' + format, path + 'ny' + format,
 				path + 'pz' + format, path + 'nz' + format
 			];
-
 			var reflectionCube	= THREE.ImageUtils.loadTextureCube( urls );
 			reflectionCube.format	= THREE.RGBFormat;
 			var shader		= THREE.ShaderUtils.lib[ "cube" ];
@@ -299,7 +294,7 @@
 
 			function addLight( h, s, v, x, y, z ) {
 
-				var light	= new THREE.PointLight( 0xffffff, 1.5, 4500 );
+				var light	= new THREE.PointLight( 0xffffff, 1.5, 45000 );
 				light.position.set( x, y, z );
 				light.position.set( x, y, z );
 				light.color.setHex( 0xFFaa88 );
@@ -352,7 +347,7 @@
 			sundial.rotation.y	= hours * Math.PI/6;
 
 			// update camera controls
-			cameraControls.update();
+			//cameraControls.update();
 
 			// actually render the scene
 			renderer.render( scene, camera );
