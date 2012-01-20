@@ -68,7 +68,7 @@
 
 			// put a camera in the scene
 			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 10000 );
-			camera.position.set(-0.5, 1.5, 6);
+			camera.position.set(-0.5, 1.5, 7);
 			camera.lookAt(new THREE.Vector3(0, 1., 0));
 			scene.add(camera);
 
@@ -95,7 +95,7 @@
 			addCubeMap()
 
 
-			var ambient = new THREE.AmbientLight( 0x444444 );
+			var ambient = new THREE.AmbientLight( 0x888888 );
 			scene.add( ambient );
 			
 			var light	= new THREE.DirectionalLight( 0xAA8888 );
@@ -140,14 +140,15 @@
 				var mesh	= new THREE.Mesh( geometry, material );
 				mesh.castShadow		= true;
 				//mesh.receiveShadow	= false;
-				mesh.position.y		= 2/2;
+				mesh.position.y		= 2.5/2;
 				sundial.add( mesh );
 			}
 
 
 			// stone
 			if( true ){
-				var geometry	= new THREE.CubeGeometry( 5, 500, 5 );
+				var geometry	= new THREE.CubeGeometry( 5, 0.5, 5 );
+				var geometry	= new THREE.PlaneGeometry( 5, 5 );
 				//var geometry	= new THREE.CubeGeometry( 5, 10, 5 );
 				var material	= new THREE.MeshLambertMaterial({
 					color	: 0xaaaaaa,
@@ -157,11 +158,48 @@
 				});
 				material.ambient = material.color;
 				var mesh	= new THREE.Mesh( geometry, material );
-				//mesh.castShadow		= true;
 				mesh.receiveShadow	= true;
-				mesh.position.y		= -500/2;
-				mesh.rotation.y		= 7.5*Math.PI/6;
+				mesh.rotation.x		= 3*Math.PI/2;
+				mesh.rotation.z		= 7.5*Math.PI/6;
 				sundial.add( mesh );			
+
+
+				var pyramidH	= 500;
+				var texture	= THREE.ImageUtils.loadTexture( "images/water.jpg" );
+				texture.repeat.set(50,50);
+				texture.wrapS	= THREE.RepeatWrapping;
+				texture.wrapT	= THREE.RepeatWrapping;
+				var geometry	= new THREE.CylinderGeometry(Math.sqrt(2.5*2.5+2.5*2.5), 500/2, pyramidH, 4)
+				var material	= new THREE.MeshLambertMaterial({
+					ambient	: 0x404040,
+					color	: 0xaaaaaa,
+					shading	: THREE.SmoothShading,
+					map	: texture
+				});
+				//var material	= new THREE.MeshNormalMaterial();
+				var mesh	= new THREE.Mesh( geometry, material );
+				mesh.pos¸ition.y	= -0.01 - pyramidH/2;
+				sundial.add( mesh );
+				
+				if( false ){
+					var offsetY	= -0.01;
+					var material	= new THREE.MeshLambertMaterial({
+						color	: 0xaa8888,
+						shading	: THREE.SmoothShading,
+						map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+					});
+					for(var i = 0; i < 5; i++){
+						var cubeW	= 5 * (i*0.5+1);
+						var cubeH	= Math.pow(2, i);
+						if( i === 0 )	var geometry	= new THREE.CubeGeometry( cubeW, cubeH, cubeW );
+						else		var geometry	= new THREE.CylinderGeometry(cubeW/2, cubeW/2, cubeH, 16)
+						var mesh	= new THREE.Mesh( geometry, material );
+						offsetY	-= cubeH/2;
+						mesh.position.y		= offsetY
+						mesh.rotation.y		= 7.5*Math.PI/6;
+						sundial.add( mesh );
+					}					
+				}
 			}
 			// Grass
 			if( false ){
@@ -275,7 +313,7 @@
 				depthWrite	: false
 			});
 
-			var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
+			var geometry	= new THREE.CubeGeometry( 1000, 1000, 1000 );
 			var mesh	= new THREE.Mesh(geometry, material);
 			mesh.flipSided	= true;
 			scene.add( mesh );
@@ -347,7 +385,7 @@
 			sundial.rotation.y	= hours * Math.PI/6;
 
 			// update camera controls
-			//cameraControls.update();
+			cameraControls.update();
 
 			// actually render the scene
 			renderer.render( scene, camera );
