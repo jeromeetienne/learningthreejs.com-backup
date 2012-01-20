@@ -50,6 +50,10 @@
 				});
 				renderer.shadowMapEnabled	= true;
 				renderer.shadowMapSoft		= true;
+				// TODO is this usefull ?
+				renderer.gammaInput		= true;
+				renderer.gammaOutput		= true;
+				renderer.physicallyBasedShading = true;
 			}else{
 				Detector.addGetWebGLMessage();
 				return true;
@@ -121,82 +125,19 @@
 			buildSunDialObject();
 		}
 		
-		function addLensFlare(){
-			var textureFlare0 = THREE.ImageUtils.loadTexture( "images/lensflare/lensflare0.png" );
-			var textureFlare2 = THREE.ImageUtils.loadTexture( "images/lensflare/lensflare2.png" );
-			var textureFlare3 = THREE.ImageUtils.loadTexture( "images/lensflare/lensflare3.png" );
-
-			addLight( 0.55, 0.825, 0.99	, -500	, 0	, -100 );
-			addLight( 0.08, 0.825, 0.99	, 0	, 0	, -100 );
-			addLight( 0.995, 0.025, 0.99	, -500	, 500	, -100 );
-
-			function addLight( h, s, v, x, y, z ) {
-
-				var light = new THREE.PointLight( 0xffffff, 1.5, 4500 );
-				light.position.set( x, y, z );
-				scene.add( light );
-
-				light.color.setHSV( h, s, v );
-
-				var flareColor = new THREE.Color( 0xffffff );
-				flareColor.copy( light.color );
-				THREE.ColorUtils.adjustHSV( flareColor, 0, -0.5, 0.5 );
-
-				var lensFlare = new THREE.LensFlare( textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor );
-
-				lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-
-				lensFlare.add( textureFlare3, 60, 0.6, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 70, 0.7, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 120, 0.9, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 70, 1.0, THREE.AdditiveBlending );
-
-				lensFlare.customUpdateCallback = lensFlareUpdateCallback;
-				lensFlare.position = light.position;
-
-				scene.add( lensFlare );
-
-			}
-
-			function lensFlareUpdateCallback( object ) {
-
-				var f, fl = object.lensFlares.length;
-				var flare;
-				var vecX = -object.positionScreen.x * 2;
-				var vecY = -object.positionScreen.y * 2;
-
-
-				for( f = 0; f < fl; f++ ) {
-
-					   flare = object.lensFlares[ f ];
-
-					   flare.x = object.positionScreen.x + vecX * flare.distance;
-					   flare.y = object.positionScreen.y + vecY * flare.distance;
-
-					   flare.rotation = 0;
-
-				}
-
-				object.lensFlares[ 2 ].y += 0.025;
-				object.lensFlares[ 3 ].rotation = object.positionScreen.x * 0.5 + 45 * Math.PI / 180;
-			}			
-		}
-		
 		function buildSunDialObject(){
 			sundial	= new THREE.Object3D();
 			scene.add(sundial);
 
 			// pilard
-			if( false ){
+			if( true ){
 				var geometry	= new THREE.TorusGeometry( 1, 0.42 );
 				//var geometry	= new THREE.CubeGeometry( 0.2, 2, 0.2 );
 				var geometry	= new THREE.CylinderGeometry(0.4,0.4, 2, 16)
 				var material	= new THREE.MeshLambertMaterial({
 					color	: 0xff88AA,
 					shading	: THREE.SmoothShading,
-					map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+					//map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
 				});
 				material.ambient = material.color;
 				var mesh	= new THREE.Mesh( geometry, material );
@@ -214,7 +155,7 @@
 				var material	= new THREE.MeshLambertMaterial({
 					color	: 0xaaaaaa,
 					shading	: THREE.SmoothShading,
-					map	: buildSunDialTexture()
+					//map	: buildSunDialTexture()
 					//map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
 				});
 				material.ambient = material.color;
@@ -235,7 +176,7 @@
 				var material	= new THREE.MeshLambertMaterial({
 					color	: 0xaaFF88,
 					shading	: THREE.SmoothShading,
-					map	: texture
+					//map	: texture
 				});
 				material.ambient = material.color;
 				var mesh	= new THREE.Mesh( geometry, material );
@@ -318,7 +259,7 @@
 		function addCubeMap(){
 			var path = "images/SwedishRoyalCastle/";
 			var path = "images/redsky/";
-			var format = '.jpg99';
+			var format = '.jpg33';
 			var urls = [
 				path + 'px' + format, path + 'nx' + format,
 				path + 'py' + format, path + 'ny' + format,
@@ -344,6 +285,43 @@
 			skyCube	= mesh;
 		}
 
+		function addLensFlare()
+		{
+			var textureFlare0	= THREE.ImageUtils.loadTexture( "images/lensflare/lensflare0.png" );
+			var textureFlare2	= THREE.ImageUtils.loadTexture( "images/lensflare/lensflare2.png" );
+			var textureFlare3	= THREE.ImageUtils.loadTexture( "images/lensflare/lensflare3.png" );
+
+			addLight( 0.1, 0.825, 0.99	, -500	, 100	,  -500 );
+			//addLight( 0.08, 0.825, 0.99	, 0	, 0	, -100 );
+			//addLight( 0.995, 0.025, 0.99	, -500	, 500	, -100 );
+
+			function addLight( h, s, v, x, y, z ) {
+
+				var light	= new THREE.PointLight( 0xffffff, 1.5, 4500 );
+				light.position.set( x, y, z );
+				light.color.setHSV( h, s, v );
+				scene.add( light );
+
+
+				var flareColor = new THREE.Color( 0xffffff );
+				flareColor.copy( light.color );
+				THREE.ColorUtils.adjustHSV( flareColor, 0, -0.5, 0.5 );
+
+				var lensFlare = new THREE.LensFlare( textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor );
+
+				lensFlare.add( textureFlare2, 512	, 0.0, THREE.AdditiveBlending );
+
+				lensFlare.add( textureFlare3, 60	, 0.6, THREE.AdditiveBlending );
+				lensFlare.add( textureFlare3, 70	, 0.7, THREE.AdditiveBlending );
+				lensFlare.add( textureFlare3, 120	, 0.9, THREE.AdditiveBlending );
+				lensFlare.add( textureFlare3, 70	, 1.0, THREE.AdditiveBlending );
+
+				lensFlare.position		= light.position;
+
+				scene.add( lensFlare );
+			}
+		}
+		
 		// animation loop
 		function animate() {
 
