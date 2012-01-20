@@ -144,7 +144,7 @@
 				material.ambient = material.color;
 				var mesh	= new THREE.Mesh( geometry, material );
 				mesh.castShadow		= true;
-				mesh.receiveShadow	= false;
+				//mesh.receiveShadow	= false;
 				mesh.position.y		= 2/2;
 				sundial.add( mesh );
 			}
@@ -162,7 +162,7 @@
 				});
 				material.ambient = material.color;
 				var mesh	= new THREE.Mesh( geometry, material );
-				mesh.castShadow		= true;
+				//mesh.castShadow		= true;
 				mesh.receiveShadow	= true;
 				mesh.position.y		= -0.2/2;
 				mesh.rotation.y		= 7.5*Math.PI/6;
