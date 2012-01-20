@@ -16,6 +16,10 @@
 		<script src="vendor/threex/THREEx.WindowResize.js"></script>
 		<script src="vendor/threex.dragpancontrols.js"></script>
 
+		<script src="js/cubeMap.js"></script>
+		<script src="js/lensFlare.js"></script>
+		<script src="js/sunDial.js"></script>
+
 		<link  href="css/main.css" rel="stylesheet"/>
 	</head>
 <body>
@@ -69,11 +73,14 @@
 			// put a camera in the scene
 			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 10000 );
 			camera.position.set(-0.5, 1.5, 7);
+			var cameraTarget	= new THREE.Vector3(0, 1., 0);
 			camera.lookAt(new THREE.Vector3(0, 1., 0));
 			scene.add(camera);
 
 			// create a camera contol
 			cameraControls	= new THREEx.DragPanControls(camera)
+			cameraControls.target	= new THREE.Vector3(0, 0.7, 0);
+			
 
 			// transparently support window resize
 			THREEx.WindowResize.bind(renderer, camera);
@@ -88,20 +95,13 @@
 			// here you add your objects
 			// - you will most likely replace this part by your own
 
-			// lens flares
-			addLensFlare();
-
-			// cube
-			addCubeMap()
-
-
-			var ambient = new THREE.AmbientLight( 0x444444 );
+			var ambient = new THREE.AmbientLight( 0x888888 );
 			scene.add( ambient );
 			
 			var light	= new THREE.DirectionalLight( 0xAA8888 );
 			light.position.set( -1, 0.8, -1 ).normalize();
 			light.position.set( -0.1, 0.8, -1 ).normalize();
-			light.position.setLength(3);
+			light.position.setLength(5);
 		
 			light.castShadow		= true;
 			light.shadowCameraLeft		= -5;
@@ -115,210 +115,25 @@
 
 			scene.add( light );
 
+			var light	= new THREE.DirectionalLight( 0x222266 );
+			light.position.set( -0.1, 0.8, -1 ).negate().normalize();
+			scene.add( light );
+
 			//var light	= new THREE.DirectionalLight( 0xff8080 );
 			//light.position.set( -1, -1, -1 ).normalize();
 			//scene.add( light );
 			
+			// lens flares
+			addLensFlare();
+
+			// cube
+			addCubeMap()
+
+
 			buildSunDialObject();
 		}
 		
-		function buildSunDialObject(){
-			sundial	= new THREE.Object3D();
-			scene.add(sundial);
 
-			// pilard
-			if( true ){
-				var geometry	= new THREE.TorusGeometry( 1, 0.42 );
-				//var geometry	= new THREE.CubeGeometry( 0.2, 2, 0.2 );
-				var geometry	= new THREE.CylinderGeometry(0.4,0.4, 2.5, 16)
-				var material	= new THREE.MeshLambertMaterial({
-					color	: 0xff88AA,
-					shading	: THREE.SmoothShading,
-					map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
-				});
-				material.ambient = material.color;
-				var mesh	= new THREE.Mesh( geometry, material );
-				mesh.castShadow		= true;
-				//mesh.receiveShadow	= false;
-				mesh.position.y		= 2/2;
-				sundial.add( mesh );
-			}
-
-
-			// stone
-			if( true ){
-				var geometry	= new THREE.CubeGeometry( 5, 500, 5 );
-				//var geometry	= new THREE.CubeGeometry( 5, 10, 5 );
-				var material	= new THREE.MeshLambertMaterial({
-					color	: 0xaaaaaa,
-					shading	: THREE.SmoothShading,
-					map	: buildSunDialTexture()
-					//map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
-				});
-				material.ambient = material.color;
-				var mesh	= new THREE.Mesh( geometry, material );
-				//mesh.castShadow		= true;
-				mesh.receiveShadow	= true;
-				mesh.position.y		= -500/2;
-				mesh.rotation.y		= 7.5*Math.PI/6;
-				sundial.add( mesh );			
-			}
-			// Grass
-			if( false ){
-				var geometry	= new THREE.CubeGeometry( 200, 1, 200 );
-				var texture	= THREE.ImageUtils.loadTexture( "images/water.jpg" );
-				texture.repeat.set(5,5);
-				texture.wrapS	= THREE.RepeatWrapping;
-				texture.wrapT	= THREE.RepeatWrapping;
-				var material	= new THREE.MeshLambertMaterial({
-					color	: 0xaaFF88,
-					shading	: THREE.SmoothShading,
-					map	: texture
-				});
-				material.ambient = material.color;
-				var mesh	= new THREE.Mesh( geometry, material );
-				mesh.castShadow		= true;
-				mesh.receiveShadow	= true;
-				mesh.position.y		= -0.1 - 1/2;
-				sundial.add( mesh );			
-			}
-		}
-		
-		function buildSunDialTexture(){
-			var canvas	= document.createElement('canvas');
-			canvas.width	= 512;
-			canvas.height	= 512;
-
-			var texture	= new THREE.Texture(canvas);
-
-			var image	= new Image();
-			image.onload	= function () {
-				var ctx		= canvas.getContext( '2d' );
-				ctx.drawImage(image,0,0);
-				drawSunDialNumbers(canvas)
-				texture.needsUpdate = true;
-			};
-			image.crossOrigin = '';
-			image.src	= "images/water.jpg";
-
-			texture.needsUpdate	= true;
-			return texture;
-		}
-		function drawSunDialNumbers(canvas){
-
-			
-			var ctx		= canvas.getContext( '2d' );
-			var w		= canvas.width;
-			var h		= canvas.height;
-
-			ctx.fillStyle	= "rgb(64,64,64)";  
-			ctx.fillRect (10, 10, 55, 50);
-			
-			var texts	= [
-				'I',
-				'II',
-				'III',
-				'IV',
-				'V',
-				'VI',
-				'VII',
-				'VIII',
-				'IX',
-				'X',
-				'XI',
-				'XII'
-			];
-
-			ctx.save();
-			ctx.fillStyle	= "rgba(32,32,32,128)";  
-			ctx.textAlign	= "center";
-			ctx.font	= "30pt bolder";
-			ctx.translate(w/2, h/2);
-			for(var step = 0; step < 12; step++ ){
-				ctx.save();
-				ctx.rotate(step * 2*Math.PI/12)
-				ctx.translate(0, -200);
-				// TODO
-				// - put roman number
-				// - put some funky citation
-				// - put actual math for the sundial
-				// - when you join i put the position of the sun at your position ?
-				ctx.fillText(texts[step], 0,0); 
-				//ctx.fillText(""+step, 0,0); 
-				ctx.restore();
-			}
-			ctx.restore();
- 
-			var texture	= new THREE.Texture(canvas);
-			texture.needsUpdate	= true;
-			return texture;
-		}
-		function addCubeMap(){
-			var path = "images/SwedishRoyalCastle/";
-			var path = "images/redsky/";
-			var path = "images/skybox/";
-			var format = '.jpg';
-			var urls = [
-				path + 'px' + format, path + 'nx' + format,
-				path + 'py' + format, path + 'ny' + format,
-				path + 'pz' + format, path + 'nz' + format
-			];
-			var reflectionCube	= THREE.ImageUtils.loadTextureCube( urls );
-			reflectionCube.format	= THREE.RGBFormat;
-			var shader		= THREE.ShaderUtils.lib[ "cube" ];
-			shader.uniforms[ "tCube" ].texture = reflectionCube;
-
-			var material	= new THREE.ShaderMaterial( {
-				fragmentShader	: shader.fragmentShader,
-				vertexShader	: shader.vertexShader,
-				uniforms	: shader.uniforms,
-				depthWrite	: false
-			});
-
-			var geometry	= new THREE.CubeGeometry( 100, 100, 100 );
-			var mesh	= new THREE.Mesh(geometry, material);
-			mesh.flipSided	= true;
-			scene.add( mesh );
-			skyCube	= mesh;
-		}
-
-		function addLensFlare()
-		{
-			var textureFlare0	= THREE.ImageUtils.loadTexture( "images/lensflare/lensflare0.png" );
-			var textureFlare2	= THREE.ImageUtils.loadTexture( "images/lensflare/lensflare2.png" );
-			var textureFlare3	= THREE.ImageUtils.loadTexture( "images/lensflare/lensflare3.png" );
-
-			addLight( 0.1, 0.825, 0.99	, -2.5	, 5	,  -25 );
-			//addLight( 0.08, 0.825, 0.99	, 0	, 0	, -100 );
-			//addLight( 0.995, 0.025, 0.99	, -500	, 500	, -100 );
-
-			function addLight( h, s, v, x, y, z ) {
-
-				var light	= new THREE.PointLight( 0xffffff, 1.5, 45000 );
-				light.position.set( x, y, z );
-				light.position.set( x, y, z );
-				light.color.setHex( 0xFFaa88 );
-				scene.add( light );
-
-
-				var flareColor = new THREE.Color( 0xffffff );
-				flareColor.copy( light.color );
-				THREE.ColorUtils.adjustHSV( flareColor, 0, -0.5, 0.5 );
-
-				var lensFlare = new THREE.LensFlare( textureFlare0, 500, 0.0, THREE.AdditiveBlending, flareColor );
-
-				lensFlare.add( textureFlare2, 512	, 0.0, THREE.AdditiveBlending );
-
-				lensFlare.add( textureFlare3, 60	, 0.6-0.4, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 80	, 0.7-0.4, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 150	, 0.9-0.4, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 70	, 1.0-0.4, THREE.AdditiveBlending );
-
-				lensFlare.position		= light.position;
-
-				scene.add( lensFlare );
-			}
-		}
 		
 		// animation loop
 		function animate() {
@@ -347,7 +162,7 @@
 			sundial.rotation.y	= hours * Math.PI/6;
 
 			// update camera controls
-			//cameraControls.update();
+			cameraControls.update();
 
 			// actually render the scene
 			renderer.render( scene, camera );
