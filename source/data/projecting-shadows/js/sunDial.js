@@ -30,15 +30,20 @@ function buildHedgeObject()
 		ambient	: 0x444444,
 		color	: 0xff88AA,
 		shading	: THREE.SmoothShading,
-		map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+		map	: THREE.ImageUtils.loadTexture( "images/water.jpg" ),
+		//map	: THREE.ImageUtils.loadTexture( "images/textures/MarbleBeige0028_5_thumbhuge.jpg" ),
+		//map	: THREE.ImageUtils.loadTexture( "images/textures/MarbleGreen0001_39_thumbhuge.jpg" ),
+		//map	: THREE.ImageUtils.loadTexture( "images/textures/MarbleTiles0058_5_thumbhuge.jpg" ),
+		//map	: THREE.ImageUtils.loadTexture( "images/textures/TilesOrnate0010_2_thumbhuge.jpg" ),
 	});
 	for( angle = 0; angle < 2*Math.PI; angle += 2*Math.PI/8 ){
+		var offsetAngle	= Math.PI/7;
 		var mesh	= new THREE.Mesh( geometry, material );
-		mesh.position.x	= Math.cos(angle)*radius;
+		mesh.position.x	= Math.cos(angle + offsetAngle)*radius;
 		mesh.position.y	= +height/2;
-		mesh.position.z	= Math.sin(angle)*radius;
-		mesh.rotation.y	= Math.PI/2 - angle;
-		mesh.castShadow		= true;
+		mesh.position.z	= Math.sin(angle + offsetAngle)*radius;
+		mesh.rotation.y	= Math.PI/2 - (angle + offsetAngle);
+		mesh.castShadow	= true;
 		group.add(mesh);
 	}
 	return group;
@@ -133,9 +138,9 @@ function buildPyramid()
 	var geometry	= new THREE.CylinderGeometry(Math.sqrt(width*width+width*width), 500/2, pyramidH, 4)
 	var material	= new THREE.MeshLambertMaterial({
 		ambient	: 0x404040,
-		color	: 0xaaaaaa,
+		color	: 0x444444,
 		shading	: THREE.SmoothShading,
-		map	: texture
+		//map	: texture
 	});
 	//var material	= new THREE.MeshNormalMaterial();
 	var mesh	= new THREE.Mesh( geometry, material );
@@ -147,31 +152,28 @@ function buildSunDialTexture(){
 	var canvas	= document.createElement('canvas');
 	canvas.width	= 512;
 	canvas.height	= 512;
-
 	var texture	= new THREE.Texture(canvas);
 
 	var image	= new Image();
 	image.onload	= function () {
 		var ctx		= canvas.getContext( '2d' );
-		ctx.drawImage(image,0,0);
+		ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 		drawSunDialNumbers(canvas)
 		texture.needsUpdate = true;
 	};
 	image.crossOrigin = '';
 	image.src	= "images/water.jpg";
+	//image.src	= "images/textures/MarbleTiles0058_5_thumbhuge.jpg";
 
 	texture.needsUpdate	= true;
 	return texture;
 }
+
 function drawSunDialNumbers(canvas)
 {
 	var ctx		= canvas.getContext( '2d' );
 	var w		= canvas.width;
 	var h		= canvas.height;
-
-	ctx.fillStyle	= "rgb(64,64,64)";  
-	ctx.fillRect (10, 10, 55, 50);
-	
 	var texts	= [
 		'I',
 		'II',

@@ -16,6 +16,8 @@
 		<script src="vendor/threex/THREEx.WindowResize.js"></script>
 		<script src="vendor/threex.dragpancontrols.js"></script>
 
+		<script src='vendor/pixastic/pixastic.all.min.js'></script>
+		
 		<script src="js/cubeMap.js"></script>
 		<script src="js/lensFlare.js"></script>
 		<script src="js/sunDial.js"></script>
@@ -47,13 +49,27 @@
 		// init the scene
 		function init(){
 
+//var img = new Image();
+//img.onload = function() {
+//	//Pixastic.process(img, "invert");
+//	//Pixastic.process(img, "edges2");
+//	//Pixastic.process(img, "glow", {amount:1,radius:1.0});
+//	//Pixastic.process(img, "brightness", {brightness:300,contrast:1});
+//	Pixastic.process(img, "sharpen", {amount:0.5});
+//	//Pixastic.process(img, "edges2");
+//}
+//document.body.appendChild(img);
+////img.src = "images/lensflare/lensflare0.png";
+//img.src = "images/lensflare/lensflare3.png";
+//return true;
+
 			if( Detector.webgl ){
 				renderer = new THREE.WebGLRenderer({
 					antialias		: true,	// to get smoother output
 					preserveDrawingBuffer	: true	// to allow screenshot
 				});
 				renderer.shadowMapEnabled	= true;
-				renderer.shadowMapSoft		= false;
+				renderer.shadowMapSoft		= true;
 			}else{
 				Detector.addGetWebGLMessage();
 				return true;
@@ -79,7 +95,7 @@
 
 			// create a camera contol
 			cameraControls	= new THREEx.DragPanControls(camera)
-			cameraControls.target	= new THREE.Vector3(0, 0.7, 0);
+			cameraControls.target	= new THREE.Vector3(0, 1, 0);
 			
 
 			// transparently support window resize
@@ -99,7 +115,6 @@
 			scene.add( ambient );
 			
 			var light	= new THREE.DirectionalLight( 0xAA8888 );
-			light.position.set( -1, 0.8, -1 ).normalize();
 			light.position.set( -0.1, 0.8, -1 ).normalize();
 			light.position.setLength(5);
 		
@@ -109,11 +124,10 @@
 			light.shadowCameraTop		=  5;
 			light.shadowCameraBottom	= -5;
 			light.shadowDarkness		= 0.5;
-			//light.shadowCameraVisible	= true;
-			
 			shadowLight	= light;
 
 			scene.add( light );
+
 
 			var light	= new THREE.DirectionalLight( 0x222266 );
 			light.position.set( -0.1, 0.8, -1 ).negate().normalize();
@@ -137,7 +151,6 @@
 		
 		// animation loop
 		function animate() {
-
 			// loop on request animation loop
 			// - it has to be at the begining of the function
 			// - see details at http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
