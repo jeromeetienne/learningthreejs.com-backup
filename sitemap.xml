@@ -68,7 +68,7 @@
         <loc>
             http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/
         </loc>
-        <lastmod>2011-11-19T09:33:15+01:00</lastmod>
+        <lastmod>2012-01-15T12:45:09+01:00</lastmod>
     </url>
     <url>
         <loc>
@@ -87,15 +87,49 @@
         <lastmod>2011-12-17T20:10:34+01:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://learningthreejs.com/blog/2011/12/19/particles-online-editor-for-sparks-js/
+        </loc>
+        <lastmod>2012-01-11T12:40:16+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/</loc>
+        <lastmod>2011-12-22T13:55:15+01:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/
+        </loc>
+        <lastmod>2012-01-11T12:39:23+01:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://learningthreejs.com/blog/2011/12/28/let-s-make-a-3d-game-supporting-mobile/
+        </loc>
+        <lastmod>2012-01-11T12:39:14+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://learningthreejs.com/blog/2012/01/11/tunnel-effect/</loc>
+        <lastmod>2012-01-15T13:17:49+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/</loc>
+        <lastmod>2012-01-17T18:52:46+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://learningthreejs.com/blog/2012/01/19/boilerplate-builder-for-three-js/</loc>
+        <lastmod>2012-01-19T13:45:59+01:00</lastmod>
+    </url>
+    <url>
         <loc>http://learningthreejs.com/about/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-01-19T08:07:19+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/archives/</loc>
-        <lastmod>2011-12-17T20:10:34+01:00</lastmod>
+        <lastmod>2012-01-19T13:45:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/</loc>
-        <lastmod>2011-12-17T20:10:34+01:00</lastmod>
+        <lastmod>2012-01-19T13:45:59+01:00</lastmod>
     </url>
 </urlset>

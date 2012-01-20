@@ -4,13 +4,971 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2011-12-17T20:10:51+01:00</updated>
+  <updated>2012-01-20T14:50:08+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Boilerplate Builder for Three.js</title>
+    <link href="http://learningthreejs.com/blog/2012/01/19/boilerplate-builder-for-three-js/"/>
+    <updated>2012-01-19T10:59:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/01/19/boilerplate-builder-for-three-js</id>
+    <content type="html">&lt;p&gt;We recently introduced a
+&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt;
+in a
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;previous post&lt;/a&gt;.
+It aims to ease your first contact with
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
+It contains a template for a simple project,
+a sample on which we already applied good practices.
+You download it and run it in a matter of minutes.
+Thus you can immediatly focus on your own things.
+In short, it aims for &lt;em&gt;Fast bootstrap + Good Practices&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;It seems nice, hey ?
+Well there is a glitch.
+The
+&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt;
+needs more flexibily.
+In a way, it acts as a ground on top of which you start your own thing.
+We do our best to provide good defaults, but they are only defaults.
+What if you got specific requirements ?
+How to start your project then ?
+The
+&lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplatebuilder/&quot;&gt;boilerplate builder&lt;/a&gt;
+has been written for you :)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplatebuilder/&quot;&gt;Try it out&lt;/a&gt;.
+Go ahead, play with the options,
+discover what they do and customize your own boilerplate.
+The
+&lt;a href=&quot;http://www.youtube.com/watch?v=ANnPWZGRsGk&quot;&gt;screencast&lt;/a&gt;
+below is short introduction where i describe the
+&lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplatebuilder/&quot;&gt;boilerplate builder&lt;/a&gt;.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/ANnPWZGRsGk?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Making-Of the Builder&lt;/h2&gt;
+
+&lt;p&gt;The
+&lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplatebuilder/&quot;&gt;builder&lt;/a&gt;
+itself was interesting to build.
+It uses various nice features from the current web.
+It is a pure-browser webapp with a file download,
+a preview of a webgl project
+and a nice looking visual appearance.&lt;/p&gt;
+
+&lt;h3&gt;Pure Browser Download&lt;/h3&gt;
+
+&lt;p&gt;I like to write pure-browser application.
+They dont require a server to run, only static files.
+It makes it much easier to host your application.
+So
+&lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplatebuilder/&quot;&gt;boilerplate builder&lt;/a&gt;
+has been written as a pure-browser application :)
+It uses
+&lt;a href=&quot;http://jszip.stuartk.co.uk/&quot;&gt;jszip&lt;/a&gt;
+, a library which create .zip files with Javascript.
+Its creates the boilerplater.zip that you download.
+Additionally, it uses
+&lt;a href=&quot;https://github.com/dcneiner/Downloadify&quot;&gt;downloadify&lt;/a&gt;
+, a small library to create and download files without server.&lt;/p&gt;
+
+&lt;p&gt;Together,
+&lt;a href=&quot;http://jszip.stuartk.co.uk/&quot;&gt;jszip&lt;/a&gt;
+and
+&lt;a href=&quot;https://github.com/dcneiner/Downloadify&quot;&gt;downloadify&lt;/a&gt;
+makes it easy to pack several files together,
+and allow the user to download it.
+All that in pure-browser, neat no?
+I love what the web is becoming!&lt;/p&gt;
+
+&lt;h3&gt;Boilerplate Preview&lt;/h3&gt;
+
+&lt;p&gt;The preview is a bit different.
+We start to load the &lt;em&gt;index.html&lt;/em&gt; template for the boilerplate.
+We apply all the options you configured and produce the final version.
+To actually preview this file, we encode it in
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Base64&quot;&gt;base64&lt;/a&gt;
+to build a
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Data_URI_scheme&quot;&gt;data url&lt;/a&gt;
+with it.
+Only then, we create an iframe with this data uri
+and you can see the webgl preview :)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Data_URI_scheme&quot;&gt;Data url&lt;/a&gt;
+is a new HTML5 feature.
+It allows to encode data directly in the URL.
+It may be used to include image directly in css for examples.
+Very usefull but not for human consumption.
+To give you an idea, here is &lt;a href=&quot;http://pastebin.com/yF3XDSFW&quot;&gt;index.html&lt;/a&gt; in as data url.
+It looks like long ugly random string.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;data:text/html;base64,PCFkb2N0eXBlIGh0....
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;Visual Appearance&lt;/h3&gt;
+
+&lt;p&gt;It includes
+&lt;a href=&quot;http://twitter.github.com/bootstrap/&quot;&gt;twitter bootstrap&lt;/a&gt; for css.
+I am quite grateful for this framework.
+Without it, the
+&lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplatebuilder/&quot;&gt;builder page&lt;/a&gt;
+will be so ugly, that people run away without even trying the application itself.
+&lt;a href=&quot;http://twitter.github.com/bootstrap/&quot;&gt;twitter bootstrap&lt;/a&gt;
+makes it so easy to write a webapp which looks good on the screen.
+I think all the css-impaired of the world should thanks twitter for this framework :)&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;It has been quite fun to write it.
+I learned some web skills,
+discovered new part of three.js,
+and on top of that, it looks good on screen.
+I could not ask for more.
+The goal of
+&lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplatebuilder/&quot;&gt;boilerplate builder for three.js&lt;/a&gt;
+is to add more &lt;em&gt;flexibility&lt;/em&gt; to the &lt;em&gt;fast bootstrap + good practices&lt;/em&gt; from the
+&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate&lt;/a&gt;.
+I hope it will help people starting lots of new
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+projects :)&lt;/p&gt;
+
+&lt;p&gt;That's all folks.
+Have fun.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Dom Events in 3D Space</title>
+    <link href="http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/"/>
+    <updated>2012-01-17T11:56:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space</id>
+    <content type="html">&lt;p&gt;Ever dreamed of a &lt;strong&gt;object3d.on('click', function(){ ... });&lt;/strong&gt;?&lt;/p&gt;
+
+&lt;p&gt;I have :) This post presents a little experiment.
+What about implementing the concept of
+&lt;a href=&quot;http://www.w3.org/TR/DOM-Level-2-Events/events.html&quot;&gt;dom events&lt;/a&gt;
+in 3D Space.
+In a web page, a
+&lt;a href=&quot;http://www.quirksmode.org/dom/events/click.html&quot;&gt;click&lt;/a&gt;
+event is trigger when a user click on a
+&lt;a href=&quot;http://en.wikipedia.org/wiki/HTML_element&quot;&gt;element&lt;/a&gt;.
+This is common knowledge in web development.
+What about having that but in a three.js scene ?
+Maybe people will start do 3D user interface with that, who knows.
+How great would that be ?!?
+So let's do that.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/threex/examples/threex.domevent/&quot;&gt;Try it out&lt;/a&gt;.
+The demo contains 3 teapots.
+Each bind a different type of events.
+When the events are triggered, teapots are animated.
+Animations are made by &lt;a href=&quot;https://github.com/sole/tween.js/&quot;&gt;tween.js&lt;/a&gt;, a nice js tweening engine
+seen in a &lt;a href=&quot;http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation/&quot;&gt;previous post&lt;/a&gt;.
+Play with it to get a feel of it, maybe think about the type of UI you could do in 3D.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/c2KLj8sie9Q?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;h2&gt;Let's Get Started&lt;/h2&gt;
+
+&lt;p&gt;First let's include the source.
+You download &lt;a href=&quot;https://github.com/jeromeetienne/threex/blob/master/threex.domevent.js&quot;&gt;threex.domevent.js&lt;/a&gt;.
+and copy this line in your page.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src='threex.domevent.js'&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Let's Use It&lt;/h2&gt;
+
+&lt;iframe src=&quot;http://jeromeetienne.github.com/threex/examples/threex.domevent&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;p&gt;Let's say we want do to an action when the user is clicking on a object.
+We just do the following.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mesh.on('click', function()({
+    mesh.scale.x *= 2;
+}))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;This short line means &quot;&lt;em&gt;if the user click on this mesh, make it twice wider&lt;/em&gt;&quot;.
+Eloquent meaning, short syntax ... pretty sweet in my book.
+If you wish to stop listening just do as usual.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mesh.off('click', callback)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;In fact, there is 2 naming for those functions:
+one is
+&lt;a href=&quot;https://developer.mozilla.org/en/DOM/element.addEventListener&quot;&gt;addEventListener&lt;/a&gt;
+/
+&lt;a href=&quot;https://developer.mozilla.org/en/DOM/element.removeEventListener&quot;&gt;removeEventListener&lt;/a&gt;
+from
+&lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html&quot;&gt;HTMLElement&lt;/a&gt;
+The other is copied on
+&lt;a href=&quot;http://jquery.com/&quot;&gt;jQuery&lt;/a&gt; api:
+&lt;a href=&quot;http://api.jquery.com/on/&quot;&gt;on&lt;/a&gt;
+/
+&lt;a href=&quot;http://api.jquery.com/off/&quot;&gt;off&lt;/a&gt;
+Pick the one you like. They are doing the same thing.&lt;/p&gt;
+
+&lt;p&gt;Always in a effort to stay close to usual pratices, the events name are the same as in DOM.
+The semantic is the same too.
+Currently, the available events are
+&lt;a href=&quot;http://www.quirksmode.org/dom/events/click.html&quot;&gt;click, dblclick, mouseup, mousedown&lt;/a&gt;,
+&lt;a href=&quot;http://www.quirksmode.org/dom/events/mouseover.html&quot;&gt;mouseover and mouse out&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Some Internals&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+already has the ability to interact with the mouse.
+You can see it in action
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_interactive_cubes.html&quot;&gt;here&lt;/a&gt;
+and
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_interactive_voxelpainter.html&quot;&gt;here&lt;/a&gt;.
+Internally they use 2 three.js classes:
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/core/Projector.js&quot;&gt;THREE.Projector&lt;/a&gt;
+and
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/core/Ray.js&quot;&gt;THREE.Ray&lt;/a&gt;.
+&lt;a href=&quot;https://github.com/jeromeetienne/threex/blob/master/threex.domevent.js&quot;&gt;threex.domevent.js&lt;/a&gt;
+is an higher level api on top of those functions,
+an interface which mimic dom events,
+something closer to the usual web developper.&lt;/p&gt;
+
+&lt;p&gt;It is a nice api. clean, short, object oriented and feels familiar to web developpers.
+A little hichup tho, it modifies THREE.Object3D class.
+It is a global class, so it may be legitimatly considered unclean by some people.
+If this bother you, simply do &lt;code&gt;THREEx.DomEvent.noConflict()&lt;/code&gt; and use the
+standalone API. It is documented in the
+&lt;a href=&quot;http://jeromeetienne.github.com/threex/docs/threex.domevent.html&quot;&gt;annoted source&lt;/a&gt;.
+In fact, the object oriented API is just a thin wrapper
+on top of the standalone API.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;We all know the click event when the user click on a webpage.
+This experiment wishes to provide to web developpers the same experience in 3D.
+I hope people will do crazy innovations by using 3D in user interfaces.
+This is a first version. Maybe we will implement
+&lt;a href=&quot;http://www.quirksmode.org/js/events_order.html&quot;&gt;bubbling&lt;/a&gt;
+in the future, even events like
+&lt;a href=&quot;http://www.quirksmode.org/dom/events/change.html&quot;&gt;'change'&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As usual, &lt;a href=&quot;https://github.com/jeromeetienne/threex/blob/master/threex.domevent.js&quot;&gt;threex.domevent.js&lt;/a&gt;
+source is available on
+&lt;a href=&quot;https://github.com/jeromeetienne/threex/blob/master/threex.domevent.js&quot;&gt;github&lt;/a&gt;.
+There is an
+&lt;a href=&quot;http://jeromeetienne.github.com/threex/docs/threex.domevent.html&quot;&gt;annoted source&lt;/a&gt;
+for implementation details.
+That's all folks. Have fun.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Tunnel Effect for your Demo</title>
+    <link href="http://learningthreejs.com/blog/2012/01/11/tunnel-effect/"/>
+    <updated>2012-01-11T13:00:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/01/11/tunnel-effect</id>
+    <content type="html">&lt;p&gt;This post presents a tunnel effect.
+This is a classic in 3D demo.
+They are visually efficient and easy to code.
+In fact, tunnels are so trendy that
+even
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Doctor_Who&quot;&gt;doctor who&lt;/a&gt;
+and
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Stargate&quot;&gt;stargate&lt;/a&gt;
+have
+&lt;a href=&quot;http://www.youtube.com/watch?v=IKo9f5npLNM&quot;&gt;fun&lt;/a&gt;
+&lt;a href=&quot;http://www.youtube.com/watch?v=KDIdJtW0vN4&quot;&gt;in them&lt;/a&gt;
+:)&lt;/p&gt;
+
+&lt;iframe src=&quot;http://jeromeetienne.github.com/tunnelgl/&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/tunnelgl/&quot;&gt;Try the demo&lt;/a&gt;.
+It has been built using the
+&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt;
+seen in a
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;previous post&lt;/a&gt;.
+The code is simple and small.
+Less than 20lines has been added on top of the boilerplate.
+We will create a
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js&quot;&gt;THREE.Geometry&lt;/a&gt;
+to get the shape of tunnel.
+Then we will use a
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/textures/Texture.js&quot;&gt;texture&lt;/a&gt;
+trick to create the
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Optical_illusion&quot;&gt;visual illusion&lt;/a&gt;
+of moving.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Let's build the walls&lt;/h2&gt;
+
+&lt;p&gt;The first step is to build the &lt;em&gt;walls&lt;/em&gt; of the tunnel.
+It is easier that one would expect.
+A tunnel may be seen as a cylinder with the camera inside.
+Once you realized that, most of the work is done.
+Luckily for us,
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+got an easy way to build cylinders, called
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CylinderGeometry.js&quot;&gt;CylinderGeometry&lt;/a&gt;.
+Nevertheless our tunnel / cylinder got 2 special points.&lt;/p&gt;
+
+&lt;p&gt;First, it is open-ended. So we must not build its top and bottom.
+We need this to see thru its extremities.
+This is handled by a parameter in
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CylinderGeometry.js&quot;&gt;CylinderGeometry&lt;/a&gt;.
+We just set &lt;code&gt;openended&lt;/code&gt; parameter to true and the rest is done for us :)&lt;/p&gt;
+
+&lt;p&gt;Second, the camera is usually located outside of objects.
+But our tunnel/cylinder has the camera inside it.
+To make our object visible from the inside, we need to turn it inside out.
+For that, just use &lt;code&gt;mesh.flipSided = true&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;Let's go forward&lt;/h2&gt;
+
+&lt;p&gt;Now we need to go forward in this tunnel
+For that we will use an old trick.
+We won't move the tunnel walls themselves, only their appearance.
+It gives the visual illusion that we are moving.
+Remember what they say in matrix ?
+&lt;a href=&quot;http://www.youtube.com/watch?v=dzm8kTIj_0M&quot;&gt;&quot;there is no spoon&quot;&lt;/a&gt;.
+It is all the same, we are moving while staying still :)&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/dzm8kTIj_0M?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;h2&gt;A Texture isn't a spoon&lt;/h2&gt;
+
+&lt;p&gt;First we want to move the appearance of the cylinder, thus the player got the illusion to go forward.
+We will use &lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/textures/Texture.js&quot;&gt;THREE.Texture&lt;/a&gt; for that.
+We wont move the actual pixels of the textures, only its coordinates.
+Additionnaly we want the texture to repeat on the cylinder, thus it appears as continuous.
+WebGL texture is a powerfull and flexible tool.
+You can tweak so many features.&lt;/p&gt;
+
+&lt;p&gt;First let's make this texture move.
+Suppose we want the texture to loop once every 10 seconds.
+So the coordinate &lt;code&gt;.offset.y&lt;/code&gt; needs to go from 0 to 1 in 10 seconds.
+This line is enougth to make the tunnel move forward.
+You can change your speed within the tunnel by changing this number.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;texture.offset.y    += 0.1 * seconds;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now the texture repetition.
+For that we will use a texture parameter called &lt;em&gt;wrap&lt;/em&gt;.
+It indicates how the gpu repeat the texture on a face.
+Here is a good
+&lt;a href=&quot;http://lucera-project.blogspot.com/2010/06/opengl-wrap.html&quot;&gt;tutorial on opengl wrap&lt;/a&gt;.
+By default, wrapS / wrapT are set to &lt;code&gt;THREE.ClampToEdgeWrapping&lt;/code&gt;.
+So the texture is scaled to match exactly the size of the face.
+In our case, we want to repeat the texture and not scale it.
+So we use &lt;code&gt;THREE.RepeatWrapping&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;texture.wrapT   = THREE.RepeatWrapping;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;We have seen how to do a tunnel with
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
+This is very simple to code and awesome on the screen.
+It is less than 20 lines added to the &lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate&lt;/a&gt;.
+The cylinder geometry was already provided.
+We used
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/textures/Texture.js&quot;&gt;THREE.Texture&lt;/a&gt;
+offsets to provide the optical illusion of moving.&lt;/p&gt;
+
+&lt;p&gt;Later, we may add a &lt;a href=&quot;http://en.wikipedia.org/wiki/TARDIS&quot;&gt;blue phonebooth&lt;/a&gt;
+and play &lt;em&gt;doctor who&lt;/em&gt; :)
+The code is available on
+&lt;a href=&quot;https://github.com/jeromeetienne/tunnelgl&quot;&gt;github&lt;/a&gt;
+under MIT license.
+Feel free to fork and modify.
+That's all folks, have fun.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Let’s Make a 3D Game: Supporting Mobile</title>
+    <link href="http://learningthreejs.com/blog/2011/12/28/let-s-make-a-3d-game-supporting-mobile/"/>
+    <updated>2011-12-28T13:46:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2011/12/28/let-s-make-a-3d-game-supporting-mobile</id>
+    <content type="html">&lt;p&gt;This post is about supporting mobile.
+We will try to port &lt;a href=&quot;http://marblesoccer.com&quot;&gt;marblesoccer&lt;/a&gt; on mobile.
+When doing a
+&lt;a href=&quot;http://127.0.0.1:8000/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;boilerplate for three.js&lt;/a&gt;,
+mobile had to be supported for compatibility.
+So it gave me the idea of this post.
+What about porting our game on mobile ?
+Porting a 3D web game to mobile ? crazy :)&lt;/p&gt;
+
+&lt;p&gt;The desktop version looks kindof ok.
+What would be the result of this experiment ?
+Is that even possible ?
+What about usable ?
+This is the purpose of this experiment to find out.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/Ow_ceac1aEE?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;h2&gt;Mobile isn't desktop&lt;/h2&gt;
+
+&lt;p&gt;Indeed... desktop and mobile are quite different plateforms.
+Which differences are relevant to us ?
+First, mobile network is bad, especially latency.
+So avoid download of long files, such as texture or sound.
+Here is a good talk on
+&lt;a href=&quot;http://www.youtube.com/watch?v=L2YqfVNHQO4&quot;&gt;Mobile Web Performance&lt;/a&gt;.
+Another thing, mobile got no keyboard, no mouse, but a touch screen
+We need to get a game controller for this environement.
+We use &lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;.
+See details in our &lt;a href=&quot;http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/&quot;&gt;previous post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;One big thing is that currently, on mobile, WebGL hasnt reached mainstream to say the least.
+No major vendor is shipping phone with webgl, so nobody or close get webgl on phone.
+So for our little experiment, we will display in
+&lt;a href=&quot;http://www.w3.org/TR/2010/WD-2dcontext-20100304/&quot;&gt;Canvas 2D&lt;/a&gt;
+with
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/renderers/CanvasRenderer.js&quot;&gt;THREE.CanvasRenderer&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Porting to canvas 2D&lt;/h2&gt;
+
+&lt;p&gt;So what need to be done ?
+First step is to use the proper renderer when suitable.
+Second is fixing material and geometry to fit canvas2D renderer capability.
+Last step is to look for room of optimisations.
+Ok now let's intanciate the renderer. If webgl is available, use
+&lt;code&gt;THREE.WebGLRenderer&lt;/code&gt;
+else use
+&lt;code&gt;THREE.CanvasRenderer&lt;/code&gt;.
+Not too hard hey ?
+We already did that in the
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;boilerplate for three.js&lt;/a&gt;&lt;/p&gt;
+
+&lt;iframe src=&quot;http://marblesoccer.com?render=canvas&amp;bypasslanding=1&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;p&gt;We simplify geometry to reduce the number of polygon.
+For marble geometry, the sphere got 512 faces on webgl, and only 9 on canvas2d.
+Drastic :)
+What about material ? For webgl, we used
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Phong_shading&quot;&gt;phong&lt;/a&gt;
+for fancy lightings,
+We used
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Texture_mapping&quot;&gt;textures&lt;/a&gt;
+for realistic effects.
+But with canvas2D, those technics cant be used.
+They are way too slow.&lt;/p&gt;
+
+&lt;p&gt;This is enougth to get it working.
+It display something reasonable on the screen at least.
+We sacrifice a lot tho, no more texture not fancy lighting.
+And now the bad new, it results in 3fps on my ipad2 ios4... ouch.&lt;/p&gt;
+
+&lt;h2&gt;More measures&lt;/h2&gt;
+
+&lt;p&gt;How come performances are so bad ? So i did more measures.
+I disabled the display of map and marbles to see how they impact performance.
+If we display the map and the marbles, we got 3fps on my ipad2.
+If we display only marbles, no more maps, we got 23fps, much better.
+but still not great... Considere that we are only displaying marbles and they are real simple.&lt;/p&gt;
+
+&lt;p&gt;If we display no marble, and no map. we got only 30fps. So all the rest, all the non display
+part is already using a big part of time ? what are we doing ? not much...
+Still we run
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/&quot;&gt;realistic 3D physics&lt;/a&gt;
+and ipad2 cpu isnt as fast as usual desktop ones.&lt;/p&gt;
+
+&lt;h2&gt;Time to optimize&lt;/h2&gt;
+
+&lt;p&gt;Ok it is slow but this is a first try.
+I admit the code isnt not too optimized.
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Central_processing_unit&quot;&gt;cpu&lt;/a&gt;
+/
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Graphics_processing_unit&quot;&gt;gpu&lt;/a&gt;
+performance are so good on desktop, i may have been sloppy here and there :)
+There are areas of optimisations.
+We need to draw less polygons.&lt;/p&gt;
+
+&lt;p&gt;First we need to &lt;em&gt;reduce the geometry&lt;/em&gt; of the map.
+We can do that by clustering voxels:
+if 2 voxels got the same color and touch each other, display one large box, instead of 2 small boxes.
+We did it to optimize our physics.
+See details in &lt;a href=&quot;http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/&quot;&gt;microphysics post&lt;/a&gt;.
+Additionnaly we could use marblesoccer's
+&lt;a href=&quot;http://127.0.0.1:8000/blog/2011/09/14/lets-make-a-3D-game-map-editor/&quot;&gt;map editor&lt;/a&gt;
+to redesign a map with a simpler geometry.&lt;/p&gt;
+
+&lt;p&gt;Another low-hanging fruit is to remove faces which are never seen, like in
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_geometry_minecraft_ao.html&quot;&gt;minecraft example&lt;/a&gt;
+from
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
+We could try to 2D sprites instead of 3D spheres for marble.
+We wont use
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/objects/Sprite.js&quot;&gt;THREE.Sprite&lt;/a&gt;.
+It isnt supported
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/renderers/CanvasRenderer.js&quot;&gt;THREE.CanvasRenderer&lt;/a&gt;.
+But dont worry, it is possible with the particle system.
+See how &lt;code&gt;THREE.Particle&lt;/code&gt; is used in
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/canvas_particles_sprites.html&quot;&gt;canvas_particles_sprites.html&lt;/a&gt;
+example.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;And after all that, what can you expect ?
+Will that run at 60fps ? 30fps ? Not likely or it will require a lot of effort.
+&lt;img class='left ' src='http://learningthreejs.com/data/lets-make-a-3d-game-supporting-mobile/images/screenshot-webgl-small.png' width='' height='' alt='' title=''&gt;
+&lt;img class='right ' src='http://learningthreejs.com/data/lets-make-a-3d-game-supporting-mobile/images/screenshot-canvas-small.png' width='' height='' alt='' title=''&gt;
+So animations arent smooth, what about the look?
+Watch what you got on the screen...
+On the right, a canvas version. &lt;a href=&quot;http://marblesoccer.com/?render=canvas&quot;&gt;live here&lt;/a&gt;.
+On the left you can see a webgl version. &lt;a href=&quot;http://marblesoccer.com&quot;&gt;live here&lt;/a&gt;.
+Lets face it... &lt;em&gt;canvas version is ugly&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;After a significant work, you get poor performance and crappy look.
+Not many players would accept that...
+currently canvas performance doesnt seems suitable to display 3D on mobile.
+It is a good way to monitor performances and see how they evolve with time.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Let’s Make a 3D Game: Virtual Joystick</title>
+    <link href="http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/"/>
+    <updated>2011-12-26T12:21:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick</id>
+    <content type="html">&lt;p&gt;Here is another article of the &quot;Let's Make a 3D Game&quot;
+&lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;series&lt;/a&gt;.
+We have already seen how to handle other inputs like
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/&quot;&gt;keyboard&lt;/a&gt;
+and
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation/&quot;&gt;device orientation&lt;/a&gt;.
+This post is about &lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;
+It &lt;strong&gt;virtual joystick&lt;/strong&gt;, another input you can use for your games.
+A virtual joystick emulates a joystick behaviour on a touch screen.
+&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;
+has been coded in a effort to port
+&lt;a href=&quot;http://marblesoccer.com&quot;&gt;marblesoccer&lt;/a&gt;
+to mobile device.
+Show, dont tell,
+&lt;a href=&quot;http://jeromeetienne.github.com/virtualjoystick.js/&quot;&gt;Try it out&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This
+&lt;a href=&quot;http://jeromeetienne.github.com/virtualjoystick.js/&quot;&gt;demo&lt;/a&gt;
+works with mouse events too thus, it is easier to test/debug.
+&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;
+has been widely inpired by
+&lt;a href=&quot;http://sebleedelisle.com/2011/04/multi-touch-game-controller-in-javascripthtml5-for-ipad/&quot;&gt;this post&lt;/a&gt;
+by
+&lt;a href=&quot;http://sebleedelisle.com/&quot;&gt;Seb Lee-Delisle&lt;/a&gt;.
+The screencast below is short introduction about
+&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/viyr_W0z1U8?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;h2&gt;Let's Get Started&lt;/h2&gt;
+
+&lt;p&gt;First step, you download
+&lt;a href=&quot;https://raw.github.com/jeromeetienne/virtualjoystick.js/master/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;
+from its
+&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;github&lt;/a&gt;
+Then include it in your own code.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;virtualjoystick.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;The joystick is composed of 2 parts: the &lt;em&gt;base&lt;/em&gt; and the &lt;em&gt;stick&lt;/em&gt;.
+First the plare touch the screen, it gives the position of the &lt;em&gt;base&lt;/em&gt;.
+Then it drags its fingers to gives the position of the &lt;em&gt;stick&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Let's Use it&lt;/h2&gt;
+
+&lt;iframe src=&quot;http://jeromeetienne.github.com/virtualjoystick.js/&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;p&gt;First step is to create the object from &lt;code&gt;VirtualJoystick&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var joystick = new VirtualJoystick()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;The constructor has some options.
+They have sensible default.
+You can change them to fit your specific needs.
+See
+&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js#readme&quot;&gt;github README&lt;/a&gt;
+for a full API description.
+You may look at the &lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js/blob/master/index.html&quot;&gt;index.html&lt;/a&gt;.
+It is an example which uses the library.&lt;/p&gt;
+
+&lt;p&gt;It is possible to read
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Analog_stick&quot;&gt;analogic&lt;/a&gt;
+coordinates.
+&lt;code&gt;joystick.deltaX()&lt;/code&gt; gives the &lt;em&gt;delta x&lt;/em&gt; between the base and the stick in pixel.
+&lt;code&gt;joystick.deltaY()&lt;/code&gt; gives the &lt;em&gt;delta y&lt;/em&gt;.
+Those analogic coordinates may be interpreted as a
+&lt;a href=&quot;http://www.slagcoin.com/joystick/restrictors.html&quot;&gt;joystick with 4 switches&lt;/a&gt;.
+Similar to
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Arrow_keys&quot;&gt;arrow keys&lt;/a&gt;
+in a way.
+&lt;code&gt;joystick.up()&lt;/code&gt; tells you if your joystick is up or not.
+You guessed the meaning of &lt;code&gt;.down()&lt;/code&gt;, &lt;code&gt;.right()&lt;/code&gt; and &lt;code&gt;.left()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The source is available on
+&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;github&lt;/a&gt;
+under MIT license.
+Later, a button may be implemented as well.
+It is alway usefull to able to fire in video games :)
+That's all folks, have fun.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Boilerplate for Three.js</title>
+    <link href="http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/"/>
+    <updated>2011-12-20T19:09:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js</id>
+    <content type="html">&lt;p&gt;This post presents
+&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt;.
+I looked at
+&lt;a href=&quot;http://html5boilerplate.com/&quot;&gt;html5 boilerplate&lt;/a&gt;
+and found
+&lt;a href=&quot;http://www.youtube.com/watch?v=NMEB78VX2P0&quot;&gt;it&lt;/a&gt;
+&lt;a href=&quot;http://www.youtube.com/watch?v=oDlsOyPKUTM&quot;&gt;awesome&lt;/a&gt;.
+&lt;a href=&quot;http://html5boilerplate.com/&quot;&gt;html5 boilerplate&lt;/a&gt;
+is a fast way start a clean project.
+It avoids repetitive tasks, following &lt;a href=&quot;http://en.wikipedia.org/wiki/Don't_repeat_yourself&quot;&gt;DRY&lt;/a&gt; principles.
+It includes all those good practices, which are so easy to forget.
+It seems all good to me :)
+&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt; tries to apply similar principles.
+I frequently write simple three.js demo for tutorials, and repeat the first steps way too often for my tastes :)
+It has been done in effort to make 3D on the web even easier.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplate/&quot;&gt;Try it&lt;/a&gt; out.
+&quot;Boilerplate for three.js is a web template for a fast, robust and future-proof site.
+Boilerplate is not a framework, nor does it prescribe any philosophy of
+development, it's just got some tricks to get your project off the ground
+quickly and right-footed.&quot;
+- freely adapted from &lt;a href=&quot;http://html5boilerplate.com/&quot;&gt;html5 boilerplate site&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Walkthrough&lt;/h2&gt;
+
+&lt;p&gt;This project is at an early stage.
+Dont hesitate to suggest improvements or
+bug fixes in
+&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate/issues&quot;&gt;github issues&lt;/a&gt;.
+It has been done to run everywhere, and to promote good practices.
+The
+&lt;a href=&quot;http://www.youtube.com/watch?v=kOReCN5t2Eo&quot;&gt;screencast&lt;/a&gt;
+below will walk you through the source of the project.
+22min... a long one :)&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/kOReCN5t2Eo?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Compatibility is key&lt;/h2&gt;
+
+&lt;p&gt;It has to run everywhere.
+We believe that compatibility is crucial on the web.
+The boilerplate seamlessly works on desktop and mobile.
+It is working on webgl/canvas2d and supports mouse/touch events.&lt;/p&gt;
+
+&lt;p&gt;It renders on
+&lt;a href=&quot;http://en.wikipedia.org/wiki/WebGL&quot;&gt;webgl&lt;/a&gt;
+if available, else it fallbacks on
+&lt;a href=&quot;http://html5doctor.com/an-introduction-to-the-canvas-2d-api/&quot;&gt;canvas2D&lt;/a&gt;.
+It is often forgotten, but &lt;a href=&quot;&quot;&gt;three.js&lt;/a&gt; is able render on various backends,
+they are called &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/renderers&quot;&gt;renderers&lt;/a&gt;.
+It isnt always possible to fallback tho.
+Materials are especially sensible to the type of renderer you use.
+For examples, many materials are webgl specific as they contains shaders and canvas2D got no shaders.
+Up to you to find the balance that fit your needs.&lt;/p&gt;
+
+&lt;p&gt;The camera controls is rather basic.
+If you need a different controls for your camera, pick one in
+&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/extras/controls&quot;&gt;this list&lt;/a&gt;.
+This one is simple to use and understand, a nice feature for a boilerplate.
+It supports
+&lt;a href=&quot;http://www.quirksmode.org/js/events_mouse.html&quot;&gt;mouse events&lt;/a&gt;
+and
+&lt;a href=&quot;https://developer.mozilla.org/en/DOM/Touch_events&quot;&gt;touch events&lt;/a&gt;.
+So you can run with a touch screen with a glitch.&lt;/p&gt;
+
+&lt;h2&gt;Good Practices&lt;/h2&gt;
+
+&lt;p&gt;Some features have been added: fullscreen, screenshot and window resize.
+I consider them &lt;a href=&quot;http://en.wikipedia.org/wiki/Best_practice&quot;&gt;good pratices&lt;/a&gt; which are often forgotten.
+Some numbers based on &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples&quot;&gt;three.js examples&lt;/a&gt;:
+128 examples total,
+26 of them handle touch events,
+11 handle window resize,
+2 handle screenshot,
+0 handle fullscreen.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://jeromeetienne.github.com/threejsboilerplate&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Fullscreen&lt;/strong&gt; is supported to enjoy your 3D on a large display
+without visual distraction.
+If you press &lt;em&gt;f&lt;/em&gt;, your demo will go fullscreen.
+For technical details, see &quot;&lt;a href=&quot;http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/&quot;&gt;Make It Fullscreen&lt;/a&gt;&quot; post.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Screenshot&lt;/strong&gt; makes it easy to share the image
+as what you see on the screen at a given moment.
+If you press &lt;em&gt;p&lt;/em&gt;, a new tab will open with a screenshot of the rendered content.
+For technical details, see &quot;&lt;a href=&quot;http://learningthreejs.com/blog/2011/09/03/screenshot-in-javascript/&quot;&gt;screenhot in javascript&lt;/a&gt;&quot; post.
+It it usefull to share nice images and to help debug on various plateforms.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Window resize&lt;/strong&gt; is supported because it is required. Without it, your 3D scene will loose scaleing and center
+when you resize the window or go fullscreen.
+For technical details, see &quot;&lt;a href=&quot;http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/&quot;&gt;window resize your demos&lt;/a&gt;&quot; post.&lt;/p&gt;
+
+&lt;h2&gt;How to use it ?&lt;/h2&gt;
+
+&lt;p&gt;It is quite simple, first you download the code as
+a &lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate/zipball/master&quot;&gt;.zip file&lt;/a&gt;
+or with the &lt;a href=&quot;http://git-scm.com/&quot;&gt;git&lt;/a&gt; command line below.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone git://github.com/jeromeetienne/threejsboilerplate.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;then start updating &lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate/blob/master/index.html&quot;&gt;index.html&lt;/a&gt; to
+fit your needs.
+Below is a screencast where i use the
+&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate&lt;/a&gt;
+to display a
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Utah_teapot&quot;&gt;teapot&lt;/a&gt;
+in only 3min!
+Why a teapot ? Because it is the &quot;hello world&quot; of 3D :)
+Be warned, the video is a bit speedy, im just starting at doing screencast.
+Next ones will hopefully be slower.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/0XPOCi6FJX0?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Later, it may be cool to have a builder.
+I think it may be possible to make it client only.
+&lt;a href=&quot;http://jszip.stuartk.co.uk/&quot;&gt;jszip&lt;/a&gt; library would create the zip containing all the files.
+&lt;a href=&quot;https://github.com/jeromeetienne/shorttag.js&quot;&gt;shorttag.js&lt;/a&gt; library would compile templates according to user needs.
+A builder would produce a cleaner and smaller result for you to play with.&lt;/p&gt;
+
+&lt;p&gt;I gave a short talk at &lt;a href=&quot;http://parisjs.org&quot;&gt;parisjs&lt;/a&gt; about it, here are the &lt;a href=&quot;http://jeromeetienne.github.com/slides-3jsbp-parisjs14&quot;&gt;slides&lt;/a&gt;.
+I hope
+&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt;.
+will help make
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+even easier to use.
+This project is quite new and will likely improve soon.
+That's all folks, have fun :)&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Particles: Online Editor for Sparks.js</title>
+    <link href="http://learningthreejs.com/blog/2011/12/19/particles-online-editor-for-sparks-js/"/>
+    <updated>2011-12-19T12:11:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2011/12/19/particles-online-editor-for-sparks-js</id>
+    <content type="html">&lt;p&gt;This post is the second of our &lt;a href=&quot;http://learningthreejs.com/blog/categories/particles&quot;&gt;serie on particles&lt;/a&gt;.
+It presents
+&lt;a href=&quot;https://github.com/jeromeetienne/sparkseditor&quot;&gt;sparkseditor&lt;/a&gt;
+, an online editor for
+&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;sparks.js&lt;/a&gt;
+with
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
+In a few word, it is a webpage which provide an text editor
+with a
+&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;sparks.js&lt;/a&gt;
+effect.
+You got the code in the editor
+and
+you see &lt;em&gt;live&lt;/em&gt; the resulting particles effect.
+I like this &lt;em&gt;live&lt;/em&gt; aspect a lot :)
+I think it makes your design more direct, lower latency, less overhead.
+More creative in a way.
+&lt;a href=&quot;http://jeromeetienne.github.com/sparkseditor/&quot;&gt;Try it out&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This editor has been made to lower the barrier of entry on
+&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;sparks.js&lt;/a&gt;
+with
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+particles.
+The UI is rather simple and obvious. You can find a small presentation in the
+screencast below.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+
+
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/nu00FhIW5bc?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;h2&gt;Live editor rocks&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/sparkseditor/&quot;&gt;Sparkseditor&lt;/a&gt;
+is widely inpired by
+&lt;a href=&quot;http://glsl.heroku.com/e&quot;&gt;glsl editor&lt;/a&gt;
+from
+&lt;a href=&quot;http://mrdoob.com/&quot;&gt;mrdoob&lt;/a&gt;
+and
+&lt;a href=&quot;http://www.iquilezles.org/apps/shadertoy/&quot;&gt;shadertoy&lt;/a&gt;
+from
+&lt;a href=&quot;http://www.iquilezles.org/&quot;&gt;Inigo Quilez&lt;/a&gt;.
+On the same vibe,
+&lt;a href=&quot;http://lea.verou.me/&quot;&gt;lea verou&lt;/a&gt;
+recently
+released
+&lt;a href=&quot;http://lea.verou.me/2011/12/introducing-dabblet-an-interactive-css-playground/&quot;&gt;dablet&lt;/a&gt;,
+an online editor for
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Cascading_Style_Sheets&quot;&gt;css&lt;/a&gt;.
+There is a clear trend here...
+What is it about those live editors ?
+A live editor produces a result immediatly.
+This helps design your effect faster.
+Be light on your foot kindof style.
+Very agile way to design.&lt;/p&gt;
+
+&lt;p&gt;Additionally, it is easy to share with others because we have &lt;em&gt;bookmarkability&lt;/em&gt;.
+We do that by storing state in url.
+On the down side, it makes super long+ugly urls...
+&lt;a href=&quot;http://en.wikipedia.org/wiki/URL_shortening&quot;&gt;url shortening&lt;/a&gt;
+helps us reduces this issue.
+In our case, we use
+&lt;a href=&quot;https://bitly.com/&quot;&gt;bitly&lt;/a&gt;
+service.&lt;/p&gt;
+
+&lt;p&gt;This editor is purely static files.
+No specific server to run, no need to admin and no risk to go offline.
+Oh and by the way i dont not even have to pay for hosting this application.
+I think it shows html5 in all its power.
+The web is becoming something real nice :) html5 i love you!&lt;/p&gt;
+
+&lt;h2&gt;conclusion&lt;/h2&gt;
+
+&lt;p&gt;Under the hood,
+&lt;a href=&quot;https://github.com/jeromeetienne/sparkseditor&quot;&gt;sparkseditor&lt;/a&gt;
+uses
+&lt;a href=&quot;https://github.com/jeromeetienne/threex/blob/master/threex.sparks.js&quot;&gt;threex.sparks.js&lt;/a&gt;, a
+&lt;a href=&quot;https://github.com/jeromeetienne/threex&quot;&gt;threex&lt;/a&gt;
+helper, to make
+&lt;a href=&quot;https://github.com/zz85/sparks.js/&quot;&gt;sparks.js&lt;/a&gt;
+even easier to use.
+This helper will be the subject of a future post of our
+&lt;a href=&quot;http://learningthreejs.com/blog/categories/particles&quot;&gt;particles series&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The source is open-source under
+&lt;a href=&quot;https://github.com/jeromeetienne/sparkseditor/blob/master/MIT-LICENSE.txt&quot;&gt;MIT&lt;/a&gt;.
+You can get it in its &lt;a href=&quot;https://github.com/jeromeetienne/sparkseditor&quot;&gt;git repository&lt;/a&gt;.
+If you hit bugs, fill issues on github.
+Feel free to fork and modify it!
+That's all folks, have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Particles: Introduction to Sparks.js</title>
@@ -562,7 +1520,7 @@ doesn't yet have the fullscreen API.&lt;/p&gt;
 
 &lt;p&gt;As usual, i provide a little helper to make it easier for you to include it in
 your games. It is called &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.FullScreen.js&quot;&gt;THREEx.FullScreen.js&lt;/a&gt;.
-It hides the prefix of each vender and the little discrepencies between their API
+It hides the prefix of each vendor and the little discrepencies between their API
 implementation.
 You download this file from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.FullScreen.js&quot;&gt;here&lt;/a&gt; and include
 it in your page like this&lt;/p&gt;
@@ -1682,506 +2640,6 @@ them to the function and they will be updated on window resize.&lt;/p&gt;
 
 &lt;p&gt;For more details, see the &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.WindowResize.html&quot;&gt;annoted source&lt;/a&gt; of
 &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;THREEx.WindowResize&lt;/a&gt;.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Tween.js for Smooth Animation</title>
-    <link href="http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation/"/>
-    <updated>2011-08-17T10:16:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation</id>
-    <content type="html">&lt;p&gt;This post presents &lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;tween.js&lt;/a&gt; and how you can use it to easily smooth your animation.
-&lt;strong&gt;tween.js&lt;/strong&gt; is a &quot;super simple, fast and easy to use tweening engine&quot; from &lt;a href=&quot;https://github.com/sole&quot;&gt;sole&lt;/a&gt;.
-It provides tweening and full blown animations thanks to chaining. Let's get started!
-But first, here is a &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;demo&lt;/a&gt;
-using tween.js. It has basic parameters for you to play with and get a feel of what tweening
-may be.&lt;/p&gt;
-
-&lt;h2&gt;Tweening... what's that?&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/tweenjs_for_smooth_animation/images/tweenjs-linear-easenone.png' width='' height='' alt='Linear' title='Linear'&gt;&lt;/p&gt;
-
-&lt;p&gt;From &lt;a href=&quot;http://en.wikipedia.org/wiki/Tweening&quot;&gt;wikipedia article&lt;/a&gt;, &lt;em&gt;tweening&lt;/em&gt; is an abreviation of &lt;em&gt;inbetweening&lt;/em&gt;, i
-dont know why but i find that funny maybe because &lt;em&gt;inbetweening&lt;/em&gt; isnt a word to begin with.
-Let's get back to business, what is a tween? It is a interpolation between 2 values,
-from the &lt;code&gt;source&lt;/code&gt; to the &lt;code&gt;target&lt;/code&gt;.
-The tween will simply generate the needed values needed inbetween those 2 limits. The key is &lt;strong&gt;where&lt;/strong&gt;
-are those values.
-This is done with the &lt;strong&gt;ease function&lt;/strong&gt;. The most obvious one is to go straight from &lt;code&gt;source&lt;/code&gt;
-to &lt;code&gt;target&lt;/code&gt;. This is the linear function you see on on the right.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/tweenjs_for_smooth_animation/images/tweenjs-cubic-easeinout.png' width='' height='' alt='Cubic EaseInOut' title='Cubic EaseInOut'&gt;
-&lt;img class='left ' src='http://learningthreejs.com/data/tweenjs_for_smooth_animation/images/tweenjs-elastic-easeinout.png' width='' height='' alt='Elastic EaseInOut' title='Elastic EaseInOut'&gt;
-But some are more funky, you can
-see &lt;em&gt;Elastic EaseInOut&lt;/em&gt; on the left
-and
-see &lt;em&gt;Cubic EaseInOut&lt;/em&gt; on the right.
-Many others exist for our delight as you can see &lt;a href=&quot;http://sole.github.com/tween.js/examples/03_graphs.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;!--more --&gt;
-
-
-&lt;h2&gt;First include the library&lt;/h2&gt;
-
-&lt;p&gt;Now that we got some understanding of concept, let's see how to use it.
-We start by simply including the library file in the page.
-Download it &lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;there&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;``` html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script type='text/javascript' src='tween.js'&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Now Let's Create a Tween&lt;/h2&gt;
-
-&lt;p&gt;Let's see how it is used in the &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;demo&lt;/a&gt;.
-A practical case is less dry than a theorical explaination, and you can tweak the demo after that.
-So our case will be to move a sphere &lt;code&gt;x&lt;/code&gt; position back and forth, say between 0 to 400, and
-&lt;code&gt;y&lt;/code&gt; between 300 to 50.&lt;/p&gt;
-
-&lt;p&gt;First we define the original &lt;code&gt;position&lt;/code&gt; and the &lt;code&gt;target&lt;/code&gt;.
-This &lt;code&gt;position&lt;/code&gt; variable will be updated by tween.js with new values until it is equal to &lt;code&gt;target&lt;/code&gt;values.
-Then we create the tween object which do the job for us.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var position = { x : 0, y: 300 }; 
-var target = { x : 400, y: 50 };
-var tween = new TWEEN.Tween(position).to(target, 2000);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Noticed the 2000 at the end? It means the tween will last 2 seconds.
-Ok so &lt;code&gt;tween&lt;/code&gt; variable will make position.x goes from 0 to 400 and position.y
-from 300 to 50 in 2 seconds. To make the 3D object moves along, we need to be
-notified at every modification. This is done with &lt;code&gt;onUpdate()&lt;/code&gt;.
-If you want to be notified at the end of the tween, use &lt;code&gt;onComplete()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tween.onUpdate(function(){
-    mesh.position.x = position.x;
-    mesh.position.y = position.y;
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Want to Tweak it?&lt;/h2&gt;
-
-&lt;p&gt;Let's customise it some more.
-what is about delaying the begining of the tween by say 500 milliseconds
-for the fun of it.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tween.delay(500)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/tweenjs_for_smooth_animation/images/tweenjs-elastic-easeinout.png' width='' height='' alt='Elastic EaseInOut' title='Elastic EaseInOut'&gt;
-Obviously you can change the ease function too.
-Choose any one you like among &lt;a href=&quot;http://sole.github.com/tween.js/examples/03_graphs.html&quot;&gt;the 31 from tween.js&lt;/a&gt;.
-Let's pick the funny one on the right, it is &lt;code&gt;TWEEN.Easing.Elastic.EaseInOut&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tween.ease(TWEEN.Easing.Elastic.EaseInOut)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Let's run!&lt;/h2&gt;
-
-&lt;p&gt;Ok now the tween is fully configured, let's run it. First we tell the library the
-configuration is over and it can start the tween.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tween.start();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Then we periodically update the tweens we got. This code fits well in the render loop.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;TWEEN.update();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;And you are done. Now you can go crazy and put tweening everywhere! In object
-position like we did here, in colors, or in scale, anywhere, feel free to use/abuse it.&lt;/p&gt;
-
-&lt;h2&gt;Chaining Tweens for Animation&lt;/h2&gt;
-
-&lt;p&gt;The &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;demo&lt;/a&gt;
-has an endless animation, the sphere going back and forth until the end of time.
-How do we do that? we chain tweens. They
-will be executed one after the other. &lt;code&gt;chain()&lt;/code&gt; provides a easy way
-to build longer, more varied animations. Suppose we got &lt;code&gt;tweenHead&lt;/code&gt;
-and &lt;code&gt;tweenBack&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// after tweenHead, do tweenBack
-tweenHead.chain(tweenBack);
-// And after tweenBack, do tweenHead, so it is cycling
-tweenBack.chain(tweenHead);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;That's All Folks&lt;/h2&gt;
-
-&lt;p&gt;So &lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;tween.js&lt;/a&gt; is a nice small library which
-provides an easy way to animate things in your demos. You can get a play with
-the parameters of the &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/tweenjs_for_smooth_animation.html&quot;&gt;example&lt;/a&gt; or
-look at its &lt;a href=&quot;http://learningthreejs.com/data/tweenjs_for_smooth_animation/docs/tweenjs_for_smooth_animation.html&quot;&gt;annotated code&lt;/a&gt;.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Lets Do a Sky</title>
-    <link href="http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/"/>
-    <updated>2011-08-15T12:26:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky</id>
-    <content type="html">&lt;p&gt;This tutorial is about doing a sky. It makes a nice panorama with a nice immersive effect.
-This is much simpler than people would expect : only 3 steps for a total around 20 lines.
-You can find a &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt; of it. It may be a
-easy addition to your effects. This is simple and efficient.&lt;/p&gt;
-
-&lt;h1&gt;Background&lt;/h1&gt;
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/lets_do_a_sky/images/Panorama_cube_map.png' width='' height='' alt='Close up' title='Close up'&gt;
-Technically this is called a &lt;a href=&quot;http://en.wikipedia.org/wiki/Cube_mapping&quot;&gt;cube mapping&lt;/a&gt;.
-Why that ? because the principle is so simple: we create a large cube, apply some images
-on each face of this cube and put the camera inside it. That's it.&lt;/p&gt;
-
-&lt;p&gt;The illustration (from &lt;a href=&quot;http://en.wikipedia.org/wiki/User:SharkD/Images&quot;&gt;SharkD&lt;/a&gt; at &lt;a href=&quot;http://en.wikipedia.org/wiki/File:Panorama_cube_map.png&quot;&gt;wikipedia&lt;/a&gt;)
-on the right, may help understanding.
-On the &lt;em&gt;bottom left&lt;/em&gt;, you can see a 3D scene with a dot in the middle... This is
-where the camera will be positionned.
-On the &lt;em&gt;bottom right&lt;/em&gt;, you can see the same 3D scene, with the large cube and now the
-camera is inside.
-The kind of cross &lt;em&gt;on the top half&lt;/em&gt; are the images used as texture.
-Those are the ones which gonna be applied inside the large sky cube. If you go to
-the &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;demo&lt;/a&gt;,
-open your browser debugger and look at downloaded images, you will see those 6 images.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;h1&gt;Lets Code it Now!&lt;/h1&gt;
-
-&lt;p&gt;Now that we got an understanding of the background, lets code it. To add a skybox
-to your page is 3 simple steps in around 20 lines. Lets look at them.&lt;/p&gt;
-
-&lt;h2&gt;Step 1: Lets load the cube textures&lt;/h2&gt;
-
-&lt;p&gt;This will create the texture objects and download all the images. They are usually stored
-in 6 images: &lt;em&gt;posx&lt;/em&gt; for the front face on X axis, negx for the back side on the X axis, posy
-for the front on Y axis and so on.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var urlPrefix = &quot;images/Bridge2/&quot;;
-var urls = [ urlPrefix + &quot;posx.jpg&quot;, urlPrefix + &quot;negx.jpg&quot;,
-    urlPrefix + &quot;posy.jpg&quot;, urlPrefix + &quot;negy.jpg&quot;,
-    urlPrefix + &quot;posz.jpg&quot;, urlPrefix + &quot;negz.jpg&quot; ];
-var textureCube = THREE.ImageUtils.loadTextureCube( urls );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Step 2: Lets init the shader&lt;/h2&gt;
-
-&lt;p&gt;Then we init the shader for the cube.
-A &lt;a href=&quot;http://en.wikipedia.org/wiki/Shader&quot;&gt;shader&lt;/a&gt; is a program which run
-directly on the graphic card. It uses a special C-like language, run
-super fast as it is massively paralelle.
-It is rather standard, dont forget to init &lt;code&gt;tCube&lt;/code&gt; uniform
-with your textures.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var shader = THREE.ShaderUtils.lib[&quot;cube&quot;];
-var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
-uniforms['tCube'].texture= textureCube; // textureCube has been init before
-var material = new THREE.MeshShaderMaterial({
-    fragmentShader  : shader.fragmentShader,
-    vertexShader    : shader.vertexShader,
-    uniforms    : uniforms
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Step 3: Lets Create the Cube Itself&lt;/h2&gt;
-
-&lt;p&gt;Now we create the large cube. The actual size is up to you. Note that you need to ensure
-your camera is able to see that far.
-The last step is to add it to the scene, and we are done. Rather simple for such a cool effect i would say.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// build the skybox Mesh 
-skyboxMesh  = new THREE.Mesh( new THREE.CubeGeometry( 100000, 100000, 100000, 1, 1, 1, null, true ), material );
-// add it to the scene
-scene.addObject( skyboxMesh );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h1&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;This tutorial explained how to do a sky using cube mapping. Additionnaly you can look at &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/docs/lets_do_a_sky.html&quot;&gt;an anotated source of the demo&lt;/a&gt;
-especially the &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/docs/lets_do_a_sky.html#section-10&quot;&gt;skybox section&lt;/a&gt;
-of the &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_sky/lets_do_a_sky.html&quot;&gt;live demo&lt;/a&gt;. You may go out with your camera and
-do your own cube images. Just use &lt;a href=&quot;http://hugin.sourceforge.net/&quot;&gt;Hugin&lt;/a&gt; later to stinch them back together.
-It takes around 20 lines, quite small source for such
-immersive effect. Use it and tweek it for fun :) Examples are there for that.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>dat-gui - Simple UI for Demos</title>
-    <link href="http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/"/>
-    <updated>2011-08-14T19:42:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos</id>
-    <content type="html">&lt;p&gt;&lt;a href=&quot;http://code.google.com/p/dat-gui/&quot;&gt;Dat.gui&lt;/a&gt;
-is a GUI widget for your demos. It provide way for the user to set parameters of the
-demo to play with it. It is simple to code, yet cool and minimalist on the screen.
-It is the blue vuemeters on the screenshot below. This post is a presentation of
-the library.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/dat_gui_simple_ui_for_demos/datgui_integrated.png' width='' height='' alt='Integrated' title='Integrated'&gt;&lt;/p&gt;
-
-&lt;h2&gt;How to include it&lt;/h2&gt;
-
-&lt;p&gt;Simply include the library file in your page. Download it &lt;a href=&quot;http://code.google.com/p/dat-gui&quot;&gt;there&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;``` html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script type='text/javascript' src='DAT.GUI.min.js'&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-
-&lt;h2&gt;How to use it&lt;/h2&gt;
-
-&lt;p&gt;First initialize the object itself. It will create the widget and display it on the
-screen top right corner. You can change this position if you wish (see &lt;code&gt;autoplace&lt;/code&gt;)
-&lt;img class='right ' src='http://learningthreejs.com/data/dat_gui_simple_ui_for_demos/datgui_closeup.png' width='' height='' alt='Close up' title='Close up'&gt;&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var gui = new DAT.GUI({
-    height : 5 * 32 - 1
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Here is the visual result on the right.
-The misterious &lt;code&gt;height&lt;/code&gt;parameter is the height of the widget. You have to set it manually.
-In our case, we get 5 lines plus the close button.
-The formula which worked for me has been &lt;code&gt;nline * 32 - 1&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2&gt;Lets configure it and add some variables&lt;/h2&gt;
-
-&lt;p&gt;First we need to store the values of the variables, lets call that &lt;code&gt;params&lt;/code&gt;. It may be &lt;code&gt;this&lt;/code&gt; too, it depends
-of your personal style of code.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var params = {
-    interation: 5000
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Let add a variable name &lt;code&gt;interation&lt;/code&gt; to the widget.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gui.add(params, 'interation')
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;It will add a line in the GUI widget.
-&lt;em&gt;dat.gui&lt;/em&gt; will see &lt;code&gt;params.iteration&lt;/code&gt; is a Number and thus &lt;em&gt;guess&lt;/em&gt; you want to display a slider for it.
-If it is a function, it will be interpreted as a button and call params.foobar() on click.
-If the user changes the value with the mouse, the value of &lt;code&gt;params.iteration&lt;/code&gt;
-will be changed accordingly. Up to you to know what to do with it.&lt;/p&gt;
-
-&lt;h2&gt;Lets Custom it Some More&lt;/h2&gt;
-
-&lt;p&gt;You may be easy be notified of user changes with callbacks.  &lt;code&gt;onFinishChange&lt;/code&gt; is triggered once the value is changed.&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gui.add(params, 'interation').onFinishChange(function(){
-    // refresh based on the new value of params.interation
-})
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;You can customize further if needed. To change the label displayed on the variable line, use &lt;code&gt;.name(&quot;better label&quot;)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gui.add(params, 'interation').name('Intertions')
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;You can set up min/max limits and steps. This one will allows values from
-128 to 256, only if they are multiple of 16&lt;/p&gt;
-
-&lt;p&gt;``` javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gui.add(params, 'width').min(128).max(256).step(16)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;I hope this introduction got you excited about DAT.GUI. I find nice for simple demos parameters, simple to code and good
-looking on the screen at that. For more informations and authoritative
-answer, &lt;a href=&quot;http://code.google.com/p/dat-gui/&quot;&gt;see details&lt;/a&gt; here.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Lets Do a Cube</title>
-    <link href="http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/"/>
-    <updated>2011-08-06T00:00:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube</id>
-    <content type="html">&lt;p&gt;Here is the first lesson! I started with something real simple, a &lt;strong&gt;cube&lt;/strong&gt;.
-I wasnt sure how to present the lesson, so i did
-an &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_cube/docs/lets_do_a_cube.html&quot;&gt;annotated source of the example&lt;/a&gt;
-to get things started.
-I kept it small as possible to simplicity sake.
-It is only 70 lines of javascript for a &lt;em&gt;webgl simplistic demo&lt;/em&gt;. I hope it shows that webgl
-is quite accessible.&lt;/p&gt;
-
-&lt;p&gt;You can see this &lt;a href=&quot;http://learningthreejs.com/data/lets_do_a_cube/lets_do_a_cube.html&quot;&gt;example live&lt;/a&gt; or in the
-screencast below.&lt;/p&gt;
-
-&lt;center&gt;
-    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/8PrXCBOllTg&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-
-
-</content>
-  </entry>
-  
-  <entry>
-    <title>Presentation at parisjs</title>
-    <link href="http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs/"/>
-    <updated>2011-07-28T00:00:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs</id>
-    <content type="html">&lt;p&gt;&lt;a target='_blank' title='yfrog.com - Image And Video Hosting' href='http://yfrog.com/kg1g6rtj'&gt;&lt;img class=&quot;right&quot; src='http://a.yfrog.com/img736/5082/1g6rt.th.jpg' border='0'/&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Yesterday i did a &lt;a href=&quot;https://docs.google.com/present/view?id=dhng4bgf_71c9txhrdb&quot;&gt;presentation&lt;/a&gt;
-about Three.js at &lt;a href=&quot;http://parisjs.org&quot;&gt;parisjs&lt;/a&gt;. My first
-on the topic, it was fun, i will clearly do more :)&lt;/p&gt;
-
-&lt;p&gt;On the right, a picture taken during the presentation by &lt;a href=&quot;http://twitter.com/#!/42loops&quot;&gt;42loops&lt;/a&gt;.&lt;/p&gt;
-
-&lt;center&gt;
-    &lt;iframe src=&quot;https://docs.google.com/present/view?id=dhng4bgf_71c9txhrdb&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;342&quot;&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-
-
-</content>
-  </entry>
-  
-  <entry>
-    <title>Three.js Installation</title>
-    <link href="http://learningthreejs.com/blog/2011/07/15/threejs-installation/"/>
-    <updated>2011-07-15T00:00:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/07/15/threejs-installation</id>
-    <content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/mrdoob/three.js&quot;&gt;Three.js&lt;/a&gt; is a 3D library in javascript. According
-to &lt;a href=&quot;http://mrdoob.com/&quot;&gt;mrdoob&lt;/a&gt;, its author, three.js is&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;p&gt;The aim of the project is to create a lightweight 3D engine with a very low level of&lt;br/&gt;complexity — in other words, for dummies. The engine can render using canvas, svg and WebGL.&lt;/p&gt;&lt;footer&gt;&lt;strong&gt;mrdoob&lt;/strong&gt;&lt;cite&gt;tree.js Author&lt;/cite&gt;&lt;/footer&gt;&lt;/blockquote&gt;
-
-
-&lt;h2&gt;Step 1: get the source&lt;/h2&gt;
-
-&lt;p&gt;The source are available &lt;a href=&quot;https://github.com/mrdoob/three.js&quot;&gt;here&lt;/a&gt;. Use
-the following command&lt;/p&gt;
-
-&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;how to get the source - example.sh &lt;/span&gt;&lt;/figcaption&gt;
- &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;div class='line'&gt;git clone https://github.com/mrdoob/three.js.git
-&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;It will provide the whole source on your local disk. You are done, just point
-a web server on it, and go in &lt;code&gt;/examples&lt;/code&gt;.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-
-&lt;h2&gt;Step 2: Description of the folder structure&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;/utils&lt;/code&gt; it is a bunch of utilities (see &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/utils&quot;&gt;here&lt;/a&gt;).
-You can find the script to &lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/utils/build.sh&quot;&gt;build the releases&lt;/a&gt;
-(concatenate the files, minify them, all that).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/build&lt;/code&gt; It is an administrative directory where the build release is stored. Not really important
-for a user, it is more for a developper of the library itself.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/src&lt;/code&gt; It is the library code in itself. We will study that in more details later. Meanwhile dont hesitate
-to go look: it is rather small and clean.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/examples&lt;/code&gt; It is a list of all the examples. They kinda are the documentation of three.js, try
-them. They are the meat, if you like something, just do view-source:
-
-&lt;ul&gt;
-&lt;li&gt;some of them are for &amp;lt;canvas&gt; rendering, most of them are for WebGL. Three.js is able to render 3D scene
-on canvas, Dom, SVG and obviously WebGL (with various level of support). See &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/renderers&quot;&gt;here&lt;/a&gt;
-for details.&lt;/li&gt;
-&lt;li&gt;Some are focused on &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/extras/geometries&quot;&gt;geometry&lt;/a&gt; i.e.
-the shape of the objects. See &lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_geometry_colors.html&quot;&gt;here&lt;/a&gt;
-, &lt;a href=&quot;http://mrdoob.github.com/three.js/examples/canvas_geometry_cube.html&quot;&gt;here&lt;/a&gt;
-and &lt;a href=&quot;http://mrdoob.github.com/three.js/examples/canvas_geometry_cube.html&quot;&gt;here&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Some are focused on the &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/materials&quot;&gt;material&lt;/a&gt; i.e.
-kindof the colors and the texture of the objects. See
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_materials_texture_filters.html&quot;&gt;here&lt;/a&gt;,
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_materials_texture_filters.html&quot;&gt;here&lt;/a&gt; and
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_materials_normalmap.html&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Others are focused on &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/lights&quot;&gt;light&lt;/a&gt;, there are different
-type of light sources. See
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/canvas_lights_pointlights.html&quot;&gt;here&lt;/a&gt;,
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/canvas_lights_pointlights_smooth.html&quot;&gt;here&lt;/a&gt; and
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_lights_pointlights.html&quot;&gt;here&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Some are focused on &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/extras/physics&quot;&gt;collisions&lt;/a&gt;. See
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_collisions_trigger.html&quot;&gt;here&lt;/a&gt;,
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_collisions_reaction.html&quot;&gt;here&lt;/a&gt; and
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples//webgl_collisions_mesh.html&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;Point a web server on &lt;code&gt;three.js&lt;/code&gt; source tree and go in &lt;code&gt;/examples&lt;/code&gt; to try them. It is fun!&lt;/p&gt;
 </content>
   </entry>
   

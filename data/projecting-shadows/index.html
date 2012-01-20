@@ -1,0 +1,280 @@
+<!doctype html>
+<html>
+	<head>
+		<title>learningthree.js boiler plate for three.js</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		
+			
+		<script src="vendor/three.js/Three.js"></script>
+		<script src="vendor/three.js/Detector.js"></script>
+		<!-- https://github.com/mrdoob/stats.js -->
+		<script src="vendor/three.js/Stats.js"></script>
+
+		<script src="vendor/threex/THREEx.screenshot.js"></script>
+		<script src="vendor/threex/THREEx.FullScreen.js"></script>
+		<script src="vendor/threex/THREEx.WindowResize.js"></script>
+		<script src="vendor/threex.dragpancontrols.js"></script>
+
+		<link  href="css/main.css" rel="stylesheet"/>
+	</head>
+<body>
+	<!-- three.js container -->
+    	<div id="container"></div>
+	<!-- info on screen display -->
+	<div id="info">
+		<div class="top">
+			<a href="http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/" target="_blank">LearningThree.js</a>
+			boiler plate for
+			<a href="https://github.com/mrdoob/three.js/" target="_blank">three.js</a>
+		</div>
+		<div class="bottom" id="inlineDoc" >
+			- <i>p</i> for screenshot
+		</div> 
+	</div> 
+
+	<script type="text/javascript">
+		var stats, scene, renderer;
+		var camera, cameraControl;
+
+
+		if( !init() )	animate();
+
+		// init the scene
+		function init(){
+
+			if( Detector.webgl ){
+				renderer = new THREE.WebGLRenderer({
+					antialias		: true,	// to get smoother output
+					preserveDrawingBuffer	: true	// to allow screenshot
+				});
+				renderer.shadowMapEnabled	= true;
+				renderer.shadowMapSoft		= true;
+			}else{
+				Detector.addGetWebGLMessage();
+				return true;
+			}
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.getElementById('container').appendChild(renderer.domElement);
+
+			// add Stats.js - https://github.com/mrdoob/stats.js
+			stats = new Stats();
+			stats.domElement.style.position	= 'absolute';
+			stats.domElement.style.bottom	= '0px';
+			document.body.appendChild( stats.domElement );
+
+			// create a scene
+			scene = new THREE.Scene();
+
+			// put a camera in the scene
+			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000 );
+			camera.position.set(0, 2, 5);
+			scene.add(camera);
+
+			// create a camera contol
+			cameraControls	= new THREEx.DragPanControls(camera)
+
+			// transparently support window resize
+			THREEx.WindowResize.bind(renderer, camera);
+			// allow 'p' to make screenshot
+			THREEx.Screenshot.bindKey(renderer);
+			// allow 'f' to go fullscreen where this feature is supported
+			if( THREEx.FullScreen.available() ){
+				THREEx.FullScreen.bindKey();		
+				document.getElementById('inlineDoc').innerHTML	+= "- <i>f</i> for fullscreen";
+			}
+
+			// here you add your objects
+			// - you will most likely replace this part by your own
+
+			var path = "images/SwedishRoyalCastle/";
+			var path = "images/redsky/";
+			var format = '.jpg';
+			var urls = [
+				path + 'px' + format, path + 'nx' + format,
+				path + 'py' + format, path + 'ny' + format,
+				path + 'pz' + format, path + 'nz' + format
+			];
+
+			var reflectionCube	= THREE.ImageUtils.loadTextureCube( urls );
+			reflectionCube.format	= THREE.RGBFormat;
+			var shader		= THREE.ShaderUtils.lib[ "cube" ];
+			shader.uniforms[ "tCube" ].texture = reflectionCube;
+
+			var material	= new THREE.ShaderMaterial( {
+				fragmentShader	: shader.fragmentShader,
+				vertexShader	: shader.vertexShader,
+				uniforms	: shader.uniforms,
+				depthWrite	: false
+
+			} );
+
+			var mesh	= new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
+			mesh.flipSided = true;
+			scene.add( mesh );
+			skyCube	= mesh;
+
+
+			var ambient = new THREE.AmbientLight( 0x444444 );
+			scene.add( ambient );
+			
+			var light	= new THREE.DirectionalLight( 0xAA8888 );
+			light.position.set( -1, 1, -1 ).normalize();
+			light.position.setLength(3);
+		
+			light.castShadow		= true;
+			light.shadowCameraLeft		= -5;
+			light.shadowCameraRight		=  5;
+			light.shadowCameraTop		=  5;
+			light.shadowCameraBottom	= -5;
+			light.shadowDarkness		= 0.5;
+			light.shadowCameraVisible	= true;
+			
+			shadowLight	= light;
+
+			scene.add( light );
+
+			//var light	= new THREE.DirectionalLight( 0xff8080 );
+			//light.position.set( -1, -1, -1 ).normalize();
+			//scene.add( light );
+			
+			
+			sundial	= new THREE.Object3D();
+			scene.add(sundial);
+
+			var geometry	= new THREE.TorusGeometry( 1, 0.42 );
+			//var geometry	= new THREE.CubeGeometry( 0.2, 2, 0.2 );
+			//var geometry	= new THREE.CylinderGeometry(0.2,0.2, 2, 16)
+			var material	= new THREE.MeshLambertMaterial({
+				color	: 0xff88AA,
+				shading	: THREE.SmoothShading,
+				map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+			});
+			material.ambient = material.color;
+			var mesh	= new THREE.Mesh( geometry, material );
+			mesh.castShadow		= true;
+			mesh.receiveShadow	= false;
+			mesh.position.y		= 2/2;
+			sundial.add( mesh );
+
+			var geometry	= new THREE.CubeGeometry( 5, 0.1, 5 );
+			var material	= new THREE.MeshLambertMaterial({
+				color	: 0xaaaaaa,
+				shading	: THREE.SmoothShading,
+				map	: buildSunDialTexture()
+				//map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+			});
+			material.ambient = material.color;
+			var mesh	= new THREE.Mesh( geometry, material );
+			mesh.castShadow		= true;
+			mesh.receiveShadow	= true;
+			mesh.position.y		= -0.1/2;
+			mesh.rotation.y		= 7.5*Math.PI/6;
+			sundial.add( mesh );
+		}
+		
+		function buildSunDialTexture(){
+			var canvas	= document.createElement('canvas');
+			canvas.width	= 512;
+			canvas.height	= 512;
+
+			var texture	= new THREE.Texture(canvas);
+
+			var image	= new Image();
+			image.onload	= function () {
+				var ctx		= canvas.getContext( '2d' );
+				ctx.drawImage(image,0,0);
+				drawSunDialNumbers(canvas)
+				texture.needsUpdate = true;
+			};
+			image.crossOrigin = '';
+			image.src	= "images/water.jpg";
+
+			texture.needsUpdate	= true;
+			return texture;
+		}
+		function drawSunDialNumbers(canvas){
+
+			
+			var ctx		= canvas.getContext( '2d' );
+			var w		= canvas.width;
+			var h		= canvas.height;
+
+			ctx.fillStyle	= "rgb(64,64,64)";  
+			ctx.fillRect (10, 10, 55, 50);
+			
+			var texts	= [
+				'I',
+				'II',
+				'III',
+				'IV',
+				'V',
+				'VI',
+				'VII',
+				'VIII',
+				'IX',
+				'X',
+				'XI',
+				'XII'
+			];
+
+			ctx.save();
+			ctx.fillStyle	= "rgba(32,32,32,128)";  
+			ctx.textAlign	= "center";
+			ctx.font	= "30pt bolder";
+			ctx.translate(w/2, h/2);
+			for(var step = 0; step < 12; step++ ){
+				ctx.save();
+				ctx.rotate(step * 2*Math.PI/12)
+				ctx.translate(0, -200);
+				// TODO
+				// - put roman number
+				// - put some funky citation
+				// - put actual math for the sundial
+				// - when you join i put the position of the sun at your position ?
+				ctx.fillText(texts[step], 0,0); 
+				//ctx.fillText(""+step, 0,0); 
+				ctx.restore();
+			}
+			ctx.restore();
+ 
+			var texture	= new THREE.Texture(canvas);
+			texture.needsUpdate	= true;
+			return texture;
+		}
+
+		// animation loop
+		function animate() {
+
+			// loop on request animation loop
+			// - it has to be at the begining of the function
+			// - see details at http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+			requestAnimationFrame( animate );
+
+			// do the render
+			render();
+
+			// update stats
+			stats.update();
+		}
+
+		// render the scene
+		function render() {
+
+			var seconds	= Date.now() / 1000;
+			var piPerSecond	= seconds/Math.PI; 
+			var hours	= seconds % 12;
+
+			var date	= new Date();
+			var hours	= date.getHours() % 12 + date.getMinutes()/60;
+			sundial.rotation.y	= hours * Math.PI/6;
+
+			// update camera controls
+			cameraControls.update();
+
+			// actually render the scene
+			renderer.render( scene, camera );
+		}
+	</script>
+</body>
+</html>
