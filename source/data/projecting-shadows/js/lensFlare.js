@@ -5,14 +5,14 @@ function addLensFlare()
 	var textureFlare2	= THREE.ImageUtils.loadTexture( "images/lensflare/lensflare2.png" );	
 	var textureFlare3	= THREE.ImageUtils.loadTexture( "images/lensflare/lensflare3.png", undefined, function(){
 		var texture	= textureFlare3;
-		Pixastic.process(texture.image, "lighten", {amount:0.8}, function(newImage){
+		Pixastic.process(texture.image, "lighten", {amount:2}, function(newImage){
 			texture.image		= newImage;
 			texture.needsUpdate	= true;
 		});
 	});
 	var textureHexangle	= THREE.ImageUtils.loadTexture( "images/lensflare/hexangle.png", undefined, function(){
 		var texture	= textureHexangle;
-		Pixastic.process(texture.image, "lighten", {amount:0.8}, function(newImage){
+		Pixastic.process(texture.image, "lighten", {amount:2}, function(newImage){
 			texture.image		= newImage;
 			texture.needsUpdate	= true;
 		});
@@ -20,7 +20,7 @@ function addLensFlare()
 
 	//var position	= shadowLight.position.clone().setLength(30)
 	//addLight( 0.1, 0.825, 0.99	, position.x, position.y, position.z );
-	addLight( 0.1, 0.825, 0.99	, -2.5, 5, -25);
+	addLight( 0.1, 0.825, 0.99	, -2.5*30, 5*30, -25*30);
 
 	function addLight( h, s, v, x, y, z ) {
 

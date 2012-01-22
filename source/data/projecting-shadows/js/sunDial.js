@@ -28,10 +28,10 @@ function buildHedgeObject()
 	var geometry	= new THREE.CubeGeometry( width, height, depth );
 	var material	= new THREE.MeshLambertMaterial({
 		ambient	: 0x444444,
-		color	: 0xff88AA,
+		color	: 0xffaaaa,
 		shading	: THREE.SmoothShading,
-		map	: THREE.ImageUtils.loadTexture( "images/water.jpg" ),
-		//map	: THREE.ImageUtils.loadTexture( "images/textures/MarbleBeige0028_5_thumbhuge.jpg" ),
+		//map	: THREE.ImageUtils.loadTexture( "images/water.jpg" ),
+		map	: THREE.ImageUtils.loadTexture( "images/textures/MarbleBeige0028_5_thumbhuge.jpg" ),
 		//map	: THREE.ImageUtils.loadTexture( "images/textures/MarbleGreen0001_39_thumbhuge.jpg" ),
 		//map	: THREE.ImageUtils.loadTexture( "images/textures/MarbleTiles0058_5_thumbhuge.jpg" ),
 		//map	: THREE.ImageUtils.loadTexture( "images/textures/TilesOrnate0010_2_thumbhuge.jpg" ),
@@ -139,7 +139,7 @@ function buildPyramid()
 	var material	= new THREE.MeshLambertMaterial({
 		ambient	: 0x404040,
 		color	: 0x444444,
-		shading	: THREE.SmoothShading,
+		//shading	: THREE.SmoothShading,
 		//map	: texture
 	});
 	//var material	= new THREE.MeshNormalMaterial();
@@ -162,8 +162,11 @@ function buildSunDialTexture(){
 		texture.needsUpdate = true;
 	};
 	image.crossOrigin = '';
-	image.src	= "images/water.jpg";
-	//image.src	= "images/textures/MarbleTiles0058_5_thumbhuge.jpg";
+	//image.src	= "images/water.jpg";
+	image.src	= "images/textures/MarbleTiles0058_5_thumbhuge.jpg";
+	//image.src	= "images/textures/MarbleGreen0001_39_thumbhuge.jpg";
+
+
 
 	texture.needsUpdate	= true;
 	return texture;
