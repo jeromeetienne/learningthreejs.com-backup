@@ -95,11 +95,19 @@ Only then, we create an iframe with this data uri
 and you can see the webgl preview :)
 
 [Data url](http://en.wikipedia.org/wiki/Data_URI_scheme)
-is a new HTML5 feature.
+is [an old thing from 1998](http://tools.ietf.org/html/rfc2397)
+which is back in spotlight due to HTML5.
 It allows to encode data directly in the URL.
 It may be used to include image directly in css for examples.
 Very usefull but not for human consumption.
-To give you an idea, here is [index.html](http://pastebin.com/yF3XDSFW) in as data url.
+To give you an idea, here is
+[index.html](http://pastebin.com/yF3XDSFW)
+as a data url in
+[base64](http://en.wikipedia.org/wiki/Base64).
+You could encode it as text if you
+[escape](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/encodeURI)
+it
+[properly](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/encodeURIComponent).
 It looks like long ugly random string.
 
 ```
