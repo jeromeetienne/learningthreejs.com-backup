@@ -87,6 +87,7 @@
 			// here you add your objects
 			// - you will most likely replace this part by your own
 
+			// create the cube map
 			var path = "images/SwedishRoyalCastle/";
 			var path = "images/redsky/";
 			var format = '.jpg';
@@ -115,6 +116,8 @@
 			skyCube	= mesh;
 
 
+			// init the lights
+
 			var ambient = new THREE.AmbientLight( 0x444444 );
 			scene.add( ambient );
 			
@@ -124,17 +127,19 @@
 
 			// not working light
 			light = new THREE.SpotLight( 0xffffff, 2 );
-			light.position.set( -1, 1, -1 ).normalize().setLength(1);
+			light.position.set( -1, 1, -1 ).normalize().setLength(2);
 			light.target.position.set( 0, 0, 0 );
 		
 			light.castShadow		= true;
 			light.shadowCameraLeft		= -5;
 			light.shadowCameraRight		=  5;
 			light.shadowCameraTop		=  5;
-			light.shadowCameraBottom	= -5;
+			light.shadowCameraBottom	= -50;
 			light.shadowDarkness		= 0.5;
 			light.shadowCameraVisible	= true;
-			
+
+			light.shadowCameraNear	= 0.01;
+				
 			shadowLight	= light;
 
 			scene.add( light );
@@ -143,6 +148,7 @@
 			light.position.set( 1, -1, 1 ).normalize();
 			scene.add( light );
 			
+			// create the sundial
 			
 			sundial	= new THREE.Object3D();
 			sundial.position.y	= -1;
