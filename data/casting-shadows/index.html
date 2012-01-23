@@ -126,9 +126,10 @@
 			light.position.set( -1, 1, -1 ).normalize();
 
 			// not working light
-			light = new THREE.SpotLight( 0xffffff, 2 );
-			light.position.set( -1, 1, -1 ).normalize().setLength(2);
-			light.target.position.set( 0, 0, 0 );
+			//light = new THREE.SpotLight( 0xffffff, 2 );
+			//light.position.set( -1, 1, -1 ).normalize().setLength(2);
+			//light.target.position.set( 0, 0, 0 );
+			//light.shadowCameraNear	= 0.01;
 		
 			light.castShadow		= true;
 			light.shadowCameraLeft		= -5;
@@ -138,7 +139,6 @@
 			light.shadowDarkness		= 0.5;
 			light.shadowCameraVisible	= true;
 
-			light.shadowCameraNear	= 0.01;
 				
 			shadowLight	= light;
 
@@ -167,9 +167,9 @@
 			mesh.castShadow		= true;
 			mesh.receiveShadow	= false;
 			mesh.position.y		= 2/2;
-			sundial.add( mesh );
+			//sundial.add( mesh );
 
-			var geometry	= new THREE.CubeGeometry( 5, 0.1, 5 );
+			var geometry	= new THREE.CubeGeometry( 5, 2, 5 );
 			var material	= new THREE.MeshLambertMaterial({
 				color	: 0xaaaaaa,
 				shading	: THREE.SmoothShading,
@@ -177,7 +177,7 @@
 			});
 			material.ambient = material.color;
 			var mesh	= new THREE.Mesh( geometry, material );
-			mesh.castShadow		= false;
+			mesh.castShadow		= true;
 			mesh.receiveShadow	= true;
 			mesh.position.y		= -0.1/2;
 			mesh.rotation.y		= 7.5*Math.PI/6;
