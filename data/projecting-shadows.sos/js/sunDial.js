@@ -139,7 +139,7 @@ function buildPyramid()
 	var material	= new THREE.MeshLambertMaterial({
 		ambient	: 0x404040,
 		color	: 0x444444,
-		shading	: THREE.SmoothShading,
+		//shading	: THREE.SmoothShading,
 		//map	: texture
 	});
 	//var material	= new THREE.MeshNormalMaterial();

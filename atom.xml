@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-01-21T10:36:43+01:00</updated>
+  <updated>2012-01-23T11:08:10+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -109,11 +109,19 @@ Only then, we create an iframe with this data uri
 and you can see the webgl preview :)&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Data_URI_scheme&quot;&gt;Data url&lt;/a&gt;
-is a new HTML5 feature.
+is &lt;a href=&quot;http://tools.ietf.org/html/rfc2397&quot;&gt;an old thing from 1998&lt;/a&gt;
+which is back in spotlight due to HTML5.
 It allows to encode data directly in the URL.
 It may be used to include image directly in css for examples.
 Very usefull but not for human consumption.
-To give you an idea, here is &lt;a href=&quot;http://pastebin.com/yF3XDSFW&quot;&gt;index.html&lt;/a&gt; in as data url.
+To give you an idea, here is
+&lt;a href=&quot;http://pastebin.com/yF3XDSFW&quot;&gt;index.html&lt;/a&gt;
+as a data url in
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Base64&quot;&gt;base64&lt;/a&gt;.
+You could encode it as text if you
+&lt;a href=&quot;https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/encodeURI&quot;&gt;escape&lt;/a&gt;
+it
+&lt;a href=&quot;https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/encodeURIComponent&quot;&gt;properly&lt;/a&gt;.
 It looks like long ugly random string.&lt;/p&gt;
 
 &lt;p&gt;```&lt;/p&gt;

@@ -20,7 +20,7 @@ function addLensFlare()
 
 	//var position	= shadowLight.position.clone().setLength(30)
 	//addLight( 0.1, 0.825, 0.99	, position.x, position.y, position.z );
-	addLight( 0.1, 0.825, 0.99	, -2.5, 5, -25);
+	addLight( 0.1, 0.825, 0.99	, -2.5*30, 5*30, -25*30);
 
 	function addLight( h, s, v, x, y, z ) {
 
