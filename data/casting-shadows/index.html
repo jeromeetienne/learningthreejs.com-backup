@@ -88,32 +88,32 @@
 			// - you will most likely replace this part by your own
 
 			// create the cube map
-			//var path = "images/SwedishRoyalCastle/";
-			//var path = "images/redsky/";
-			//var format = '.jpg';
-			//var urls = [
-			//	path + 'px' + format, path + 'nx' + format,
-			//	path + 'py' + format, path + 'ny' + format,
-			//	path + 'pz' + format, path + 'nz' + format
-			//];
-			//
-			//var reflectionCube	= THREE.ImageUtils.loadTextureCube( urls );
-			//reflectionCube.format	= THREE.RGBFormat;
-			//var shader		= THREE.ShaderUtils.lib[ "cube" ];
-			//shader.uniforms[ "tCube" ].texture = reflectionCube;
-			//
-			//var material	= new THREE.ShaderMaterial( {
-			//	fragmentShader	: shader.fragmentShader,
-			//	vertexShader	: shader.vertexShader,
-			//	uniforms	: shader.uniforms,
-			//	depthWrite	: false
-			//
-			//} );
-			//
-			//var mesh	= new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
-			//mesh.flipSided = true;
-			//scene.add( mesh );
-			//skyCube	= mesh;
+			var path = "images/SwedishRoyalCastle/";
+			var path = "images/redsky/";
+			var format = '.jpg';
+			var urls = [
+				path + 'px' + format, path + 'nx' + format,
+				path + 'py' + format, path + 'ny' + format,
+				path + 'pz' + format, path + 'nz' + format
+			];
+			
+			var reflectionCube	= THREE.ImageUtils.loadTextureCube( urls );
+			reflectionCube.format	= THREE.RGBFormat;
+			var shader		= THREE.ShaderUtils.lib[ "cube" ];
+			shader.uniforms[ "tCube" ].texture = reflectionCube;
+			
+			var material	= new THREE.ShaderMaterial( {
+				fragmentShader	: shader.fragmentShader,
+				vertexShader	: shader.vertexShader,
+				uniforms	: shader.uniforms,
+				depthWrite	: false
+			
+			} );
+			
+			var mesh	= new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
+			mesh.flipSided = true;
+			scene.add( mesh );
+			skyCube	= mesh;
 
 
 			// init the lights
@@ -122,7 +122,7 @@
 			scene.add( ambient );
 			
 			var light	= new THREE.DirectionalLight( 0xAA8888 );
-			light.position.set( -1, 1, -1 ).normalize();
+			light.position.set( -1, 1, -1 ).normalize().setLength(10);
 
 			//light = new THREE.SpotLight( 0xffffff, 2 );
 			//light.position.set( -1, 1, -1 ).normalize().setLength(2);
@@ -142,9 +142,9 @@
 
 			scene.add( light );
 
-			var light	= new THREE.DirectionalLight( 0x4444cc );
-			light.position.set( 1, -1, 1 ).normalize();
-			scene.add( light );
+			//var light	= new THREE.DirectionalLight( 0x4444cc );
+			//light.position.set( 1, -1, 1 ).normalize();
+			//scene.add( light );
 			
 			// create the sundial
 			
@@ -155,12 +155,12 @@
 			var geometry	= new THREE.TorusGeometry( 1, 0.42 );
 			//var geometry	= new THREE.CubeGeometry( 0.2, 2, 0.2 );
 			var geometry	= new THREE.CylinderGeometry(0.2,0.2, 2, 16)
-			var material	= new THREE.MeshLambertMaterial({
+			var material	= new THREE.MeshPhongMaterial({
+				ambient		: 0x444444,
 				color	: 0xff88AA,
-				//shading	: THREE.SmoothShading,
-				//map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+				shading	: THREE.SmoothShading,
+				map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
 			});
-			material.ambient = material.color;
 			var mesh	= new THREE.Mesh( geometry, material );
 			mesh.castShadow		= true;
 			mesh.receiveShadow	= false;
@@ -168,13 +168,16 @@
 			sundial.add( mesh );
 
 			var geometry	= new THREE.CubeGeometry( 5, 0.1, 5 );
-			var material	= new THREE.MeshBasicMaterial({
-				color	: 0xaaaaaa,
-				//shading	: THREE.SmoothShading,
-				//map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+			var material	= new THREE.MeshPhongMaterial({
+				ambient		: 0x444444,
+				color		: 0xaaaaaa,
+				shininess	: 150, 
+				specular	: 0x333333,
+				shading		: THREE.SmoothShading,
+				map		: THREE.ImageUtils.loadTexture( "images/water.jpg" )
 			});
-			material.ambient = material.color;
-			var mesh	= new THREE.Mesh( geometry, material );
+			var mesh		= new THREE.Mesh( geometry, material );
+			//mesh.material.ambient	= mesh.material.color;
 			mesh.castShadow		= false;
 			mesh.receiveShadow	= true;
 			mesh.position.y		= -0.1/2;
@@ -200,6 +203,10 @@
 		function render() {
 			
 			sundial.rotation.y	+= 0.01;
+			
+			skyCube.rotation.x	+= 0.06;
+			skyCube.rotation.y	+= 0.1;
+			skyCube.rotation.z	+= 0.045;
 			
 			// update camera controls
 			cameraControls.update();
