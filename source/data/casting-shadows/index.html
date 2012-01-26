@@ -25,7 +25,7 @@
 	<div id="info">
 		<div class="top">
 			<a href="/blog/2012/01/20/casting-shadows/" target="_blank">LearningThree.js</a>
-			Demo for Casting Shadows post
+			Demo for Casting Shadows
 		</div>
 		<div class="bottom" id="inlineDoc" >
 			- <i>p</i> for screenshot
@@ -49,6 +49,7 @@
 				});
 				renderer.shadowMapEnabled	= true;
 				renderer.shadowMapSoft		= true;
+				renderer.setClearColorHex( 0x000000, 1 );
 			}else{
 				Detector.addGetWebGLMessage();
 				return true;
@@ -66,8 +67,8 @@
 			scene = new THREE.Scene();
 
 			// put a camera in the scene
-			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000 );
-			camera.position.set(0, 2, 7);
+			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000 );
+			camera.position.set(0, 2, 10);
 			scene.add(camera);
 
 			// create a camera contol
@@ -87,63 +88,31 @@
 			// here you add your objects
 			// - you will most likely replace this part by your own
 
-			// create the cube map
-			var path = "images/SwedishRoyalCastle/";
-			var path = "images/redsky/";
-			var format = '.jpg';
-			var urls = [
-				path + 'px' + format, path + 'nx' + format,
-				path + 'py' + format, path + 'ny' + format,
-				path + 'pz' + format, path + 'nz' + format
-			];
-
-			var reflectionCube	= THREE.ImageUtils.loadTextureCube( urls );
-			reflectionCube.format	= THREE.RGBFormat;
-			var shader		= THREE.ShaderUtils.lib[ "cube" ];
-			shader.uniforms[ "tCube" ].texture = reflectionCube;
-
-			var material	= new THREE.ShaderMaterial( {
-				fragmentShader	: shader.fragmentShader,
-				vertexShader	: shader.vertexShader,
-				uniforms	: shader.uniforms,
-				depthWrite	: false
-
-			} );
-
-			var mesh	= new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
-			mesh.flipSided = true;
-			scene.add( mesh );
-			skyCube	= mesh;
-
-
 			// init the lights
 
-			var ambient = new THREE.AmbientLight( 0x444444 );
+			var ambient	= new THREE.AmbientLight( 0x444444 );
 			scene.add( ambient );
 			
-			var light	= new THREE.DirectionalLight( 0xAA8888 );
-			light.position.set( -1, 1, -1 ).normalize();
-
-			//light = new THREE.SpotLight( 0xffffff, 2 );
-			//light.position.set( -1, 1, -1 ).normalize().setLength(2);
-			//light.target.position.set( 0, 0, 0 );
-			//light.shadowCameraNear	= 0.01;
-		
-			light.castShadow		= true;
-			light.shadowCameraLeft		= -5;
-			light.shadowCameraRight		=  5;
-			light.shadowCameraTop		=  5;
-			light.shadowCameraBottom	= -5;
-			light.shadowDarkness		= 0.5;
-			light.shadowCameraVisible	= true;
-
-				
-			shadowLight	= light;
-
-			scene.add( light );
-
 			var light	= new THREE.DirectionalLight( 0x4444cc );
 			light.position.set( 1, -1, 1 ).normalize();
+			scene.add( light );
+
+			var light	= new THREE.SpotLight( 0x8888FF, 2 );
+			spot1	= light;
+			light.target.position.set( 0, 2, 0 );
+			light.shadowCameraNear		= 0.01;		
+			light.castShadow		= true;
+			light.shadowDarkness		= 0.5;
+			light.shadowCameraVisible	= true;
+			scene.add( light );
+
+			var light	= new THREE.SpotLight( 0xFFAA88, 2 );
+			spot2	= light;
+			light.target.position.set( 0, 2, 0 );
+			light.shadowCameraNear		= 0.01;		
+			light.castShadow		= true;
+			light.shadowDarkness		= 0.5;
+			light.shadowCameraVisible	= true;
 			scene.add( light );
 			
 			// create the sundial
@@ -152,33 +121,45 @@
 			sundial.position.y	= -1;
 			scene.add(sundial);
 
-			var geometry	= new THREE.TorusGeometry( 1, 0.42 );
+			var geometry	= new THREE.TorusGeometry( 2, 1 );
 			//var geometry	= new THREE.CubeGeometry( 0.2, 2, 0.2 );
-			var geometry	= new THREE.CylinderGeometry(0.2,0.2, 2, 16)
+			//var geometry	= new THREE.SphereGeometry( 3, 16,16 );
+			//var geometry	= new THREE.CylinderGeometry(1, 1, 4, 16)
 			var material	= new THREE.MeshLambertMaterial({
-				color	: 0xff88AA,
-				shading	: THREE.SmoothShading,
-				map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+				ambient		: 0x444444,
+				color		: 0xAA88AA,
+				shininess	: 150, 
+				specular	: 0x333333,
+				shading		: THREE.SmoothShading,
+				map		: THREE.ImageUtils.loadTexture( "images/water.jpg" )
 			});
-			material.ambient = material.color;
 			var mesh	= new THREE.Mesh( geometry, material );
 			mesh.castShadow		= true;
 			mesh.receiveShadow	= false;
-			mesh.position.y		= 2/2;
+			mesh.position.y		= 4;
 			sundial.add( mesh );
+			mainObject	= mesh;
 
-			var geometry	= new THREE.CubeGeometry( 5, 0.1, 5 );
+			var geometry	= new THREE.CubeGeometry( 10, 0.5, 10);
+			//var geometry	= new THREE.PlaneGeometry( 50, 5, 50 );
+			var texture	= THREE.ImageUtils.loadTexture( "images/water.jpg" );
+			//texture.repeat.set( 10, 10 );
+			texture.repeat.set( 0.5, 0.8 );
+			texture.wrapS	= texture.wrapT = THREE.RepeatWrapping;
 			var material	= new THREE.MeshLambertMaterial({
-				color	: 0xaaaaaa,
-				shading	: THREE.SmoothShading,
-				map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+				ambient		: 0x444444,
+				color		: 0x88FF88,
+				shininess	: 150, 
+				specular	: 0x88CC44,
+				shading		: THREE.SmoothShading,
+				map		: texture
 			});
-			material.ambient = material.color;
-			var mesh	= new THREE.Mesh( geometry, material );
+			var mesh		= new THREE.Mesh( geometry, material );
+			mesh.scale.multiplyScalar(3);
+			mesh.flipSided		= false;
 			mesh.castShadow		= false;
 			mesh.receiveShadow	= true;
-			mesh.position.y		= -0.1/2;
-			mesh.rotation.y		= 7.5*Math.PI/6;
+			mesh.position.y		= -0.5/2;
 			sundial.add( mesh );
 		}
 		// animation loop
@@ -196,13 +177,30 @@
 			stats.update();
 		}
 
+		
+
 		// render the scene
 		function render() {
 			
-			sundial.rotation.y	+= 0.01;
+			var seconds		= Date.now()/1000
+			var piPerSeconds	= seconds * Math.PI;
+			
+			spot1.position.x	= Math.cos(piPerSeconds*0.05)*12;
+			spot1.position.y	= 10;
+			spot1.position.z	= Math.sin(piPerSeconds*0.05)*12;
+
+			spot2.position.x	= Math.cos(piPerSeconds*-0.1)*15;
+			spot2.position.y	= 8 + Math.sin(piPerSeconds*0.5)*4;
+			spot2.position.z	= Math.sin(piPerSeconds*-0.1)*15;
+			
+			mainObject.rotation.x	+= 0.005;
+			mainObject.rotation.y	+= 0.03;
+			mainObject.rotation.z	+= 0.02;
 			
 			// update camera controls
 			cameraControls.update();
+			// limit camera position to avoid showing shadow on backface
+			camera.position.y	= Math.max(camera.position.y, 3);
 
 			// actually render the scene
 			renderer.render( scene, camera );

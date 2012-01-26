@@ -12,12 +12,16 @@ categories: [three.js shadows]
 ## Code
 
 * Casting shadows involves 3 part in
-[three.js](https://github.com/mrdoob/three.js/).
-* the
+[three.js](https://github.com/mrdoob/three.js/):
+the
 [renderer](https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js)
-which will do the computation,
-* you define which light will cast shaddows and how,
-* then you specify which object will cast or receive shadows.
+which does the computation,
+the
+[lights](https://github.com/mrdoob/three.js/tree/master/src/lights)
+which cast shaddows and how,
+and
+[object3D](https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js)
+which interact which receives lights and shadows.
 
 
 ## Renderer
@@ -49,18 +53,20 @@ which will do the computation,
 * link on background knowledge
 
 ## Lights
-* (THREE.DirectionalLight)[https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js]
+* [THREE.DirectionalLight](https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js)
 or
-(THREE.SpotLight)[https://github.com/mrdoob/three.js/blob/master/src/lights/SpotLight.js]
+[THREE.SpotLight](https://github.com/mrdoob/three.js/blob/master/src/lights/SpotLight.js)
 are able to cast shadows. Just use this line to enable it.
 
 ```javascript
-	light.castShadow		= true;
+	light.castShadow = true;
 ```
 
 ```javascript
-	light.shadowDarkness		= 0.5;
+	light.shadowDarkness = 0.5;
 ```
+
+* ```shadowDarkness``` is the opacity of the shadow. 0 means no shadow, 1 means pure back shadow.
 
 
 
@@ -73,20 +79,20 @@ A very usefull feature during tuning or debugging.
   * same parameters
   * ask on github for explaination to alteredq
 * frustum of orthographic camera
-* (Perspective)[http://en.wikipedia.org/wiki/Perspective_(graphical)]
+* [Perspective](http://en.wikipedia.org/wiki/Perspective_\(graphical\))
 is the way we see things in real life.
 So it seems more natural to us than
-(orthographic projection)[http://en.wikipedia.org/wiki/Orthographic_projection].
+[orthographic projection](http://en.wikipedia.org/wiki/Orthographic_projection).
 * Recent
-(three.js r47 release)[https://github.com/mrdoob/three.js/commit/32b581f24fddeaf9e91b7825aa93ec0ad3a45c83]
+[three.js r47 release](https://github.com/mrdoob/three.js/commit/32b581f24fddeaf9e91b7825aa93ec0ad3a45c83)
 includes a
-(very didactic example](http://mrdoob.github.com/three.js/examples/webgl_camera.html)
+[very didactic example](http://mrdoob.github.com/three.js/examples/webgl_camera.html)
 from
-(alteredq)[http://alteredqualia.com/].
+[alteredq](http://alteredqualia.com/).
 * Play with it, it will helps understand the difference between
-(orthographic)[https://github.com/mrdoob/three.js/blob/master/src/cameras/OrthographicCamera.js]
+[orthographic](https://github.com/mrdoob/three.js/blob/master/src/cameras/OrthographicCamera.js)
 and
-(perspective)[https://github.com/mrdoob/three.js/blob/master/src/cameras/PerspectiveCamera.js]
+[perspective](https://github.com/mrdoob/three.js/blob/master/src/cameras/PerspectiveCamera.js)
 cameras.
 
 ```javascript
