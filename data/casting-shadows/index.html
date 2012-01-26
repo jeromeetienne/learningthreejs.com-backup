@@ -48,7 +48,8 @@
 					preserveDrawingBuffer	: true	// to allow screenshot
 				});
 				renderer.shadowMapEnabled	= true;
-				renderer.shadowMapSoft		= true;
+				renderer.shadowMapSoft		= false;
+				renderer.setClearColorHex( 0x000000, 1 );
 			}else{
 				Detector.addGetWebGLMessage();
 				return true;
@@ -67,7 +68,7 @@
 
 			// put a camera in the scene
 			camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000 );
-			camera.position.set(0, 2, 7);
+			camera.position.set(0, 2, 6);
 			scene.add(camera);
 
 			// create a camera contol
@@ -87,35 +88,6 @@
 			// here you add your objects
 			// - you will most likely replace this part by your own
 
-			// create the cube map
-			var path = "images/SwedishRoyalCastle/";
-			var path = "images/redsky/";
-			var format = '.jpg';
-			var urls = [
-				path + 'px' + format, path + 'nx' + format,
-				path + 'py' + format, path + 'ny' + format,
-				path + 'pz' + format, path + 'nz' + format
-			];
-			
-			var reflectionCube	= THREE.ImageUtils.loadTextureCube( urls );
-			reflectionCube.format	= THREE.RGBFormat;
-			var shader		= THREE.ShaderUtils.lib[ "cube" ];
-			shader.uniforms[ "tCube" ].texture = reflectionCube;
-			
-			var material	= new THREE.ShaderMaterial( {
-				fragmentShader	: shader.fragmentShader,
-				vertexShader	: shader.vertexShader,
-				uniforms	: shader.uniforms,
-				depthWrite	: false
-			
-			} );
-			
-			var mesh	= new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
-			mesh.flipSided = true;
-			scene.add( mesh );
-			skyCube	= mesh;
-
-
 			// init the lights
 
 			var ambient = new THREE.AmbientLight( 0x444444 );
@@ -124,28 +96,33 @@
 			var light	= new THREE.DirectionalLight( 0xAA8888 );
 			light.position.set( -1, 1, -1 ).normalize().setLength(10);
 
-			//light = new THREE.SpotLight( 0xffffff, 2 );
-			//light.position.set( -1, 1, -1 ).normalize().setLength(2);
-			//light.target.position.set( 0, 0, 0 );
-			//light.shadowCameraNear	= 0.01;
+			light = new THREE.SpotLight( 0xFFAAAA, 2 );
+			light.position.set( -1, 1, 0 ).normalize().setLength(4);
+			light.target.position.set( 0, 0, 0 );
+			light.shadowCameraNear	= 0.01;
 		
 			light.castShadow		= true;
-			light.shadowCameraLeft		= -5;
-			light.shadowCameraRight		=  5;
-			light.shadowCameraTop		=  5;
-			light.shadowCameraBottom	= -5;
+			light.shadowCameraLeft		= -10;
+			light.shadowCameraRight		=  10;
+			light.shadowCameraTop		=  10;
+			light.shadowCameraBottom	= -10;
 			light.shadowDarkness		= 0.5;
 			light.shadowCameraVisible	= true;
 
-				
 			shadowLight	= light;
+			scene.add( light );
+			
+			scene.fog	= new THREE.FogExp2( 0x000000, 0.09 );
 
+
+			var light	= new THREE.DirectionalLight( 0x4444cc );
+			light.position.set( 1, -1, 1 ).normalize();
 			scene.add( light );
 
-			//var light	= new THREE.DirectionalLight( 0x4444cc );
-			//light.position.set( 1, -1, 1 ).normalize();
-			//scene.add( light );
-			
+			var light	= new THREE.PointLight( 0x4444cc, 6);
+			light.position.set( 1, 1, 0 );
+			scene.add( light );
+
 			// create the sundial
 			
 			sundial	= new THREE.Object3D();
@@ -154,34 +131,39 @@
 
 			var geometry	= new THREE.TorusGeometry( 1, 0.42 );
 			//var geometry	= new THREE.CubeGeometry( 0.2, 2, 0.2 );
-			var geometry	= new THREE.CylinderGeometry(0.2,0.2, 2, 16)
-			var material	= new THREE.MeshPhongMaterial({
+			var geometry	= new THREE.CylinderGeometry(0.8, 0.8, 5, 16)
+			var material	= new THREE.MeshLambertMaterial({
 				ambient		: 0x444444,
-				color	: 0xff88AA,
-				shading	: THREE.SmoothShading,
-				map	: THREE.ImageUtils.loadTexture( "images/water.jpg" )
-			});
-			var mesh	= new THREE.Mesh( geometry, material );
-			mesh.castShadow		= true;
-			mesh.receiveShadow	= false;
-			mesh.position.y		= 2/2;
-			sundial.add( mesh );
-
-			var geometry	= new THREE.CubeGeometry( 5, 0.1, 5 );
-			var material	= new THREE.MeshPhongMaterial({
-				ambient		: 0x444444,
-				color		: 0xaaaaaa,
+				color		: 0xffffff,
 				shininess	: 150, 
 				specular	: 0x333333,
 				shading		: THREE.SmoothShading,
 				map		: THREE.ImageUtils.loadTexture( "images/water.jpg" )
 			});
+			var mesh	= new THREE.Mesh( geometry, material );
+			mesh.castShadow		= true;
+			mesh.receiveShadow	= false;
+			mesh.position.y		= 5/2;
+			sundial.add( mesh );
+
+			var geometry	= new THREE.CubeGeometry( 30, 0.5, 30);
+			//var geometry	= new THREE.PlaneGeometry( 50, 5, 50 );
+			var texture	= THREE.ImageUtils.loadTexture( "images/water.jpg" );
+			texture.repeat.set( 10, 10 );
+			texture.wrapS	= texture.wrapT = THREE.RepeatWrapping;
+			var material	= new THREE.MeshLambertMaterial({
+				ambient		: 0x444444,
+				color		: 0xAAAAAA,
+				shininess	: 150, 
+				specular	: 0x88CC44,
+				shading		: THREE.SmoothShading,
+				map		: texture
+			});
 			var mesh		= new THREE.Mesh( geometry, material );
-			//mesh.material.ambient	= mesh.material.color;
+			mesh.flipSided		= false;
 			mesh.castShadow		= false;
 			mesh.receiveShadow	= true;
-			mesh.position.y		= -0.1/2;
-			mesh.rotation.y		= 7.5*Math.PI/6;
+			mesh.position.y		= -0.5/2;
 			sundial.add( mesh );
 		}
 		// animation loop
@@ -204,10 +186,13 @@
 			
 			sundial.rotation.y	+= 0.01;
 			
-			skyCube.rotation.x	+= 0.06;
-			skyCube.rotation.y	+= 0.1;
-			skyCube.rotation.z	+= 0.045;
-			
+			//skyCube.rotation.x	+= 0.06;
+			//skyCube.rotation.y	+= 0.1;
+			//skyCube.rotation.z	+= 0.045;
+			//var seconds	= Date.now();
+			//var piPerSeconds= seconds * Math.PI;
+			//skyCube.position.y	= Math.sin(0.0001*piPerSeconds)*100;
+
 			// update camera controls
 			cameraControls.update();
 
