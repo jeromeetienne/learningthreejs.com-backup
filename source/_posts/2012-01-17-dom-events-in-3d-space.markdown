@@ -57,9 +57,9 @@ Let's say we want do to an action when the user is clicking on a object.
 We just do the following.
 
 ```javascript
-    mesh.on('click', function()({
+    mesh.on('click', function(){
         mesh.scale.x *= 2;
-    }))
+    });
 ```
 
 This short line means "*if the user click on this mesh, make it twice wider*".
