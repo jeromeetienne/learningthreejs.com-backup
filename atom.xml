@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-01-26T11:07:08+01:00</updated>
+  <updated>2012-01-26T11:10:58+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -226,9 +226,9 @@ We just do the following.&lt;/p&gt;
 
 &lt;p&gt;```javascript&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;mesh.on('click', function()({
+&lt;pre&gt;&lt;code&gt;mesh.on('click', function(){
     mesh.scale.x *= 2;
-}))
+});
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;```&lt;/p&gt;
