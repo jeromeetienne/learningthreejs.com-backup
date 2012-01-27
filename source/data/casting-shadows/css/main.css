@@ -8,6 +8,14 @@ body {
 	font-family	: arial;
 	font-size	: 100%;
 }
+
+#container {
+	/* Scale out 2X from the corner */
+/*	-webkit-transform: scale3d(2.0, 2.0, 1.0);
+*/
+/*-webkit-transform-origin: 0 0 0;
+*/}
+
 #info .top {
 	position	: absolute;
 	top		: 0px;

@@ -68,15 +68,15 @@
 
 			// put a camera in the scene
 			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000 );
-			camera.position.set(0, 2, 10);
+			camera.position.set(0, 2, 14);
 			scene.add(camera);
 
 			// create a camera contol
 			cameraControls	= new THREEx.DragPanControls(camera)
-			cameraControls.target	= new THREE.Vector3(0, 0, 0);
+			cameraControls.target	= new THREE.Vector3(0, 2, 0);
 
-			// transparently support window resize
-			THREEx.WindowResize.bind(renderer, camera);
+			//// transparently support window resize
+			THREEx.WindowResize.bind(renderer, camera, 0.5);
 			// allow 'p' to make screenshot
 			THREEx.Screenshot.bindKey(renderer);
 			// allow 'f' to go fullscreen where this feature is supported
@@ -103,8 +103,8 @@
 			light.shadowCameraNear		= 0.01;		
 			light.castShadow		= true;
 			light.shadowDarkness		= 0.5;
-			light.shadowCameraVisible	= true;
-			scene.add( light );
+			//light.shadowCameraVisible	= true;
+			//scene.add( light );
 
 			var light	= new THREE.SpotLight( 0xFFAA88, 2 );
 			spot2	= light;
@@ -121,19 +121,25 @@
 			sundial.position.y	= -1;
 			scene.add(sundial);
 
-			var geometry	= new THREE.TorusGeometry( 2, 1 );
-			//var geometry	= new THREE.CubeGeometry( 0.2, 2, 0.2 );
-			//var geometry	= new THREE.SphereGeometry( 3, 16,16 );
+			var geometry	= new THREE.TorusGeometry( 2, 1, 16, 32 );
+			var geometry	= new THREE.TorusKnotGeometry(25, 8, 75, 20);
+			//var geometry	= new THREE.OctahedronGeometry( 1, 1 );
+			//var geometry	= new THREE.CubeGeometry( 3, 3, 3 );
+			//var geometry	= new THREE.SphereGeometry( 3, 32,16 );
 			//var geometry	= new THREE.CylinderGeometry(1, 1, 4, 16)
-			var material	= new THREE.MeshLambertMaterial({
+			var texture	= THREE.ImageUtils.loadTexture( "images/water.jpg" );
+			texture.repeat.set( 0.7, 1 );
+			texture.wrapS	= texture.wrapT = THREE.RepeatWrapping;
+			var material	= new THREE.MeshPhongMaterial({
 				ambient		: 0x444444,
-				color		: 0xAA88AA,
-				shininess	: 150, 
-				specular	: 0x333333,
+				color		: 0x8844AA,
+				shininess	: 300, 
+				specular	: 0x33AA33,
 				shading		: THREE.SmoothShading,
-				map		: THREE.ImageUtils.loadTexture( "images/water.jpg" )
+				map		: texture
 			});
 			var mesh	= new THREE.Mesh( geometry, material );
+			mesh.scale.multiplyScalar(1/18);
 			mesh.castShadow		= true;
 			mesh.receiveShadow	= false;
 			mesh.position.y		= 4;
@@ -146,11 +152,11 @@
 			//texture.repeat.set( 10, 10 );
 			texture.repeat.set( 0.5, 0.8 );
 			texture.wrapS	= texture.wrapT = THREE.RepeatWrapping;
-			var material	= new THREE.MeshLambertMaterial({
+			var material	= new THREE.MeshPhongMaterial({
 				ambient		: 0x444444,
-				color		: 0x88FF88,
+				color		: 0x66aa66,
 				shininess	: 150, 
-				specular	: 0x88CC44,
+				specular	: 0x888888,
 				shading		: THREE.SmoothShading,
 				map		: texture
 			});
