@@ -29,7 +29,7 @@ to receive the object shadow. The light frustum is left visible in orange.
 
 <!-- more -->
 
-## Let's code shadows
+## Let's Code Shadows
 
 Casting shadows in
 [three.js](https://github.com/mrdoob/three.js/)
