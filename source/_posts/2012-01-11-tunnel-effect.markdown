@@ -19,11 +19,6 @@ have
 [in them](http://www.youtube.com/watch?v=KDIdJtW0vN4)
 :)
 
-<iframe src="http://jeromeetienne.github.com/tunnelgl/"
-	webkitallowfullscreen mozallowfullscreen allowfullscreen 
-	width="420" height="315" frameborder="0" style="float: right; margin-left: 1em;">
-</iframe>
-
 [Try the demo](http://jeromeetienne.github.com/tunnelgl/).
 It has been built using the
 [boilerplate for three.js](https://github.com/jeromeetienne/threejsboilerplate)
@@ -41,6 +36,12 @@ trick to create the
 of moving.
 
 <!-- more -->
+
+<iframe src="http://jeromeetienne.github.com/tunnelgl/"
+	webkitallowfullscreen mozallowfullscreen allowfullscreen 
+	width="100%" height="420px" frameborder="0">
+</iframe>
+
 
 ## Let's build the walls
 

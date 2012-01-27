@@ -30,6 +30,8 @@ development, it's just got some tricks to get your project off the ground
 quickly and right-footed."
 - freely adapted from [html5 boilerplate site](http://html5boilerplate.com/).
 
+<!-- more -->
+
 ## Walkthrough
 
 This project is at an early stage.
@@ -45,8 +47,6 @@ below will walk you through the source of the project.
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/kOReCN5t2Eo?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 ## Compatibility is key
 

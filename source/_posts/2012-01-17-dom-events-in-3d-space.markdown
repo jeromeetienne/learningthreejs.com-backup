@@ -30,6 +30,8 @@ Animations are made by [tween.js](https://github.com/sole/tween.js/), a nice js 
 seen in a [previous post](/blog/2011/08/17/tweenjs-for-smooth-animation/).
 Play with it to get a feel of it, maybe think about the type of UI you could do in 3D.
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/c2KLj8sie9Q?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
 </center>
@@ -43,8 +45,6 @@ and copy this line in your page.
 ```html
 	<script src='threex.domevent.js'></script>
 ```
-
-<!-- more -->
 
 ## Let's Use It
 

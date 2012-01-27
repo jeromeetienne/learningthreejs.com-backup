@@ -40,11 +40,11 @@ The
 below is short introduction where i describe the
 [boilerplate builder](http://jeromeetienne.github.com/threejsboilerplatebuilder/).
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/ANnPWZGRsGk?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 ## Making-Of the Builder
 

@@ -15,10 +15,6 @@ Those simple objects are assembled using
 [operations](http://en.wikipedia.org/wiki/Algebra_of_sets)
 such as union, difference and intersection.
 
-<iframe src="/data/constructive-solid-geometry-with-csg-js/"
-	width="420" height="315" frameborder="0" style="float: right; margin-left: 1em;">
-</iframe>
-
 Recently
 [Evan Wallas](http://madebyevan.com/)
 released
@@ -36,6 +32,12 @@ With all this nice code, i wrote the little
 you can see on the right. Thus you can click to change the operations, play
 with it and have a feel of the various operations.
 
+<!-- more -->
+
+<iframe src="/data/constructive-solid-geometry-with-csg-js/"
+	width="100%" height="420" frameborder="0" style="float: right; margin-left: 1em;">
+</iframe>
+
 
 ## Let's start
 
@@ -50,8 +52,6 @@ csg.js from
 	<script src="csg.js"></script>
 	<script src="ThreeCSG.js"></script>
 ```
-
-<!-- more -->
 
 ## Let's convert
 

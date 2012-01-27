@@ -38,15 +38,17 @@ involves 3 parts: the
 which does the computation, the
 [lights](https://github.com/mrdoob/three.js/tree/master/src/lights)
 which cast shadows, and
-[object3D](https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js)
+[objects](https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js)
 which receives lights and shadows.
 
 ## Set up the Renderer
 
 The renderer is the one which will compute the shadows positions for your 3D scene.
-Shadow casting is only supported by
+Shadow casting is quite expensive. It is only supported by
 [WebGLRenderer](https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js).
-It uses [Shadow mapping](http://en.wikipedia.org/wiki/Shadow_mapping), a technique specific to WebGL.
+It uses
+[Shadow mapping](http://en.wikipedia.org/wiki/Shadow_mapping), a technique specific
+to WebGL, performed directly on the [GPU](http://en.wikipedia.org/wiki/Graphics_processing_unit).
 
 ```javascript
 	renderer.shadowMapEnabled = true;
