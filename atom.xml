@@ -4,13 +4,211 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-01-26T11:10:58+01:00</updated>
+  <updated>2012-02-06T13:16:27+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Casting Shadows</title>
+    <link href="http://learningthreejs.com/blog/2012/01/20/casting-shadows/"/>
+    <updated>2012-01-20T14:44:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/01/20/casting-shadows</id>
+    <content type="html">&lt;p&gt;This post is about
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Shadow_mapping&quot;&gt;shadow casting&lt;/a&gt;,
+a technique which approximates the effect you see in real life everyday.
+They may be tricky to tune but they looks so good, it worths it.
+Shadows are an efficient tool when you to make your scene more realistic.
+We will see how they can be used inside
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+and see more about lights while we are at it.&lt;/p&gt;
+
+&lt;p&gt;As usual, there is a &lt;a href=&quot;http://learningthreejs.com/data/casting-shadows/&quot;&gt;demo&lt;/a&gt;.
+It is kept it real simple thus you can read the code more easily.
+The scene is a simple object in the middle, a spotlight moving around and a plane
+to receive the object shadow. The light frustum is left visible in orange.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://learningthreejs.com/data/casting-shadows&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;100%&quot; height=&quot;420&quot; frameborder=&quot;0&quot;&gt;
+&lt;/iframe&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Let's Code Shadows&lt;/h2&gt;
+
+&lt;p&gt;Casting shadows in
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+involves 3 parts: the
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js&quot;&gt;renderer&lt;/a&gt;
+which does the computation, the
+&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/lights&quot;&gt;lights&lt;/a&gt;
+which cast shadows, and
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js&quot;&gt;objects&lt;/a&gt;
+which receives lights and shadows.&lt;/p&gt;
+
+&lt;h2&gt;Set up the Renderer&lt;/h2&gt;
+
+&lt;p&gt;The renderer is the one which will compute the shadows positions for your 3D scene.
+Shadow casting is quite expensive. It is only supported by
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js&quot;&gt;WebGLRenderer&lt;/a&gt;.
+It uses
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Shadow_mapping&quot;&gt;Shadow mapping&lt;/a&gt;, a technique specific
+to WebGL, performed directly on the &lt;a href=&quot;http://en.wikipedia.org/wiki/Graphics_processing_unit&quot;&gt;GPU&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;renderer.shadowMapEnabled = true;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/casting-shadows/images/screenshot-withsoftshadow-small.png' width='' height='' alt='' title=''&gt;
+&lt;img class='left ' src='http://learningthreejs.com/data/casting-shadows/images/screenshot-nosoftshadow-small.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;You can smooth produced shadows with &lt;code&gt;shadowMapSoft&lt;/code&gt;. It default to false.
+On the left, the shadow is crisp, on the right it is soft.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// to antialias the shadow
+renderer.shadowMapSoft = true;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Configure your objects&lt;/h2&gt;
+
+&lt;p&gt;For
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js&quot;&gt;Object3D&lt;/a&gt;,
+two parameters controls how they interact with lights and shadows.
+Set &lt;code&gt;.castShadow&lt;/code&gt; to true if the object occludes light, so to cast a shadow.
+Set &lt;code&gt;.receiveShadow&lt;/code&gt; to true if the object is supposed to receive shadows.
+Both default to false&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;object3d.castShadow = true;
+object3d.receiveShadow  = false;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;This is the configuration for the central object in the demo. It will occlude lights but
+won't be able to receive shadow. So you wont see any
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Self-shadowing&quot;&gt;self shadow&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Tune your Lights&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class='left  ' src='http://learningthreejs.com/data/casting-shadows/images/light-directionallight-small.jpg' width='' height='' alt='' title=''&gt;
+&lt;img class='right ' src='http://learningthreejs.com/data/casting-shadows/images/light-spotlight-small.jpg' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js&quot;&gt;THREE.DirectionalLight&lt;/a&gt;
+or
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/lights/SpotLight.js&quot;&gt;THREE.SpotLight&lt;/a&gt;
+are able to cast shadows.
+Let's details them.
+A directional light is when light rays are parallel.
+A bit like when you look at the sun rays on the left.
+It mostly behaves like a light source very far from us.
+A spot light is when light rays seems to originate from a single point, and
+spreads outward in a coned direction, like in the dance club on the right
+(Images are from wikipedia).
+To enable the shadow casting on a light,
+just use this line.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;light.castShadow = true;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;You can tune the &lt;code&gt;shadowDarkness&lt;/code&gt;.
+It is the opacity of the shadow. 0 means no shadow, 1 means pure back shadow.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;light.shadowDarkness = 0.5;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/casting-shadows/images/screenshot-shadowCameraVisible-small.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;In the same vibe, it possible to show the shadow camera on the screen
+with &lt;code&gt;shadowCameraVisible&lt;/code&gt;.
+A very usefull feature during tuning or debugging.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;light.shadowCameraVisible = true;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;More of Directional Lights&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/casting-shadows/images/screenshot-fustrum-orthographic-small.png' width='' height='' alt='' title=''&gt;
+&lt;img class='left  ' src='http://learningthreejs.com/data/casting-shadows/images/screenshot-fustrum-perspective-small.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;Additionally, when casting shadow with a
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js&quot;&gt;THREE.DirectionalLight&lt;/a&gt;,
+you need to setup an orthographic camera.
+What is that ? it is a different form of
+&lt;a href=&quot;http://en.wikipedia.org/wiki/3D_projection&quot;&gt;3D projection&lt;/a&gt;.
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Perspective_(graphical)&quot;&gt;Perspective&lt;/a&gt;
+is the way we see things in real life.
+So it seems more natural to us than
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Orthographic_projection&quot;&gt;orthographic projection&lt;/a&gt;.
+On the left, an illustration shows a perspective projection.
+You can see what is inside the orange shape.
+On the right, the same for a orthographic one.&lt;/p&gt;
+
+&lt;p&gt;Recent
+&lt;a href=&quot;https://github.com/mrdoob/three.js/commit/32b581f24fddeaf9e91b7825aa93ec0ad3a45c83&quot;&gt;three.js r47 release&lt;/a&gt;
+includes a
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_camera.html&quot;&gt;very didactic example&lt;/a&gt;
+from
+&lt;a href=&quot;http://alteredqualia.com/&quot;&gt;alteredq&lt;/a&gt;.
+Play with it, it may understand the difference between
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/cameras/OrthographicCamera.js&quot;&gt;orthographic&lt;/a&gt;
+and
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/cameras/PerspectiveCamera.js&quot;&gt;perspective&lt;/a&gt;
+cameras.
+Here is a possible configuration of the frustum for the orthographic camera of our light.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;light.shadowCameraRight     =  5;
+light.shadowCameraLeft      = -5;
+light.shadowCameraTop       =  5;
+light.shadowCameraBottom    = -5;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This is it, you can code shadow casting in three.js now :)
+Go ahead and play with them. They are hard to master but very efficient visually.
+Keep in mind that those shadows aren't real.
+They only uses
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Shadow_mapping&quot;&gt;'some tricks'&lt;/a&gt;
+to make them appears as real. And they do so in real time !!
+To achieve this result, they take significant shortcuts which
+produce artifacts. To avoid those require tuning and experience.&lt;/p&gt;
+
+&lt;p&gt;That's all for today folks. Have fun.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Boilerplate Builder for Three.js</title>
@@ -50,14 +248,14 @@ The
 below is short introduction where i describe the
 &lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplatebuilder/&quot;&gt;boilerplate builder&lt;/a&gt;.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/ANnPWZGRsGk?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;h2&gt;Making-Of the Builder&lt;/h2&gt;
@@ -192,6 +390,11 @@ Animations are made by &lt;a href=&quot;https://github.com/sole/tween.js/&quot;&
 seen in a &lt;a href=&quot;http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation/&quot;&gt;previous post&lt;/a&gt;.
 Play with it to get a feel of it, maybe think about the type of UI you could do in 3D.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/c2KLj8sie9Q?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
@@ -209,9 +412,6 @@ and copy this line in your page.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;```&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
 
 &lt;h2&gt;Let's Use It&lt;/h2&gt;
 
@@ -328,12 +528,6 @@ have
 &lt;a href=&quot;http://www.youtube.com/watch?v=KDIdJtW0vN4&quot;&gt;in them&lt;/a&gt;
 :)&lt;/p&gt;
 
-&lt;iframe src=&quot;http://jeromeetienne.github.com/tunnelgl/&quot;
-    webkitallowfullscreen mozallowfullscreen allowfullscreen 
-    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
-&lt;/iframe&gt;
-
-
 &lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/tunnelgl/&quot;&gt;Try the demo&lt;/a&gt;.
 It has been built using the
 &lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt;
@@ -351,6 +545,14 @@ trick to create the
 of moving.&lt;/p&gt;
 
 &lt;!-- more --&gt;
+
+
+
+
+&lt;iframe src=&quot;http://jeromeetienne.github.com/tunnelgl/&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;100%&quot; height=&quot;420px&quot; frameborder=&quot;0&quot;&gt;
+&lt;/iframe&gt;
 
 
 &lt;h2&gt;Let's build the walls&lt;/h2&gt;
@@ -744,6 +946,9 @@ development, it's just got some tricks to get your project off the ground
 quickly and right-footed.&quot;
 - freely adapted from &lt;a href=&quot;http://html5boilerplate.com/&quot;&gt;html5 boilerplate site&lt;/a&gt;.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
 &lt;h2&gt;Walkthrough&lt;/h2&gt;
 
 &lt;p&gt;This project is at an early stage.
@@ -759,11 +964,6 @@ below will walk you through the source of the project.
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/kOReCN5t2Eo?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;h2&gt;Compatibility is key&lt;/h2&gt;
@@ -1160,11 +1360,6 @@ Those simple objects are assembled using
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Algebra_of_sets&quot;&gt;operations&lt;/a&gt;
 such as union, difference and intersection.&lt;/p&gt;
 
-&lt;iframe src=&quot;http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/&quot;
-    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
-&lt;/iframe&gt;
-
-
 &lt;p&gt;Recently
 &lt;a href=&quot;http://madebyevan.com/&quot;&gt;Evan Wallas&lt;/a&gt;
 released
@@ -1182,6 +1377,16 @@ to make it easy to use with
 you can see on the right. Thus you can click to change the operations, play
 with it and have a feel of the various operations.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
+&lt;iframe src=&quot;http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/&quot;
+    width=&quot;100%&quot; height=&quot;420&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
+&lt;/iframe&gt;
+
+
 &lt;h2&gt;Let's start&lt;/h2&gt;
 
 &lt;p&gt;So lets see how to use it. First step, you download
@@ -1198,9 +1403,6 @@ csg.js from
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;```&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
 
 &lt;h2&gt;Let's convert&lt;/h2&gt;
 
@@ -2600,54 +2802,6 @@ stopped by popup blockers.
 It is possible to customize the default behaviors thru options.
 For more details, see the &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.screenshot.html&quot;&gt;annoted source&lt;/a&gt; of
 &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.screenshot.js&quot;&gt;THREEx.screenshot&lt;/a&gt;.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Window Resize For Your Demos</title>
-    <link href="http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/"/>
-    <updated>2011-08-30T11:24:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos</id>
-    <content type="html">&lt;p&gt;It is cool when you look at a demo and it is resized automatically
-when you change the dimension of the browser's window. To switch it fullscreen
-or such.
-&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;THREEx.WindowResize&lt;/a&gt; is an little piece of code.
-It helps you do exactly that on your own demos in a single line.&lt;/p&gt;
-
-&lt;h2&gt;Let's include the script&lt;/h2&gt;
-
-&lt;p&gt;You download it from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;here&lt;/a&gt; and include
-it in your page like this&lt;/p&gt;
-
-&lt;p&gt;```html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script src='THREEx.WindowResize.js'&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;h2&gt;Let's use it&lt;/h2&gt;
-
-&lt;p&gt;Now that the script is included, simply call the following line, and you are done!
-Your renderer will follow the window size.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;THREEx.WindowResize(renderer, camera);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;As usual you got a &lt;code&gt;renderer&lt;/code&gt; and a &lt;code&gt;camera&lt;/code&gt; variable, just pass
-them to the function and they will be updated on window resize.&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;For more details, see the &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.WindowResize.html&quot;&gt;annoted source&lt;/a&gt; of
-&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;THREEx.WindowResize&lt;/a&gt;.&lt;/p&gt;
 </content>
   </entry>
   
