@@ -14,6 +14,13 @@ categories:
 * and webrtc to use the media stream API
 
 
+What can be done with this ?
+
+* the demo to make :
+  * the tv on the side
+  * the mirror effect with the video
+
+
 * how to get webrtc running in your browser
   * [run webrtc demos](http://www.webrtc.org/running-the-demos)
 * link to [demo](/data/render-to-texture)
@@ -31,16 +38,15 @@ Create the video element which be displayed
 
 ## Can the webcam be a source
 
-To detect if webgl user media is available, use this line.
+To detect if the media stream API is available, use this line.
 
 ```javascript
 	var hasUserMedia = navigator.webkitGetUserMedia ? true : false;
 ```
 
-If it isn't, you may point them to 
+If it isn't, you may point the users to 
 [this doc on how to get it](http://www.webrtc.org/running-the-demos)
 and/or using a normal video file. 
-
 
 ```javascript
 	navigator.webkitGetUserMedia('video', function(stream){
@@ -55,18 +61,35 @@ and/or using a normal video file.
 
 ## Handle the textures
 
+You create the texture using the video as source.
+
 ```javascript
 	var videoTexture = new THREE.Texture( video );
 ```
 
+
+
+```javascript
+	var material	= new THREE.MeshLambertMaterial({
+		ambient	: 0x444444,
+		color	: 0xffffff,
+		map	: videoTexture
+	});
+```
+
+
+
 In your render loop, add those lines. They monitor the state of your video.
-Every time the video got enougth data, the texture is updated and sent to
-the GPU.
+Every time the video got enougth data to be display, the texture is updated
+and sent to the GPU.
 
 ```javascript
 	if( video.readyState === video.HAVE_ENOUGH_DATA ){
 		videoTexture.needsUpdate = true;
 	}
 ```
+
+
+## Conclusion
 
 
