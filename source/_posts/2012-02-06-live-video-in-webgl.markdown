@@ -29,7 +29,7 @@ What about your face from the webcam reflecting in water with animated waves ?
 Would be nice!
 
 <center>
-	<iframe width="425" height="349" src="http://www.youtube.com/embed/ANnPWZGRsGk?hl=en&fs=1" frameborder="0" allowfullscreen></iframe>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/vnNihxl3taE" frameborder="0" allowfullscreen></iframe>
 </center>
 
 <!-- more -->
@@ -50,7 +50,7 @@ then to play video from the webcam using
 [mediastream API](https://dvcs.w3.org/hg/audio/raw-file/tip/streams/StreamProcessing.html).
 After that, we gonna map this video to a normal texture.
 And we will be done !
-It is that simple, so let's get started.
+It is that simple, now let's get started.
 
 ## Let's create the video element
 
@@ -144,12 +144,14 @@ and sent to the GPU.
 
 ## Conclusion
 
-Now you can display your webcam inside your webgl.
+Now you can display your webcam inside your webgl !!
+This is simple and cool.
 Browser support will increase with time.
 Live video is a very powerfull tool.
 The image from the webcam is a normal one.
 On it, you can perform
 [post processing](https://github.com/mrdoob/three.js/tree/master/examples/js/postprocessing),
 [edge detection](http://en.wikipedia.org/wiki/Edge_detection),
-and many other crazy things. Let's all for today folks, have fun :)
+and many other crazy things. Up to you to experiment.
+Let's all for today folks, have fun :)
 
