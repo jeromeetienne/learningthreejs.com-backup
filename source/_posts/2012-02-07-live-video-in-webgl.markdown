@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Fun With Live Video in WebGL"
-date: 2012-02-06 13:41
+date: 2012-02-07 13:41
 comments: true
 categories: [three.js, html5, webrtc]
 ---
@@ -38,7 +38,7 @@ It is surely nice but WebRTC is still quite on the edge.
 To enable webrtc on your computer, see how to
 [run webrtc demos](http://www.webrtc.org/running-the-demos).
 It is currently available only in
-[chrome canari](http://tools.google.com/dlpage/chromesxs).
+[Canari](http://tools.google.com/dlpage/chromesxs).
 Mozilla people are working hard to make it happen as soon as possible.
 So it may be too early to use it for 'serious' things.
 But way enougth to do cool experiments like the one we gonna do today :)
