@@ -101,6 +101,60 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/12/10/constructive-solid-geometry-with-csg-js/">Constructive Solid Geometry With csg.js</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-12-10 16:30:00 +0100" pubdate  updated >Dec 10<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post is about
+<a href="http://en.wikipedia.org/wiki/Constructive_solid_geometry">constructive solid geometry</a>
+, an impressive word :)
+In fact, it is just a way to build complex objects from simpler ones.
+Those simple objects are assembled using
+<a href="http://en.wikipedia.org/wiki/Algebra_of_sets">operations</a>
+such as union, difference and intersection.</p>
+
+<p>Recently
+<a href="http://madebyevan.com/">Evan Wallas</a>
+released
+<a href="http://evanw.github.com/csg.js/">csg.js</a>,
+a clean self-contained library to do
+<a href="http://en.wikipedia.org/wiki/Constructive_solid_geometry">constructive solid geometry</a>.
+So <a href="http://chandler.prallfamily.com/">Chandler Prall</a>
+wrote a
+<a href="http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/">bridge</a>
+to make it easy to use with
+<a href="https://github.com/mrdoob/three.js/">three.js</a>.</p>
+
+<p>With all this nice code, i wrote the little
+<a href="/data/constructive-solid-geometry-with-csg-js/">demo of a dice</a>
+you can see on the right. Thus you can click to change the operations, play
+with it and have a feel of the various operations.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/12/10/constructive-solid-geometry-with-csg-js/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/11/21/lets-make-a-3d-game-make-it-embedded/">Lets Make a 3D Game: Make It Embedded</a></h1>
     
     
@@ -639,54 +693,6 @@ it in your page like this</p>
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/03/screenshot-in-javascript/">Screenshot in Javascript</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-09-03 10:01:00 +0200" pubdate  updated >Sep 3<span>rd</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sometime it would be cool if you could take a screenshot of your demo to share with your friends.
-This post will explain how to do that single a single line.
-Additionnaly, <a href="/data/THREEx/THREEx.screenshot.js">THREEx.screenshot</a> helper is provided at the end
-if you want to add printscreen key in your demos without hasles.</p>
-
-<h2>Let&#8217;s get started</h2>
-
-<p>So as usual you got a <code>renderer</code> variable to render your 3D scene. This renderer
-contains a <code>domElement</code> property.
-It is a <a href="http://en.wikipedia.org/wiki/Document_Object_Model">DOM element</a> on which it renders,
-who would have guessed ?
-We will use the <code>.toDataURL()</code>
-<a href="http://www.w3.org/TR/html5/the-canvas-element.html#dom-canvas-todataurl">method</a>
-on this element to get the screenshot.</p>
-
-<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">dataUrl</span> <span class="o">=</span> <span class="nx">renderer</span><span class="p">.</span><span class="nx">domElement</span><span class="p">.</span><span class="nx">toDataURL</span><span class="p">(</span><span class="s2">&quot;image/png&quot;</span><span class="p">);</span>
-</div></code></pre></td></tr></table></div>
-
-</div>
-  <footer>
-    <a rel="full-article" href="/blog/2011/09/03/screenshot-in-javascript/">Read on &rarr;</a>
-  </footer>
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -717,6 +723,10 @@ on this element to get the screenshot.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/02/06/live-video-in-webgl/">Fun With Live Video in WebGL</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/01/20/casting-shadows/">Casting Shadows</a>
       </li>
     
@@ -730,10 +740,6 @@ on this element to get the screenshot.</p>
     
       <li class="post">
         <a href="/blog/2012/01/11/tunnel-effect/">Tunnel Effect for your Demo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/12/28/let-s-make-a-3d-game-supporting-mobile/">Let’s Make a 3D Game: Supporting Mobile</a>
       </li>
     
   </ul>

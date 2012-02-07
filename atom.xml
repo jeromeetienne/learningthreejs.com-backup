@@ -4,13 +4,197 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-02-06T13:16:27+01:00</updated>
+  <updated>2012-02-07T14:42:17+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Fun With Live Video in WebGL</title>
+    <link href="http://learningthreejs.com/blog/2012/02/06/live-video-in-webgl/"/>
+    <updated>2012-02-06T13:41:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/02/06/live-video-in-webgl</id>
+    <content type="html">&lt;p&gt;This post is about live video in webgl.
+It is possible in today browsers to read the webcam using a new feature from html5, called WebRTC.
+This standard is
+about real-time communications such video conferences.
+It is an open source project supported by Google, Mozilla and Opera.
+Quite neat hey!&lt;/p&gt;
+
+&lt;p&gt;I think live video has a lot of potential usages in 3D.
+It is so cool for interactivity.
+The player sees himself on the screen. It becomes part of the actions.
+Quite immersive effect.
+We can imagine something like &lt;a href=&quot;http://secondlife.com/&quot;&gt;second life&lt;/a&gt;, where
+people wander around and interact live with each other in a virtual world.
+Our demo is about TV... Another obvious use may be
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Reflection_(physics)&quot;&gt;reflections&lt;/a&gt;
+like
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Mirror&quot;&gt;mirror&lt;/a&gt;
+or
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Specular_reflection&quot;&gt;water&lt;/a&gt;.
+What about your face from the webcam reflecting in water with animated waves ?
+Would be nice!&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/vnNihxl3taE&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;p&gt;It is surely nice but WebRTC is still quite on the edge.
+To enable webrtc on your computer, see how to
+&lt;a href=&quot;http://www.webrtc.org/running-the-demos&quot;&gt;run webrtc demos&lt;/a&gt;.
+It is currently available only in
+&lt;a href=&quot;http://tools.google.com/dlpage/chromesxs&quot;&gt;chrome canari&lt;/a&gt;.
+Mozilla people are working hard to make it happen as soon as possible.
+So it may be too early to use it for 'serious' things.
+But way enougth to do cool experiments like the one we gonna do today :)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://learningthreejs.com/data/live-video-in-webgl&quot;&gt;Try it out&lt;/a&gt;!!
+The first step will be to create a video element.
+We gonna start to make it play either a normal video file
+then to play video from the webcam using
+&lt;a href=&quot;https://dvcs.w3.org/hg/audio/raw-file/tip/streams/StreamProcessing.html&quot;&gt;mediastream API&lt;/a&gt;.
+After that, we gonna map this video to a normal texture.
+And we will be done !
+It is that simple, now let's get started.&lt;/p&gt;
+
+&lt;h2&gt;Let's create the video element&lt;/h2&gt;
+
+&lt;p&gt;The
+&lt;a href=&quot;http://en.wikipedia.org/wiki/HTML5_video&quot;&gt;video element&lt;/a&gt;
+is the DOM way to handle video in webpage.
+Let's create the video element.
+Later we will use it as texture and display it in WebGL.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;video       = document.createElement('video');
+video.width = 320;
+video.height    = 240;
+video.autoplay  = true;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;It you wish to create a video from a file webm, mp4 or ogv, just set
+its &lt;code&gt;.src&lt;/code&gt; property.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;video.src = &quot;http://example.com/supercatvideo.webm&quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;It wasn't too hard, hey :) So now we know how to get a video from a file.
+Let's see if we can use the webcam and get this nice immersive effect for our
+users.&lt;/p&gt;
+
+&lt;h2&gt;Let's Use the Webcam if Available&lt;/h2&gt;
+
+&lt;p&gt;Our first step is to detect if the media stream API is available.
+The following line will do the job nicely.
+&lt;code&gt;hasUserMedia&lt;/code&gt; will be true if it is available, false otherwise.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var hasUserMedia = navigator.webkitGetUserMedia ? true : false;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;If it isn't, you may point the users to
+&lt;a href=&quot;http://www.webrtc.org/running-the-demos&quot;&gt;this doc&lt;/a&gt;
+on how to get it
+and/or using a normal video file.
+Now we need to check if we can read the webcam.
+For that, we use the following lines.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;navigator.webkitGetUserMedia('video', function(stream){
+    video.src   = webkitURL.createObjectURL(stream);
+}, function(error){
+    console.log(&quot;Failed to get a stream due to&quot;, error);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;A pseudo URL will be created by &lt;code&gt;.createObjectURL&lt;/code&gt;.
+It would allows the video element to automagically read the webcam.
+It looks a bit like that.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;blob:http%3A//learningthreejs.com/e33eb278-08a8-4052-9dca-3c7663c88bc0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Handle the textures&lt;/h2&gt;
+
+&lt;p&gt;Now we got the &lt;a href=&quot;https://developer.mozilla.org/En/HTML/Element/Video&quot;&gt;video element&lt;/a&gt; ready.
+Let's create a texture using it as source.
+The last step before seeing the video moving on screen :)
+Use this simple line. It is enougth.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var videoTexture = new THREE.Texture( video );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;This texture is a normal texture and can be used as usual in materials.
+For example, in a &lt;a href=&quot;http://en.wikipedia.org/wiki/Lambertian_reflectance&quot;&gt;lambert&lt;/a&gt; material.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var material    = new THREE.MeshLambertMaterial({
+    map : videoTexture
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;But this texture is special, it is a video. So it need to be constantly updated.
+In your render loop, add those lines. They monitor the state of your video.
+Every time the video got enougth data to be display, the texture is updated
+and sent to the GPU.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if( video.readyState === video.HAVE_ENOUGH_DATA ){
+    videoTexture.needsUpdate = true;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Now you can display your webcam inside your webgl !!
+This is simple and cool.
+Browser support will increase with time.
+Live video is a very powerfull tool.
+The image from the webcam is a normal one.
+On it, you can perform
+&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples/js/postprocessing&quot;&gt;post processing&lt;/a&gt;,
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Edge_detection&quot;&gt;edge detection&lt;/a&gt;,
+and many other crazy things. Up to you to experiment.
+Let's all for today folks, have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Casting Shadows</title>
@@ -2711,97 +2895,6 @@ see its &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.Keyb
 We have seen it is quite simple to use.
 Ok now we got the keyboard handling for our game. Nice but it seems a bit virtual for now.
 But i think the game will become more concret when we gonna have stuff moving on the screen.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Screenshot in Javascript</title>
-    <link href="http://learningthreejs.com/blog/2011/09/03/screenshot-in-javascript/"/>
-    <updated>2011-09-03T10:01:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/09/03/screenshot-in-javascript</id>
-    <content type="html">&lt;p&gt;Sometime it would be cool if you could take a screenshot of your demo to share with your friends.
-This post will explain how to do that single a single line.
-Additionnaly, &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.screenshot.js&quot;&gt;THREEx.screenshot&lt;/a&gt; helper is provided at the end
-if you want to add printscreen key in your demos without hasles.&lt;/p&gt;
-
-&lt;h2&gt;Let's get started&lt;/h2&gt;
-
-&lt;p&gt;So as usual you got a &lt;code&gt;renderer&lt;/code&gt; variable to render your 3D scene. This renderer
-contains a &lt;code&gt;domElement&lt;/code&gt; property.
-It is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Document_Object_Model&quot;&gt;DOM element&lt;/a&gt; on which it renders,
-who would have guessed ?
-We will use the &lt;code&gt;.toDataURL()&lt;/code&gt;
-&lt;a href=&quot;http://www.w3.org/TR/html5/the-canvas-element.html#dom-canvas-todataurl&quot;&gt;method&lt;/a&gt;
-on this element to get the screenshot.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var dataUrl = renderer.domElement.toDataURL(&quot;image/png&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;p&gt;A single line and you are &lt;strong&gt;done&lt;/strong&gt;! not too hard hey ?
-This line will return a url of the screenshot image in
-png format.
-This url is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Data_URI_scheme&quot;&gt;data url&lt;/a&gt;, a special url which encode
-the content in base64. It looks like that &lt;em&gt;data:image/png;base64,iVBORw0KGgo&lt;/em&gt; ...
-Not too readable but quite usefull :)&lt;/p&gt;
-
-&lt;p&gt;Btw have you spotted he &lt;code&gt;image/png&lt;/code&gt; parameter ? It is the mimetype of the image we will get. If you want
-a &lt;a href=&quot;http://en.wikipedia.org/wiki/JPEG&quot;&gt;jpeg&lt;/a&gt;, just put &lt;code&gt;image/jpeg&lt;/code&gt; instead.&lt;/p&gt;
-
-&lt;h2&gt;WebGLRenderer special case&lt;/h2&gt;
-
-&lt;p&gt;If your scene is renderered with WebGL, you should declare it like that.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var renderer    = new THREE.WebGLRenderer({
-    preserveDrawingBuffer   : true  // required to support .toDataURL()
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Notice the option &lt;code&gt;preserveDrawingBuffer&lt;/code&gt; ? It is &lt;code&gt;WebGLRenderer&lt;/code&gt; specific.
-This is required to support &lt;code&gt;.toDataURL()&lt;/code&gt; as explained in the &lt;a href=&quot;http://www.khronos.org/registry/webgl/specs/latest/#2.2&quot;&gt;spec&lt;/a&gt;.
-Other &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/renderers&quot;&gt;renderers&lt;/a&gt; dont need it.&lt;/p&gt;
-
-&lt;h2&gt;THREEx helper to make it even simpler&lt;/h2&gt;
-
-&lt;p&gt;I wrote &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.screenshot.js&quot;&gt;THREEx.screenshot&lt;/a&gt;, a THREEx helper to
-automatize the process and makes it as simple as possible.
-You download it from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.screenshot.js&quot;&gt;here&lt;/a&gt; and include
-it in your page like this&lt;/p&gt;
-
-&lt;p&gt;```html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script type=&quot;text/javascript&quot; src=&quot;THREEx.screenshot.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Would it be cool if got your own &lt;a href=&quot;http://en.wikipedia.org/wiki/Print_screen&quot;&gt;printscreen&lt;/a&gt;
-key for your 3D ? The following line will do exactly that.
-Everytime you press &lt;em&gt;p&lt;/em&gt;, it does a screenshot of the renderer, and open a window containing it.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;THREEx.Screenshot.bindKey(renderer);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Note the &lt;a href=&quot;http://en.wikipedia.org/wiki/Aspect_ratio_(image)&quot;&gt;aspect&lt;/a&gt; of the original image is preserved.
-The default callback behavior is to open a window containing the screenshot, so be carefull it may be
-stopped by popup blockers.
-It is possible to customize the default behaviors thru options.
-For more details, see the &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.screenshot.html&quot;&gt;annoted source&lt;/a&gt; of
-&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.screenshot.js&quot;&gt;THREEx.screenshot&lt;/a&gt;.&lt;/p&gt;
 </content>
   </entry>
   
