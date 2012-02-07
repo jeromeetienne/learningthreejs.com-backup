@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-02-07T14:45:28+01:00</updated>
+  <updated>2012-02-07T15:05:32+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -53,7 +53,7 @@ Would be nice!&lt;/p&gt;
 To enable webrtc on your computer, see how to
 &lt;a href=&quot;http://www.webrtc.org/running-the-demos&quot;&gt;run webrtc demos&lt;/a&gt;.
 It is currently available only in
-&lt;a href=&quot;http://tools.google.com/dlpage/chromesxs&quot;&gt;chrome canari&lt;/a&gt;.
+&lt;a href=&quot;http://tools.google.com/dlpage/chromesxs&quot;&gt;Canari&lt;/a&gt;.
 Mozilla people are working hard to make it happen as soon as possible.
 So it may be too early to use it for 'serious' things.
 But way enougth to do cool experiments like the one we gonna do today :)&lt;/p&gt;
