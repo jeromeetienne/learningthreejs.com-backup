@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-02-07T14:42:17+01:00</updated>
+  <updated>2012-02-07T14:45:28+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -14,9 +14,9 @@
   
   <entry>
     <title>Fun With Live Video in WebGL</title>
-    <link href="http://learningthreejs.com/blog/2012/02/06/live-video-in-webgl/"/>
-    <updated>2012-02-06T13:41:00+01:00</updated>
-    <id>http://learningthreejs.com/blog/2012/02/06/live-video-in-webgl</id>
+    <link href="http://learningthreejs.com/blog/2012/02/07/live-video-in-webgl/"/>
+    <updated>2012-02-07T13:41:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/02/07/live-video-in-webgl</id>
     <content type="html">&lt;p&gt;This post is about live video in webgl.
 It is possible in today browsers to read the webcam using a new feature from html5, called WebRTC.
 This standard is
