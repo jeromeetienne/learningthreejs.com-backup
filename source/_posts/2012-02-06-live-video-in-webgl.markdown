@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Demo: Fun With WebRTC"
+title: "Fun With Live Video in WebGL"
 date: 2012-02-06 13:41
 comments: true
-categories: 
+categories: [three.js, html5, webrtc]
 ---
 
 * to get live streaming of the webcam directly in your webgl
@@ -23,7 +23,7 @@ What can be done with this ?
 
 * how to get webrtc running in your browser
   * [run webrtc demos](http://www.webrtc.org/running-the-demos)
-* link to [demo](/data/render-to-texture)
+* link to [demo](/data/live-video-in-webgl)
 
 
 ## Let's create the video
