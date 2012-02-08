@@ -22,12 +22,12 @@ It is kept it real simple thus you can read the code more easily.
 The scene is a simple object in the middle, a spotlight moving around and a plane
 to receive the object shadow. The light frustum is left visible in orange.
 
+<!-- more -->
+
 <iframe src="/data/casting-shadows"
 	webkitallowfullscreen mozallowfullscreen allowfullscreen 
 	width="100%" height="420" frameborder="0">
 </iframe>
-
-<!-- more -->
 
 ## Let's Code Shadows
 

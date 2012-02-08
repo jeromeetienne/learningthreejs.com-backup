@@ -6,17 +6,27 @@ comments: true
 categories: 
 ---
 
-* This post is about an extension system on top of three.js.
-which mimics jQuery API.
-* TODO give history. from the github issue
-* 
-* It makes it easier to understand if you already known this library.
-* is it possible to mix three.js power with jquery API usability ?
-* Let's call this experiment tQuery as in "three.js + jQuery".
-* The goal of this little project is to see this can fly.
+  This post an overview of a work-in-progress.
+It is about an extension system on top of three.js which mimics jQuery API.
+It is part of an effort to trim three.js and make it easier to maintain.
+  Let's call this experiment **tQuery** as in "three.js + jQuery".
+It makes it easier to understand if you already known this library.
+The goal of this little project is to see if we can mix
+to mix three.js power with jquery API usability...
+How far this concept can fly ? We will see.
 
+So what do we want ? our library must make three.js easy to extend
+and we should mimics jQuery whenever possible.
+In order to see if the system hold under load, i wrote several extensions already.
+It is very early. The architecture of it all is far from stable.
+Code is advancing at fast pace tho :)
+The screencast below is short live coding session. Just to give an idea.
 
-* So we want to mimics jQuery whenever possible
+<center>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/Aa7sHUE224A" frameborder="0" allowfullscreen></iframe>
+</center>
+
+<!-- more -->
 
 ## DOM
 With jQuery and the
@@ -24,8 +34,7 @@ With jQuery and the
 get a tree of
 [elements](https://developer.mozilla.org/en/DOM/element)
 from the page.
-In fact, believe it or not, three.js got this tree as well.
-
+In fact, three.js got this tree as well. It may surprising hey ?
 We just name it as
 [scene](https://github.com/mrdoob/three.js/blob/master/src/scenes/Scene.js)
 instead of a tree.
