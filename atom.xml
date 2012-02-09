@@ -4,13 +4,195 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-02-07T15:05:32+01:00</updated>
+  <updated>2012-02-09T13:31:49+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>An Extension System for three.js</title>
+    <link href="http://learningthreejs.com/blog/2012/02/08/extension-system-for-three-js/"/>
+    <updated>2012-02-08T15:24:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/02/08/extension-system-for-three-js</id>
+    <content type="html">&lt;p&gt;  This post an overview of a work-in-progress.
+It is about an extension system on top of three.js which mimics jQuery API.
+I came up with the idea while thinking about how to
+trim three.js and make it easier to maintain. I have always been impressed
+with jQuery plugin ecosystem. It is lively, varied,
+and contains impressive specimens. I would love to have such
+a rich ecosystem for three.js's plugins.&lt;/p&gt;
+
+&lt;p&gt;  Let's call this experiment &lt;strong&gt;tQuery&lt;/strong&gt; as in &quot;three.js + jQuery&quot;.
+It makes it easier to understand if you already known this library.
+This is a v0 in the
+&lt;a href=&quot;http://catb.org/~esr/writings/homesteading/cathedral-bazaar/ar01s04.html&quot;&gt;&quot;publish early, publish often&quot;&lt;/a&gt;
+vibe.
+The goal of this little project is to see if we can mix
+to mix three.js power with jquery API usability...
+How far this concept can fly ? We will see.&lt;/p&gt;
+
+&lt;p&gt;So what do we want ? The code must make &lt;strong&gt;three.js easy to extend&lt;/strong&gt;
+and should &lt;strong&gt;mimics jQuery whenever possible&lt;/strong&gt;.
+In order to see if the system hold under load, i wrote several extensions already.
+It is very early. The architecture of it all is far from stable.
+Code is advancing at fast pace tho :)
+The screencast below is short live coding session. Just to give an idea of the current
+status.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/Aa7sHUE224A&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;DOM&lt;/h2&gt;
+
+&lt;p&gt;With jQuery and the
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Document_Object_Model&quot;&gt;DOM&lt;/a&gt;, you
+get a tree of
+&lt;a href=&quot;https://developer.mozilla.org/en/DOM/element&quot;&gt;elements&lt;/a&gt;
+from the page.
+In fact, three.js got this tree as well. Surprising hey ?
+We just name it a
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/scenes/Scene.js&quot;&gt;scene&lt;/a&gt;
+instead of a tree.
+And our element are called
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js&quot;&gt;Object3D&lt;/a&gt;.
+But all that is just a matter of vocabulary.&lt;/p&gt;
+
+&lt;p&gt;One one hand, jquery one, you got the dom and its tree of element.
+on the other hand, three.js one, you got the scene and its tree of object3D.
+Same Thing!&lt;/p&gt;
+
+&lt;h2&gt;Chained API&lt;/h2&gt;
+
+&lt;p&gt;jQuery got a chained API, so tQuery got a chained API. When we said
+&lt;em&gt;copy jQuery whenever possible&lt;/em&gt;, we were not kidding :)&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery('.fooKlass').scale(2).translate(1,0,0);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;IDs and classes&lt;/h2&gt;
+
+&lt;p&gt;They got
+&lt;a href=&quot;http://api.jquery.com/id-selector/&quot;&gt;Ids&lt;/a&gt;
+and
+&lt;a href=&quot;http://api.jquery.com/class-selector/&quot;&gt;classes&lt;/a&gt;
+, or more recently
+&lt;a href=&quot;http://api.jquery.com/data/&quot;&gt;data&lt;/a&gt;.
+So we did all the same with tQuery.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var cube    = tQuery().createCube();
+cube.id(&quot;myId&quot;);    // set the id of this element
+cube.addClass('fooKlass');  // add 'fooKlass' class to this cube
+cube.data('goom', 'baa');
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Selector&lt;/h2&gt;
+
+&lt;p&gt;jQuery got selectors so tQuery got selectors too.
+Here are the selector based on geometry, they are similar to the
+[element selector] in jQuery, e.g. &lt;code&gt;jQuery('span')&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery('sphere');   // select all objects with a sphere gemotry
+tQuery('cube'); // smae with a cube gemotry
+// and so on
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Here are the one for classes and id.
+Note how the syntax is similar to css selector.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery('#myId') // to get the object with the 'myId' id
+tQuery('.fooklass') // to get objects with the class 'fooklass'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;obvious we got compose them like with jQuery&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery('.bar.foo')  // objets with the class 'bar' and 'foo'
+tQuery('.bar cube') // objets with the class 'bar' with a cube as descandant
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Events&lt;/h2&gt;
+
+&lt;p&gt;Obviously jQuery got events, so we got events in tQuery.
+we use &lt;em&gt;domEvents&lt;/em&gt; we saw a few week back in
+&lt;a href=&quot;http://127.0.0.1:8000/blog/2012/01/17/dom-events-in-3d-space/&quot;&gt;'dom events in 3D space' post&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery('cube').on('mouseover', function(){
+    console.log(&quot;somebody put the mouse over a cube&quot;);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;A Basic Page&lt;/h2&gt;
+
+&lt;iframe src=&quot;http://jeromeetienne.github.com/tquery/examples/minimal&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;260&quot; height=&quot;280&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;p&gt;This is a minimal page. the code is below, the preview on the right.
+Quite short.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;&amp;lt;title&amp;gt;tQuery Basic Page&amp;lt;/title&amp;gt;
+&amp;lt;script src=&quot;tquery-bundle.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;script&amp;gt;
+
+    var world = tQuery.createWorld().fullpage().start();
+    var object = tQuery.createTorus().addTo(world);
+
+    &amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This was early presentation of tQuery. I like the idea, we will see how it goes.
+The purpose of this experiement is to help those who know jQuery to use three.js.
+So they reuse jquery syntax but inside a webgl context.
+This is a very early project.
+How far is it possible to push this concept of &lt;em&gt;&quot;three.js power + jQuery API usuability&quot;&lt;/em&gt;.
+It seems all very cute at first sight but only time will tell.&lt;/p&gt;
+
+&lt;p&gt;That's all folks. More on tQuery soon. Have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Fun With Live Video in WebGL</title>
@@ -215,15 +397,15 @@ It is kept it real simple thus you can read the code more easily.
 The scene is a simple object in the middle, a spotlight moving around and a plane
 to receive the object shadow. The light frustum is left visible in orange.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;iframe src=&quot;http://learningthreejs.com/data/casting-shadows&quot;
     webkitallowfullscreen mozallowfullscreen allowfullscreen 
     width=&quot;100%&quot; height=&quot;420&quot; frameborder=&quot;0&quot;&gt;
 &lt;/iframe&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;h2&gt;Let's Code Shadows&lt;/h2&gt;
@@ -2805,96 +2987,6 @@ coordinates of this voxel, and &lt;code&gt;t&lt;/code&gt; being its type.&lt;/p&
 &lt;p&gt;Yesterday, i started coding &lt;a href=&quot;http://jeromeetienne.github.com/marbleGame&quot;&gt;early visuals&lt;/a&gt;
 for the game. Ok it takes some imaginations to see where it will goes. But it
 will improve i promise :)&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Let's Make a 3D Game: Keyboard</title>
-    <link href="http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/"/>
-    <updated>2011-09-12T17:31:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard</id>
-    <content type="html">&lt;p&gt;This post is the first of a series &lt;strong&gt;Let's Make a 3d game&lt;/strong&gt;.
-The &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;series&lt;/a&gt; will walk you down the path of
-game developement.
-It will describe the various parts of a web game: input handling, map generation,
-collision, physics, sounds, graphics etc...
-Obviously we will glue them to make an actual game. Quite a bit of work
-but im super excited !&lt;/p&gt;
-
-&lt;p&gt;It will be a &lt;a href=&quot;http://en.wikipedia.org/wiki/Marble_Madness&quot;&gt;marble&lt;/a&gt;
-game. Not sure which kind yet, but they are
-&lt;a href=&quot;http://www.youtube.com/results?search_query=marble+video+game&quot;&gt;many&lt;/a&gt;.
-I did &lt;a href=&quot;http://pacmaze.com&quot;&gt;pacmaze&lt;/a&gt;, a pacman in 3D  and &lt;a href=&quot;http://buddymaze.com&quot;&gt;buddymaze&lt;/a&gt;,
-a multi-player first personn shooter. But this one gonna be from scratch, thus we will
-discover things as together :)&lt;/p&gt;
-
-&lt;p&gt;We will try to code each part of the game to be as reusable as possible.
-The first part will be the &lt;strong&gt;keyboard handling&lt;/strong&gt;. It isnt the hardest, nor the most important, but it is
-super simple. Perfect to get us started.&lt;/p&gt;
-
-&lt;h2&gt;Let's get started&lt;/h2&gt;
-
-&lt;p&gt;In a game, a keyboard handler is a bit special. Usually this is done with events
-, e.g. &lt;a href=&quot;http://api.jquery.com/bind/&quot;&gt;jQuery.bind()&lt;/a&gt;
-or &lt;a href=&quot;https://github.com/jeresig/jquery.hotkeys&quot;&gt;hotkeys&lt;/a&gt;.
-But we are doing a game and all games revolve around a &lt;a href=&quot;http://en.wikipedia.org/wiki/Game_programming#Game_structure&quot;&gt;game loop&lt;/a&gt;.
-So the keyboard must be queryable at any time during this loop, as opposed
-to &lt;a href=&quot;http://en.wikipedia.org/wiki/Event-driven_architecture&quot;&gt;event-driven&lt;/a&gt;.
-Our code should keep tracks of which key and which modifier is pressed.
-Let's call it &lt;em&gt;KeyboardState&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h2&gt;Let's include the script&lt;/h2&gt;
-
-&lt;p&gt;You download it from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.KeyboardState.js&quot;&gt;here&lt;/a&gt; and include
-it in your page like this&lt;/p&gt;
-
-&lt;p&gt;```html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script src='THREEx.KeyboardState.js'&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;h2&gt;How to use it ?&lt;/h2&gt;
-
-&lt;p&gt;Now that the script is included, create a &lt;code&gt;keyboard&lt;/code&gt; variable like this.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var keyboard = new THREEx.KeyboardState();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;After that you can query the current status of the keyboard with &lt;code&gt;.pressed(&quot;W&quot;)&lt;/code&gt;. For
-example if you want shift+H to display help, do the following.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;if( keyboard.pressed(&quot;shift+H&quot;) )     displayHelp();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;If you ever want to stop listening to the keyboard, just use this line&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;keyboard.destroy()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;For more details on &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.KeyboardState.js&quot;&gt;THREEx.KeyboardState&lt;/a&gt;,
-see its &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.KeyboardState.html&quot;&gt;annoted source&lt;/a&gt;.
-We have seen it is quite simple to use.
-Ok now we got the keyboard handling for our game. Nice but it seems a bit virtual for now.
-But i think the game will become more concret when we gonna have stuff moving on the screen.&lt;/p&gt;
 </content>
   </entry>
   
