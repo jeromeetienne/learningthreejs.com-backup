@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Extension System for three.js"
+title: "An Extension System for three.js"
 date: 2012-02-08 15:24
 comments: true
 categories: 
@@ -8,19 +8,29 @@ categories:
 
   This post an overview of a work-in-progress.
 It is about an extension system on top of three.js which mimics jQuery API.
-It is part of an effort to trim three.js and make it easier to maintain.
+I came up with the idea while thinking about how to
+trim three.js and make it easier to maintain. I have always been impressed
+with jQuery plugin ecosystem. It is lively, varied,
+and contains impressive specimens. I would love to have such
+a rich ecosystem for three.js's plugins.
+
   Let's call this experiment **tQuery** as in "three.js + jQuery".
 It makes it easier to understand if you already known this library.
+This is a v0 in the
+["publish early, publish often"](http://catb.org/~esr/writings/homesteading/cathedral-bazaar/ar01s04.html)
+vibe.
 The goal of this little project is to see if we can mix
 to mix three.js power with jquery API usability...
 How far this concept can fly ? We will see.
 
-So what do we want ? our library must make three.js easy to extend
-and we should mimics jQuery whenever possible.
+
+So what do we want ? The code must make **three.js easy to extend**
+and should **mimics jQuery whenever possible**.
 In order to see if the system hold under load, i wrote several extensions already.
 It is very early. The architecture of it all is far from stable.
 Code is advancing at fast pace tho :)
-The screencast below is short live coding session. Just to give an idea.
+The screencast below is short live coding session. Just to give an idea of the current
+status.
 
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/Aa7sHUE224A" frameborder="0" allowfullscreen></iframe>
@@ -34,19 +44,21 @@ With jQuery and the
 get a tree of
 [elements](https://developer.mozilla.org/en/DOM/element)
 from the page.
-In fact, three.js got this tree as well. It may surprising hey ?
-We just name it as
+In fact, three.js got this tree as well. Surprising hey ?
+We just name it a
 [scene](https://github.com/mrdoob/three.js/blob/master/src/scenes/Scene.js)
 instead of a tree.
-And the element are called
+And our element are called
 [Object3D](https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js).
 But all that is just a matter of vocabulary.
 
 One one hand, jquery one, you got the dom and its tree of element.
 on the other hand, three.js one, you got the scene and its tree of object3D.
+Same Thing!
 
 ## Chained API
-jQuery got a chained API, so tQuery got a chained API. For examples
+jQuery got a chained API, so tQuery got a chained API. When we said
+*copy jQuery whenever possible*, we were not kidding :)
 
 ```javascript
     tQuery('.fooKlass').scale(2).translate(1,0,0);
@@ -65,6 +77,7 @@ So we did all the same with tQuery.
     var cube	= tQuery().createCube();
     cube.id("myId");	// set the id of this element
     cube.addClass('fooKlass');	// add 'fooKlass' class to this cube
+    cube.data('goom', 'baa');
 ```
 
 ## Selector
@@ -95,7 +108,7 @@ obvious we got compose them like with jQuery
 
 ## Events
 Obviously jQuery got events, so we got events in tQuery.
-we use the *domEvents* we saw a few week back in
+we use *domEvents* we saw a few week back in
 ['dom events in 3D space' post](http://127.0.0.1:8000/blog/2012/01/17/dom-events-in-3d-space/)
 
 ```javascript
@@ -106,7 +119,7 @@ we use the *domEvents* we saw a few week back in
 
 ## A Basic Page
 
-<iframe src="http://jeromeetienne.github.com/threex/examples/threex.domevent"
+<iframe src="http://jeromeetienne.github.com/tquery/examples/minimal"
 	webkitallowfullscreen mozallowfullscreen allowfullscreen 
 	width="260" height="280" frameborder="0" style="float: right; margin-left: 1em;">
 </iframe>
@@ -137,4 +150,4 @@ This is a very early project.
 How far is it possible to push this concept of *"three.js power + jQuery API usuability"*.
 It seems all very cute at first sight but only time will tell.
 
-That's all folks. have fun :)
+That's all folks. More on tQuery soon. Have fun :)
