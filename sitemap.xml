@@ -122,7 +122,7 @@
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/01/20/casting-shadows/</loc>
-        <lastmod>2012-02-08T17:36:00+01:00</lastmod>
+        <lastmod>2012-02-15T13:37:57+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/02/07/live-video-in-webgl/</loc>
@@ -130,7 +130,11 @@
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/02/08/extension-system-for-three-js/</loc>
-        <lastmod>2012-02-09T14:10:59+01:00</lastmod>
+        <lastmod>2012-02-15T11:38:51+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://learningthreejs.com/blog/2012/02/15/valentine-card-in-tquery/</loc>
+        <lastmod>2012-02-15T14:38:28+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/about/</loc>
@@ -138,10 +142,10 @@
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/archives/</loc>
-        <lastmod>2012-02-09T14:10:59+01:00</lastmod>
+        <lastmod>2012-02-15T14:38:28+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/</loc>
-        <lastmod>2012-02-09T14:10:59+01:00</lastmod>
+        <lastmod>2012-02-15T14:38:28+01:00</lastmod>
     </url>
 </urlset>

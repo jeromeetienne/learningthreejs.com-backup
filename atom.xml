@@ -4,13 +4,115 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-02-09T14:11:08+01:00</updated>
+  <updated>2012-02-15T14:39:03+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>a Valentine card in tQuery</title>
+    <link href="http://learningthreejs.com/blog/2012/02/15/valentine-card-in-tquery/"/>
+    <updated>2012-02-15T10:21:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/02/15/valentine-card-in-tquery</id>
+    <content type="html">&lt;p&gt;The &lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tQuery&lt;/a&gt; experimentation is going on.
+It is a lot of fun to code :)
+This post is just a short presentation of two plugins currently in incubation:
+tquery.text and tquery.shape.
+Yesterday was
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Valentine's_Day&quot;&gt;valentine day&lt;/a&gt;,
+so i thought it would be cool to stay in topic.
+The
+&lt;a href=&quot;http://www.youtube.com/watch?v=8EHqrAXcKrY&quot;&gt;screencast&lt;/a&gt;
+is a live coding of a
+&lt;a href=&quot;http://learningthreejs.com/data/2012-02-15-valentine-card-in-tquery/&quot;&gt;valentine card&lt;/a&gt; in tQuery :)&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/8EHqrAXcKrY&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Let's Write Text in 3D&lt;/h2&gt;
+
+&lt;p&gt;tQuery.text plugin writes text in 3D.
+It is based on
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/TextGeometry.js&quot;&gt;TextGeometry&lt;/a&gt;.
+Here is a simple example.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createText(&quot;tQuery is Fun!&quot;).addTo(world);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Let's Easily Create Shape&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class='right  ' src='http://learningthreejs.com/data/2012-02-15-valentine-card-in-tquery/images/shape.triangle-small.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;tQuery shape is made to easily build and
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Extrusion&quot;&gt;extrude&lt;/a&gt;
+shapes in javascript.
+It is based on
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/core/Shape.js&quot;&gt;THREE.Shape&lt;/a&gt;.
+tquery.shape is cool because it uses a API very similar to
+&lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#complex-shapes-(paths)&quot;&gt;canvas 2D&lt;/a&gt;
+&lt;a href=&quot;https://developer.mozilla.org/en/Canvas_tutorial/Drawing_shapes&quot;&gt;path&lt;/a&gt;.
+This line will build a triangle.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createShape().moveTo(0,0).lineTo(1,1).lineTo(-1,1).lineTo(0,0);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='left  ' src='http://learningthreejs.com/data/2012-02-15-valentine-card-in-tquery/images/shape.fish-small.png' width='' height='' alt='' title=''&gt;
+&lt;img class='right ' src='http://learningthreejs.com/data/2012-02-15-valentine-card-in-tquery/images/shape.smiley-small.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;Some shapes are already available, like the triangle above, or a fish, smiley
+and a heart. Here is a smiley.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var shape = tQuery.createSmileyShape();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;The valentince card&lt;/h2&gt;
+
+&lt;p&gt;Last but not least, the valentine card!
+&lt;a href=&quot;http://learningthreejs.com/data/2012-02-15-valentine-card-in-tquery/&quot;&gt;Try it out&lt;/a&gt;!
+It uses the plugins above to build an animated valentine card.
+It is done with less than 20lines...
+tQuery seems to produce short code.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://learningthreejs.com/data/2012-02-15-valentine-card-in-tquery/&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;100%&quot; height=&quot;349&quot; frameborder=&quot;0&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Today we saw 2 plugins still in progress.
+tQuery experiment seems to go well for now.
+The code is moving at fast pace.
+I am currently experimenting with &lt;a href=&quot;http://requirejs.org/&quot;&gt;require.js&lt;/a&gt;
+to automatically resolve dependancies between plugins.
+What's next ? likely a series with a step by step on how to build a tunnel game.&lt;/p&gt;
+
+&lt;p&gt;That's all folks! have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>An Extension System for three.js</title>
@@ -2907,86 +3009,6 @@ Caching is a efficient way to optimize your code.
 It is simple with &lt;a href=&quot;https://github.com/jeromeetienne/MicroCache.js&quot;&gt;microcache.js&lt;/a&gt;.
 The code is available on github &lt;a href=&quot;https://github.com/jeromeetienne/MicroCache.js&quot;&gt;here&lt;/a&gt; under MIT license.
 If you hit bugs, fill issues on github. Feel free to fork, modify and have fun with it :)&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Let's Make a 3D Game: Map Editor</title>
-    <link href="http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor/"/>
-    <updated>2011-09-14T19:07:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor</id>
-    <content type="html">&lt;p&gt;This is a new article of the &quot;Let's Make a 3D Game&quot; &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;series&lt;/a&gt;.
-In the previous one, we focused
-on &lt;a href=&quot;http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/&quot;&gt;keyboard&lt;/a&gt;. We will
-focus on &lt;em&gt;map editor&lt;/em&gt; for this one.
-In most games, the player moves around a map, sometime they are
-called &lt;a href=&quot;http://en.wikipedia.org/wiki/Level_(video_gaming)&quot;&gt;levels&lt;/a&gt;.
-&lt;em&gt;Maps&lt;/em&gt; are a key part of a game. They describes the world the player lives in,
-its rules, its limits, its geography.
-Additionnaly when a player completes a map, he
-goes in another better/harder map. It gives a sense
-progression which is fun. Players like fun things :)&lt;/p&gt;
-
-&lt;h2&gt;So let's make a map editor&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/lets_make_a_game_map_editor/images/200px-Voxels.svg.png' width='' height='' alt='Example' title='Example'&gt;&lt;/p&gt;
-
-&lt;p&gt;So i searched for a way to do map for our &lt;em&gt;marble game&lt;/em&gt;.
-I wanted something &lt;strong&gt;very reusable and hackable&lt;/strong&gt;,
-something you could easily use in your own games.
-I picked &lt;a href=&quot;http://en.wikipedia.org/wiki/Voxel&quot;&gt;voxels&lt;/a&gt;.
-The illustration from &lt;a href=&quot;http://en.wikipedia.org/wiki/File:Voxels.svg&quot;&gt;wikipedia&lt;/a&gt;
-on the right, may help understanding.
-They are easy to code, simple to understand, yet efficient and flexible.
-On top of that, one of &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples&quot;&gt;three.js examples&lt;/a&gt; is a
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_interactive_voxelpainter.html&quot;&gt;voxel painter&lt;/a&gt;
-in WebGL. So most of the work was already done for us!&lt;/p&gt;
-
-&lt;p&gt;Only two features were missing to make it a &lt;a href=&quot;http://en.wikipedia.org/wiki/Level_editor&quot;&gt;map editor&lt;/a&gt;.
-&lt;strong&gt;First&lt;/strong&gt;, we need to load and save those maps.
-Thus we can edit those maps, and tune them until to get a good &lt;a href=&quot;http://en.wikipedia.org/wiki/Gameplay&quot;&gt;gameplay&lt;/a&gt;.
-&lt;strong&gt;Second&lt;/strong&gt;, the map must be composed of various type of cubes.
-Different type of cubes will have different purposes in the game. e.g. one cube
-may be wood or be water, one may make your explode on contact, one may
-make you teleport, anything you want.
-So i did those modifications and came up with
-this &lt;a href=&quot;http://jeromeetienne.github.com/marbleGame/editor&quot;&gt;editor&lt;/a&gt;.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;h2&gt;Now Let's Use This Editor&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/lets_make_a_game_map_editor/images/webgl-rocks.png' width='' height='' alt='Example' title='Example'&gt;&lt;/p&gt;
-
-&lt;p&gt;The &lt;a href=&quot;http://jeromeetienne.github.com/marbleGame/editor&quot;&gt;editor&lt;/a&gt;
-got an inline help on top. So it should be rather simple.
-Once you are done, you save the map, the editor
-will open a window containing a string
-describing the saved data. Just copy this data in a file.
-To load it back, you just have to drag/drop this file on the
-editor window. It is as simple as that.&lt;/p&gt;
-
-&lt;h2&gt;How To Use Saved Maps&lt;/h2&gt;
-
-&lt;p&gt;You load the file you saved into your javascript.
-Maps are stored in &lt;a href=&quot;http://en.wikipedia.org/wiki/JSON&quot;&gt;JSON&lt;/a&gt;. It is a data format
-which fits well with javascript.
-&quot;Everything should be made as simple as possible, but no simpler&quot;
-as a &lt;a href=&quot;http://en.wikipedia.org/wiki/Albert_Einstein&quot;&gt;cool guy&lt;/a&gt; said.
-So following the &lt;a href=&quot;http://en.wikipedia.org/wiki/Occam%27s_razor&quot;&gt;occam razor&lt;/a&gt;,
-this format is just
-an &lt;a href=&quot;https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array&quot;&gt;Array&lt;/a&gt; with
-each element is one &lt;a href=&quot;https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object&quot;&gt;Object&lt;/a&gt;
-representing a voxel.
-The object properties are: &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;, &lt;code&gt;z&lt;/code&gt;being the
-coordinates of this voxel, and &lt;code&gt;t&lt;/code&gt; being its type.&lt;/p&gt;
-
-&lt;h2&gt;Progress&lt;/h2&gt;
-
-&lt;p&gt;Yesterday, i started coding &lt;a href=&quot;http://jeromeetienne.github.com/marbleGame&quot;&gt;early visuals&lt;/a&gt;
-for the game. Ok it takes some imaginations to see where it will goes. But it
-will improve i promise :)&lt;/p&gt;
 </content>
   </entry>
   
