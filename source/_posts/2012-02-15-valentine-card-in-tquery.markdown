@@ -14,12 +14,12 @@ Yesterday was
 [valentine day](http://en.wikipedia.org/wiki/Valentine's_Day),
 so i thought it would be cool to stay in topic.
 The
-[screencast](http://www.youtube.com/watch?v=Aa7sHUE224A)
+[screencast](http://www.youtube.com/watch?v=8EHqrAXcKrY)
 is a live coding of our
 [valentine card](/data/2012-02-15-valentine-card-in-tquery/) :)
 
 <center>
-	<iframe width="425" height="349" src="http://www.youtube.com/embed/Aa7sHUE224A" frameborder="0" allowfullscreen></iframe>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/8EHqrAXcKrY" frameborder="0" allowfullscreen></iframe>
 </center>
 
 <!-- more -->
