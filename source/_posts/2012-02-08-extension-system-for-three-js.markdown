@@ -109,7 +109,7 @@ obvious we got compose them like with jQuery
 ## Events
 Obviously jQuery got events, so we got events in tQuery.
 we use *domEvents* we saw a few week back in
-['dom events in 3D space' post](http://127.0.0.1:8000/blog/2012/01/17/dom-events-in-3d-space/)
+['dom events in 3D space' post](http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/)
 
 ```javascript
     tQuery('cube').on('mouseover', function(){
