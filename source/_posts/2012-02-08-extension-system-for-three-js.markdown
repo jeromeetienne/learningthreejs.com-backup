@@ -3,7 +3,7 @@ layout: post
 title: "An Extension System for three.js"
 date: 2012-02-08 15:24
 comments: true
-categories: [three.js tquery]
+categories: [three.js, tquery]
 ---
 
   This post an overview of a work-in-progress.

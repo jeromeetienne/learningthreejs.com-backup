@@ -4,7 +4,7 @@ title: "Casting Shadows"
 date: 2012-01-20 14:44
 published: true
 comments: true
-categories: [three.js shadows]
+categories: [three.js, shadows]
 ---
 
 This post is about
