@@ -1,15 +1,14 @@
 ---
 layout: post
-title: "tQuery Update"
+title: "a Short Update on tQuery"
 date: 2012-02-15 10:21
 comments: true
 categories: [tquery, three.js]
 ---
 
-
 The [tQuery](https://github.com/jeromeetienne/tquery) experimentation is going on.
 It is a lot of fun to code :)
-This post is a short presentation of two plugins currently in incubation.
+This post is just a short presentation of two plugins currently in incubation:
 tquery.text and tquery.shape.
 tQuery.text plugin writes text in 3D.
 It is based on
@@ -19,6 +18,8 @@ Here is a simple example.
 ```javascript
     tQuery.createText("tQuery is Fun!").addTo(world);
 ```
+
+{% img right  /data/short-update-on-tquery/images/shape.triangle-small.png	%}
 
 tQuery shape is made easily build and
 [extrude](http://en.wikipedia.org/wiki/Extrusion)
@@ -31,14 +32,19 @@ tquery.shape is cool because it uses a API very similar to
 This code will build a triangle.
 
 ```javascript
-    var shape = tQuery.createShape().moveTo(80,20)
-                .lineTo(40,80).lineTo(120,80).lineTo(80,20);
+    var shape = tQuery.createShape().moveTo(80,20).lineTo(40,80)
+                      .lineTo(120,80).lineTo(80,20);
     var geometry = shape.extrude();
 ```
 
-Some shapes are already available. For example you 
+{% img right /data/short-update-on-tquery/images/shape.fish-small.png	%}
+{% img right /data/short-update-on-tquery/images/shape.heart-small.png	%}
+
+Some shapes are already available, like the triangle above, or a fish, smiley
+and a heart. Here is a heart.
 
 ```javascript
+    var shape = tQuery.createHeartShape();
 ```
 
 
@@ -46,3 +52,4 @@ Some shapes are already available. For example you
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/Aa7sHUE224A" frameborder="0" allowfullscreen></iframe>
 </center>
 
+<!-- more -->
