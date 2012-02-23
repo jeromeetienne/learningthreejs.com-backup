@@ -15,8 +15,8 @@ Yesterday was
 so i thought it would be cool to stay in topic.
 The
 [screencast](http://www.youtube.com/watch?v=8EHqrAXcKrY)
-is a live coding of our
-[valentine card](/data/2012-02-15-valentine-card-in-tquery/) :)
+is a live coding of a
+[valentine card](/data/2012-02-15-valentine-card-in-tquery/) in tQuery :)
 
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/8EHqrAXcKrY" frameborder="0" allowfullscreen></iframe>
