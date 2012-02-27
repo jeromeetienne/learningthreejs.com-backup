@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Dom Events as tQuery Extension"
-date: 2012-02-22 08:55
+date: 2012-02-27 08:55
 comments: true
 categories:
 categories: [tquery, three.js]
@@ -9,11 +9,12 @@ categories: [tquery, three.js]
 
 This post is an update on
 [tquery](https://github.com/jeromeetienne/tquery) progress.
-You can find the
-[previous posts on tquery](/blog/categories/tquery/).
+Previous posts on tquery may be found [here](/blog/categories/tquery/).
 There is an overview of
 ```tquery.domevent``` extension.
-It is used to incoporate [dom kindof events] in 3D world.
+It is used to incoporate
+[dom kindof events](http://www.w3.org/TR/DOM-Level-2-Events/events.html)
+in 3D world.
 We saw them a few week back in
 ['dom events in 3D space' post](http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/).
 Additionally we will show ```linkify``` a small extension built on top of domEvents.
@@ -88,8 +89,8 @@ It has been quite time consuming to set up the basis for the project:
 tests, bechmarks, docs, or plugins interdependancy resolution. 
 For each of those field, i had to review the various alternatives,
 pick one and setting it up as properly as possible.
-Here are the current choises, they may change in the future.
 
+Here are the current choises, they may change in the future.
 [require.js](http://requirejs.org/) will be used for the dependancies between plugins.
 Tests are done with [mocha](http://visionmedia.github.com/mocha/),
 a javascript test framework for javascript which run in node.js and browser.
