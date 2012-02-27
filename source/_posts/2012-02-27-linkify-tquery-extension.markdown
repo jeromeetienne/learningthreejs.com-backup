@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Dom Events as tQuery Extension"
+title: "Linkify, a tQuery Extension"
 date: 2012-02-27 08:55
 comments: true
 categories:
@@ -9,20 +9,20 @@ categories: [tquery, three.js]
 
 This post is an update on
 [tquery](https://github.com/jeromeetienne/tquery) progress.
-Previous posts on tquery may be found [here](/blog/categories/tquery/).
-There is an overview of
-```tquery.domevent``` extension.
+It is about ```linkify```, a first experimental extension.
+Thanks to it, any 3D object may become a link.
+So  3D objects object act as a ```<a>``` tag, i.e. the object becomes
+clickable and clicking on it open a new url.
+It is built on top of domEvents.
 It is used to incoporate
 [dom kindof events](http://www.w3.org/TR/DOM-Level-2-Events/events.html)
 in 3D world.
 We saw them a few week back in
 ['dom events in 3D space' post](http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/).
-Additionally we will show ```linkify``` a small extension built on top of domEvents.
-It makes any 3D objects object act as a ```<a>``` tag, i.e. the object becomes
-clickable and clicking on it open a new url.
+Previous posts on tquery may be found [here](/blog/categories/tquery/).
 
 <center>
-	<iframe width="425" height="349" src="http://www.youtube.com/embed/8EHqrAXcKrY" frameborder="0" allowfullscreen></iframe>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/MlW7PeuXGDM" frameborder="0" allowfullscreen></iframe>
 </center>
 
 <!-- more -->
@@ -70,7 +70,7 @@ is now supported. So events are dispatched to the
 and follow its parent chain upward. It is possible to cancel propagation with an usual
 ```.stopPropagation()```.
 
-## Linkify or Any Object May Become a Link
+## Linkify or How Any 3D Object May Become a Link
 
 Linkify is an experimental plugins built on top of ```tquery.domevent```. It is
 shown in the screencast.
