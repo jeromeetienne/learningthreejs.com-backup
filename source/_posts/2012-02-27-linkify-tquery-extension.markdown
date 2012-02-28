@@ -11,7 +11,7 @@ This post is an update on
 [tquery](https://github.com/jeromeetienne/tquery) progress.
 It is about ```linkify```, a first experimental extension.
 Thanks to it, any 3D object may become a link.
-So  3D objects object act as a ```<a>``` tag, i.e. the object becomes
+So  3D objects act as a ```<a>``` tag, i.e. the object becomes
 clickable and clicking on it open a new url.
 It is built on top of domEvents.
 It is used to incoporate
