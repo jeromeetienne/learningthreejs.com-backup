@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-03-05T14:33:35+01:00</updated>
+  <updated>2012-03-05T14:36:41+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -28,7 +28,7 @@ or
 This post is the release of &lt;em&gt;version 0&lt;/em&gt;.
 It will walk you thru the website and shows how to run your first tQuery project
 with the boilerplate.
-You will be able to play with tQuery after this post :)&lt;/p&gt;
+You should be able to play with tQuery after that :)&lt;/p&gt;
 
 &lt;p&gt;Ok It is still experimental.
 I have been paddling hard to make it usable by other people tho.
