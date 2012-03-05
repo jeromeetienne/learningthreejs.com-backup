@@ -4,13 +4,148 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-02-28T10:14:26+01:00</updated>
+  <updated>2012-03-05T14:17:33+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>tQuery v0 - Let's get started</title>
+    <link href="http://learningthreejs.com/blog/2012/03/05/tquery-version-0/"/>
+    <updated>2012-03-05T10:42:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/03/05/tquery-version-0</id>
+    <content type="html">&lt;p&gt;This post is an update on
+&lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tquery&lt;/a&gt; progress.
+&lt;a href=&quot;http://learningthreejs.com/blog/categories/tquery/&quot;&gt;Our previous posts&lt;/a&gt;
+were previews,
+for example
+&lt;a href=&quot;http://learningthreejs.com/blog/2012/02/15/valentine-card-in-tquery/&quot;&gt;valentine card in tQuery&lt;/a&gt;
+or
+&lt;a href=&quot;http://learningthreejs.com/blog/2012/02/27/linkify-tquery-extension/&quot;&gt;linkify, a tQuery extension&lt;/a&gt;.
+This post is the release of &lt;em&gt;version 0&lt;/em&gt;
+It will walk you thru the website and shows how to run your first tQuery project
+with the boilerplate.
+You will be able to play with tQuery after this post :)&lt;/p&gt;
+
+&lt;p&gt;Ok It is still experimental.
+I have been paddling hard to make it usable by other people tho.
+The &lt;a href=&quot;http://jeromeetienne.github.com/tquery/www/playground/&quot;&gt;playground&lt;/a&gt;
+is the easiest way to start experimenting. It is all online.
+no install, no download, simple and understandable.
+tQuery code is all on &lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;github repository&lt;/a&gt;.
+The
+&lt;a href=&quot;http://www.youtube.com/watch?feature=player_embedded&amp;amp;v=iby6kijX5Zw&quot;&gt;screencast&lt;/a&gt;
+below will walk you thru the
+&lt;a href=&quot;http://jeromeetienne.github.com/tquery/www/&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/iby6kijX5Zw&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Solid Ground to Build On&lt;/h2&gt;
+
+&lt;p&gt;I would like tQuery to be a solid ground. Thus people can easily build
+their three.js extensions on top of it. So the code is
+documented, tested and performance is monitored. Here is some principles that
+i consider important for tQuery.
+Note that those principles are the theory.
+It doesnt imply i implement them well in practice :)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Code must be tested&lt;/strong&gt;. It helps detect bugs earlier.
+Our &lt;a href=&quot;http://jeromeetienne.github.com/tquery/tests/&quot;&gt;tests&lt;/a&gt;
+are done with
+&lt;a href=&quot;http://visionmedia.github.com/mocha/&quot;&gt;mocha&lt;/a&gt;.
+&lt;strong&gt;API must be documented&lt;/strong&gt;. It helps new users to use the library.
+&lt;a href=&quot;http://jeromeetienne.github.com/tquery/docs/&quot;&gt;API documentation&lt;/a&gt;
+is done with
+&lt;a href=&quot;http://code.google.com/p/jsdoc-toolkit/&quot;&gt;jsdoc&lt;/a&gt;.
+&lt;strong&gt;Performance must be monitored&lt;/strong&gt;. Thus developpers are immediatly aware of performance
+change when the code is modified.
+Our
+&lt;a href=&quot;http://jeromeetienne.github.com/tquery/bench/&quot;&gt;benchmarks&lt;/a&gt;
+are done with
+&lt;a href=&quot;http://benchmarkjs.com/&quot;&gt;benchmark.js&lt;/a&gt;
+and displayed by
+&lt;a href=&quot;https://github.com/jeromeetienne/benchrunner&quot;&gt;benchrunner&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;How to Get Started&lt;/h2&gt;
+
+&lt;p&gt;or how to get the boilerplate :)
+tQuery Boilerplate is a template to get you started. You download it and
+modify it until it fits your needs. It is a fast way to start a
+clean project with tquery.
+The running boilerplate looks &lt;a href=&quot;http://jeromeetienne.github.com/tqueryboilerplate/&quot;&gt;like that&lt;/a&gt;.
+The
+&lt;a href=&quot;http://www.youtube.com/watch?feature=player_embedded&amp;amp;v=YOsnKMesyRk&quot;&gt;screencast&lt;/a&gt;
+below shows how to use it.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/YOsnKMesyRk&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;h2&gt;Running tQuery Boilerplate&lt;/h2&gt;
+
+&lt;p&gt;You can try the boilerplate online with the &lt;a href=&quot;http://jeromeetienne.github.com/tquery/www/playground/&quot;&gt;playground&lt;/a&gt;.
+Want to run it on your computer ?
+First you get boilerplate's files
+&lt;a href=&quot;https://github.com/downloads/jeromeetienne/tquery/tqueryboilerplate.zip&quot;&gt;here&lt;/a&gt;.
+Then you launch the http server to serve them. Here is a little shell script which does it all for you.&lt;/p&gt;
+
+&lt;p&gt;```bash&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curl -OL https://github.com/downloads/jeromeetienne/tquery/tqueryboilerplate.zip
+unzip tqueryboilerplate.zip
+cd tqueryboilerplate
+make server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Then you open a browser on &lt;a href=&quot;http://127.0.0.1:8000/&quot;&gt;http://127.0.0.1:8000/&lt;/a&gt; to
+see it running. Up to you to modify &lt;code&gt;index.html&lt;/code&gt; until it fits your needs. &lt;code&gt;index.html&lt;/code&gt;
+looks like the code below... Quite short.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;&amp;lt;title&amp;gt;Minimal tQuery Page&amp;lt;/title&amp;gt;
+&amp;lt;script src=&quot;./tquery-all.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;body&amp;gt;&amp;lt;script&amp;gt;
+    var world   = tQuery.createWorld().boilerplate().start();
+    var object  = tQuery.createTorus().addTo(world);
+&amp;lt;/script&amp;gt;&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This is the initial release of tQuery.
+I like how it looks.
+API is documented,
+code is tested, and performance measured.
+The code produced by the API seems short and quite understandable.
+Nice foundations especially for a version 0.&lt;/p&gt;
+
+&lt;p&gt;The next step is about stabilizing tquery.js itself, cleaning it up.
+I am currently quite busy doing just that.
+So please dont hammer me with feature requests at the moment, i won't have
+time to handle them.
+Pull requests are welcomed tho.
+Things will change when tQuery core become more stable.&lt;/p&gt;
+
+&lt;p&gt;That's all folks, have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Linkify, a tQuery Extension</title>
@@ -143,7 +278,7 @@ template.&lt;/p&gt;
     <link href="http://learningthreejs.com/blog/2012/02/15/valentine-card-in-tquery/"/>
     <updated>2012-02-15T10:21:00+01:00</updated>
     <id>http://learningthreejs.com/blog/2012/02/15/valentine-card-in-tquery</id>
-    <content type="html">&lt;p&gt;The &lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tQuery&lt;/a&gt; experimentation is going on.
+    <content type="html">&lt;p&gt;The &lt;a href=&quot;http://learningthreejs.com/blog/categories/tquery/&quot;&gt;tQuery&lt;/a&gt; experimentation is going on.
 It is a lot of fun to code :)
 This post is just a short presentation of two plugins currently in incubation:
 tquery.text and tquery.shape.
@@ -270,14 +405,14 @@ Code is advancing at fast pace tho :)
 The screencast below is short live coding session. Just to give an idea of the current
 status.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/Aa7sHUE224A&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;h2&gt;DOM&lt;/h2&gt;
@@ -449,14 +584,14 @@ or
 What about your face from the webcam reflecting in water with animated waves ?
 Would be nice!&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/vnNihxl3taE&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;p&gt;It is surely nice but WebRTC is still quite on the edge.
@@ -2898,126 +3033,6 @@ Or you can no more remove or add a object without recomputing the whole geometry
 performance (x60 time in our little demo). It is simple enougth to add to your
 demos or games when they have large static geometries. So use it as much as possible.
 That's all folks. I hope it has been usefull :)&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Let's Make a 3D Game: Device Orientation</title>
-    <link href="http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation/"/>
-    <updated>2011-09-20T10:35:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation</id>
-    <content type="html">&lt;p&gt;Here is another article of the &quot;Let's Make a 3D Game&quot; &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;series&lt;/a&gt;.
-It is about &lt;strong&gt;device orientation&lt;/strong&gt;, another input you can use for your games.
-We have already seen how to handle the &lt;a href=&quot;http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/&quot;&gt;keyboard&lt;/a&gt; input.
-Device orientation input is more instinctive tho. The user doesnt need to learn controls.
-It is already enabled in our game &lt;a href=&quot;http://marblesoccer.com&quot;&gt;marblesoccer&lt;/a&gt;.
-Here is a &lt;a href=&quot;http://www.youtube.com/watch?v=kW4oHaHCilo&quot;&gt;video&lt;/a&gt; of me playing with it.&lt;/p&gt;
-
-&lt;center&gt;
-    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/kW4oHaHCilo&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
-
-
-&lt;p&gt;You need a computer which support WebGL &lt;em&gt;and&lt;/em&gt; device orientation to actually play
-with it. Unfortunatly, macbook is the only computer i know able to do that.
-On one hand, most smartphones already support &lt;em&gt;device orientation API&lt;/em&gt;.
-On the other hand, smartphones support for WebGL is sparse at best.
-So this input will become very usefull if we start supporting
-&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/renderers&quot;&gt;three.js renderers&lt;/a&gt;
-available on phones, such as canvas or DOM.&lt;/p&gt;
-
-&lt;h2&gt;Let's get started&lt;/h2&gt;
-
-&lt;p&gt;As usual, i did a little helper to make it easier for you to include it in
-your games. It is called &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.DeviceOrientationState.js&quot;&gt;THREEx.DeviceOrientationState&lt;/a&gt;.
-You download this API from &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.DeviceOrientationState.js&quot;&gt;here&lt;/a&gt; and include
-it in your page like this&lt;/p&gt;
-
-&lt;p&gt;```html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script src='THREEx.DeviceOrientationState.js'&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;How to use it ?&lt;/h2&gt;
-
-&lt;p&gt;Now that the script is included, create a &lt;code&gt;device&lt;/code&gt; variable like this.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var device = new THREEx.DeviceOrientationState();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;After that, if you want the angle the device with the x axis, just use
-&lt;code&gt;.angleX()&lt;/code&gt; function. You can use &lt;code&gt;.angleY()&lt;/code&gt; and &lt;code&gt;.angleZ()&lt;/code&gt;, you
-guessed which angle they provide.
-Suppose you want a &lt;code&gt;THREE.Mesh&lt;/code&gt; to stay still on y axis while you are moving the device,
-just copy this line&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mesh.rotation.y = device.angleY();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;If you ever want to stop listening to the device orientation, just use this line&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;device.destroy()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;What about the standard ?&lt;/h2&gt;
-
-&lt;p&gt;Sometime it may be interesting to understand the root of things.
-Let's do a rapid introduction of the device orientation API itself.
-For authoritative details, the &lt;a href=&quot;http://www.w3.org/TR/orientation-event/&quot;&gt;spec&lt;/a&gt;
-is always a nice place.
-If you want more info on it, &lt;a href=&quot;http://www.html5rocks.com/en/tutorials/device/orientation/&quot;&gt;html5rocks&lt;/a&gt;
-or &lt;a href=&quot;https://developer.mozilla.org/en/detecting_device_orientation&quot;&gt;mdn&lt;/a&gt;
-articles are a good start.
-First let's bind the event.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;window.addEventListener('deviceorientation',  callback, false);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Here is an example of callback&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;function callback(event){
-    console.log(&quot;orientation gamma:&quot;, event.gamma, &quot;beta&quot;, event.beta, &quot;alpha&quot;, event.alpha);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Be carefull tho, gamma, beta, alpha may not be set depending on the device your game is
-running on. For example on macbook, &lt;code&gt;alpha&lt;/code&gt; is always &lt;code&gt;null&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;For more details on &lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.DeviceOrientationState.js&quot;&gt;THREEx.DeviceOrientationState&lt;/a&gt;,
-see its &lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/THREEx.DeviceOrientationState.html&quot;&gt;annoted source&lt;/a&gt;.
-It is a simple and instinctive way to control the player.
-It is closer to real-life and thus provides a more immersive experience.
-In the future we will likely do be
-a &lt;a href=&quot;http://www.youtube.com/watch?v=-sEJ4Lo0cm8&quot;&gt;virtual joystick&lt;/a&gt; for touch enabled device.&lt;/p&gt;
 </content>
   </entry>
   
