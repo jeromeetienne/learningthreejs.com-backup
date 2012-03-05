@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-03-05T14:17:33+01:00</updated>
+  <updated>2012-03-05T14:33:35+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -25,7 +25,7 @@ for example
 &lt;a href=&quot;http://learningthreejs.com/blog/2012/02/15/valentine-card-in-tquery/&quot;&gt;valentine card in tQuery&lt;/a&gt;
 or
 &lt;a href=&quot;http://learningthreejs.com/blog/2012/02/27/linkify-tquery-extension/&quot;&gt;linkify, a tQuery extension&lt;/a&gt;.
-This post is the release of &lt;em&gt;version 0&lt;/em&gt;
+This post is the release of &lt;em&gt;version 0&lt;/em&gt;.
 It will walk you thru the website and shows how to run your first tQuery project
 with the boilerplate.
 You will be able to play with tQuery after this post :)&lt;/p&gt;
