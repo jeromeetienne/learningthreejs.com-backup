@@ -6,7 +6,7 @@ comments: true
 categories: [tquery, three.js]
 ---
 
-The [tQuery](https://github.com/jeromeetienne/tquery) experimentation is going on.
+The [tQuery](/blog/categories/tquery/) experimentation is going on.
 It is a lot of fun to code :)
 This post is just a short presentation of two plugins currently in incubation:
 tquery.text and tquery.shape.

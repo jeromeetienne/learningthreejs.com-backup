@@ -28,11 +28,11 @@ or
 What about your face from the webcam reflecting in water with animated waves ?
 Would be nice!
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/vnNihxl3taE" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 It is surely nice but WebRTC is still quite on the edge.
 To enable webrtc on your computer, see how to

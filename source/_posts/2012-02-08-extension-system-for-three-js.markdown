@@ -32,11 +32,11 @@ Code is advancing at fast pace tho :)
 The screencast below is short live coding session. Just to give an idea of the current
 status.
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/Aa7sHUE224A" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 ## DOM
 With jQuery and the
