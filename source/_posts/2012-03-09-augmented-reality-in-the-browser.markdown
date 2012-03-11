@@ -6,7 +6,8 @@ comments: true
 categories: [threejs, augmentedreality]
 ---
 
-
+This post is about augmented reality in the browser.
+In a recent post, Recently we saw that it is now possible to [have live video in webgl](/blog/2012/02/07/live-video-in-webgl/) 
 
 * [JSARToolKit](html5rocks.com/en/tutorials/webgl/jsartoolkit_webrtc/)
 and how to use it with
@@ -35,7 +36,9 @@ on a paper, the same as you see on the right
 
 ## You Include it
 
-You include it as usual in your page. Note that JSARToolKit is released under GPL,
+You include it as usual in your page. The code is available
+[here](https://github.com/jeromeetienne/tquery.jsartoolkit).
+Note that JSARToolKit is released under GPL,
 so some restrictions apply. The threex is under MIT license as usual.
 
 ```html
@@ -45,7 +48,7 @@ so some restrictions apply. The threex is under MIT license as usual.
 
 ## You Initialize It
 
-You instanciate the object like this.
+Once you get the code, you instanciate the object like this.
 
 ```javascript
 	var threexAR	= new THREEx.JSARToolKit({
@@ -60,13 +63,14 @@ The ```srcElement``` may be a
 [image](http://www.w3.org/TR/html401/struct/objects.html#h-13.2)
 or a
 [canvas](http://www.w3.org/TR/html5/the-canvas-element.html).
-To detect the augmented reality markers in it, just use this line.
+To detect the augmented reality markers in it, just use this line in your
+rendering loop.
 
 ```javascript
     threexAR.update();
 ```
 
-Not rocket science here.
+No rocket science here.
 
 ## You Use It
 
