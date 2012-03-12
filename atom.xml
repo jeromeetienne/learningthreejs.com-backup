@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-03-12T13:42:38+01:00</updated>
+  <updated>2012-03-12T13:54:48+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -18,7 +18,7 @@
     <updated>2012-03-12T11:36:00+01:00</updated>
     <id>http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser</id>
     <content type="html">&lt;p&gt;This post is about augmented reality in the browser.
-In a recent post, Recently we saw that it is now possible to
+In a recent post, we saw that it is now possible to
 &lt;a href=&quot;http://learningthreejs.com/blog/2012/02/07/live-video-in-webgl/&quot;&gt;have live video in webgl&lt;/a&gt;
 with
 &lt;a href=&quot;http://www.webrtc.org/&quot;&gt;WebRTC&lt;/a&gt;.
