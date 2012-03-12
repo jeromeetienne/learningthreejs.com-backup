@@ -142,7 +142,11 @@
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/03/05/tquery-version-0/</loc>
-        <lastmod>2012-03-05T14:36:36+01:00</lastmod>
+        <lastmod>2012-03-05T14:37:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser/</loc>
+        <lastmod>2012-03-12T13:40:33+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/about/</loc>
@@ -150,10 +154,10 @@
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/archives/</loc>
-        <lastmod>2012-03-05T14:36:36+01:00</lastmod>
+        <lastmod>2012-03-12T13:40:33+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/</loc>
-        <lastmod>2012-03-05T14:36:36+01:00</lastmod>
+        <lastmod>2012-03-12T13:40:33+01:00</lastmod>
     </url>
 </urlset>

@@ -4,13 +4,154 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-03-05T14:36:41+01:00</updated>
+  <updated>2012-03-12T13:42:38+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Augmented Reality in the Browser</title>
+    <link href="http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser/"/>
+    <updated>2012-03-12T11:36:00+01:00</updated>
+    <id>http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser</id>
+    <content type="html">&lt;p&gt;This post is about augmented reality in the browser.
+In a recent post, Recently we saw that it is now possible to
+&lt;a href=&quot;http://learningthreejs.com/blog/2012/02/07/live-video-in-webgl/&quot;&gt;have live video in webgl&lt;/a&gt;
+with
+&lt;a href=&quot;http://www.webrtc.org/&quot;&gt;WebRTC&lt;/a&gt;.
+Due to this,
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Augmented_reality&quot;&gt;augmented reality&lt;/a&gt;
+is under the spotlight. Recently
+&lt;a href=&quot;http://www.html5rocks.com/&quot;&gt;html5rock&lt;/a&gt; published a
+tutorial
+by
+&lt;a href=&quot;http://www.html5rocks.com/en/profiles/#ilmari&quot;&gt;ilmari heikkinen&lt;/a&gt;
+about
+&quot;&lt;a href=&quot;http://www.html5rocks.com/en/tutorials/webgl/jsartoolkit_webrtc/&quot;&gt;writting augmented reality application using jsartoolkit&lt;/a&gt;&quot;.
+Ilmari is
+&lt;a href=&quot;https://plus.google.com/115293744081058969329/about&quot;&gt;google devrel for webgl&lt;/a&gt;
+and the author of
+&lt;a href=&quot;http://github.com/kig/JSARToolKit&quot;&gt;JSARToolKit&lt;/a&gt;
+too. So we are in good hands :)
+The tutorial even include a part about binding it with
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
+I took this nice tutorial and packaged the code even easier to reuse.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/rzLuJxTraos&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/2012-03-12-augmented-reality-in-the-browser/images/marker-small.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/tquery.jsartoolkit/&quot;&gt;Try this demo&lt;/a&gt;.
+If you got &lt;a href=&quot;http://www.webrtc.org/running-the-demos&quot;&gt;WebRTC is available&lt;/a&gt; in your browser, take
+&lt;a href=&quot;http://jeromeetienne.github.com/tquery.jsartoolkit/marker/marker.png&quot;&gt;this marker&lt;/a&gt;,
+and put it in front on your webcam.
+It is the same you see on the right.
+It is best to print it on paper.
+If you can't point, your phone to
+&lt;a href=&quot;http://jeromeetienne.github.com/tquery.jsartoolkit/marker&quot;&gt;this page&lt;/a&gt; instead.
+Phone screens tend to reflect lights from your environment tho. They may
+reduce the accuracy of the marker detection.&lt;/p&gt;
+
+&lt;p&gt;Now let's see how you can to use all this to build your own demos :)&lt;/p&gt;
+
+&lt;h2&gt;You Include it&lt;/h2&gt;
+
+&lt;p&gt;First you include it as usual in your page. The code is available
+&lt;a href=&quot;https://github.com/jeromeetienne/tquery.jsartoolkit&quot;&gt;here&lt;/a&gt;.
+Note that
+&lt;a href=&quot;http://github.com/kig/JSARToolKit&quot;&gt;JSARToolKit&lt;/a&gt;
+is released under GPL, so some restrictions apply.
+The threex is under MIT license as usual.&lt;/p&gt;
+
+&lt;p&gt;```html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;JSARToolKit.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&quot;threex.jsartoolkit.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;You Initialize It&lt;/h2&gt;
+
+&lt;p&gt;Once you get the code, you instanciate the object like this.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var threexAR    = new THREEx.JSARToolKit({
+    srcElement  : srcElement,
+    threshold   : threshold,
+    callback    : function(event){}
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;srcElement&lt;/code&gt; may be a
+&lt;a href=&quot;http://en.wikipedia.org/wiki/HTML5_video&quot;&gt;video&lt;/a&gt;, an
+&lt;a href=&quot;http://www.w3.org/TR/html401/struct/objects.html#h-13.2&quot;&gt;image&lt;/a&gt;
+or a
+&lt;a href=&quot;http://www.w3.org/TR/html5/the-canvas-element.html&quot;&gt;canvas&lt;/a&gt;.
+When the video is shoot in a uncontrolled environement,
+the marker detection may be less reliable, due to variations of lighting.
+&lt;code&gt;threshold&lt;/code&gt; is a value between 0 and 255 to adapt your detection to those variations.
+To detect the augmented reality markers in the &lt;code&gt;srcElement&lt;/code&gt;, just use this line in your
+rendering loop.&lt;/p&gt;
+
+&lt;p&gt;```javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;threexAR.update();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;No rocket science here.&lt;/p&gt;
+
+&lt;h2&gt;You Use It&lt;/h2&gt;
+
+&lt;p&gt;During &lt;code&gt;.update()&lt;/code&gt;, the callback is notified with events.
+They describe the markers present on the srcElement.
+Each event got various fields:
+A &lt;code&gt;.markerId&lt;/code&gt; which tell you which marker has been recognized.
+The
+&lt;a href=&quot;http://jeromeetienne.github.com/tquery.jsartoolkit/marker&quot;&gt;one used above&lt;/a&gt;
+is the &lt;em&gt;64&lt;/em&gt;. You can find the whole list
+&lt;a href=&quot;https://github.com/kig/JSARToolKit/tree/master/demos/markers&quot;&gt;in JSARToolKit repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;.type&lt;/code&gt; field describe what is happening to this marker.
+It may be &lt;em&gt;create&lt;/em&gt;, &lt;em&gt;update&lt;/em&gt; or &lt;em&gt;delete&lt;/em&gt;.
+&lt;em&gt;create&lt;/em&gt; if the marker has just been detected,
+&lt;em&gt;update&lt;/em&gt; if the marker was present before.
+and &lt;em&gt;delete&lt;/em&gt; if the marker is no more present.
+Rather obvious :)
+The &lt;code&gt;.matrix&lt;/code&gt; field is a
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/core/Matrix4.js&quot;&gt;THREE.Matrix4&lt;/a&gt;.
+It is a transform which matches the position of the marker in space.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;So now we can do augmented reality in a browser.
+The code of the demo is &lt;a href=&quot;https://github.com/jeromeetienne/tquery.jsartoolkit&quot;&gt;here&lt;/a&gt;.
+Up to us to find actual application of this technology.
+Currently most browsers with webcam are running on desktop/laptop tho.
+As most their webcam is directly attached to screens, It limits the flexibility of
+what you could put on front of the camera.
+As for mobile, only opera 12 is currently the only mobile browser able
+to read the webcam.&lt;/p&gt;
+
+&lt;p&gt;That's all folks. Have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>tQuery v0 - Let's get started</title>
@@ -2953,86 +3094,6 @@ More posts will come shortly.
 At least, one about performance and another one on how to easily bind microphysics to your three.js game.
 That's all folks.
 Have fun with microphysics.js :)&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Performance: Merging Geometry</title>
-    <link href="http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/"/>
-    <updated>2011-10-05T11:29:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry</id>
-    <content type="html">&lt;p&gt;This article is about merging geometry and how it can improve performance.
-It is important for perfomance to reduce the number of &lt;a href=&quot;http://www.khronos.org/registry/webgl/specs/latest/&quot;&gt;WebGL&lt;/a&gt; calls as much as possible.
-The rules of thumbs is &lt;em&gt;the less data are exchanged between the cpu and the gpu, the better it is for performance&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;The &lt;a href=&quot;http://learningthreejs.com/data/performance-merging-geometry/&quot;&gt;demo&lt;/a&gt; is rendering many cubes and put them randomly in the space.
-&lt;img class='left ' src='http://learningthreejs.com/data/performance-merging-geometry/images/demo-screenshot-2000.png' width='240' height='120' alt='' title=''&gt;
-&lt;img class='right ' src='http://learningthreejs.com/data/performance-merging-geometry/images/demo-screenshot-120000.png' width='240' height='120' alt='' title=''&gt;
-It is a simplictic way to measure the performance, but it will do for us.
-If the geometries arent merged, my computer is able to display &lt;em&gt;2000&lt;/em&gt; cubes at 30fps. See on the left.
-But if the geometry are merged, it displays &lt;em&gt;120000&lt;/em&gt; cubes at 30fps. See on the right.
-Screenshots make it pretty obvious :) This is &lt;strong&gt;60 times&lt;/strong&gt; more cubes!!!&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;h2&gt;So Let's Merge Geometries&lt;/h2&gt;
-
-&lt;p&gt;A geometry is the shape of the 3D object. three.js got already
-&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/extras/geometries&quot;&gt;several predefined&lt;/a&gt; for you.
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/PlaneGeometry.js&quot;&gt;plane&lt;/a&gt;,
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CubeGeometry.js&quot;&gt;cube&lt;/a&gt; or
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js&quot;&gt;sphere&lt;/a&gt;
-are the common ones.
-This post is about merging them, so lets do that.
-This line will merge &lt;code&gt;otherGeometry&lt;/code&gt; into &lt;code&gt;geometry&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;THREE.GeometryUtils.merge(geometry, otherGeometry);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;THREE.GeometryUtils.merge()&lt;/code&gt; is in &lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/GeometryUtils.js&quot;&gt;THREE.GeometryUtils&lt;/a&gt; with other geometry related functions.
-Btw it is more a concatenation than an actual merge them. No duplicate is removed in the process.&lt;/p&gt;
-
-&lt;h2&gt;Combo: merging geometry with mesh&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;THREE.GeometryUtils.merge()&lt;/code&gt; supports to merge geometries with meshes too.
-In this case, the function will honor the mesh position/orientation.
-As a bonus, if your mesh uses &lt;code&gt;THREE.MeshFaceMaterial&lt;/code&gt;, materials will be copied along.
-It is quite convenient when building a large geometry, or when optimising existing scenes with meshes.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var mesh = new THREE.Mesh(new THREE.CubeGeometry(10,10,10), new THREE.MeshNormalMaterial());
-mesh.position.x = 30;
-mesh.rotation.y = Math.PI/3;
-THREE.GeometryUtils.merge(geometry, mesh);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;This will merge a &lt;code&gt;THREE.CubeGeometry&lt;/code&gt; with a translation of &lt;code&gt;30&lt;/code&gt; on &lt;code&gt;x&lt;/code&gt;
-and a rotation of &lt;code&gt;Math.PI/3&lt;/code&gt; on &lt;code&gt;y&lt;/code&gt;.
-Simple enougth hey ? what about Limitations ?&lt;/p&gt;
-
-&lt;h2&gt;When to use it ?&lt;/h2&gt;
-
-&lt;p&gt;The answer is &lt;em&gt;whenever possible&lt;/em&gt; due to the performance improvement.
-The merged geometry will act as a single atomic shape.
-So it is perfect with static geometry.
-But it may not be suitable in all cases.
-For example, it won't be possible to move the merged objects independantly from each other.
-Or you can no more remove or add a object without recomputing the whole geometry.&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;So merging geometry reduces the amount of webgl calls, so dramatically improve
-performance (x60 time in our little demo). It is simple enougth to add to your
-demos or games when they have large static geometries. So use it as much as possible.
-That's all folks. I hope it has been usefull :)&lt;/p&gt;
 </content>
   </entry>
   
