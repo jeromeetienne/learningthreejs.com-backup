@@ -7,7 +7,7 @@ categories: [threejs, augmentedreality]
 ---
 
 This post is about augmented reality in the browser.
-In a recent post, Recently we saw that it is now possible to
+In a recent post, we saw that it is now possible to
 [have live video in webgl](/blog/2012/02/07/live-video-in-webgl/)
 with
 [WebRTC](http://www.webrtc.org/).
@@ -15,16 +15,17 @@ Due to this,
 [augmented reality](http://en.wikipedia.org/wiki/Augmented_reality)
 is under the spotlight. Recently
 [html5rock](http://www.html5rocks.com/) published a
-[tutorial](http://www.html5rocks.com/en/tutorials/webgl/jsartoolkit_webrtc/)
+tutorial
 by
 [ilmari heikkinen](http://www.html5rocks.com/en/profiles/#ilmari)
-about "writting augmented reality application using jsartoolkit".
+about
+"[writting augmented reality application using jsartoolkit](http://www.html5rocks.com/en/tutorials/webgl/jsartoolkit_webrtc/)".
 Ilmari is
 [google devrel for webgl](https://plus.google.com/115293744081058969329/about)
 and the author of
 [JSARToolKit](http://github.com/kig/JSARToolKit)
 too. So we are in good hands :)
-The tutorial even include a part which explains how to bind it with
+The tutorial even include a part about binding it with
 [three.js](https://github.com/mrdoob/three.js/).
 I took this nice tutorial and packaged the code even easier to reuse.
 
@@ -42,9 +43,9 @@ If you got [WebRTC is available](http://www.webrtc.org/running-the-demos) in you
 and put it in front on your webcam. 
 It is the same you see on the right.
 It is best to print it on paper.
-If you can't point, your phone to
+If you can't, point your phone to
 [this page](http://jeromeetienne.github.com/tquery.jsartoolkit/marker) instead.
-Phones screen tends to reflect lights from your environment tho. They may
+Phone screens tend to reflect lights from your environment tho. They may
 reduce the accuracy of the marker detection.
 
 Now let's see how you can to use all this to build your own demos :)
@@ -116,6 +117,7 @@ It is a transform which matches the position of the marker in space.
 ## Conclusion
 
 So now we can do augmented reality in a browser.
+The code of the demo is [here](https://github.com/jeromeetienne/tquery.jsartoolkit).
 Up to us to find actual application of this technology.
 Currently most browsers with webcam are running on desktop/laptop tho.
 As most their webcam is directly attached to screens, It limits the flexibility of
