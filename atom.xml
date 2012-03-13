@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-03-12T13:54:48+01:00</updated>
+  <updated>2012-03-13T11:45:52+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -58,7 +58,7 @@ If you got &lt;a href=&quot;http://www.webrtc.org/running-the-demos&quot;&gt;Web
 and put it in front on your webcam.
 It is the same you see on the right.
 It is best to print it on paper.
-If you can't point, your phone to
+If you can't, point your phone to
 &lt;a href=&quot;http://jeromeetienne.github.com/tquery.jsartoolkit/marker&quot;&gt;this page&lt;/a&gt; instead.
 Phone screens tend to reflect lights from your environment tho. They may
 reduce the accuracy of the marker detection.&lt;/p&gt;
