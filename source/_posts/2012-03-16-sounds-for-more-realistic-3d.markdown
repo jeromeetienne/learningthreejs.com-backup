@@ -1,16 +1,17 @@
 ---
 layout: post
-title: "Web Audio API for More Realitic 3D"
+title: "Sounds for More Realistic 3D"
 date: 2012-03-16 01:08
 comments: true
-categories: audio
+categories: audio, threejs, threex
 ---
 
-* [html5rocks] contains several very usefull tutorials to learn Web Audio API.
-From
+* [html5rocks](html://html5rocks.com)
+contains several very usefull tutorials to learn Web Audio API.
+They go from
 ["Getting started with the web audio API"](http://www.html5rocks.com/en/tutorials/webaudio/intro/)
 to
-["developing game audio"](http://www.html5rocks.com/en/tutorials/webaudio/games/]
+["developing game audio"](http://www.html5rocks.com/en/tutorials/webaudio/games/)
 or
 ["mixing positional audio and webgl"](http://www.html5rocks.com/en/tutorials/webaudio/positional_audio/).
 * The
@@ -19,9 +20,7 @@ itself is clear and very readable.
 * You can find more demos in
 [chromium samples](http://chromium.googlecode.com/svn/trunk/samples/audio/index.html).
 
-
-
-
+* TODO find more demo
 
 ## meta
 * make it tQuery
