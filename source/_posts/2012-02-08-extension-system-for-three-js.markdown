@@ -119,7 +119,7 @@ we use *domEvents* we saw a few week back in
 
 ## A Basic Page
 
-<iframe src="http://jeromeetienne.github.com/tquery/examples/minimal"
+<iframe src="http://jeromeetienne.github.com/tquery/plugins/minimal/examples"
 	webkitallowfullscreen mozallowfullscreen allowfullscreen 
 	width="260" height="280" frameborder="0" style="float: right; margin-left: 1em;">
 </iframe>
