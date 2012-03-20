@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-03-20T14:14:19+01:00</updated>
+  <updated>2012-03-20T14:20:16+01:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -44,7 +44,8 @@ Web Audio audio spacialization is another.&lt;/p&gt;
 &lt;a href=&quot;http://youtu.be/QjRF0_KENQ8&quot;&gt;screencast&lt;/a&gt;
 below is a live coding session using &lt;code&gt;tQuery.WebAudio&lt;/code&gt;.
 If you want, you can experiment with this code in our playground. Just click
-&lt;a href=&quot;http://bit.ly/GApgWg&quot;&gt;here&lt;/a&gt; and start coding :)&lt;/p&gt;
+&lt;a href=&quot;http://bit.ly/GApgWg&quot;&gt;here&lt;/a&gt;
+and start coding :)&lt;/p&gt;
 
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/QjRF0_KENQ8&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
