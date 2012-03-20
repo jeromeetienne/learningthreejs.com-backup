@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "tQuery: Web Audio for More Realistic 3D"
+title: "tQuery WebAudio for More Realistic 3D"
 date: 2012-03-16 01:08
 comments: true
 categories: audio, threejs, tquery
 ---
 
-* This post is about
+This post is about
 [Web Audio API](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html).
 It is a new HTML5 api which provide great controls on the audio layer.
 It is much better than the
@@ -27,6 +27,7 @@ Web Audio audio spacialization play a key role.
 
 * meta TODO add link on the playground for people to try it
 
+<!-- more -->
 
 ## Background on WebAudio API
 
@@ -162,7 +163,7 @@ doc if you want to go deep and configure your own audio nodes chain :)
 	var url	= '../../plugins/assets/sounds/techno.mp3';
 	var sound = tQuery.createSound().load(url, function(sound){
 		// make the sound loop
-		sounds.nodes.bufferSource.loop = true;
+		sound.nodes().bufferSource.loop = true;
 		// trigger the sound playing
 		sound.play();
 	});
