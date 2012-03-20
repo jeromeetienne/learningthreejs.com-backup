@@ -29,8 +29,10 @@ Feeding this illusion creates a more immersive experience to the user.
 Realistic physics is one (stay tuned :).
 Web Audio audio spacialization is another.
 
-The screencast below is a live coding session using ```tQuery.WebAudio```.
-If you want, you can play with this code live in our playground, just click 
+The
+[screencast](http://youtu.be/QjRF0_KENQ8)
+below is a live coding session using ```tQuery.WebAudio```.
+If you want, you can experiment with this code in our playground. Just click 
 [here](http://bit.ly/GApgWg) and start coding :)
 
 <center>
@@ -88,9 +90,10 @@ it ready to play.
 If you want to know more, the full API is documented 
 [here](http://jeromeetienne.github.com/tquery/docs/symbols/tQuery.WebAudio.Sound.html)
 and
-[here](http://jeromeetienne.github.com/tquery/docs/symbols/tQuery.WebAudio.html).
+[here](http://jeromeetienne.github.com/tquery/docs/symbols/tQuery.WebAudio.html)
+thanks to jsdoc.
 
-## Spacialisation and Animation
+## Spacialization and Animation
 
 Now that we can play a sound, what else can we do ? One definitively interesting part for
 [webaudio API](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html)
@@ -111,11 +114,9 @@ It is likely a naive implementation but it does the trick, i think.
     var amplitude = sound.amplitude();
 ```
 
-It returns an average of the low frequency of the played sound.
-It is a easy way to make this.
+It returns an average of low frequencies of the sound.
 Note that i dunno if it is the proper term in audio world.
-Most likely not :)
-If you know the proper term, please leave a comment.
+Most likely not :) If you know the proper term, please leave a comment.
 
 ## Want more info ?
 
@@ -143,5 +144,17 @@ doc if you want to go deep and configure your own audio nodes chain :)
 
 ## Conclusion
 
+Ok so now you can play sounds in your 3D scene. You can make the sound follows a given
+object3d with realistic sound spatialization. All that in just a few lines. Rather cool
+if you ask me :)
+[Winamp](http://en.wikipedia.org/wiki/Winamp) effects are back !!
+Later i will likely implement
+click detection as seen
+[here](http://www.html5rocks.com/en/tutorials/webaudio/games/#toc-clip-detect)
+and environmental effect like 'cathedral', 'telephone' etc...
+as seen
+[here](http://www.html5rocks.com/en/tutorials/webaudio/positional_audio/#toc-enveffects).
+
+I love how sound make our 3D scene more realistic. That's all for today, have fun :)
 
 
