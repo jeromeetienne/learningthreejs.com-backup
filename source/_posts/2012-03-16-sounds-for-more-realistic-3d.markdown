@@ -1,32 +1,53 @@
 ---
 layout: post
-title: "Sounds for More Realistic 3D"
+title: "tQuery: Web Audio for More Realistic 3D"
 date: 2012-03-16 01:08
 comments: true
-categories: audio, threejs, threex
+categories: audio, threejs, tquery
 ---
 
-* The
-[specification](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html)
+* This post is about
+[Web Audio API](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html).
+It is a new HTML5 api which provide great controls on the audio layer.
+It is much better than the
+[audio tag](http://www.w3.org/TR/html5/the-iframe-element.html#the-audio-element).
+It is more suitable for games or music software.
+As 3D lovers, the one feature that we care about is
+[audio spacialization](http://en.wikipedia.org/wiki/3D_audio_effect).
+This makes Web Audio a complement to webgl.
+It makes the scene so much more realistic.
+
+The user tends to associate 3D to reality, so efficient 3D is a lot about realism.
+This effect exists with 2D too but greatly reduced.
+The brain identifies 2D as artificial while 3D seems immediatly more natural.
+Anything which is close to reality increase this effect.
+Feeding this illusion creates a more immersive experience to the user.
+Realistic physics is one (stay tuned :).
+Web Audio audio spacialization play a key role.
+
+* meta TODO add link on the playground for people to try it
+
+
+## Background on WebAudio API
+
+To learn about WebAudio API is a large subject.
+It is out of the scope of this introduction.
+You can refere to many dedicated tutorials tho.
+The [specification](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html)
 itself is clear and very readable.
-* You can find more comprehensive documentation at [html5rocks](html://html5rocks.com).
-* It contains several very usefull tutorials to learn Web Audio API.
-* They go from
+
+You can find more comprehensive documentation at [html5rocks](html://html5rocks.com).
+It contains several very usefull tutorials to learn Web Audio API.
+They go from
 ["Getting started with the web audio API"](http://www.html5rocks.com/en/tutorials/webaudio/intro/)
 to
-["developing game audio"](http://www.html5rocks.com/en/tutorials/webaudio/games/)
+["mixing positional audio and webgl"](http://www.html5rocks.com/en/tutorials/webaudio/positional_audio/)
 or
-["mixing positional audio and webgl"](http://www.html5rocks.com/en/tutorials/webaudio/positional_audio/).
-* You can find more demos in
+["developing game audio"](http://www.html5rocks.com/en/tutorials/webaudio/games/).
+If you want, you can find demos in
 [chromium samples](http://chromium.googlecode.com/svn/trunk/samples/audio/index.html).
 
-* Definitly a good technology. aeb audio spacialisation is great addon to webgl.
-It makes the scene so much more realistic.
-More immersive experiences.
-
-* TODO add link on the playground for people to try it
-* explain the minimal here, only what is used in the screencast
-* point to 
+Now let's start coding :)
 
 ## Let's get Started
 
@@ -37,7 +58,7 @@ Thus you will be able to play sound in it.
     world.enableWebAudio();
 ```
 
-Now that the world is able to do sound, lets create one
+Now that the world is able to do sound, let's create one
 
 ```javascript
     var sound = tQuery.createSound();
@@ -53,9 +74,14 @@ it ready to play.
     });
 ```
 
+If you want to know more, the full API is documented 
+[here](http://jeromeetienne.github.com/tquery/docs/symbols/tQuery.WebAudio.Sound.html)
+and
+[here](http://jeromeetienne.github.com/tquery/docs/symbols/tQuery.WebAudio.html).
+
 ## Spacialisation and Animation
 
-One definitively interesting part for
+Now that we can play a sound, what else can we do ? One definitively interesting part for
 [webaudio API](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html)
 is the ability to spacialize the sound.
 The easiest way to do that is to use ```.follow()``` function. 
@@ -109,15 +135,16 @@ doc if you want to go deep and configure your own audio nodes chain :)
 
 
 ## meta
-* make it tQuery
 * describe the API
 * link to the demo
   * the demo must be copied in the blog repo
-* TODO find more sounds demo
+* explain the minimal here, only what is used in the screencast
 
 **done**
 
+* make it tQuery
 * link to all the learning rescource
+* TODO find more sounds demo
 
 
 ```javascript
