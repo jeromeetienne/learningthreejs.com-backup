@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "tQuery WebAudio for More Realistic 3D"
-date: 2012-03-16 01:08
+date: 2012-03-20 01:08
 comments: true
 categories: audio, threejs, tquery
 ---
@@ -15,17 +15,27 @@ It is more suitable for games or music software.
 As 3D lovers, the one feature that we care about is
 [audio spacialization](http://en.wikipedia.org/wiki/3D_audio_effect).
 This makes Web Audio a complement to webgl.
+It implements positional sounds, so you
+get
+[panning](http://en.wikipedia.org/wiki/Panning_\(audio\)),
+[dopler](http://en.wikipedia.org/wiki/Doppler_effect)
+and all.
 It makes the scene so much more realistic.
 
 The user tends to associate 3D to reality, so efficient 3D is a lot about realism.
-This effect exists with 2D too but greatly reduced.
 The brain identifies 2D as artificial while 3D seems immediatly more natural.
-Anything which is close to reality increase this effect.
+Anything which appears close to reality increase this effect.
 Feeding this illusion creates a more immersive experience to the user.
 Realistic physics is one (stay tuned :).
-Web Audio audio spacialization play a key role.
+Web Audio audio spacialization is another.
 
-* meta TODO add link on the playground for people to try it
+The screencast below is a live coding session using ```tQuery.WebAudio```.
+If you want, you can play with this code live in our playground, just click 
+[here](http://bit.ly/GApgWg) and start coding :)
+
+<center>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/QjRF0_KENQ8" frameborder="0" allowfullscreen></iframe>
+</center>
 
 <!-- more -->
 
@@ -134,43 +144,4 @@ doc if you want to go deep and configure your own audio nodes chain :)
 ## Conclusion
 
 
-
-## meta
-* describe the API
-* link to the demo
-  * the demo must be copied in the blog repo
-* explain the minimal here, only what is used in the screencast
-
-**done**
-
-* make it tQuery
-* link to all the learning rescource
-* TODO find more sounds demo
-
-
-```javascript
-    <!doctype html><title>tQuery minimal page</title>
-    <script src="../../build/tquery-all.js"></script>
-    <body><script>
-	// this is a screencast to demo tQuery WebAudio Plugins
-	var world = tQuery.createWorld().boilerplate().start();
-	var object = tQuery.createTorus().addTo(world);
-	// enable webaudio on our world
-	world.enableWebAudio();
-	// add Axis as debug
-	tQuery.createAxis().addTo(object);
-	// create and load a sound
-	var url	= '../../plugins/assets/sounds/techno.mp3';
-	var sound = tQuery.createSound().load(url, function(sound){
-		// make the sound loop
-		sound.nodes().bufferSource.loop = true;
-		// trigger the sound playing
-		sound.play();
-	});
-	// make the object scale move according to sound amplitude
-	world.loop().hook(function(){
-		object.scale(sound.amplitude() * 2 + 0.5);
-	});
-    </script></body>
-```
 
