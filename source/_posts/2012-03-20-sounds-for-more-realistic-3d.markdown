@@ -33,7 +33,8 @@ The
 [screencast](http://youtu.be/QjRF0_KENQ8)
 below is a live coding session using ```tQuery.WebAudio```.
 If you want, you can experiment with this code in our playground. Just click 
-[here](http://bit.ly/GApgWg) and start coding :)
+[here](http://bit.ly/GApgWg)
+and start coding :)
 
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/QjRF0_KENQ8" frameborder="0" allowfullscreen></iframe>
