@@ -16,7 +16,7 @@ This one goes one step further and make an actual
 [WebRTC call](http://www.webrtc.org/)
 displayed in a WebGL scene.
 
-In fact, it has already been done a month ago! As you see
+In fact, it has already been done a month ago! As you can see
 [here](http://www.youtube.com/watch?v=em5RWcstfI0&feature=watch_response)
 :)
 The video from the first post, ['being on tv, watching tv'](http://www.youtube.com/watch?v=vnNihxl3taE) has been answered
@@ -37,8 +37,6 @@ below is short demo of it.
 
 <!-- more -->
 
-{% img right /data/2012-04-08-video-conference-on-top-of-webgl/twoTVsWithWebGLTeam-small.jpg 320 240 %}
-
 ## WebRTC progress
 
 Using a modified browser is cool for make nice demo like
@@ -46,6 +44,8 @@ Using a modified browser is cool for make nice demo like
 Nevertheless it reduces how widely the technology can spread.
 It is now possible to do it using opensource and mainstream browsers.
 This field advances so fast!
+
+{% img right /data/2012-04-08-video-conference-on-top-of-webgl/twoTVsWithWebGLTeam-small.jpg 320 240 %}
 
 [Mozilla team](http://mozillamediagoddess.org/) is
 [working hard](http://hacks.mozilla.org/2012/04/webrtc-efforts-underway-at-mozilla/)
@@ -80,7 +80,7 @@ Go look at the [source](http://code.google.com/p/webrtc-samples/source/browse/tr
 It is very small, the whole code client+server, is less than 15kbyte.
 It is easy to understand and deploy thanks too google App Engine.
 
-## face tracker seeking love ?
+## Face tracker seeking love ?
 Surprising hey ? Well the source contains a face tracker,
 [face.html](http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/html/face.html).
 It works rather well but it is slow. If somebody could give it more love...
