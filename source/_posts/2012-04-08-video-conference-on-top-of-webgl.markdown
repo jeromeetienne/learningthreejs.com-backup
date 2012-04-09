@@ -6,28 +6,92 @@ comments: true
 categories: [WebRTC, three.js]
 ---
 
+This post presents
+[WebGL Meeting](webglmeeting.appspot.com),
+a very simple WebGL application to do webrtc call.
+It is a follow up of ["Fun with live video on webgl"](/blog/2012/02/07/live-video-in-webgl/).
+It was presenting how to use the WebCam using
+[WebRTC getUserMedia()](http://dev.w3.org/2011/webrtc/editor/getusermedia.html).
+This one goes one step further and make an actual
+[WebRTC call](http://www.webrtc.org/)
+displayed in a WebGL scene.
+
+In fact, it has already been done a month ago! As you see
+[here](http://www.youtube.com/watch?v=em5RWcstfI0&feature=watch_response)
+:)
+The video from the first post, ['being on tv, watching tv'](http://www.youtube.com/watch?v=vnNihxl3taE) has been answered
+by [Ethan Hugg](https://plus.google.com/109216128632357967445/posts) from cisco.
+My very first video reponse btw! He
+[shows a SIP video call](http://www.youtube.com/watch?v=em5RWcstfI0&feature=watch_response)
+using an version of Chromium hacked by
+[Suhas Nandakumar](https://plus.google.com/102821430095362232437/posts).
+Definitly cool stuff!
+[WebGL Meeting](webglmeeting.appspot.com) is similar but run on unmodified browsers.
+The
+[screencast](http://youtu.be/QjRF0_KENQ8)
+below is short demo of it.
+
+<center>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/QjRF0_KENQ8" frameborder="0" allowfullscreen></iframe>
+</center>
+
+<!-- more -->
+
+{% img right /data/2012-04-08-video-conference-on-top-of-webgl/twoTVsWithWebGLTeam-small.jpg 320 240 %}
+
+## WebRTC progress
+
+Using a modified browser is cool for make nice demo like
+[this one](https://plus.google.com/109216128632357967445/posts/QkFu7cxmbzi).
+Nevertheless it reduces how widely the technology can spread.
+It is now possible to do it using opensource and mainstream browsers.
+This field advances so fast!
+
+[Mozilla team](http://mozillamediagoddess.org/) is
+[working hard](http://hacks.mozilla.org/2012/04/webrtc-efforts-underway-at-mozilla/)
+to make it happen as soon as possible.
+It is even available on mobile with
+[Opera Mobile 12](http://weblog.bocoup.com/javascript-webrtc-opera-mobile-12/).
+Some ["protothon"](http://www.youtube.com/watch?v=wpwjtzXgNFQ]) are happening about it.
+[WebRTC](http://www.webrtc.org/)
+is on the edge but it is definitly coming hard.
+The picture on the right is Chrome WebRTC team doing thumb up on
+[WebGLMeeting](webglmeeting.appspot.com)
+at an WebRTC event for
+[IETF 83](http://www.ietf.org/meeting/83/index.html) 
+:)
+
+## What about the code ?
+
+[WebGLMeeting source](https://github.com/jeromeetienne/webglmeeting)
+is available on Github under MIT license.
+It uses three.js to handle the WebGL.
+It is the [AppRTC app](http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/)
+mostly unmodified, with a simple WebGL skin on top.
+
+A post from Chrome WebRTC team recently announced
+["Source code to apprtc.appspot.com example app available"](http://www.webrtc.org/blog/sourcecodetoapprtcappspotcomexampleappavailable).
+The post releases the
+[source](http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/)
+on google code.
+The [apprtc demo](https://apprtc.appspot.com)
+is a very simple, one-to-one, webrtc call.
+Go look at the [source](http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/), dont be shy :)
+It is very small, the whole code client+server, is less than 15kbyte.
+It is easy to understand and deploy thanks too google App Engine.
+
+## face tracker seeking love ?
+Surprising hey ? Well the source contains a face tracker,
+[face.html](http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/html/face.html).
+It works rather well but it is slow. If somebody could give it more love...
+It is a rather naive implementation which works well but got many rooms for speed improvement.
+It could make face tracking, less clumsy than wearing augmented reality marker on top
+of your head like
+[i did a while back](http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser/)
+:)
+
+## meta screencast
 * ask revolunet pour register le screencast demain mati.
 * copy screencast content from cisco guy
 * move the mouse during the screencast to show it is 3D
-* ALL is in the introduction (nothing after the screencast)
-* link to WebRTC Blogpost
-  * [WebRTC post](http://www.webrtc.org/blog/sourcecodetoapprtcappspotcomexampleappavailable)
-* link to the code of the server
-  * [source](http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/)
-  * [demo](https://apprtc.appspot.com)
-* put the picture of WebRTC team in the post
-  * [here](https://twitter.com/#!/jerome_etienne/media/slideshow?url=pic.twitter.com%2FfzdqCJZQ)
-* app rtc is a very simple, one-to-one, webrtc call. go look at it.
-It is easy to understand and deploy thanks too google App Engine
-* talk about face.js. it needs more loce.
-It could make face tracking, less clumsy than wearing augmented reality marker on top
-of your head :)
-
-{% img /data/2012-04-08-video-conference-on-top-of-webgl/twoTVsWithWebGLTeam-small.jpg 320 240 %}
-
-* This application uses three.js to display the appearance.
-This is AppRTC app mostly unmodified, with a simple WebGL skin on top.
-* For details on how to handle video texutre with three.js see
-the previous post ["Fun with live video on webgl"](/blog/2012/02/07/live-video-in-webgl/)
-
 
