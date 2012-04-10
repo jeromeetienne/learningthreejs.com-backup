@@ -7,7 +7,7 @@ categories: [WebRTC, three.js]
 ---
 
 This post presents
-[WebGL Meeting](webglmeeting.appspot.com),
+[WebGL Meeting](http://webglmeeting.appspot.com),
 a very simple WebGL application to do webrtc call.
 It is a follow up of ["Fun with live video on webgl"](/blog/2012/02/07/live-video-in-webgl/).
 It was presenting how to use the WebCam using
@@ -26,7 +26,7 @@ My very first video reponse btw! He
 using an version of Chromium hacked by
 [Suhas Nandakumar](https://plus.google.com/102821430095362232437/posts).
 Definitly cool stuff!
-[WebGL Meeting](webglmeeting.appspot.com) is similar but run on unmodified browsers.
+[WebGL Meeting](http://webglmeeting.appspot.com) is similar but run on unmodified browsers.
 The
 [screencast](http://youtu.be/QjRF0_KENQ8)
 below is short demo of it.
@@ -90,8 +90,8 @@ of your head like
 [i did a while back](http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser/)
 :)
 
-## meta screencast
-* ask revolunet pour register le screencast demain mati.
-* copy screencast content from cisco guy
-* move the mouse during the screencast to show it is 3D
+## Conclusion
+I got the feeling WebRTC gonna change a lot of things soon. The peer-to-peer aspect makes it super
+cheap to integrate live video conferences to your own sites.
 
+That's all folks, have fun!
