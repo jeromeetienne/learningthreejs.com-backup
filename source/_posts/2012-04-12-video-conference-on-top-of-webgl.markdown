@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Video Conference on Top of WebGL"
-date: 2012-04-08 13:20
+date: 2012-04-12 13:20
 comments: true
-categories: [WebRTC, three.js]
+categories: [webrtc, three.js]
 ---
 
 This post presents
@@ -28,11 +28,11 @@ using an version of Chromium hacked by
 Definitly cool stuff!
 [WebGL Meeting](http://webglmeeting.appspot.com) is similar but run on unmodified browsers.
 The
-[screencast](http://youtu.be/QjRF0_KENQ8)
+[screencast](http://youtu.be/Fjb7xBnxq9k)
 below is short demo of it.
 
 <center>
-	<iframe width="425" height="349" src="http://www.youtube.com/embed/QjRF0_KENQ8" frameborder="0" allowfullscreen></iframe>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/Fjb7xBnxq9k" frameborder="0" allowfullscreen></iframe>
 </center>
 
 <!-- more -->
@@ -45,7 +45,7 @@ Nevertheless it reduces how widely the technology can spread.
 It is now possible to do it using opensource and mainstream browsers.
 This field advances so fast!
 
-{% img right /data/2012-04-08-video-conference-on-top-of-webgl/twoTVsWithWebGLTeam-small.jpg 320 240 %}
+{% img right /data/2012-04-12-video-conference-on-top-of-webgl/twoTVsWithWebGLTeam-small.jpg 320 240 %}
 
 [Mozilla team](http://mozillamediagoddess.org/) is
 [working hard](http://hacks.mozilla.org/2012/04/webrtc-efforts-underway-at-mozilla/)
