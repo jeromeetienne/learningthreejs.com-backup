@@ -17,8 +17,9 @@
 ## demo time
 * so now "show dont tell"
 * lets try it
-* im gonna call "xavier bourry" from spacegoo, another personn interested
-  in WebRTC and WebGL
+* im gonna call "thomas basseto" a cool guys from paris
+* As you can see he likes firefox, cool because mozilla announced significant progress
+on WebRTC Just last week.
   
 ## Conclusion
 * so it works rathe well.
