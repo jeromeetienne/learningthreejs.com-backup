@@ -4,13 +4,116 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-03-20T14:20:16+01:00</updated>
+  <updated>2012-04-12T14:47:45+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Video Conference on Top of WebGL</title>
+    <link href="http://learningthreejs.com/blog/2012/04/12/video-conference-on-top-of-webgl/"/>
+    <updated>2012-04-12T13:20:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2012/04/12/video-conference-on-top-of-webgl</id>
+    <content type="html">&lt;p&gt;This post presents
+&lt;a href=&quot;http://webglmeeting.appspot.com&quot;&gt;WebGL Meeting&lt;/a&gt;,
+a very simple WebGL application to do webrtc call.
+It is a follow up of &lt;a href=&quot;http://learningthreejs.com/blog/2012/02/07/live-video-in-webgl/&quot;&gt;&quot;Fun with live video on webgl&quot;&lt;/a&gt;.
+It was presenting how to use the WebCam using
+&lt;a href=&quot;http://dev.w3.org/2011/webrtc/editor/getusermedia.html&quot;&gt;WebRTC getUserMedia()&lt;/a&gt;.
+This one goes one step further and make an actual
+&lt;a href=&quot;http://www.webrtc.org/&quot;&gt;WebRTC call&lt;/a&gt;
+displayed in a WebGL scene.&lt;/p&gt;
+
+&lt;p&gt;In fact, it has already been done a month ago! As you can see
+&lt;a href=&quot;http://www.youtube.com/watch?v=em5RWcstfI0&amp;amp;feature=watch_response&quot;&gt;here&lt;/a&gt;
+:)
+The video from the first post, &lt;a href=&quot;http://www.youtube.com/watch?v=vnNihxl3taE&quot;&gt;'being on tv, watching tv'&lt;/a&gt; has been answered
+by &lt;a href=&quot;https://plus.google.com/109216128632357967445/posts&quot;&gt;Ethan Hugg&lt;/a&gt; from cisco.
+My very first video reponse btw! He
+&lt;a href=&quot;http://www.youtube.com/watch?v=em5RWcstfI0&amp;amp;feature=watch_response&quot;&gt;shows a SIP video call&lt;/a&gt;
+using an version of Chromium hacked by
+&lt;a href=&quot;https://plus.google.com/102821430095362232437/posts&quot;&gt;Suhas Nandakumar&lt;/a&gt;.
+Definitly cool stuff!
+&lt;a href=&quot;http://webglmeeting.appspot.com&quot;&gt;WebGL Meeting&lt;/a&gt; is similar but run on unmodified browsers.
+The
+&lt;a href=&quot;http://youtu.be/Fjb7xBnxq9k&quot;&gt;screencast&lt;/a&gt;
+below is short demo of it.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/Fjb7xBnxq9k&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;WebRTC progress&lt;/h2&gt;
+
+&lt;p&gt;Using a modified browser is cool for make nice demo like
+&lt;a href=&quot;https://plus.google.com/109216128632357967445/posts/QkFu7cxmbzi&quot;&gt;this one&lt;/a&gt;.
+Nevertheless it reduces how widely the technology can spread.
+It is now possible to do it using opensource and mainstream browsers.
+This field advances so fast!&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/2012-04-12-video-conference-on-top-of-webgl/twoTVsWithWebGLTeam-small.jpg' width='320' height='240' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://mozillamediagoddess.org/&quot;&gt;Mozilla team&lt;/a&gt; is
+&lt;a href=&quot;http://hacks.mozilla.org/2012/04/webrtc-efforts-underway-at-mozilla/&quot;&gt;working hard&lt;/a&gt;
+to make it happen as soon as possible.
+It is even available on mobile with
+&lt;a href=&quot;http://weblog.bocoup.com/javascript-webrtc-opera-mobile-12/&quot;&gt;Opera Mobile 12&lt;/a&gt;.
+Some &lt;a href=&quot;http://www.youtube.com/watch?v=wpwjtzXgNFQ]&quot;&gt;&quot;protothon&quot;&lt;/a&gt; are happening about it.
+&lt;a href=&quot;http://www.webrtc.org/&quot;&gt;WebRTC&lt;/a&gt;
+is on the edge but it is definitly coming hard.
+The picture on the right is Chrome WebRTC team doing thumb up on
+&lt;a href=&quot;webglmeeting.appspot.com&quot;&gt;WebGLMeeting&lt;/a&gt;
+at an WebRTC event for
+&lt;a href=&quot;http://www.ietf.org/meeting/83/index.html&quot;&gt;IETF 83&lt;/a&gt;
+:)&lt;/p&gt;
+
+&lt;h2&gt;What about the code ?&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/jeromeetienne/webglmeeting&quot;&gt;WebGLMeeting source&lt;/a&gt;
+is available on Github under MIT license.
+It uses three.js to handle the WebGL.
+It is the &lt;a href=&quot;http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/&quot;&gt;AppRTC app&lt;/a&gt;
+mostly unmodified, with a simple WebGL skin on top.&lt;/p&gt;
+
+&lt;p&gt;A post from Chrome WebRTC team recently announced
+&lt;a href=&quot;http://www.webrtc.org/blog/sourcecodetoapprtcappspotcomexampleappavailable&quot;&gt;&quot;Source code to apprtc.appspot.com example app available&quot;&lt;/a&gt;.
+The post releases the
+&lt;a href=&quot;http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/&quot;&gt;source&lt;/a&gt;
+on google code.
+The &lt;a href=&quot;https://apprtc.appspot.com&quot;&gt;apprtc demo&lt;/a&gt;
+is a very simple, one-to-one, webrtc call.
+Go look at the &lt;a href=&quot;http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/&quot;&gt;source&lt;/a&gt;, dont be shy :)
+It is very small, the whole code client+server, is less than 15kbyte.
+It is easy to understand and deploy thanks too google App Engine.&lt;/p&gt;
+
+&lt;h2&gt;Face tracker seeking love ?&lt;/h2&gt;
+
+&lt;p&gt;Surprising hey ? Well the source contains a face tracker,
+&lt;a href=&quot;http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/html/face.html&quot;&gt;face.html&lt;/a&gt;.
+It works rather well but it is slow. If somebody could give it more love...
+It is a rather naive implementation which works well but got many rooms for speed improvement.
+It could make face tracking, less clumsy than wearing augmented reality marker on top
+of your head like
+&lt;a href=&quot;http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser/&quot;&gt;i did a while back&lt;/a&gt;
+:)&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I got the feeling WebRTC gonna change a lot of things soon. The peer-to-peer aspect makes it super
+cheap to integrate live video conferences to your own sites.&lt;/p&gt;
+
+&lt;p&gt;That's all folks, have fun!&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>tQuery WebAudio for More Realistic 3D</title>
@@ -2867,138 +2970,6 @@ It is a simple to add in your game.
 It provides a more immersive experience to your players.
 On a related subject, we will soon likely do a post about embedding your game in another page.
 It is usefull when you want to include it in a blog, in facebook or other game plateforms.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Lets Make a 3D Game: microphysics.js, even easier</title>
-    <link href="http://learningthreejs.com/blog/2011/11/02/lets-make-a-3d-game-helper-for-microphysics-js/"/>
-    <updated>2011-11-02T18:16:00+01:00</updated>
-    <id>http://learningthreejs.com/blog/2011/11/02/lets-make-a-3d-game-helper-for-microphysics-js</id>
-    <content type="html">&lt;p&gt;This post is part of the &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;&quot;Lets make a 3D game&quot;&lt;/a&gt; series.
-It is a follow up from the previous article on &lt;a href=&quot;http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/&quot;&gt;microphysics.js&lt;/a&gt;.
-It will describe how to easily include &lt;strong&gt;microphysics.js&lt;/strong&gt; in your three.js games.
-&lt;a href=&quot;https://raw.github.com/jeromeetienne/microphysics.js/master/THREEx.microphysics.js&quot;&gt;THREEx.microphysics.js&lt;/a&gt; is a THREEx wrapper for microphysics.js.
-It helps binding &lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt; objects to &lt;a href=&quot;http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/&quot;&gt;microphysics.js&lt;/a&gt;.
-The API is chained for convenience.&lt;/p&gt;
-
-&lt;h2&gt;Let's get started&lt;/h2&gt;
-
-&lt;p&gt;So lets see how to use it.
-First step, you download it
-&lt;a href=&quot;https://raw.github.com/jeromeetienne/microphysics.js/master/THREEx.microphysics.js&quot;&gt;here&lt;/a&gt;.
-Then include it in your own code with this line.&lt;/p&gt;
-
-&lt;p&gt;```html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;THREEx.microphysics.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;h2&gt;Initialisation&lt;/h2&gt;
-
-&lt;p&gt;You instanciate the physics engine, like that.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var microphysics = new THREEx.Microphysics(opts);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;opts&lt;/code&gt; is optional.
-&lt;code&gt;opts.timeStep&lt;/code&gt; controls the frequency of the world update.
-The smaller it is the more accurate is the physics but the longer it is to compute.
-It defaults to &lt;code&gt;1/60&lt;/code&gt;. Once instanciated, you start it.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;microphysics.start();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Binding THREE.Mesh&lt;/h2&gt;
-
-&lt;p&gt;Of course we need to add some mesh in the world. After this line, the &lt;code&gt;mesh&lt;/code&gt;
-is bound to microphysics.js, so its position is driven by the physics.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;microphysics.bindMesh(mesh, opts);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;mesh.position&lt;/code&gt; is honored.
-If you need to unbind a &lt;code&gt;mesh&lt;/code&gt;, just do&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;microphysics.unbindMesh(mesh);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;At the time of this writing, microphysics.js support only moving sphere and static
-boxes, so geometry may only be &lt;code&gt;THREE.SphereGeometry&lt;/code&gt; or &lt;code&gt;THREE.CubeGeometry&lt;/code&gt;.
-If your mesh got another geometry, use &lt;code&gt;opts.geometry&lt;/code&gt; to say how you wish the mesh
-to be handled.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;microphysics.bindMesh(mesh, {
-     geometry   : new THREE.CubeGeometry(200,200,200);
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;It is also possible to overwrite &lt;code&gt;Mesh.position&lt;/code&gt; with &lt;code&gt;opts.position&lt;/code&gt;, or
-to send options directly to microphysics.js with &lt;code&gt;opts.physics&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;microphysics.bindMesh(mesh, {
-    // to overwrite the Mesh.position
-    position    : { x : 1, y : 1, z : 2 },
-    // to pass options directly to microphysics.js
-    physics     : { restitution : 0.98 }
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Updating the physics&lt;/h2&gt;
-
-&lt;p&gt;In your render loop, just add this line. It will first update the physics world and
-then move accordingly any &lt;code&gt;THREE.Mesh&lt;/code&gt; you bound.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;microphysics.update();  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Needs a Direct Access ?&lt;/h2&gt;
-
-&lt;p&gt;If you need to have direct access to microphysics.js, uses
-&lt;code&gt;microphysics.body(mesh)&lt;/code&gt; to get the &lt;code&gt;vphy.Body&lt;/code&gt; bound to &lt;code&gt;mesh&lt;/code&gt;.
-To access &lt;code&gt;vphy.World&lt;/code&gt;, just use &lt;code&gt;microphysics.word()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;In the previous article on &lt;a href=&quot;http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/&quot;&gt;microphysics.js&lt;/a&gt;,
-we learned how to use microphysics.js directly. This article makes it really easy to include
-in your &lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt; demo/game.
-It is so nice that it is what is used in the
-&lt;a href=&quot;http://jeromeetienne.github.com/microphysics.js/playground/&quot;&gt;playground&lt;/a&gt;.
-That's all for today folks. Have fun :)&lt;/p&gt;
 </content>
   </entry>
   
