@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-05-02T15:42:05+02:00</updated>
+  <updated>2012-05-02T15:46:24+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -28,6 +28,11 @@ Nice for augmented reality + webgl + a game :)&lt;/p&gt;
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/ZTwhHwAHc3c&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
 
 
 &lt;p&gt;But First... What is &lt;em&gt;augmented gestures&lt;/em&gt; ?
@@ -81,11 +86,6 @@ Anyway publishing it in &quot;publish early, publish often&quot; mood :)&lt;/p&g
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/iunNd5lmAVE&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 </content>
   </entry>
