@@ -9,7 +9,15 @@ categories: [tquery, threejs, augmentedreality, webrtc]
 This post presents a livecoding screencast of **Augmented Reality 3D Pong**.
 This is an experiment to use [augmented gestures](https://github.com/jeromeetienne/augmentedgesture.js)
 as a way to interact with game. So i picked a game classic ["pong"](http://en.wikipedia.org/wiki/Pong).
-We gonna learn how to code a pong in augmented reality with webgl.
+We gonna learn how to code a pong in augmented reality with webgl. The result code
+is only
+[100lines](https://github.com/jeromeetienne/augmentedgesture.js/blob/master/examples/augmentedpong/index.html)!!
+Nice for augmented reality + webgl + a game :)
+
+<center>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/ZTwhHwAHc3c" frameborder="0" allowfullscreen></iframe>
+</center>
+
 
 But First... What is *augmented gestures* ?
 I made [augmentedgesture.js](https://github.com/jeromeetienne/augmentedgesture.js).
