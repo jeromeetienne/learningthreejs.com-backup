@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-05-02T15:40:01+02:00</updated>
+  <updated>2012-05-02T15:42:05+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -21,7 +21,9 @@
 This is an experiment to use &lt;a href=&quot;https://github.com/jeromeetienne/augmentedgesture.js&quot;&gt;augmented gestures&lt;/a&gt;
 as a way to interact with game. So i picked a game classic &lt;a href=&quot;http://en.wikipedia.org/wiki/Pong&quot;&gt;&quot;pong&quot;&lt;/a&gt;.
 We gonna learn how to code a pong in augmented reality with webgl. The result code
-is only 100lines!! nice for augmented reality + webgl + a game :)&lt;/p&gt;
+is only
+&lt;a href=&quot;https://github.com/jeromeetienne/augmentedgesture.js/blob/master/examples/augmentedpong/index.html&quot;&gt;100lines&lt;/a&gt;!!
+Nice for augmented reality + webgl + a game :)&lt;/p&gt;
 
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/ZTwhHwAHc3c&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
