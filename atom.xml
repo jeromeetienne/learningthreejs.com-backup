@@ -4,13 +4,283 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-05-02T15:46:24+02:00</updated>
+  <updated>2012-05-04T14:23:49+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>tQuery plugin for Doom Characters</title>
+    <link href="http://learningthreejs.com/blog/2012/05/04/tquery-md2character-a-plugin-for-doom-characters/"/>
+    <updated>2012-05-04T10:26:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2012/05/04/tquery-md2character-a-plugin-for-doom-characters</id>
+    <content type="html">&lt;p&gt;This post is about
+&lt;a href=&quot;https://github.com/jeromeetienne/tquery/tree/dev/plugins/md2character&quot;&gt;tQuery.md2Character&lt;/a&gt;
+plugin: a cool plugin which allow you to easily play with doom characters. You can see a live demo
+&lt;a href=&quot;http://learningthreejs.com/data/2012-05-04-tquery-md2character-a-plugin-for-doom-characters/examples&quot;&gt;here&lt;/a&gt;.
+I will walk you thru its example. It include a checkerboard for the ground, a fog for the depth, keyboard to
+move your player and obviously plugins for the MD2 characters (doom formats).
+We gonna learn how to move doom characters in webgl in only 50lines of javascript!&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/BaCEKbWXbfM&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Background knowledge&lt;/h2&gt;
+
+&lt;p&gt;First what means MD2 ?
+&lt;a href=&quot;http://en.wikipedia.org/wiki/MD2_(file_format)&quot;&gt;MD2&lt;/a&gt; is the file format used in the famous
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Quake_II&quot;&gt;Quake II&lt;/a&gt;.
+Many of the monster you love to hate can be found in this format :)
+You can find md2 models
+  at &lt;a href=&quot;http://www.md2.sitters-electronics.nl/models.html&quot;&gt;sitters-electronics&lt;/a&gt;
+  or at &lt;a href=&quot;http://planetquake.gamespy.com/View.php?view=Quake2.Detail&amp;amp;id=69&quot;&gt;planet quake&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can use it easily in three.js thanks to &lt;a href=&quot;https://twitter.com/#!/oosmoxiecode&quot;&gt;oosmoxiecode&lt;/a&gt;
+He wrote a nice converter from
+  &lt;a href=&quot;http://en.wikipedia.org/wiki/MD2_(file_format)&quot;&gt;MD2&lt;/a&gt;
+  to
+  &lt;a href=&quot;https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3.0&quot;&gt;three.js json format&lt;/a&gt;.
+  He wrote a &lt;a href=&quot;http://oos.moxiecode.com/blog/2012/01/md2-to-json-converter/&quot;&gt;post about it&lt;/a&gt;
+  with plenty of usefull info on the subject.
+&lt;a href=&quot;http://alteredqualia.com/&quot;&gt;alteredq&lt;/a&gt; wrote
+several &lt;a href=&quot;http://alteredqualia.com/three/examples/webgl_morphtargets_md2_control.html&quot;&gt;cool&lt;/a&gt;
+&lt;a href=&quot;http://alteredqualia.com/three/examples/webgl_morphtargets_md2.html&quot;&gt;demos&lt;/a&gt;
+using it.&lt;/p&gt;
+
+&lt;h2&gt;Let's Get Started&lt;/h2&gt;
+
+&lt;p&gt;We gonna walk you thru the 50lines of javascript needed make this demo.
+It is rather simple. It implies tQuery obviously, and various plugins:
+One for the fog, one for the checkerboard used as ground, one to
+bind the keyboard and obviously plugins for the MD2 Character itself.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://learningthreejs.com/data/2012-05-04-tquery-md2character-a-plugin-for-doom-characters/examples&quot;
+    webkitallowfullscreen mozallowfullscreen allowfullscreen 
+    width=&quot;100%&quot; height=&quot;420&quot; frameborder=&quot;0&quot;&gt;
+&lt;/iframe&gt;
+
+
+&lt;p&gt;Nice demo no ? You can try it
+&lt;a href=&quot;http://learningthreejs.com/data/2012-05-04-tquery-md2character-a-plugin-for-doom-characters/examples&quot;&gt;here&lt;/a&gt;.
+Let's code it!&lt;/p&gt;
+
+&lt;h2&gt;The 3D World&lt;/h2&gt;
+
+&lt;p&gt;First we initialize the world in 3D.
+With &lt;code&gt;tQuery.createWorld()&lt;/code&gt;, we create a &lt;code&gt;tQuery.World&lt;/code&gt;.
+With &lt;code&gt;.boilerplate()&lt;/code&gt;, we setup a boilerplate on this world. A boilerplate is
+a fast way to get you started on the right foot. It is the
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;learningthreejs boilerplate for three.js&lt;/a&gt;
+With &lt;code&gt;.start()&lt;/code&gt;, we start the rendering loop. So from now on, the world scene
+gonna be rendered periodically, typically 60time per seconds.&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var world   = tQuery.createWorld().boilerplate().start();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Change the background color. This confusing line ensure the background of the
+3D scene will be rendered as &lt;code&gt;0x000000&lt;/code&gt; color, aka black. We set a black
+background to give an impression of night.&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.renderer().setClearColorHex( 0x000000, world.renderer().getClearAlpha() );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;The Lights&lt;/h2&gt;
+
+&lt;p&gt;Here we setup the lights of our scene. This is important as it determine how
+your scene looks. We add a ambient light and 2 directional lights.
+The ambient light is a dark grey, to simulate the lack of light during the night.
+We setup a directional light in front colored redish.... This is like a setting sun.
+In the opposite direction, we put another direction light, bluish. This is like
+the moon. Well this was my rational :)&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createAmbientLight().addTo(world).color(0x444444);
+tQuery.createDirectionalLight().addTo(world).position(-1,1,1).color(0xFF88BB).intensity(3);
+tQuery.createDirectionalLight().addTo(world).position( 1,1,-1).color(0x4444FF).intensity(2);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;The fog&lt;/h2&gt;
+
+&lt;p&gt;We had a fog to the scene.
+For that, we use &lt;code&gt;tquery.world.createfog.js&lt;/code&gt; plugins.
+It allows to create the 2 types of fog from three.js
+: &lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/scenes/FogExp2.js&quot;&gt;fogexp2&lt;/a&gt;
+and
+&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/scenes/Fog.js&quot;&gt;fog&lt;/a&gt;.
+&lt;code&gt;density&lt;/code&gt; is the density of the fog. 0.01 is very light, 0.9 is almost opaque.
+In general, fogs are a nice visual trick. It is rather cheap to compute
+and limits the depth of what you see.
+It is a nice trick to hide the &quot;end of the world&quot; :)&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.addFogExp2({density : 0.1});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;The Columns&lt;/h3&gt;
+
+&lt;h4&gt;initialize a material&lt;/h4&gt;
+
+&lt;p&gt;We will apply it to all the columns. It is &lt;a href=&quot;http://en.wikipedia.org/wiki/Lambertian_reflectance&quot;&gt;lambert lighting&lt;/a&gt;
+the &lt;code&gt;ambient&lt;/code&gt; is the color which gonna be combined with be combined with the ambient
+light we initialized on top. &lt;code&gt;color&lt;/code&gt; will be combined with the
+directional lights. and &lt;code&gt;map&lt;/code&gt; gives the texture to use.&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var material    = new THREE.MeshLambertMaterial({
+    ambient : 0xFFFFFF,
+    color   : 0xFFAAAA,
+    map : THREE.ImageUtils.loadTexture('../../assets/images/water.jpg')
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h4&gt;Build 15 Columns&lt;/h4&gt;
+
+&lt;p&gt;loop over each column&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for(var i = 0; i &amp;lt; 15; i++ ){
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Create the cylinder. We pass some parameters to the contructor to setup
+the size we see fit, and we add the material we want to apply on the
+cylinder. Then we use &lt;code&gt;.addTo()&lt;/code&gt; to add our object to
+our &lt;code&gt;tQuery.World&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    var column  = tQuery.createCylinder(0.2,0.2,2, material).addTo(world);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Change the position of the column. We translate the column to build
+a kind of alley. Thus the character will be able to run inside it :)&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    column.translateX(i%2 ? +1 : -1).translateY(1).translateZ(15/2 + -1*i);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;The Ground&lt;/h3&gt;
+
+&lt;p&gt;We create a large checkerboard with &lt;code&gt;tquery.checkerboard.js&lt;/code&gt; plugin.
+We scale the checkerboard to 100 per 100 units in the 3D world. Thus it is
+quite large and disappears into the fog. It gives the cheap impression of
+an infinite checkerboard.&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createCheckerboard({
+    segmentsW   : 100,  // number of segment in width
+    segmentsH   : 100   // number of segment in Height
+}).addTo(world).scaleBy(100);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;The Character&lt;/h3&gt;
+
+&lt;p&gt;We use &lt;code&gt;tQuery.RatamahattaMD2Character&lt;/code&gt; plugin. Its inherits from
+&lt;code&gt;tQuery.MD2Character&lt;/code&gt; plugin. All the configuration for this particular
+character &lt;code&gt;ratamahatta&lt;/code&gt; is already done for you.
+We attach it to tQuery world.
+Additionnaly we use &lt;code&gt;.hookKeyboard()&lt;/code&gt; which bind arrow key to character moving.
+This function is part of
+&lt;a href=&quot;../../tquery.md2character.ratamahatta.keyboard.js&quot;&gt;keyboard plugins for ratamahatta&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var character   = new tQuery.RatamahattaMD2Character().attach(world).hookKeyboard();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Here we show an example of binding the &quot;loaded&quot; event.
+It is notified once the whole characters data are loaded (texture, mesh for animations of
+body and weapons). It just display the name of the available animations.&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;character.bind(&quot;loaded&quot;, function(){
+    console.log(&quot;list animmation&quot;, Object.keys(character._meshBody.geometry.animations))
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;We setup the user camera controls.
+It will determine how the user camera will move in the world scene.
+We use &lt;code&gt;tQuery.MD2Character.CameraControls&lt;/code&gt; plugin made specially
+for this case. With it, the camera will follow the MD2 character looking
+at it from above.
+world.setCameraControls(new tQuery.MD2Character.CameraControls(character));&lt;/p&gt;
+
+&lt;h3&gt;Change the Skin by Keyboard&lt;/h3&gt;
+
+&lt;p&gt;hook a function in the rendering loop. This function will be executed everytime
+the scene is rendered. Within this function, we will use &lt;code&gt;tQuery.Keyboard&lt;/code&gt;
+plugins to test the keyboard. if the key &lt;code&gt;s&lt;/code&gt; is pressed, then use &lt;code&gt;character.setSkin()&lt;/code&gt;
+to change the skin of the character.&lt;/p&gt;
+
+&lt;p&gt;```js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.loop().hook(function(){
+    var keyboard    = tQuery.keyboard();    // get keyboard instance
+    if( keyboard.pressed(&quot;s&quot;) ){        // if the key 's' is pressed, change the skin
+        character.setSkin(Math.floor(Math.random()*5));
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;So we have seen what is possible to do with &lt;code&gt;tquery.md2character&lt;/code&gt; and 50lines of javascript.
+It is a rather short code for what you got on the screen, if you ask me.
+Btw all that released under MIT license.
+I think i like the &lt;strong&gt;code walkthru&lt;/strong&gt; format.
+I find it efficient to describe tQuery examples and fast for me to generate.
+It is directly derived from &lt;a href=&quot;http://jashkenas.github.com/docco/&quot;&gt;annoted doc format&lt;/a&gt;
+as you can see &lt;a href=&quot;http://learningthreejs.com/data/2012-05-04-tquery-md2character-a-plugin-for-doom-characters/examples/docs/&quot;&gt;here&lt;/a&gt;.
+I will likely do more in the future.&lt;/p&gt;
+
+&lt;p&gt;That's all folks. Have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Augmented Reality 3D Pong</title>
@@ -2744,181 +3014,6 @@ You may look at the source of our dice
 &lt;a href=&quot;http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/&quot;&gt;demo&lt;/a&gt;
 to see a working version of this code.
 That's all for today, have fun :)&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Lets Make a 3D Game: Make It Embedded</title>
-    <link href="http://learningthreejs.com/blog/2011/11/21/lets-make-a-3d-game-make-it-embedded/"/>
-    <updated>2011-11-21T16:32:00+01:00</updated>
-    <id>http://learningthreejs.com/blog/2011/11/21/lets-make-a-3d-game-make-it-embedded</id>
-    <content type="html">&lt;iframe src=&quot;http://marblesoccer.com&quot;
-    allowfullscreen webkitallowfullscreen mozallowfullscreen
-    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
-&lt;/iframe&gt;
-
-
-&lt;p&gt;This post is part of the &lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;&quot;Let's make a 3D game&quot;&lt;/a&gt; series.
-The previous post was on
-&lt;a href=&quot;http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/&quot;&gt;fullscreen API&lt;/a&gt;.
-Here is another one on resizing the display area.
-This post is about embedding your game in another page.
-It is usefull to include it in a blog, in facebook, iGoogle or other game plateforms.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://marblesoccer.com&quot;&gt;MarbleSoccer&lt;/a&gt;
-now contains all the tricks explained in this post.
-&lt;em&gt;Show dont tell&lt;/em&gt;, you can see it embedded on the left.
-Embedding your game implies various things.
-As your game is hosted in another page, it likely got a smaller display area.
-HTML5
-&lt;a href=&quot;http://www.w3.org/TR/css3-mediaqueries/&quot;&gt;CSS media query&lt;/a&gt;
-makes it easy to fit various sizes.
-Another part are the
-&lt;a href=&quot;http://en.wikipedia.org/wiki/DOM_events&quot;&gt;DOM events&lt;/a&gt;
-from the iframe.
-They will be propagated to the host page and may produce undesirable effects.
-We see how to shield them.
-But first let's see about
-&lt;a href=&quot;http://en.wikipedia.org/wiki/HTML_element#Frames&quot;&gt;iframe&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;Let's go play in an iframe&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/HTML_element#Frames&quot;&gt;iframe&lt;/a&gt;
-is an easy and secure way to embed a page in another.
-Let's declare it.&lt;/p&gt;
-
-&lt;p&gt;```html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;iframe src=&quot;http://marblesoccer.com&quot;
-    allowfullscreen webkitallowfullscreen mozallowfullscreen
-    width=&quot;480&quot; height=&quot;320&quot; frameborder=&quot;0&quot;&amp;gt;
-&amp;lt;/iframe&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;p&gt;The attributes are pretty classics: &lt;code&gt;frameborder&lt;/code&gt; to remove an ugly default border,
-&lt;code&gt;width&lt;/code&gt; and &lt;code&gt;height&lt;/code&gt; for size and &lt;code&gt;src&lt;/code&gt; for your game page.
-The ones ending with &lt;code&gt;allowfullscreen&lt;/code&gt; tell the browser that this iframe is
-allowed to go fullscreen. More about fullscreen in this
-&lt;a href=&quot;http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/&quot;&gt;previous post&lt;/a&gt;
-or in the &lt;a href=&quot;http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html&quot;&gt;spec&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;You may need to determined if your game is embedded or not.
-Use this line will tell if it is in a iframe or not.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var isInIframe  = (window != window.top);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Fit in a smaller display area&lt;/h2&gt;
-
-&lt;p&gt;When your game is embedded, it is likely to have a smaller display area.
-How to deal with this ?
-First, we have 2 types of rendering in our game:
-a 3D display where
-&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
-displays the
-&lt;a href=&quot;http://en.wikipedia.org/wiki/WebGL&quot;&gt;WebGL&lt;/a&gt;, and
-a DOM display for
-&lt;a href=&quot;http://en.wikipedia.org/wiki/On-screen_display&quot;&gt;OSD&lt;/a&gt;
-such as score, timers and other popups.&lt;/p&gt;
-
-&lt;p&gt;For &lt;em&gt;3D rendering&lt;/em&gt;, we have already seen window resizing in
-&lt;a href=&quot;http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/&quot;&gt;this post&lt;/a&gt;.
-Just download
-&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;THREEx.WindowResize&lt;/a&gt;
-and add this line and you are done. Not too hard, hey.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;THREEx.WindowResize(renderer, camera);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Now &lt;em&gt;the DOM display&lt;/em&gt;. It may simply be done via CSS
-and
-&lt;a href=&quot;http://www.w3.org/TR/css3-mediaqueries/&quot;&gt;media queries&lt;/a&gt;.
-Typically, you may reduce the size of your font or icons.
-I won't try to teach css, other do that much
-&lt;a href=&quot;https://developer.mozilla.org/en/CSS/Media_queries&quot;&gt;better&lt;/a&gt;
-&lt;a href=&quot;http://www.html5rocks.com/en/mobile/mobifying.html#toc-mediaqueries&quot;&gt;than&lt;/a&gt;
-&lt;a href=&quot;http://thinkvitamin.com/code/media-queries-width-and-height-video-tutorial/&quot;&gt;me&lt;/a&gt;.
-Just a pick of what i did, not sure at all it is the best way.
-I reduce the OSD display if your game page is 640px or less.&lt;/p&gt;
-
-&lt;p&gt;```css&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;@media all and (max-width: 640px) {
-    /* here put your style specific for embedded case */
-    body { font-size : 60%; }
-    img { width : 48px; }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Shield Events&lt;/h2&gt;
-
-&lt;p&gt;Strange section title, hey.
-It means &lt;em&gt;prevents DOM events from the iframe to interfere with the host page&lt;/em&gt;.
-Not much clearer...
-Maybe with an example ? Let's see the arrows+scroll case.
-Show dont tell.
-Below are 2 iframes: on the left, no shielding happens, on the right shielding happens.
-Try to click on them and use arrows up/down.&lt;/p&gt;
-
-&lt;iframe src=&quot;http://learningthreejs.com/data/THREEx/examples/threex.embedded/noshield-iframe.html&quot; width='50%' height='120px'&gt;&lt;/iframe&gt;
-
-
-&lt;iframe src=&quot;http://learningthreejs.com/data/THREEx/examples/threex.embedded/withshield-iframe.html&quot; width='49%' height='120px'&gt;&lt;/iframe&gt;
-
-
-&lt;p&gt;On the left, the host page scrolls, but not on the right.
-Why does this happen ? good question :)
-If our game iframe got the focus and users press up or down, the iframe will received
-&lt;a href=&quot;http://www.quirksmode.org/dom/events/keys.html&quot;&gt;keydown/keyup events&lt;/a&gt;.
-Up to now, all is ok...
-Troubles appear when those events are bubbling to the host page, they may trigger a scrolling.&lt;/p&gt;
-
-&lt;p&gt;Imagine the page going up and down while you play, the game becomes unplayable very fast :)
-So here is the code which prevents this behavior. It listens to arrows
-&lt;a href=&quot;http://www.quirksmode.org/dom/events/keys.html&quot;&gt;keydown events&lt;/a&gt;.
-and prevent their default.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;document.addEventListener('keydown', function(event){
-    // if it is keydown on a arrow, prevent default
-    if( event.keyCode &amp;gt;= 37 &amp;amp;&amp;amp; event.keyCode &amp;lt;= 40 ){
-        event.preventDefault();
-    }
-}, true);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;I gathered the code in
-&lt;a href=&quot;http://learningthreejs.com/data/THREEx/threex.embedded.js&quot;&gt;threex.embedded&lt;/a&gt;,
-see its
-&lt;a href=&quot;http://learningthreejs.com/data/THREEx/docs/threex.embedded.html&quot;&gt;annoted source&lt;/a&gt;.
-Iframe is a easy and secure way to make your game embeddable.
-We have seen how to handle smaller display area
-with
-&lt;a href=&quot;http://learningthreejs.com/data/THREEx/THREEx.WindowResize.js&quot;&gt;THREEx.WindowResize&lt;/a&gt;
-and
-&lt;a href=&quot;http://www.w3.org/TR/css3-mediaqueries/&quot;&gt;media queries&lt;/a&gt;.
-Additionnaly we even shield DOM events, so we can use arrow keys for player control.
-You are all set! Go embed your game now :)&lt;/p&gt;
 </content>
   </entry>
   
