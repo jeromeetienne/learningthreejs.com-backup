@@ -1,0 +1,514 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Learning Three.js: Sound Visualisation: a Vuemeter in WebGL</title>
+  <meta name="author" content="Jerome Etienne">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://learningthreejs.com/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/LearningThreejs" rel="alternate" title="Learning Three.js" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-4037844-19']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Learning Three.js</a></h1>
+  
+    <h2>or WebGL for Dummies</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/LearningThreejs" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:learningthreejs.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Sound Visualisation: A Vuemeter in WebGL</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2012-05-08 10:32:00 +0200" pubdate  updated >May 8<span>th</span>, 2012</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This post is about producing a 3D Vuemeter for real time sound.
+We gonna walk thru the code of a
+<a href="https://github.com/jeromeetienne/webaudio.js">webaudio.js</a> example.
+This example will show you how to create a WebGL vuemetter with
+<a href="https://github.com/jeromeetienne/webaudio.js">webaudio.js</a>.
+It should be simple to understand, only 40-lines of javascript.
+<a href="https://github.com/jeromeetienne/webaudio.js">webaudio.js</a> is a web audio library
+for game. We gonna use it to reach <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">Web Audio API</a>.
+We gonna use <a href="https://github.com/jeromeetienne/tquery">tQuery</a>
+to reach <a href="http://github.com/mrdoob/three.js/">three.js 3D engine</a>.</p>
+
+<p><code>webaudio.js</code> has been first coded as a tQuery plugin.
+You can find a <a href="http://learningthreejs.com/blog/2012/03/20/sounds-for-more-realistic-3d/">post about it</a>
+on <a href="http://learningthreejs.com">learningthreejs</a> blog.
+But this technology is so nice, it deserved its <a href="https://github.com/jeromeetienne/webaudio.js">own repository</a>.
+The library gained in flexibility in the process: It is now possible to display histogram in canvas2D
+of simply play sound, with no 3D at all :) see <a href="http://jeromeetienne.github.com/webaudio.js/#examples">here</a> for a list of
+webaudio.js examples.</p>
+
+<p><a href="http://jeromeetienne.github.com/webaudio.js/examples/histotquery.html">Try the demo</a>.
+This is the result that we gonna build together.
+Below is a small <a href="http://www.youtube.com/watch?v=--Gv2EI2a-U">screencast</a> of me presenting the code.</p>
+
+<center>
+    <iframe width="425" height="349" src="http://www.youtube.com/embed/--Gv2EI2a-U" frameborder="0" allowfullscreen></iframe>
+</center>
+
+
+
+
+<!-- more -->
+
+
+<h2>Background Knowledge</h2>
+
+<p><strong>Web Audio API</strong> is aimed for games and based on openAL.
+Its API is real nice tho. It is Efficient and flexible.
+It is efficient because most processing happen in native code,
+still you configure it in js, your favorite language :)
+It is flexible as it is based on a routing concept which
+give you great controls on the sounds you play.</p>
+
+<p>You can find
+<a href="http://www.html5rocks.com/en/tutorials/#technology:multimedia">many good tutorials</a>
+on the matter on
+<a href="http://www.html5rocks.com/en/">html5rocks</a>.
+I recently did a presentation at <a href="http://www.musichackparis.org">musichackparis</a> on Web Audio API.
+If you want to know more, slides are <a href="http://jeromeetienne.github.com/slides/webaudioapi">here</a>.
+This API is available on WebKit based browser, so safari and chrome and its derivative.
+Unfortunatly this API isn&#8217;t compatible with major webgl browsers e.g. firefox and opera.
+The <strong>Web Audio API</strong> is real nice tho. Efficient flexible
+Sound is still the poor lone child of the web :(
+Well let&#8217;s have fun with what we have.</p>
+
+<h2>Let&#8217;s get started</h2>
+
+<p>Ok the very begining is real simple. We init a basic html page.
+Then we include the dependancies in javascript.
+We include <a href="https://github.com/jeromeetienne/webaudio.js">webaudio.js</a> to handle the sound playing and analysis.
+Then we just have to include <a href="https://github.com/jeromeetienne/tquery">tquery</a>.
+tquery-bundle.js is <a href="https://github.com/jeromeetienne/tquery">tquery</a>
+bundled with
+<a href="http://github.com/mrdoob/three.js/">three.js</a> in a single file for convenience.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="cp">&lt;!doctype html&gt;</span><span class="nt">&lt;title&gt;</span>webaudio example: histo3d<span class="nt">&lt;/title&gt;</span>
+</div><div class='line'><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;../build/webaudio.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</div><div class='line'><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;vendor/tquery/tquery-bundle.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</div><div class='line'><span class="nt">&lt;body&gt;&lt;script&gt;</span>
+</div></code></pre></td></tr></table></div>
+
+<h2>Let&#8217;s Code in JS</h2>
+
+<p>First we gonna intenciate <code>WebAudio</code>. This will initialize the layer.
+It will create the <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioNode-section">AudioNode</a>`s
+for the end of the chain.
+By default it contains a
+<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioGainNode">gainNode</a>
+and a
+<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#DynamicsCompressorNode">compressorNode</a>.
+The gainNode is used to tune the volume. and the compressNode to smooth the peaks we could
+hit in the sound.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">webaudio</span>    <span class="o">=</span> <span class="k">new</span> <span class="n">WebAudio</span><span class="p">();</span>
+</div></code></pre></td></tr></table></div>
+
+<p>Now that we go webaudio available, let&#8217;s use it to create the sound we gonna play.
+<code>.createSound()</code> will create a <code>WebAudio.Sound</code>. Then we <code>.load()</code> it
+from this url &#8216;sounds/perfume.mp3&#8217;. The callback will be notified as soon as the sound
+is loaded. Then we simply start to play it. Don&#8217;t forget to get <code>.loop(true)</code>
+thus the sound will loop forever.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">sound</span>   <span class="o">=</span> <span class="n">webaudio</span><span class="o">.</span><span class="n">createSound</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;sounds/perfume.mp3&#39;</span><span class="p">,</span> <span class="n">function</span><span class="p">(</span><span class="n">sound</span><span class="p">){</span>
+</div><div class='line'>    <span class="n">sound</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="n">true</span><span class="p">)</span><span class="o">.</span><span class="n">play</span><span class="p">();</span>
+</div><div class='line'><span class="p">});</span>
+</div></code></pre></td></tr></table></div>
+
+<h2>Initialize the 3D World</h2>
+
+<p>First we initialize the world in 3D.
+With <code>tQuery.createWorld()</code>, we create a <code>tQuery.World</code>.
+With <code>.boilerplate()</code>, we setup a boilerplate on this world. A boilerplate is
+a fast way to get you started on the right foot. It is the
+<a href="http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/">learningthreejs boilerplate for three.js</a>
+With <code>.start()</code>, we start the rendering loop. So from now on, the world scene
+gonna be rendered periodically, typically 60time per seconds.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">world</span>   <span class="o">=</span> <span class="n">tQuery</span><span class="o">.</span><span class="n">createWorld</span><span class="p">()</span><span class="o">.</span><span class="n">boilerplate</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">();</span>
+</div></code></pre></td></tr></table></div>
+
+<p>We Change the background color. This confusing line ensure the background of the
+3D scene will be rendered as <code>0x000000</code> color, aka black.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">world</span><span class="o">.</span><span class="n">renderer</span><span class="p">()</span><span class="o">.</span><span class="n">setClearColorHex</span><span class="p">(</span> <span class="mh">0x000000</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">renderer</span><span class="p">()</span><span class="o">.</span><span class="n">getClearAlpha</span><span class="p">()</span> <span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p>Here we setup the lights of our scene. This is a key factor for the look and feel
+of your scene. We add a ambient light and 2 directional lights.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">tQuery</span><span class="o">.</span><span class="n">createAmbientLight</span><span class="p">()</span><span class="o">.</span><span class="n">addTo</span><span class="p">(</span><span class="n">world</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="mh">0x888888</span><span class="p">);</span>
+</div><div class='line'><span class="n">tQuery</span><span class="o">.</span><span class="n">createDirectionalLight</span><span class="p">()</span><span class="o">.</span><span class="n">addTo</span><span class="p">(</span><span class="n">world</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="mh">0x88FF88</span><span class="p">);</span>
+</div><div class='line'><span class="n">tQuery</span><span class="o">.</span><span class="n">createDirectionalLight</span><span class="p">()</span><span class="o">.</span><span class="n">addTo</span><span class="p">(</span><span class="n">world</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="mh">0x8888FF</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<h2>Some constants</h2>
+
+<p>First we initialize <code>nBar</code> to store number of bars in our 3D vuemeter.
+This number MUST be odd, thus the vuemeter is symteric with the middle</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">nBar</span>    <span class="o">=</span> <span class="mi">41</span><span class="p">;</span>
+</div><div class='line'><span class="n">console</span><span class="o">.</span><span class="n">assert</span><span class="p">(</span><span class="n">nBar</span><span class="nv">%2</span><span class="p">,</span> <span class="s">&quot;nBar MUST be a odd number.&quot;</span><span class="p">)</span>
+</div></code></pre></td></tr></table></div>
+
+<p>Now we need to compute the width of each 3D bar. The whole vuemeter is
+ 80 wide. So each bar is <code>80/nBar</code> wide.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">barW</span>    <span class="o">=</span> <span class="mi">80</span><span class="o">/</span><span class="n">nBar</span><span class="p">;</span>
+</div></code></pre></td></tr></table></div>
+
+<p>We create an array <code>bars3d</code>. We will use it to store the object3D
+for all bars of the  histogram.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">bars3d</span>  <span class="o">=</span> <span class="o">[]</span><span class="p">;</span>
+</div></code></pre></td></tr></table></div>
+
+<h2>Build the 3D VueMeter</h2>
+
+<p>First we create the container group3D which gonna regroup all the bar3D. It is the
+container of the whole 3D Vuemeter</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">group3d</span> <span class="o">=</span> <span class="n">tQuery</span><span class="o">.</span><span class="n">createObject3D</span><span class="p">()</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">addTo</span><span class="p">(</span><span class="n">world</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p>We gonna build each bar and add it to <code>group3d</code>.
+We loop to create <code>nBar</code> with <code>tQuery.createCube()</code>. In fact a bar
+is a rectangular box, so like a cube with different dimensions.
+a bar got a width of <code>barW</code>, an height of 10 and a depth of 5.
+The material is a simple <a href="http://en.wikipedia.org/wiki/Lambertian_reflection">lambert</a>.
+Once the bar is create, we add it to <code>group3d</code> and set it to the correct
+position in space.
+We push every bar3d into <code>bars3d</code> for future reference.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="k">for</span><span class="p">(</span><span class="n">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nBar</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</div><div class='line'>    <span class="n">var</span> <span class="n">bar3d</span>   <span class="o">=</span> <span class="n">tQuery</span><span class="o">.</span><span class="n">createCube</span><span class="p">(</span><span class="n">barW</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="k">new</span> <span class="n">THREE</span><span class="o">.</span><span class="n">MeshLambertMaterial</span><span class="p">({</span>
+</div><div class='line'>        <span class="n">ambient</span> <span class="p">:</span> <span class="mh">0x888888</span><span class="p">,</span>
+</div><div class='line'>        <span class="n">color</span>   <span class="p">:</span> <span class="mh">0xFFFFFF</span>
+</div><div class='line'>    <span class="p">}));</span>
+</div><div class='line'>    <span class="n">bar3d</span><span class="o">.</span><span class="n">addTo</span><span class="p">(</span><span class="n">group3d</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="n">nBar</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">barW</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</div><div class='line'>    <span class="n">bars3d</span><span class="o">.</span><span class="nb">push</span><span class="p">(</span><span class="n">bar3d</span><span class="p">);</span>
+</div><div class='line'><span class="p">}</span>
+</div></code></pre></td></tr></table></div>
+
+<h2>Update Vuemeter From Sound Analyser</h2>
+
+<p>Here we hook a function to tQuery rendering loop, <code>tQuery.Loop</code>. Thus
+this function gonna be executed everytime our 3D scene is rendered.
+if the sound isnt yet loaded, do nothing.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">world</span><span class="o">.</span><span class="n">loop</span><span class="p">()</span><span class="o">.</span><span class="n">hook</span><span class="p">(</span><span class="n">function</span><span class="p">(){</span>
+</div><div class='line'>    <span class="k">if</span><span class="p">(</span> <span class="n">sound</span><span class="o">.</span><span class="n">isPlayable</span><span class="p">()</span> <span class="o">===</span> <span class="n">false</span> <span class="p">)</span>  <span class="k">return</span><span class="p">;</span>
+</div></code></pre></td></tr></table></div>
+
+<p>build the histogram of the sound based on
+<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#RealtimeAnalyserNode">RealtimeAnalyserNode</a>
+<code>.getByteFrequencyData()</code></p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">nBarHalf</span>    <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">nBar</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</div><div class='line'><span class="n">var</span> <span class="n">histo</span>   <span class="o">=</span> <span class="n">sound</span><span class="o">.</span><span class="n">makeHistogram</span><span class="p">(</span><span class="n">nBarHalf</span><span class="p">);</span>
+</div></code></pre></td></tr></table></div>
+
+<p>We gonna loop over each bar3D of our vuemeter. We gonna update
+each of them based on the sound histogram we just computed.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">bars3d</span><span class="o">.</span><span class="n">forEach</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">bar3d</span><span class="p">,</span> <span class="n">barIdx</span><span class="p">){</span>
+</div></code></pre></td></tr></table></div>
+
+<p>We need to determine which value in the histogram match this vuemeter bar.
+As our vuemeter is symetric, the vuemeter bar on the far left got the same
+histogram value as the one on the far right. This make this computation
+a bit confusing.</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">histoIdx</span>        <span class="o">=</span> <span class="n">barIdx</span> <span class="o">&lt;</span> <span class="n">nBarHalf</span> <span class="p">?</span> <span class="n">nBarHalf</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">barIdx</span> <span class="p">:</span> <span class="n">barIdx</span> <span class="o">-</span> <span class="n">nBarHalf</span><span class="p">;</span>
+</div></code></pre></td></tr></table></div>
+
+<p>Now we need to compute the height of the vuemeter bar based on histogram value.
+This is simple scaling from one to the other: vuemeter height === histo height / 256</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">var</span> <span class="n">height</span>      <span class="o">=</span> <span class="n">histo</span><span class="p">[</span><span class="n">histoIdx</span><span class="p">]</span> <span class="o">/</span> <span class="mi">256</span><span class="p">;</span>
+</div></code></pre></td></tr></table></div>
+
+<p>Now that we computed all that, we update the <code>bar3d</code>. We update <code>.scale.y</code>
+to change its size and <code>.material.color</code> to change its color. The formulas
+i used &#8220;worked for me&#8221;. Up to you to be creative and find the one that fit
+your own needs</p>
+
+<div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">bar3d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">scale</span><span class="o">.</span><span class="n">y</span>    <span class="o">=</span> <span class="n">height</span><span class="o">*</span><span class="mi">3</span><span class="p">;</span>
+</div><div class='line'>        <span class="n">bar3d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">setHSV</span><span class="p">(</span><span class="mf">0.3</span><span class="o">+</span><span class="n">height</span><span class="o">*</span><span class="mf">0.7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</div><div class='line'>    <span class="p">});</span>
+</div><div class='line'><span class="p">});</span>
+</div></code></pre></td></tr></table></div>
+
+<h2>Conclusion</h2>
+
+<p>So we used
+<a href="https://github.com/jeromeetienne/webaudio.js">webaudio.js</a>
+to play a sound and analyses in real time.
+We used this information to change 3D objects based on this
+analysis.
+We leveraged <a href="https://github.com/jeromeetienne/tquery">tQuery</a>
+to reach <a href="http://github.com/mrdoob/three.js/">three.js 3D engine</a>.
+Now you can imagine any visual effect based on sound analysis.
+The road to winamp effects is open to you :)
+We got a rather nice looking WebGL output of a 3D Vuemeter in Real Time
+for only 40 lines of javascript. I love how short code
+reduces developement time.</p>
+
+<p>That&#8217;s all folks. Have fun :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jerome Etienne</span></span>
+
+      
+
+
+
+
+<time datetime="2012-05-08 10:32:00 +0200" pubdate  updated >May 8<span>th</span>, 2012</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/three-js/'>three.js</a>, <a class='category' href='/blog/categories/tquery/'>tquery</a>, <a class='category' href='/blog/categories/webaudio/'>webaudio</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'learningthreejs';
+  var disqus_identifier = 'http://learningthreejs.com/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/';
+  var disqus_url = 'http://learningthreejs.com/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/">Sound Visualisation: a Vuemeter in WebGL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/04/tquery-md2character-a-plugin-for-doom-characters/">tQuery plugin for Doom Characters</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/02/augmented-reality-3d-pong/">Augmented Reality 3D Pong</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/12/video-conference-on-top-of-webgl/">Video Conference on Top of WebGL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/20/sounds-for-more-realistic-3d/">tQuery WebAudio for More Realistic 3D</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("learningthreejs", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/learningthreejs" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @learningthreejs</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2012 - Jerome Etienne -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

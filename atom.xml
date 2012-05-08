@@ -4,13 +4,325 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-05-04T14:23:49+02:00</updated>
+  <updated>2012-05-08T14:30:53+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Sound Visualisation: a Vuemeter in WebGL</title>
+    <link href="http://learningthreejs.com/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/"/>
+    <updated>2012-05-08T10:32:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl</id>
+    <content type="html">&lt;p&gt;This post is about producing a 3D Vuemeter for real time sound.
+We gonna walk thru the code of a
+&lt;a href=&quot;https://github.com/jeromeetienne/webaudio.js&quot;&gt;webaudio.js&lt;/a&gt; example.
+This example will show you how to create a WebGL vuemetter with
+&lt;a href=&quot;https://github.com/jeromeetienne/webaudio.js&quot;&gt;webaudio.js&lt;/a&gt;.
+It should be simple to understand, only 40-lines of javascript.
+&lt;a href=&quot;https://github.com/jeromeetienne/webaudio.js&quot;&gt;webaudio.js&lt;/a&gt; is a web audio library
+for game. We gonna use it to reach &lt;a href=&quot;https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html&quot;&gt;Web Audio API&lt;/a&gt;.
+We gonna use &lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tQuery&lt;/a&gt;
+to reach &lt;a href=&quot;http://github.com/mrdoob/three.js/&quot;&gt;three.js 3D engine&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;webaudio.js&lt;/code&gt; has been first coded as a tQuery plugin.
+You can find a &lt;a href=&quot;http://learningthreejs.com/blog/2012/03/20/sounds-for-more-realistic-3d/&quot;&gt;post about it&lt;/a&gt;
+on &lt;a href=&quot;http://learningthreejs.com&quot;&gt;learningthreejs&lt;/a&gt; blog.
+But this technology is so nice, it deserved its &lt;a href=&quot;https://github.com/jeromeetienne/webaudio.js&quot;&gt;own repository&lt;/a&gt;.
+The library gained in flexibility in the process: It is now possible to display histogram in canvas2D
+of simply play sound, with no 3D at all :) see &lt;a href=&quot;http://jeromeetienne.github.com/webaudio.js/#examples&quot;&gt;here&lt;/a&gt; for a list of
+webaudio.js examples.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/webaudio.js/examples/histotquery.html&quot;&gt;Try the demo&lt;/a&gt;.
+This is the result that we gonna build together.
+Below is a small &lt;a href=&quot;http://www.youtube.com/watch?v=--Gv2EI2a-U&quot;&gt;screencast&lt;/a&gt; of me presenting the code.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/--Gv2EI2a-U&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Background Knowledge&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Web Audio API&lt;/strong&gt; is aimed for games and based on openAL.
+Its API is real nice tho. It is Efficient and flexible.
+It is efficient because most processing happen in native code,
+still you configure it in js, your favorite language :)
+It is flexible as it is based on a routing concept which
+give you great controls on the sounds you play.&lt;/p&gt;
+
+&lt;p&gt;You can find
+&lt;a href=&quot;http://www.html5rocks.com/en/tutorials/#technology:multimedia&quot;&gt;many good tutorials&lt;/a&gt;
+on the matter on
+&lt;a href=&quot;http://www.html5rocks.com/en/&quot;&gt;html5rocks&lt;/a&gt;.
+I recently did a presentation at &lt;a href=&quot;http://www.musichackparis.org&quot;&gt;musichackparis&lt;/a&gt; on Web Audio API.
+If you want to know more, slides are &lt;a href=&quot;http://jeromeetienne.github.com/slides/webaudioapi&quot;&gt;here&lt;/a&gt;.
+This API is available on WebKit based browser, so safari and chrome and its derivative.
+Unfortunatly this API isn't compatible with major webgl browsers e.g. firefox and opera.
+The &lt;strong&gt;Web Audio API&lt;/strong&gt; is real nice tho. Efficient flexible
+Sound is still the poor lone child of the web :(
+Well let's have fun with what we have.&lt;/p&gt;
+
+&lt;h2&gt;Let's get started&lt;/h2&gt;
+
+&lt;p&gt;Ok the very begining is real simple. We init a basic html page.
+Then we include the dependancies in javascript.
+We include &lt;a href=&quot;https://github.com/jeromeetienne/webaudio.js&quot;&gt;webaudio.js&lt;/a&gt; to handle the sound playing and analysis.
+Then we just have to include &lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tquery&lt;/a&gt;.
+tquery-bundle.js is &lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tquery&lt;/a&gt;
+bundled with
+&lt;a href=&quot;http://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt; in a single file for convenience.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;&amp;lt;title&amp;gt;webaudio example: histo3d&amp;lt;/title&amp;gt;
+&amp;lt;script src=&quot;../build/webaudio.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&quot;vendor/tquery/tquery-bundle.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;body&amp;gt;&amp;lt;script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Let's Code in JS&lt;/h2&gt;
+
+&lt;p&gt;First we gonna intenciate &lt;code&gt;WebAudio&lt;/code&gt;. This will initialize the layer.
+It will create the &lt;a href=&quot;https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioNode-section&quot;&gt;AudioNode&lt;/a&gt;`s
+for the end of the chain.
+By default it contains a
+&lt;a href=&quot;https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioGainNode&quot;&gt;gainNode&lt;/a&gt;
+and a
+&lt;a href=&quot;https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#DynamicsCompressorNode&quot;&gt;compressorNode&lt;/a&gt;.
+The gainNode is used to tune the volume. and the compressNode to smooth the peaks we could
+hit in the sound.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var webaudio    = new WebAudio();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now that we go webaudio available, let's use it to create the sound we gonna play.
+&lt;code&gt;.createSound()&lt;/code&gt; will create a &lt;code&gt;WebAudio.Sound&lt;/code&gt;. Then we &lt;code&gt;.load()&lt;/code&gt; it
+from this url 'sounds/perfume.mp3'. The callback will be notified as soon as the sound
+is loaded. Then we simply start to play it. Don't forget to get &lt;code&gt;.loop(true)&lt;/code&gt;
+thus the sound will loop forever.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var sound   = webaudio.createSound().load('sounds/perfume.mp3', function(sound){
+    sound.loop(true).play();
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Initialize the 3D World&lt;/h2&gt;
+
+&lt;p&gt;First we initialize the world in 3D.
+With &lt;code&gt;tQuery.createWorld()&lt;/code&gt;, we create a &lt;code&gt;tQuery.World&lt;/code&gt;.
+With &lt;code&gt;.boilerplate()&lt;/code&gt;, we setup a boilerplate on this world. A boilerplate is
+a fast way to get you started on the right foot. It is the
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;learningthreejs boilerplate for three.js&lt;/a&gt;
+With &lt;code&gt;.start()&lt;/code&gt;, we start the rendering loop. So from now on, the world scene
+gonna be rendered periodically, typically 60time per seconds.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var world   = tQuery.createWorld().boilerplate().start();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;We Change the background color. This confusing line ensure the background of the
+3D scene will be rendered as &lt;code&gt;0x000000&lt;/code&gt; color, aka black.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.renderer().setClearColorHex( 0x000000, world.renderer().getClearAlpha() );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Here we setup the lights of our scene. This is a key factor for the look and feel
+of your scene. We add a ambient light and 2 directional lights.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createAmbientLight().addTo(world).color(0x888888);
+tQuery.createDirectionalLight().addTo(world).position(+1,+1,1).color(0x88FF88);
+tQuery.createDirectionalLight().addTo(world).position(-1,-1, 1).color(0x8888FF);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Some constants&lt;/h2&gt;
+
+&lt;p&gt;First we initialize &lt;code&gt;nBar&lt;/code&gt; to store number of bars in our 3D vuemeter.
+This number MUST be odd, thus the vuemeter is symteric with the middle&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var nBar    = 41;
+console.assert(nBar%2, &quot;nBar MUST be a odd number.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we need to compute the width of each 3D bar. The whole vuemeter is
+ 80 wide. So each bar is &lt;code&gt;80/nBar&lt;/code&gt; wide.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var barW    = 80/nBar;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;We create an array &lt;code&gt;bars3d&lt;/code&gt;. We will use it to store the object3D
+for all bars of the  histogram.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var bars3d  = [];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Build the 3D VueMeter&lt;/h2&gt;
+
+&lt;p&gt;First we create the container group3D which gonna regroup all the bar3D. It is the
+container of the whole 3D Vuemeter&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var group3d = tQuery.createObject3D().scale(1/20).addTo(world);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;We gonna build each bar and add it to &lt;code&gt;group3d&lt;/code&gt;.
+We loop to create &lt;code&gt;nBar&lt;/code&gt; with &lt;code&gt;tQuery.createCube()&lt;/code&gt;. In fact a bar
+is a rectangular box, so like a cube with different dimensions.
+a bar got a width of &lt;code&gt;barW&lt;/code&gt;, an height of 10 and a depth of 5.
+The material is a simple &lt;a href=&quot;http://en.wikipedia.org/wiki/Lambertian_reflection&quot;&gt;lambert&lt;/a&gt;.
+Once the bar is create, we add it to &lt;code&gt;group3d&lt;/code&gt; and set it to the correct
+position in space.
+We push every bar3d into &lt;code&gt;bars3d&lt;/code&gt; for future reference.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for(var i = 0; i &amp;lt; nBar; i++){
+    var bar3d   = tQuery.createCube(barW, 10, 5, new THREE.MeshLambertMaterial({
+        ambient : 0x888888,
+        color   : 0xFFFFFF
+    }));
+    bar3d.addTo(group3d).position((i-nBar/2)*barW, 0, 0);
+    bars3d.push(bar3d);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Update Vuemeter From Sound Analyser&lt;/h2&gt;
+
+&lt;p&gt;Here we hook a function to tQuery rendering loop, &lt;code&gt;tQuery.Loop&lt;/code&gt;. Thus
+this function gonna be executed everytime our 3D scene is rendered.
+if the sound isnt yet loaded, do nothing.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.loop().hook(function(){
+    if( sound.isPlayable() === false )  return;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;build the histogram of the sound based on
+&lt;a href=&quot;https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#RealtimeAnalyserNode&quot;&gt;RealtimeAnalyserNode&lt;/a&gt;
+&lt;code&gt;.getByteFrequencyData()&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var nBarHalf    = Math.ceil(nBar/2)
+var histo   = sound.makeHistogram(nBarHalf);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;We gonna loop over each bar3D of our vuemeter. We gonna update
+each of them based on the sound histogram we just computed.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bars3d.forEach(function(bar3d, barIdx){
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;We need to determine which value in the histogram match this vuemeter bar.
+As our vuemeter is symetric, the vuemeter bar on the far left got the same
+histogram value as the one on the far right. This make this computation
+a bit confusing.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        var histoIdx        = barIdx &amp;lt; nBarHalf ? nBarHalf-1-barIdx : barIdx - nBarHalf;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we need to compute the height of the vuemeter bar based on histogram value.
+This is simple scaling from one to the other: vuemeter height === histo height / 256&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        var height      = histo[histoIdx] / 256;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now that we computed all that, we update the &lt;code&gt;bar3d&lt;/code&gt;. We update &lt;code&gt;.scale.y&lt;/code&gt;
+to change its size and &lt;code&gt;.material.color&lt;/code&gt; to change its color. The formulas
+i used &quot;worked for me&quot;. Up to you to be creative and find the one that fit
+your own needs&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        bar3d.get(0).scale.y    = height*3;
+        bar3d.get(0).material.color.setHSV(0.3+height*0.7,1,1)
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;So we used
+&lt;a href=&quot;https://github.com/jeromeetienne/webaudio.js&quot;&gt;webaudio.js&lt;/a&gt;
+to play a sound and analyses in real time.
+We used this information to change 3D objects based on this
+analysis.
+We leveraged &lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tQuery&lt;/a&gt;
+to reach &lt;a href=&quot;http://github.com/mrdoob/three.js/&quot;&gt;three.js 3D engine&lt;/a&gt;.
+Now you can imagine any visual effect based on sound analysis.
+The road to winamp effects is open to you :)
+We got a rather nice looking WebGL output of a 3D Vuemeter in Real Time
+for only 40 lines of javascript. I love how short code
+reduces developement time.&lt;/p&gt;
+
+&lt;p&gt;That's all folks. Have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>tQuery plugin for Doom Characters</title>
@@ -2843,177 +3155,6 @@ It helps provide a wide variety of effect in your games/demos.
 For more informations and authoritative answer, see the
 &lt;a href=&quot;https://github.com/zz85/sparks.js/&quot;&gt;github repository&lt;/a&gt;.
 That's all for today folks, have fun.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Constructive Solid Geometry With csg.js</title>
-    <link href="http://learningthreejs.com/blog/2011/12/10/constructive-solid-geometry-with-csg-js/"/>
-    <updated>2011-12-10T16:30:00+01:00</updated>
-    <id>http://learningthreejs.com/blog/2011/12/10/constructive-solid-geometry-with-csg-js</id>
-    <content type="html">&lt;p&gt;This post is about
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Constructive_solid_geometry&quot;&gt;constructive solid geometry&lt;/a&gt;
-, an impressive word :)
-In fact, it is just a way to build complex objects from simpler ones.
-Those simple objects are assembled using
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Algebra_of_sets&quot;&gt;operations&lt;/a&gt;
-such as union, difference and intersection.&lt;/p&gt;
-
-&lt;p&gt;Recently
-&lt;a href=&quot;http://madebyevan.com/&quot;&gt;Evan Wallas&lt;/a&gt;
-released
-&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt;,
-a clean self-contained library to do
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Constructive_solid_geometry&quot;&gt;constructive solid geometry&lt;/a&gt;.
-So &lt;a href=&quot;http://chandler.prallfamily.com/&quot;&gt;Chandler Prall&lt;/a&gt;
-wrote a
-&lt;a href=&quot;http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/&quot;&gt;bridge&lt;/a&gt;
-to make it easy to use with
-&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;With all this nice code, i wrote the little
-&lt;a href=&quot;http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/&quot;&gt;demo of a dice&lt;/a&gt;
-you can see on the right. Thus you can click to change the operations, play
-with it and have a feel of the various operations.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-
-
-&lt;iframe src=&quot;http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/&quot;
-    width=&quot;100%&quot; height=&quot;420&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
-&lt;/iframe&gt;
-
-
-&lt;h2&gt;Let's start&lt;/h2&gt;
-
-&lt;p&gt;So lets see how to use it. First step, you download
-csg.js from
-&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;here&lt;/a&gt;
-, ThreeCSG.js bridge from
-&lt;a href=&quot;http://chandler.prallfamily.com/labs/three/csg/ThreeCSG.js&quot;&gt;here&lt;/a&gt;
-. Then include those line in your own code.&lt;/p&gt;
-
-&lt;p&gt;```html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;csg.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&amp;lt;script src=&quot;ThreeCSG.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Let's convert&lt;/h2&gt;
-
-&lt;p&gt;Ok now that we got the source, let's use it.
-&lt;a href=&quot;http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/&quot;&gt;ThreeCSG.js&lt;/a&gt;
-is a bridge between
-&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
-and
-&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt;.
-Both libraries use a different format for geometry.
-&lt;a href=&quot;http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/&quot;&gt;ThreeCSG.js&lt;/a&gt;
-does the conversion back and forth.
-To convert your three.js geometry to a csg geometry, use this line.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var geometryCsg = THREE.CSG.toCSG(geometryThree);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Then you likely apply
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Algebra_of_sets&quot;&gt;boolean operations&lt;/a&gt;
-on
-&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt; geometry.
-To convert it back to three.js, just do&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var geometryThree   = THREE.CSG.fromCSG(geometryCsg);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;You end up with a normal &lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js&quot;&gt;three.js geometry&lt;/a&gt;
-than you can use everywhere, like
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/GeometryUtils.js&quot;&gt;GeometryUtils&lt;/a&gt;
-or
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/objects/Mesh.js&quot;&gt;Mesh&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2&gt;Let's assemble&lt;/h2&gt;
-
-&lt;p&gt;Now the fun part, lets assemble objects with those misterious
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Algebra_of_sets&quot;&gt;boolean operations&lt;/a&gt;
-on ours
-&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt;
-geometries.
-There are &lt;a href=&quot;http://en.wikipedia.org/wiki/Constructive_solid_geometry&quot;&gt;3 of them&lt;/a&gt;:
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Complement_(set_theory)&quot;&gt;difference&lt;/a&gt;,
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Union_(set_theory)&quot;&gt;union&lt;/a&gt;
-and
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Intersection_(set_theory)&quot;&gt;intersect&lt;/a&gt;.
-To build our dice, first we build a
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/CubeGeometry.js&quot;&gt;cube&lt;/a&gt;
-then we subtract a bunch of
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/extras/geometries/SphereGeometry.js&quot;&gt;spheres&lt;/a&gt;
-to makes the holes.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/images/image-substract-320x240.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
-
-&lt;p&gt;Once you converted your objects, you apply operations on them.
-For the dice, we use &lt;code&gt;.subtract()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cube.substract(spheres)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/images/image-union-320x240.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
-
-&lt;p&gt;But it is possible to use &lt;code&gt;.union()&lt;/code&gt; to add them.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cube.union(spheres)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Or to keep only the common part of both objects with &lt;code&gt;.intersect()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/images/image-intersect-320x240.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
-
-&lt;p&gt;You can chain those operations to your own taste.
-Up to you to be creative :)&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cube.intersect(spheres)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Constructive_solid_geometry&quot;&gt;Constructive solid Geometry&lt;/a&gt;
-is simple and quite powerfull.
-&lt;a href=&quot;http://evanw.github.com/csg.js/&quot;&gt;csg.js&lt;/a&gt;
-,
-&lt;a href=&quot;http://chandler.prallfamily.com/2011/12/constructive-solid-geometry-with-three-js/&quot;&gt;ThreeCSG.js&lt;/a&gt;
-and
-&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
-makes it real easy to play with.
-You may look at the source of our dice
-&lt;a href=&quot;http://learningthreejs.com/data/constructive-solid-geometry-with-csg-js/&quot;&gt;demo&lt;/a&gt;
-to see a working version of this code.
-That's all for today, have fun :)&lt;/p&gt;
 </content>
   </entry>
   
