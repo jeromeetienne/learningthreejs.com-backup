@@ -18,6 +18,7 @@ Nice for augmented reality + webgl + a game :)
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/ZTwhHwAHc3c" frameborder="0" allowfullscreen></iframe>
 </center>
 
+<!-- more -->
 
 But First... What is *augmented gestures* ?
 I made [augmentedgesture.js](https://github.com/jeromeetienne/augmentedgesture.js).
@@ -70,5 +71,3 @@ Enjoy
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/iunNd5lmAVE" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
