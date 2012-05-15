@@ -2,181 +2,181 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://learningthreejs.com/blog/2011/07/15/threejs-installation/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/07/28/presentation_at_parisjs/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/06/lets-do-a-cube/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/09/03/screenshot-in-javascript/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/09/14/lets-make-a-3D-game-map-editor/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/09/16/performance-caching-material/</loc>
-        <lastmod>2011-12-03T16:16:38+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation/
         </loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/</loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/11/02/lets-make-a-3d-game-helper-for-microphysics-js/
         </loc>
-        <lastmod>2011-11-19T09:01:42+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/
         </loc>
-        <lastmod>2012-01-15T12:45:09+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/11/21/lets-make-a-3d-game-make-it-embedded/
         </loc>
-        <lastmod>2011-12-05T10:17:10+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/12/10/constructive-solid-geometry-with-csg-js/
         </loc>
-        <lastmod>2012-01-27T14:06:33+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/12/14/particles-introduction-to-sparks-js/</loc>
-        <lastmod>2011-12-17T20:10:34+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/12/19/particles-online-editor-for-sparks-js/
         </loc>
-        <lastmod>2012-01-11T12:40:16+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/</loc>
-        <lastmod>2012-01-27T14:05:41+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/
         </loc>
-        <lastmod>2012-01-11T12:39:23+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2011/12/28/let-s-make-a-3d-game-supporting-mobile/
         </loc>
-        <lastmod>2012-01-11T12:39:14+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/01/11/tunnel-effect/</loc>
-        <lastmod>2012-01-27T14:02:32+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/</loc>
-        <lastmod>2012-01-27T14:01:55+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/01/19/boilerplate-builder-for-three-js/</loc>
-        <lastmod>2012-01-27T14:01:43+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/01/20/casting-shadows/</loc>
-        <lastmod>2012-02-15T13:37:57+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/02/07/live-video-in-webgl/</loc>
-        <lastmod>2012-03-05T11:42:45+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/02/08/extension-system-for-three-js/</loc>
-        <lastmod>2012-03-19T21:30:22+01:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/02/15/valentine-card-in-tquery/</loc>
-        <lastmod>2012-05-15T14:27:48+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/02/27/linkify-tquery-extension/</loc>
-        <lastmod>2012-05-15T14:28:46+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/03/05/tquery-version-0/</loc>
-        <lastmod>2012-05-15T14:27:25+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser/</loc>
-        <lastmod>2012-05-15T14:27:14+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/03/20/sounds-for-more-realistic-3d/</loc>
-        <lastmod>2012-05-15T14:28:33+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/04/12/video-conference-on-top-of-webgl/</loc>
-        <lastmod>2012-05-15T14:27:02+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/05/02/augmented-reality-3d-pong/</loc>
-        <lastmod>2012-05-02T15:43:51+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2012/05/04/tquery-md2character-a-plugin-for-doom-characters/
         </loc>
-        <lastmod>2012-05-15T12:26:51+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/
         </loc>
-        <lastmod>2012-05-08T12:48:41+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://learningthreejs.com/blog/2012/05/15/punch-a-doom-character-in-augmented-reality/
         </loc>
-        <lastmod>2012-05-15T14:21:21+02:00</lastmod>
+        <lastmod>2012-05-15T16:22:19+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/about/</loc>
