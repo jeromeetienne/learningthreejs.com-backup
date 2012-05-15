@@ -3,7 +3,6 @@ layout: post
 title: "Linkify, a tQuery Extension"
 date: 2012-02-27 08:55
 comments: true
-categories:
 categories: [tquery, three.js]
 ---
 
