@@ -4,13 +4,302 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-05-08T14:30:53+02:00</updated>
+  <updated>2012-05-15T14:37:06+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Punch A Doom Character in Augmented Reality</title>
+    <link href="http://learningthreejs.com/blog/2012/05/15/punch-a-doom-character-in-augmented-reality/"/>
+    <updated>2012-05-15T11:59:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2012/05/15/punch-a-doom-character-in-augmented-reality</id>
+    <content type="html">&lt;p&gt;Did you ever dreamed of punching a doom character ? They look evil and killed
+you so many time while you were playing the game. It is revenge time! This
+post will help you realize your dream :)
+It is about a minigame called &quot;Punch A Doom Character in Augmented Reality&quot;
+because in this game, the player can punch Doom Character in augmented reality :)&lt;/p&gt;
+
+&lt;p&gt;The character is displayed in 3D with WebGL with &lt;a href=&quot;http://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
+The player gestures are recognized thru the webcam by &lt;a href=&quot;https://github.com/jeromeetienne/augmentedgesture.js&quot;&gt;augmentedgesture.js&lt;/a&gt; library.
+It uses &lt;a href=&quot;http://webrtc.org&quot;&gt;WebRTC&lt;/a&gt; &lt;a href=&quot;http://dev.w3.org/2011/webrtc/editor/getusermedia.html&quot;&gt;getUserMedia&lt;/a&gt; to get the webcam
+using open standards.
+You can play this minigame &lt;a href=&quot;http://learningthreejs.com/data/2012-05-15-punch-a-doom-character-in-augmented-reality&quot;&gt;here&lt;/a&gt;.
+In fact, it is an example of &lt;a href=&quot;https://github.com/jeromeetienne/augmentedgesture.js&quot;&gt;augmentedgesture.js&lt;/a&gt; library.
+We will walk you thru the code. Only 60 lines of Javascript.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/Aa9945MGRL0&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;p&gt;We have seen augmented gesture in &lt;a href=&quot;http://learningthreejs.com/blog/2012/05/02/augmented-reality-3d-pong/&quot;&gt;&quot;Augmented Reality 3D Pong&quot;&lt;/a&gt; post
+and MD2 Characters in &lt;a href=&quot;http://learningthreejs.com/blog/2012/05/04/tquery-md2character-a-plugin-for-doom-characters/&quot;&gt;&quot;tQuery Plugin for Doom Characters&quot;&lt;/a&gt; post.
+Now we gonna associate them together in our mini game :)
+I presented it at &lt;a href=&quot;www.web-5.org&quot;&gt;Web-5&lt;/a&gt; conference in april.
+At the time, i recorded a preview &lt;a href=&quot;http://www.youtube.com/watch?v=hUYM93xaIgg&quot;&gt;&quot;Doom: a new workout for geek?&quot;&lt;/a&gt;.
+Now let's get started!&lt;/p&gt;
+
+&lt;h2&gt;The 3D World&lt;/h2&gt;
+
+&lt;p&gt;First we initialize the world in 3D.
+With &lt;code&gt;tQuery.createWorld()&lt;/code&gt;, we create a &lt;code&gt;tQuery.World&lt;/code&gt;.
+With &lt;code&gt;.boilerplate()&lt;/code&gt;, we setup a boilerplate on this world. A boilerplate is
+a fast way to get you started on the right foot. It is the
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;learningthreejs boilerplate for three.js&lt;/a&gt;.
+With &lt;code&gt;.start()&lt;/code&gt;, we start the rendering loop. So from now on, the world scene
+gonna be rendered periodically, typically 60time per seconds.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var world   = tQuery.createWorld().boilerplate().start();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;We setup the camera now. We remove the default camera controls from the boilerplate.
+Then we put the camera at &lt;code&gt;(0,1.5,5)&lt;/code&gt; and looking toward &lt;code&gt;(0,1,-1)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.removeCameraControls()
+world.camera().position.set(0,1.5, 4);
+world.camera().lookAt(new THREE.Vector3(0,1,-1));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we change the background color. This confusing line ensure the background of the
+3D scene will be rendered as &lt;code&gt;0x000000&lt;/code&gt; color, aka black. We set a black
+background to give an impression of night.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.renderer().setClearColorHex( 0x000000, world.renderer().getClearAlpha() );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;We had a fog to the scene. For that, we use &lt;code&gt;tquery.world.createfog.js&lt;/code&gt; plugins.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.addFogExp2({density : 0.15});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;The Lights&lt;/h3&gt;
+
+&lt;p&gt;Here we setup the lights of our scene. This is important as it determine how
+your scene looks. We add a ambient light and a directional light.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createAmbientLight().addTo(world).color(0x444444);
+tQuery.createDirectionalLight().addTo(world).position(-1,1,1).color(0xFFFFFF).intensity(3);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;The Ground&lt;/h3&gt;
+
+&lt;p&gt;We create a large checkerboard with &lt;code&gt;tquery.checkerboard.js&lt;/code&gt; plugin.
+We scale the checkerboard to 100 per 100 units in the 3D world. Thus it is
+quite large and disappears into the fog. It gives the cheap impression of
+an infinite checkerboard.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createCheckerboard({
+    segmentsW   : 100,  // number of segment in width
+    segmentsH   : 100   // number of segment in Height
+}).addTo(world).scaleBy(100);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;The Character&lt;/h3&gt;
+
+&lt;p&gt;We use &lt;code&gt;tQuery.RatamahattaMD2Character&lt;/code&gt; plugin. Its inherits from
+&lt;code&gt;tQuery.MD2Character&lt;/code&gt; plugin. All the configuration for this particular
+character &lt;code&gt;ratamahatta&lt;/code&gt; is already done for you.
+We attach it to tQuery world.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var character   = new tQuery.RatamahattaMD2Character().attach(world);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;When an animation is completed, switch to animation 'stand'.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;character.bind('animationCompleted', function(character, animationName){
+    console.log(&quot;anim completed&quot;, animationName);
+    this.animation('stand');
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Recognize Augmented Gestures&lt;/h2&gt;
+
+&lt;p&gt;First we instanciate an object of &lt;strong&gt;AugmentedGesture&lt;/strong&gt; class.
+&lt;code&gt;.enableDatGui()&lt;/code&gt; will add a &lt;a href=&quot;http://workshop.chromeexperiments.com/examples/gui&quot;&gt;Dat.GUI&lt;/a&gt;.
+This is a nice library to tune parameters. We use it to tune augmentedgesture pointers.
+You can read more about it in &lt;a href=&quot;http://learningthreejs.com/blog/2011/08/14/dat-gui-simple-ui-for-demos/&quot;&gt;&quot;Dat-gui - Simple UI for Demos&quot;&lt;/a&gt; post.
+&lt;code&gt;.start()&lt;/code&gt; asks it to begin monitoring the webcam and see if it finds markers.
+&lt;code&gt;.domElementThumbnail()&lt;/code&gt; put the webcam view as a thumbnail on the screen. This is what you
+see on top-left.
+This is usefull for the user, it is used as feedback to know what is happening&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var aGesture    = new AugmentedGesture().enableDatGui().start().domElementThumbnail();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;The Pointers&lt;/h3&gt;
+
+&lt;p&gt;Now that we got our AugmentedGesture instance, we gonna configure the pointers.
+One for the right hand, one for the left hand. For each, we setup the options
+to adapt each hand colors.
+In my case, the right hand is containing a green ball and the left hand contains a red ball.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var pointerOpts = new AugmentedGesture.OptionPointer();
+pointerOpts.pointer.crossColor  = {r:    0, g: 255, b:   0};
+pointerOpts.colorFilter.r   = {min:   0, max:  95};
+pointerOpts.colorFilter.g   = {min: 115, max: 255};
+pointerOpts.colorFilter.b   = {min:  25, max: 150};
+aGesture.addPointer(&quot;right&quot;, pointerOpts);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we do the same for the left pointer.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var pointerOpts = new AugmentedGesture.OptionPointer();
+pointerOpts.pointer.crossColor  = {r:    255, g:   0, b: 128};
+pointerOpts.colorFilter.r   = {min: 190, max: 255};
+pointerOpts.colorFilter.g   = {min:  30, max: 255};
+pointerOpts.colorFilter.b   = {min:   0, max: 100};
+aGesture.addPointer(&quot;left&quot;, pointerOpts);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;Gesture Analysis&lt;/h3&gt;
+
+&lt;p&gt;Now that augmentedgesture.js is giving us the position of each hand, we gonna
+convert that into events. &lt;code&gt;punchingRight&lt;/code&gt; when the user gives a punch with
+the right hand and &lt;code&gt;punchingLeft&lt;/code&gt; for the left hand.
+We establish a variable to store the user moves. It is quite simple
+&lt;code&gt;.punchingRight&lt;/code&gt; is true when the use is punching with his right hand.
+&lt;code&gt;.punchingLeft&lt;/code&gt; is the same for the left hand.
+and &lt;code&gt;.changed&lt;/code&gt; is true when values change.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var userMove    = {
+    punchingRight   : false,
+    punchingLeft    : false,
+    changed     : false
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;we bind the event &lt;code&gt;mousemove.left&lt;/code&gt; thus we are notified when the user moves his
+left hand. The algo we use is very simple: if the left hand is on the right part of
+the screen, then the user is considered &quot;punchingLeft&quot;. Dont forget
+to &lt;code&gt;.changed&lt;/code&gt; to true&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;aGesture.bind(&quot;mousemove.left&quot;, function(event){
+    var state   = event.x &amp;gt; 1 - 1/3;
+    if( state === userMove.punchingLeft )   return;
+    userMove.punchingLeft   = state;
+    userMove.changed    = true;
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we need the same thing for the other hand. all the the same.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;aGesture.bind(&quot;mousemove.right&quot;, function(event){
+    var state   = event.x &amp;lt; 1/3;
+    if( state === userMove.punchingRight )  return;
+    userMove.punchingRight  = state;
+    userMove.changed    = true;
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Bind Character and Augmented Gestures&lt;/h2&gt;
+
+&lt;p&gt;Now we hook a function to the rendering loop. This function will be executed
+every time the scene is renderered. The first thing we do in this function
+is to check that userMove has &lt;code&gt;.changed&lt;/code&gt;. If not, we do nothing.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.loop().hook(function(){
+    if( userMove.changed === false )    return;
+    userMove.changed = false;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we process each move of the user. If the user is &lt;code&gt;punchingRight&lt;/code&gt;, play
+the animation &lt;code&gt;crdeath&lt;/code&gt; of the character. If he is &lt;code&gt;punchingLeft&lt;/code&gt;,
+play &lt;code&gt;crplain&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    if( userMove.punchingRight )        character.animation('crdeath');
+    else if( userMove.punchingLeft )    character.animation('crpain');
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;And you are &lt;strong&gt;DONE&lt;/strong&gt;! Pretty nice no ? :)&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In this post we built a mini-game where users can punch doom character in augmented reality.
+All that in 60 lines of javascript.
+The Character is displayed in WebGL with
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+and the augmented reality is handled
+by &lt;a href=&quot;https://github.com/jeromeetienne/augmentedgesture.js&quot;&gt;augmentedgesture.js&lt;/a&gt;.
+I like how those libraries makes the code so small, and the developement time
+so short.&lt;/p&gt;
+
+&lt;p&gt;That's all folks, have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Sound Visualisation: a Vuemeter in WebGL</title>
@@ -702,14 +991,14 @@ The
 &lt;a href=&quot;http://youtu.be/Fjb7xBnxq9k&quot;&gt;screencast&lt;/a&gt;
 below is short demo of it.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/Fjb7xBnxq9k&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;h2&gt;WebRTC progress&lt;/h2&gt;
@@ -810,14 +1099,14 @@ If you want, you can experiment with this code in our playground. Just click
 &lt;a href=&quot;http://bit.ly/GApgWg&quot;&gt;here&lt;/a&gt;
 and start coding :)&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/QjRF0_KENQ8&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;h2&gt;Background on WebAudio API&lt;/h2&gt;
@@ -981,14 +1270,14 @@ The tutorial even include a part about binding it with
 &lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
 I took this nice tutorial and packaged the code even easier to reuse.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/rzLuJxTraos&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;p&gt;&lt;img class='right ' src='http://learningthreejs.com/data/2012-03-12-augmented-reality-in-the-browser/images/marker-small.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
@@ -1123,14 +1412,14 @@ The
 below will walk you thru the
 &lt;a href=&quot;http://jeromeetienne.github.com/tquery/www/&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/iby6kijX5Zw&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;h2&gt;Solid Ground to Build On&lt;/h2&gt;
@@ -1248,14 +1537,14 @@ We saw them a few week back in
 &lt;a href=&quot;http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/&quot;&gt;'dom events in 3D space' post&lt;/a&gt;.
 Previous posts on tquery may be found &lt;a href=&quot;http://learningthreejs.com/blog/categories/tquery/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/MlW7PeuXGDM&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;p&gt;Building extensions on top of others is kinda the point of an extension system.
@@ -1372,14 +1661,14 @@ The
 is a live coding of a
 &lt;a href=&quot;http://learningthreejs.com/data/2012-02-15-valentine-card-in-tquery/&quot;&gt;valentine card&lt;/a&gt; in tQuery :)&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
+
+
+
 &lt;center&gt;
     &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/8EHqrAXcKrY&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/center&gt;
-
-
-
-
-&lt;!-- more --&gt;
 
 
 &lt;h2&gt;Let's Write Text in 3D&lt;/h2&gt;
@@ -2986,175 +3275,6 @@ You can get it in its &lt;a href=&quot;https://github.com/jeromeetienne/sparksed
 If you hit bugs, fill issues on github.
 Feel free to fork and modify it!
 That's all folks, have fun :)&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Particles: Introduction to Sparks.js</title>
-    <link href="http://learningthreejs.com/blog/2011/12/14/particles-introduction-to-sparks-js/"/>
-    <updated>2011-12-14T12:08:00+01:00</updated>
-    <id>http://learningthreejs.com/blog/2011/12/14/particles-introduction-to-sparks-js</id>
-    <content type="html">&lt;p&gt;This post is the first of a &lt;a href=&quot;http://learningthreejs.com/blog/categories/particles&quot;&gt;serie on particles&lt;/a&gt;.
-It specifically is about
-&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;sparks.js&lt;/a&gt;.
-&lt;em&gt;sparks.js&lt;/em&gt; is lightweight 3d
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Particle_system&quot;&gt;Particle system&lt;/a&gt;
-in javascript, for use with
-&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
-and
-&lt;a href=&quot;https://github.com/sole/tween.js&quot;&gt;tween.js&lt;/a&gt;.
-It is from
-&lt;a href=&quot;http://www.lab4games.net/zz85/blog/&quot;&gt;zz85&lt;/a&gt;
-who already did
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_geometry_text.html&quot;&gt;3D text&lt;/a&gt;
-and
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_geometry_subdivison.html&quot;&gt;Catmull Clark subdivision&lt;/a&gt;.
-a productive guy :)&lt;/p&gt;
-
-&lt;p&gt;The &lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html&quot;&gt;demo&lt;/a&gt;
-below is one of the many &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples&quot;&gt;three.js examples&lt;/a&gt;.
-While im on it, the &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples&quot;&gt;example directory&lt;/a&gt; is a gold mine.
-Go dig in it to understand how to code three.js :)
-Back to the point, this
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html&quot;&gt;demo&lt;/a&gt;
-is rather cool no ?
-You want to do the same ?
-During this short post, let me walk you walk thru the code for particles in this example.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-
-
-&lt;iframe src=&quot;http://mrdoob.github.com/three.js/examples/webgl_particles_shapes.html&quot; width=&quot;100%&quot; height=&quot;420&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
-
-
-&lt;h2&gt;Lets Get Started&lt;/h2&gt;
-
-&lt;p&gt;So lets see how to use it. First step, you download
-&lt;a href=&quot;https://raw.github.com/zz85/sparks.js/master/Sparks.js&quot;&gt;sparks.js&lt;/a&gt;
-from
-&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;its github&lt;/a&gt;.
-Then include it in your own code.&lt;/p&gt;
-
-&lt;p&gt;```html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;Sparks.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;First a few words on what is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Particle_system&quot;&gt;particle system&lt;/a&gt;.
-It is usually composed of 2 big parts: the &lt;em&gt;emitter&lt;/em&gt; and the &lt;em&gt;particle&lt;/em&gt; itself.
-Emitter creates particles.
-Particles are usually smallish objects on the screen.
-As you got many particles at the same time, they appears a single mass.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;h2&gt;Let's create an emitter&lt;/h2&gt;
-
-&lt;p&gt;First we create the emitter like this.
-&lt;code&gt;emitter&lt;/code&gt; is the main object we will play with.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var counter = new SPARKS.SteadyCounter( 500 );
-var emitter = new SPARKS.Emitter( counter );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;counter&lt;/code&gt; controls how frequently particles are created. Here it will
-emit 500 particles per seconds.
-Now let's start emit particles.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;emitter.start();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Sparks.js has a very flexible core.
-It mainly uses two stacks of functions.
-&lt;em&gt;Initializers&lt;/em&gt; is the stack run at the creation of a particle.
-&lt;em&gt;Actions&lt;/em&gt; is another stack which is run at every step of a particle life.
-Those functions are run in order.
-Up to you to configure them to fit your needs.
-You can easily code your own &lt;em&gt;initializer&lt;/em&gt; or &lt;em&gt;action&lt;/em&gt;.
-Dont worry it got a bunch of predefined ones.&lt;/p&gt;
-
-&lt;h2&gt;Let's initialize&lt;/h2&gt;
-
-&lt;p&gt;Lets me walk you thru the ones used in our example. The whole stack is below.
-&lt;code&gt;emitter.addInitializer()&lt;/code&gt; to push a new initializer, and &lt;code&gt;emitter.removeInitializer()&lt;/code&gt;
-to remove it, not too hard :)&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;emitterpos = new THREE.Vector3( 0, 0, 0 );
-emitter.addInitializer( new SPARKS.Position( new SPARKS.PointZone( emitterpos ) ) );
-emitter.addInitializer( new SPARKS.Lifetime( 1, 15 ));
-var vector = new THREE.Vector3( 0, -5, 1 );
-emitter.addInitializer( new SPARKS.Velocity( new SPARKS.PointZone( vector ) ) );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;SPARKS.Position(zone)&lt;/code&gt; initializer set the original position of the particle.
-A &lt;code&gt;zone&lt;/code&gt; provide a location in space.
-&lt;code&gt;new SPARKS.PointZone( emitterpos )&lt;/code&gt; means the particles will always start from this specific point in space.
-It is possible to have other zones.
-For example, &lt;code&gt;SPARKS.LineZone( startVector3, endVector3 )&lt;/code&gt; represents a line between 2 points, so
-your particle would start anywhere on this line.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;SPARKS.Lifetime(mintime, maxtime)&lt;/code&gt; initializer set particle's lifetime.
-You can specify a range and a random value will be assigned.
-Don't forget to add &lt;code&gt;SPARKS.Age&lt;/code&gt; action to handle its lifetime.
-And the last one.
-&lt;code&gt;SPARKS.Velocity(zone)&lt;/code&gt; set particle's velocity based on a &lt;code&gt;zone&lt;/code&gt; location.
-The initializer stack is setup the particle at the begining of its life.
-Let's see what happen during this life.&lt;/p&gt;
-
-&lt;h2&gt;Let's do some actions&lt;/h2&gt;
-
-&lt;p&gt;Actions are performed at every step of a particle life.
-Same as with initializers, &lt;code&gt;emitter.addAction()&lt;/code&gt; to push a new action,
-&lt;code&gt;emitter.removeAction()&lt;/code&gt; to remove it.
-For our examples the whole action stack is this.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;emitter.addAction( new SPARKS.Age() );
-emitter.addAction( new SPARKS.Accelerate( 0, 0, -50 ) );
-emitter.addAction( new SPARKS.Move() );
-emitter.addAction( new SPARKS.RandomDrift( 90, 100, 2000 ) );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;Now lets details it.
-We have already seen &lt;code&gt;SPARKS.Age()&lt;/code&gt;. It is handle the lifetime of each particle.
-&lt;code&gt;SPARKS.Accelerate(x,y,z)&lt;/code&gt; changes the velocity by adding a fixed amount at every step.
-This one produces a gravity effect with a negative &lt;code&gt;y&lt;/code&gt;.
-&lt;code&gt;SPARKS.Move()&lt;/code&gt; makes the particles move in our 3D space.
-&lt;code&gt;SPARKS.RandomDrift(x,y,z)&lt;/code&gt; changes the velocity by adding a random amount at every step.&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;I hope this short introduction got you excited about
-&lt;a href=&quot;https://github.com/zz85/sparks.js/&quot;&gt;sparks.js&lt;/a&gt;.
-Next posts on the
-&lt;a href=&quot;http://learningthreejs.com/blog/categories/particles&quot;&gt;particle series&lt;/a&gt;
-may be a UI editor, stay tuned!
-I find sparks.js clean and flexible.
-Flexibility is very important for particles.
-It helps provide a wide variety of effect in your games/demos.
-For more informations and authoritative answer, see the
-&lt;a href=&quot;https://github.com/zz85/sparks.js/&quot;&gt;github repository&lt;/a&gt;.
-That's all for today folks, have fun.&lt;/p&gt;
 </content>
   </entry>
   

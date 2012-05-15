@@ -134,27 +134,27 @@
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/02/15/valentine-card-in-tquery/</loc>
-        <lastmod>2012-03-05T10:45:26+01:00</lastmod>
+        <lastmod>2012-05-15T14:27:48+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/02/27/linkify-tquery-extension/</loc>
-        <lastmod>2012-02-28T10:13:34+01:00</lastmod>
+        <lastmod>2012-05-15T14:28:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/03/05/tquery-version-0/</loc>
-        <lastmod>2012-03-05T14:37:57+01:00</lastmod>
+        <lastmod>2012-05-15T14:27:25+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser/</loc>
-        <lastmod>2012-03-13T11:45:45+01:00</lastmod>
+        <lastmod>2012-05-15T14:27:14+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/03/20/sounds-for-more-realistic-3d/</loc>
-        <lastmod>2012-03-20T14:18:36+01:00</lastmod>
+        <lastmod>2012-05-15T14:28:33+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/04/12/video-conference-on-top-of-webgl/</loc>
-        <lastmod>2012-04-12T14:46:27+02:00</lastmod>
+        <lastmod>2012-05-15T14:27:02+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/2012/05/02/augmented-reality-3d-pong/</loc>
@@ -164,7 +164,7 @@
         <loc>
             http://learningthreejs.com/blog/2012/05/04/tquery-md2character-a-plugin-for-doom-characters/
         </loc>
-        <lastmod>2012-05-04T15:03:40+02:00</lastmod>
+        <lastmod>2012-05-15T12:26:51+02:00</lastmod>
     </url>
     <url>
         <loc>
@@ -173,15 +173,21 @@
         <lastmod>2012-05-08T12:48:41+02:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://learningthreejs.com/blog/2012/05/15/punch-a-doom-character-in-augmented-reality/
+        </loc>
+        <lastmod>2012-05-15T14:21:21+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://learningthreejs.com/about/</loc>
         <lastmod>2012-01-19T08:07:19+01:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/blog/archives/</loc>
-        <lastmod>2012-05-08T12:48:41+02:00</lastmod>
+        <lastmod>2012-05-15T14:28:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://learningthreejs.com/</loc>
-        <lastmod>2012-05-08T12:48:41+02:00</lastmod>
+        <lastmod>2012-05-15T14:28:46+02:00</lastmod>
     </url>
 </urlset>
