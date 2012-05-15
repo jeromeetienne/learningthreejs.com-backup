@@ -31,11 +31,11 @@ The
 [screencast](http://youtu.be/Fjb7xBnxq9k)
 below is short demo of it.
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/Fjb7xBnxq9k" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 ## WebRTC progress
 

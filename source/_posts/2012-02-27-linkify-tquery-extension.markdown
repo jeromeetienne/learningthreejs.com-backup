@@ -20,11 +20,11 @@ We saw them a few week back in
 ['dom events in 3D space' post](http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/).
 Previous posts on tquery may be found [here](/blog/categories/tquery/).
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/MlW7PeuXGDM" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 Building extensions on top of others is kinda the point of an extension system.
 My dream scenario is : 

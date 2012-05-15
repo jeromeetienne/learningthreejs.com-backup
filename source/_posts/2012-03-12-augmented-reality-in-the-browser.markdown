@@ -29,11 +29,11 @@ The tutorial even include a part about binding it with
 [three.js](https://github.com/mrdoob/three.js/).
 I took this nice tutorial and packaged the code even easier to reuse.
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/rzLuJxTraos" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 {% img right /data/2012-03-12-augmented-reality-in-the-browser/images/marker-small.png %}
 

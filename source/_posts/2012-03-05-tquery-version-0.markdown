@@ -31,11 +31,11 @@ The
 below will walk you thru the
 [website](http://jeromeetienne.github.com/tquery/www/).
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/iby6kijX5Zw" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 ## Solid Ground to Build On
 

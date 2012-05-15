@@ -36,11 +36,11 @@ If you want, you can experiment with this code in our playground. Just click
 [here](http://bit.ly/GApgWg)
 and start coding :)
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/QjRF0_KENQ8" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 ## Background on WebAudio API
 

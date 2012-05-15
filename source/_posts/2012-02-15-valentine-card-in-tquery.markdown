@@ -18,11 +18,11 @@ The
 is a live coding of a
 [valentine card](/data/2012-02-15-valentine-card-in-tquery/) in tQuery :)
 
+<!-- more -->
+
 <center>
 	<iframe width="425" height="349" src="http://www.youtube.com/embed/8EHqrAXcKrY" frameborder="0" allowfullscreen></iframe>
 </center>
-
-<!-- more -->
 
 ## Let's Write Text in 3D
 
