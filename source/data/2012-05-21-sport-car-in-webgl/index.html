@@ -33,10 +33,18 @@
 <script src="plugins/tquery.car.keyboard.js"></script>
 <script src="plugins/tquery.car.deviceorientation.js"></script>
 <script src="plugins/tquery.car.cameracontrols.js"></script>
+<script>
+document.addEventListener('keydown', function(event){
+    // if it is keydown on a arrow, prevent default
+    if( event.keyCode >= 37 && event.keyCode <= 40 ){
+        event.preventDefault();
+    }
+}, true);
+</script>
 
 <!-- Add a body and add a title -->
 <body style="margin:0;padding:0;overflow:'hidden';"><div id="info" style="z-index: 2">
-	Example of tQuery.car plugins
+	<a href="/blog/2012/05/21/sport-car-in-webgl/">learning three.js</a>: Example of tQuery.car plugins
 </div><script>
 	// ## Let's start coding
 
