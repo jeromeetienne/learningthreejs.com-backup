@@ -6,7 +6,7 @@ comments: true
 categories: [tquery, three.js]
 ---
 
-This post is about sport car and how cool they can be!
+This post is about sport cars and how cool they can be!
 Once again, we gonna expose gems from three.js examples.
 It contains several sport cars which are fun to play with.
 You can drive them around and all.
@@ -30,7 +30,7 @@ What you see below is what we gonna build. Pretty nice no ?
 	<iframe width="100%" height="420" src="/data/2012-05-21-sport-car-in-webgl/" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 </center>
 
-It show what is possible with ```tquery.car.js```.
+It shows what is possible with ```tquery.car.js```.
 It is a plugin provides rendering and controls of sport cars.
 It is heavily based on some examples by [alteredq](http://alteredqualia.com/) in
 [three.js](http://github.com/mrdoob/three.js/).
@@ -67,14 +67,14 @@ The renderer needs to be notified so we set ```.shadowMapEnabled``` and ```.shad
 ## The Sky
 
 Now we add a sky to the 3D scene.
-It will fill the space and make the scene more realistiv.
-We use a skymap for that. It is is WebGL trick which take a cube, make it so large that it seems infinite.
+It will fill the space and make the scene more realistic.
+We use a skymap for that. It is WebGL trick which take a cube, make it so large that it seems infinite.
 On it, we map a 360degeree texture shaped as a cube, and use a special shader to display it. All is in this
-shader, it makes the cube appears as if we were in a gigantic sphere. Exactly like we would feel with a sky above
+shader, it makes the cube appear as if we were in a gigantic sphere. Exactly like we would feel with a sky above
 our head.
 We already saw skymaps in ["let's do a sky"](http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/) post.
 We just added a new plugins ```tquery.skymap.js```.
-It avoid repeative code when you do skymap or environement map.
+It avoids repeative code when you do skymap or environement map.
 
 ```
 	tQuery.createSkymap('skybox').addTo(world);
@@ -91,7 +91,7 @@ Here we setup the lights. We put one ambient and 2 directional lights.
 
 It is rather simple so lets focus on the last one, the one casting shadow.
 We want it to appear as coming from the sun. 
-So we looks at the skymap and approximatly localized the sun at ```(-10, 20, 30)```.
+So we look at the skymap and approximatly localized the sun at ```(-10, 20, 30)```.
 Then we tune shadow parameters to fit our tastes.
 You can find more details in ["Casting Shadow"](http://learningthreejs.com/blog/2012/01/20/casting-shadows/) post.
 Those parameters can be tricky to tune. It helps if you make the shaddow
@@ -109,7 +109,8 @@ camera visible. You can do so with ```.shadowCameraVisible(true)```.
 Now we add the ground. A car needs a ground to stand on :)
 For that, we got a little helper ```tquery.grassground.js```.
 This is just building a ```THREE.Plane``` and mapping a grass
-texture into it. does the job for a simple and fast ground.
+texture into it.
+It does the job for a simple and fast ground.
 We have seen something similar with ```tquery.checkerboard.js``` in
 ["tQuery Plugin for Doom Characters"](http://learningthreejs.com/blog/2012/05/04/tquery-md2character-a-plugin-for-doom-characters/)
 post.
@@ -142,7 +143,7 @@ Then we had the car model in our world scene. Important if you want to see it :)
 
 Now we got the car on the scene, this is all good.
 But we need the camera to follow this car. We create a camera controls specific
-to mimic the usual camera in car game. The camera is placed a bit behind the car and look forward.
+to mimic the usual camera in car game. The camera is placed a bit behind the car and looks forward.
 The faster you go, the further you look. This is always nice to see what is coming at you :)
 
 ```
@@ -151,7 +152,7 @@ The faster you go, the further you look. This is always nice to see what is comi
 
 ## Car Controls
 
-Now we hook the controls to the car. This determines how the player will controls the
+Now we hook the controls to the car. This determines how the player will control the
 car. It can be controlled by the keyboard, so users press arrows on keyboard
 and the car moves.
 It can be controlled by the [device orientation](http://dev.w3.org/geo/api/spec-source-orientation.html).
@@ -187,8 +188,10 @@ with a [reflection](http://en.wikipedia.org/wiki/Reflection_mapping). You put a 
 	});
 ```
 
-Now we add the arches. In fact, they are torus which are half in the ground, so the visible part looks like an arche.
-We put 5 of them along the Z axis. they are all aligned to give an kindof road.
+Now we add the arches. In fact, they are torus which are half in the ground, so the
+visible part looks like an arche.
+We put 5 of them along the Z axis.
+They are all aligned to give a kindof road.
 ```.castShadow(true)``` make the 3D object as casting shadow. Always a nice trick to enhance realism.
 
 ```
@@ -200,11 +203,11 @@ We put 5 of them along the Z axis. they are all aligned to give an kindof road.
 
 And we are **DONE**! We got a nice looking car, driving on grass with a sun set. It is 
 controlled by keyboard and the camera controls is suitable for a game. Not bad
-for 40 lines of javascripts.
+for 40 lines of javascript.
 
 ## Conclusion
 
-In this post, i walked you thru a example of ```tQuery.car.js```. It build a rather
+In this post, i walked you thru a example of ```tQuery.car.js```. It builds a rather
 cool scene in 40lines of js. It seems a nice base for a game. Like the
 [two](/blog/2012/05/15/punch-a-doom-character-in-augmented-reality/)
 [previous](/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/)
