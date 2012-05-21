@@ -4,13 +4,271 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-05-15T17:49:24+02:00</updated>
+  <updated>2012-05-21T14:14:15+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Sport Car in WebGL</title>
+    <link href="http://learningthreejs.com/blog/2012/05/21/sport-car-in-webgl/"/>
+    <updated>2012-05-21T12:16:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2012/05/21/sport-car-in-webgl</id>
+    <content type="html">&lt;p&gt;This post is about sport cars and how cool they can be!
+Once again, we gonna expose gems from three.js examples.
+It contains several sport cars which are fun to play with.
+You can drive them around and all.
+This is a good base for a game.
+We made tQuery plugins on top to make them easily reusable.
+Our scene will be a nice sport car, a grass ground, a sunset sky with shadow casting.
+All that in 40-lines of javascript.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/KxRfFd9SM5s&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;What We Gonna Build ?&lt;/h2&gt;
+
+&lt;p&gt;What you see below is what we gonna build. Pretty nice no ?
+&lt;a href=&quot;http://learningthreejs.com/data/2012-05-21-sport-car-in-webgl/&quot;&gt;Try it out&lt;/a&gt;.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;100%&quot; height=&quot;420&quot; src=&quot;http://learningthreejs.com/data/2012-05-21-sport-car-in-webgl/&quot; frameborder=&quot;0&quot; allowfullscreen webkitallowfullscreen mozallowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;p&gt;It shows what is possible with &lt;code&gt;tquery.car.js&lt;/code&gt;.
+It is a plugin provides rendering and controls of sport cars.
+It is heavily based on some examples by &lt;a href=&quot;http://alteredqualia.com/&quot;&gt;alteredq&lt;/a&gt; in
+&lt;a href=&quot;http://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
+You can find them
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_materials_cars.html&quot;&gt;here&lt;/a&gt;
+and
+&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_materials_cubemap_dynamic.html&quot;&gt;here&lt;/a&gt;.
+The car is a Bugatti Veyron model by
+&lt;a href=&quot;http://artist-3d.com/free_3d_models/dnm/model_disp.php?uid=1129&quot;&gt;Troyano&lt;/a&gt;.
+Now let's get started.&lt;/p&gt;
+
+&lt;h2&gt;Let's start coding&lt;/h2&gt;
+
+&lt;p&gt;We start to create our world as usual. We enable the
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;boilerplate for three.js&lt;/a&gt;.
+It is a fast way start, avoids repetitive tasks, following DRY principles and includes all those good practices which are so easy to forget.
+Then we just have to &lt;code&gt;.start()&lt;/code&gt; the rendering loop on this world.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var world   = tQuery.createWorld().boilerplate().start();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we setup the renderer.
+In this scene, we want to cast shadows as if it cames from the sun.
+This is a nice way to improve the realism in our 3D scene
+We already talked about it in &lt;a href=&quot;http://learningthreejs.com/blog/2012/01/20/casting-shadows/&quot;&gt;&quot;Casting Shadow&quot;&lt;/a&gt;
+The renderer needs to be notified so we set &lt;code&gt;.shadowMapEnabled&lt;/code&gt; and &lt;code&gt;.shadowMapSoft&lt;/code&gt; to true.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.renderer().shadowMapEnabled   = true;
+world.renderer().shadowMapSoft      = true;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;The Sky&lt;/h2&gt;
+
+&lt;p&gt;Now we add a sky to the 3D scene.
+It will fill the space and make the scene more realistic.
+We use a skymap for that. It is WebGL trick which take a cube, make it so large that it seems infinite.
+On it, we map a 360degeree texture shaped as a cube, and use a special shader to display it. All is in this
+shader, it makes the cube appear as if we were in a gigantic sphere. Exactly like we would feel with a sky above
+our head.
+We already saw skymaps in &lt;a href=&quot;http://learningthreejs.com/blog/2011/08/15/lets-do-a-sky/&quot;&gt;&quot;let's do a sky&quot;&lt;/a&gt; post.
+We just added a new plugins &lt;code&gt;tquery.skymap.js&lt;/code&gt;.
+It avoids repeative code when you do skymap or environement map.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createSkymap('skybox').addTo(world);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;The Lights&lt;/h2&gt;
+
+&lt;p&gt;Here we setup the lights. We put one ambient and 2 directional lights.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createAmbientLight().addTo(world).color(0xFFFFFF);
+tQuery.createDirectionalLight().addTo(world).position(1,1,-1).color(0xffffff).intensity(2);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;It is rather simple so lets focus on the last one, the one casting shadow.
+We want it to appear as coming from the sun.
+So we look at the skymap and approximatly localized the sun at &lt;code&gt;(-10, 20, 30)&lt;/code&gt;.
+Then we tune shadow parameters to fit our tastes.
+You can find more details in &lt;a href=&quot;http://learningthreejs.com/blog/2012/01/20/casting-shadows/&quot;&gt;&quot;Casting Shadow&quot;&lt;/a&gt; post.
+Those parameters can be tricky to tune. It helps if you make the shaddow
+camera visible. You can do so with &lt;code&gt;.shadowCameraVisible(true)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createDirectionalLight().addTo(world).position(-10, 20, 30).color(0xffffff).intensity(4)
+    .castShadow(true).shadowDarkness(0.8)
+    .shadowMap(512*2,512*2)
+    .shadowCamera(10, -10, 20, -20, 0.1, 50);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;The Ground&lt;/h2&gt;
+
+&lt;p&gt;Now we add the ground. A car needs a ground to stand on :)
+For that, we got a little helper &lt;code&gt;tquery.grassground.js&lt;/code&gt;.
+This is just building a &lt;code&gt;THREE.Plane&lt;/code&gt; and mapping a grass
+texture into it.
+It does the job for a simple and fast ground.
+We have seen something similar with &lt;code&gt;tquery.checkerboard.js&lt;/code&gt; in
+&lt;a href=&quot;http://learningthreejs.com/blog/2012/05/04/tquery-md2character-a-plugin-for-doom-characters/&quot;&gt;&quot;tQuery Plugin for Doom Characters&quot;&lt;/a&gt;
+post.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var ground  = tQuery.createGrassGround({
+    textureUrl  : '../../grassground/images/grasslight-big.jpg',
+    textureRepeatX  : 30,
+    textureRepeatY  : 30,       
+}).addTo(world).receiveShadow(true).scaleBy(100);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;The Car&lt;/h2&gt;
+
+&lt;p&gt;First we instanciate a &lt;code&gt;tQuery.Car&lt;/code&gt; object with &lt;code&gt;tQuery.createCar()&lt;/code&gt;.
+It will load the models, then material will be setup.
+&lt;code&gt;tQuery.Car&lt;/code&gt; handles the displacement of the car too.
+You can make the car turn, go forward and backward, using &lt;code&gt;car.controls()&lt;/code&gt;.
+you can even switch on/off the lights with &lt;code&gt;.flareVisible()&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var car = tQuery.createCar();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Then we had the car model in our world scene. Important if you want to see it :)&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.add(car.model())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we got the car on the scene, this is all good.
+But we need the camera to follow this car. We create a camera controls specific
+to mimic the usual camera in car game. The camera is placed a bit behind the car and looks forward.
+The faster you go, the further you look. This is always nice to see what is coming at you :)&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.Car.createCameraControls(car, world);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Car Controls&lt;/h2&gt;
+
+&lt;p&gt;Now we hook the controls to the car. This determines how the player will control the
+car. It can be controlled by the keyboard, so users press arrows on keyboard
+and the car moves.
+It can be controlled by the &lt;a href=&quot;http://dev.w3.org/geo/api/spec-source-orientation.html&quot;&gt;device orientation&lt;/a&gt;.
+We already talked device orientation in game in
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation/&quot;&gt;this post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var hasTouchEvent   = &quot;ontouchstart&quot; in window;
+if( hasTouchEvent ) car.hookDeviceOrientation();
+else            car.hookKeyboard();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now maybe you wonder &quot;why this devices orientation&quot; ?
+I ported tQuery to IOS. So since tQuery r49.1, it is possible to run
+tquery on your iphones or ipads.
+It is possible to render with &lt;a href=&quot;http://www.w3.org/TR/2dcontext/&quot;&gt;canvas 2D&lt;/a&gt; in the regular browser.
+Even possible to render WebGL using
+&lt;a href=&quot;https://github.com/benvanik/WebGLBrowser&quot;&gt;WebGL Browser&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/#!/benvanik&quot;&gt;Ben Vanik&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;The Road&lt;/h2&gt;
+
+&lt;p&gt;In a scene, it is cool to create a goal, something for the user to do.
+A road seems like a perfect goal for a car :)
+First we create the material we gonna use. This is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Lambertian_reflectance&quot;&gt;lambert&lt;/a&gt;
+with a &lt;a href=&quot;http://en.wikipedia.org/wiki/Reflection_mapping&quot;&gt;reflection&lt;/a&gt;. You put a cube texture in the
+&lt;code&gt;envMap&lt;/code&gt; parameter and you got your reflection :) Here again, we use tquery.skymap.js to create the cube texture.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var material    = new THREE.MeshLambertMaterial({
+    ambient : 0x444444,
+    color   : 0x666666,
+    envMap  : tQuery.createCubeTexture('skybox')
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we add the arches. In fact, they are torus which are half in the ground, so the
+visible part looks like an arche.
+We put 5 of them along the Z axis.
+They are all aligned to give a kindof road.
+&lt;code&gt;.castShadow(true)&lt;/code&gt; make the 3D object as casting shadow. Always a nice trick to enhance realism.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for(var i = 0; i &amp;lt; 5; i++){
+    tQuery.createTorus(1.25-0.25, 0.25, 8, 6*4, material).addTo(world)
+        .castShadow(true).translateZ( 2 + i * 5 );      
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;And we are &lt;strong&gt;DONE&lt;/strong&gt;! We got a nice looking car, driving on grass with a sun set. It is
+controlled by keyboard and the camera controls is suitable for a game. Not bad
+for 40 lines of javascript.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In this post, i walked you thru a example of &lt;code&gt;tQuery.car.js&lt;/code&gt;. It builds a rather
+cool scene in 40lines of js. It seems a nice base for a game. Like the
+&lt;a href=&quot;http://learningthreejs.com/blog/2012/05/15/punch-a-doom-character-in-augmented-reality/&quot;&gt;two&lt;/a&gt;
+&lt;a href=&quot;http://learningthreejs.com/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/&quot;&gt;previous&lt;/a&gt;
+walk through, we got very short code. I like this, it makes it easier to understand
+and learn. WebGL for All!! :)&lt;/p&gt;
+
+&lt;p&gt;That's all folks! have fun.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Punch A Doom Character in Augmented Reality</title>
@@ -3170,110 +3428,6 @@ will help make
 &lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
 even easier to use.
 This project is quite new and will likely improve soon.
-That's all folks, have fun :)&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Particles: Online Editor for Sparks.js</title>
-    <link href="http://learningthreejs.com/blog/2011/12/19/particles-online-editor-for-sparks-js/"/>
-    <updated>2011-12-19T12:11:00+01:00</updated>
-    <id>http://learningthreejs.com/blog/2011/12/19/particles-online-editor-for-sparks-js</id>
-    <content type="html">&lt;p&gt;This post is the second of our &lt;a href=&quot;http://learningthreejs.com/blog/categories/particles&quot;&gt;serie on particles&lt;/a&gt;.
-It presents
-&lt;a href=&quot;https://github.com/jeromeetienne/sparkseditor&quot;&gt;sparkseditor&lt;/a&gt;
-, an online editor for
-&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;sparks.js&lt;/a&gt;
-with
-&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
-In a few word, it is a webpage which provide an text editor
-with a
-&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;sparks.js&lt;/a&gt;
-effect.
-You got the code in the editor
-and
-you see &lt;em&gt;live&lt;/em&gt; the resulting particles effect.
-I like this &lt;em&gt;live&lt;/em&gt; aspect a lot :)
-I think it makes your design more direct, lower latency, less overhead.
-More creative in a way.
-&lt;a href=&quot;http://jeromeetienne.github.com/sparkseditor/&quot;&gt;Try it out&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;This editor has been made to lower the barrier of entry on
-&lt;a href=&quot;https://github.com/zz85/sparks.js&quot;&gt;sparks.js&lt;/a&gt;
-with
-&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
-particles.
-The UI is rather simple and obvious. You can find a small presentation in the
-screencast below.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-
-
-&lt;center&gt;
-    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/nu00FhIW5bc?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-
-&lt;h2&gt;Live editor rocks&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/sparkseditor/&quot;&gt;Sparkseditor&lt;/a&gt;
-is widely inpired by
-&lt;a href=&quot;http://glsl.heroku.com/e&quot;&gt;glsl editor&lt;/a&gt;
-from
-&lt;a href=&quot;http://mrdoob.com/&quot;&gt;mrdoob&lt;/a&gt;
-and
-&lt;a href=&quot;http://www.iquilezles.org/apps/shadertoy/&quot;&gt;shadertoy&lt;/a&gt;
-from
-&lt;a href=&quot;http://www.iquilezles.org/&quot;&gt;Inigo Quilez&lt;/a&gt;.
-On the same vibe,
-&lt;a href=&quot;http://lea.verou.me/&quot;&gt;lea verou&lt;/a&gt;
-recently
-released
-&lt;a href=&quot;http://lea.verou.me/2011/12/introducing-dabblet-an-interactive-css-playground/&quot;&gt;dablet&lt;/a&gt;,
-an online editor for
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Cascading_Style_Sheets&quot;&gt;css&lt;/a&gt;.
-There is a clear trend here...
-What is it about those live editors ?
-A live editor produces a result immediatly.
-This helps design your effect faster.
-Be light on your foot kindof style.
-Very agile way to design.&lt;/p&gt;
-
-&lt;p&gt;Additionally, it is easy to share with others because we have &lt;em&gt;bookmarkability&lt;/em&gt;.
-We do that by storing state in url.
-On the down side, it makes super long+ugly urls...
-&lt;a href=&quot;http://en.wikipedia.org/wiki/URL_shortening&quot;&gt;url shortening&lt;/a&gt;
-helps us reduces this issue.
-In our case, we use
-&lt;a href=&quot;https://bitly.com/&quot;&gt;bitly&lt;/a&gt;
-service.&lt;/p&gt;
-
-&lt;p&gt;This editor is purely static files.
-No specific server to run, no need to admin and no risk to go offline.
-Oh and by the way i dont not even have to pay for hosting this application.
-I think it shows html5 in all its power.
-The web is becoming something real nice :) html5 i love you!&lt;/p&gt;
-
-&lt;h2&gt;conclusion&lt;/h2&gt;
-
-&lt;p&gt;Under the hood,
-&lt;a href=&quot;https://github.com/jeromeetienne/sparkseditor&quot;&gt;sparkseditor&lt;/a&gt;
-uses
-&lt;a href=&quot;https://github.com/jeromeetienne/threex/blob/master/threex.sparks.js&quot;&gt;threex.sparks.js&lt;/a&gt;, a
-&lt;a href=&quot;https://github.com/jeromeetienne/threex&quot;&gt;threex&lt;/a&gt;
-helper, to make
-&lt;a href=&quot;https://github.com/zz85/sparks.js/&quot;&gt;sparks.js&lt;/a&gt;
-even easier to use.
-This helper will be the subject of a future post of our
-&lt;a href=&quot;http://learningthreejs.com/blog/categories/particles&quot;&gt;particles series&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The source is open-source under
-&lt;a href=&quot;https://github.com/jeromeetienne/sparkseditor/blob/master/MIT-LICENSE.txt&quot;&gt;MIT&lt;/a&gt;.
-You can get it in its &lt;a href=&quot;https://github.com/jeromeetienne/sparkseditor&quot;&gt;git repository&lt;/a&gt;.
-If you hit bugs, fill issues on github.
-Feel free to fork and modify it!
 That's all folks, have fun :)&lt;/p&gt;
 </content>
   </entry>
