@@ -8,9 +8,9 @@ categories: [ios, threejs, tquery]
 
 ## TOC
 
-* how to get it
 * current status
-* how to play with tquery on it
+* how to get it
+* how to play with three.js and tquery on it
   * the device orientation to control the car
 * screencast of me playing
 
