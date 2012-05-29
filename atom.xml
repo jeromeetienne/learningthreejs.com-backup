@@ -4,13 +4,112 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-05-21T14:14:15+02:00</updated>
+  <updated>2012-05-29T13:46:35+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Three.js Sport Car on iOS</title>
+    <link href="http://learningthreejs.com/blog/2012/05/29/three-js-sportcar-on-ios/"/>
+    <updated>2012-05-29T13:48:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2012/05/29/three-js-sportcar-on-ios</id>
+    <content type="html">&lt;p&gt;This post is about iOS and three.js.
+It may seem surprising, but &lt;a href=&quot;http://en.wikipedia.org/wiki/iOS&quot;&gt;iOS&lt;/a&gt; supports WebGL since version 4.2.
+There is a tough limitation tho, it is available only in their advertisment plateform,
+&lt;a href=&quot;http://en.wikipedia.org/wiki/IAd&quot;&gt;iAds&lt;/a&gt;, not in safari browser.
+I got a ipad2 so i experimented a bit with three.js on iOS to see what is going on.
+Most WebGL examples from
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt; and
+&lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tQuery&lt;/a&gt;
+are working nicely on iOS.&lt;/p&gt;
+
+&lt;p&gt;The
+&lt;a href=&quot;http://www.youtube.com/watch?v=3yc4qhP87oY&quot;&gt;screencast&lt;/a&gt;
+below shows an ipad2 running the car demo we did last week in
+&lt;a href=&quot;http://learningthreejs.com/blog/2012/05/21/sport-car-in-webgl/&quot;&gt;&quot;Sport Car in WebGL&quot;&lt;/a&gt; post.
+It runs at 40fps on the video. Rather good!
+Especially when you know the demo isn't optimized.
+This car is way too detailed.
+One could reduce the size of this model by half without loosing much.
+So on mobile, the Good part is that &lt;em&gt;fps are good&lt;/em&gt;.
+The Bad part is that &lt;em&gt;speed is slower&lt;/em&gt; and &lt;em&gt;balanced differently&lt;/em&gt;.
+This unbalanced part worries me a bit i admit. We need to better understand the mobile plateform.
+But hey, 40fps is quite good, way enougth to make a game!&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/3yc4qhP87oY&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Experimenting with WebGL on iOS&lt;/h2&gt;
+
+&lt;p&gt;Yesterday,
+&lt;a href=&quot;http://news.ycombinator.com/user?id=daeken&quot;&gt;daeken&lt;/a&gt;
+published a
+&lt;a href=&quot;http://demoseen.com/webglenabler/#&quot;&gt;WebGL Enabler&lt;/a&gt;
+for iOS.
+It enables WebGL in the browser for jailbroken iOS devices.
+Or if you prefere a less invasive solution, not requiring to jailbreak your devices.
+You can use
+&lt;a href=&quot;https://github.com/benvanik/WebGLBrowser&quot;&gt;WebGL Browser&lt;/a&gt;
+made by
+&lt;a href=&quot;http://noxa.org/&quot;&gt;Ben Vanik&lt;/a&gt;
+, aka &lt;a href=&quot;https://twitter.com/#!/benvanik&quot;&gt;@benvanik&lt;/a&gt; on twitter.
+He is wellknow for &lt;a href=&quot;https://github.com/benvanik/WebGL-Inspector&quot;&gt;WebGL Inspector&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;By the way,
+&lt;a href=&quot;https://github.com/benvanik/WebGLBrowser&quot;&gt;WebGL Browser&lt;/a&gt;
+and
+&lt;a href=&quot;http://demoseen.com/webglenabler/#&quot;&gt;WebGL Enabler&lt;/a&gt;,
+are both based on a similar trick.
+It has been discovered by
+&lt;a href=&quot;https://twitter.com/#!/atnan&quot;&gt;Nathan de Vries&lt;/a&gt;
+who told about it in this
+&lt;a href=&quot;http://atnan.com/blog/2011/11/03/enabling-and-using-webgl-on-ios/&quot;&gt;excelent post&lt;/a&gt;.
+A very good read to understand the underlying details!
+Unfortuntly this is using an unofficial API... so it is
+impossible to get it for the apps store unfortunatly.&lt;/p&gt;
+
+&lt;h2&gt;WebGL Status on Mobile&lt;/h2&gt;
+
+&lt;p&gt;WebGL is starting to be hot on mobile.
+&lt;a href=&quot;http://www.blackberry.com/playbook&quot;&gt;blackberry playbook2&lt;/a&gt;
+got it
+&lt;a href=&quot;http://devblog.blackberry.com/2012/02/playbook-native-webgl-development/&quot;&gt;by default&lt;/a&gt;.
+&lt;a href=&quot;http://www.mozilla.org/en-US/b2g/&quot;&gt;boot on gecko&lt;/a&gt; got it too with firefox mobile.
+It isn't enabled on android and iOS tho, the 2 majors.
+Maybe we will have more info in june with
+&lt;a href=&quot;https://developers.google.com/events/io/&quot;&gt;google.io&lt;/a&gt;
+and
+&lt;a href=&quot;https://developer.apple.com/wwdc/&quot;&gt;apple event&lt;/a&gt;.
+google got &lt;a href=&quot;http://www.google.com/intl/en/chrome/android/&quot;&gt;chrome on android&lt;/a&gt;.
+iOS already got &lt;a href=&quot;http://atnan.com/blog/2011/11/03/enabling-and-using-webgl-on-ios/&quot;&gt;support&lt;/a&gt;, this is more a matter of policy.
+So lets hope google will announce WebGL support for chrome mobile.
+and apple will announce they accepts WebGL on apps store applications.
+I am an optimist personn, i hope :)&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;WebGL is coming hard on mobile.
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt; and
+&lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tQuery&lt;/a&gt;
+already work on it.
+We need the 2 majors mobile OS to support it tho.
+It think having it on android and ios would significantly change WebGL landscape.
+Meanwhile you can already play with it, and do minigames with it, thus be ready when needed :)&lt;/p&gt;
+
+&lt;p&gt;That's all to today folks. Have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Sport Car in WebGL</title>
@@ -3273,162 +3372,6 @@ under MIT license.
 Later, a button may be implemented as well.
 It is alway usefull to able to fire in video games :)
 That's all folks, have fun.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Boilerplate for Three.js</title>
-    <link href="http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/"/>
-    <updated>2011-12-20T19:09:00+01:00</updated>
-    <id>http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js</id>
-    <content type="html">&lt;p&gt;This post presents
-&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt;.
-I looked at
-&lt;a href=&quot;http://html5boilerplate.com/&quot;&gt;html5 boilerplate&lt;/a&gt;
-and found
-&lt;a href=&quot;http://www.youtube.com/watch?v=NMEB78VX2P0&quot;&gt;it&lt;/a&gt;
-&lt;a href=&quot;http://www.youtube.com/watch?v=oDlsOyPKUTM&quot;&gt;awesome&lt;/a&gt;.
-&lt;a href=&quot;http://html5boilerplate.com/&quot;&gt;html5 boilerplate&lt;/a&gt;
-is a fast way start a clean project.
-It avoids repetitive tasks, following &lt;a href=&quot;http://en.wikipedia.org/wiki/Don't_repeat_yourself&quot;&gt;DRY&lt;/a&gt; principles.
-It includes all those good practices, which are so easy to forget.
-It seems all good to me :)
-&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt; tries to apply similar principles.
-I frequently write simple three.js demo for tutorials, and repeat the first steps way too often for my tastes :)
-It has been done in effort to make 3D on the web even easier.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://jeromeetienne.github.com/threejsboilerplate/&quot;&gt;Try it&lt;/a&gt; out.
-&quot;Boilerplate for three.js is a web template for a fast, robust and future-proof site.
-Boilerplate is not a framework, nor does it prescribe any philosophy of
-development, it's just got some tricks to get your project off the ground
-quickly and right-footed.&quot;
-- freely adapted from &lt;a href=&quot;http://html5boilerplate.com/&quot;&gt;html5 boilerplate site&lt;/a&gt;.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-&lt;h2&gt;Walkthrough&lt;/h2&gt;
-
-&lt;p&gt;This project is at an early stage.
-Dont hesitate to suggest improvements or
-bug fixes in
-&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate/issues&quot;&gt;github issues&lt;/a&gt;.
-It has been done to run everywhere, and to promote good practices.
-The
-&lt;a href=&quot;http://www.youtube.com/watch?v=kOReCN5t2Eo&quot;&gt;screencast&lt;/a&gt;
-below will walk you through the source of the project.
-22min... a long one :)&lt;/p&gt;
-
-&lt;center&gt;
-    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/kOReCN5t2Eo?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-
-&lt;h2&gt;Compatibility is key&lt;/h2&gt;
-
-&lt;p&gt;It has to run everywhere.
-We believe that compatibility is crucial on the web.
-The boilerplate seamlessly works on desktop and mobile.
-It is working on webgl/canvas2d and supports mouse/touch events.&lt;/p&gt;
-
-&lt;p&gt;It renders on
-&lt;a href=&quot;http://en.wikipedia.org/wiki/WebGL&quot;&gt;webgl&lt;/a&gt;
-if available, else it fallbacks on
-&lt;a href=&quot;http://html5doctor.com/an-introduction-to-the-canvas-2d-api/&quot;&gt;canvas2D&lt;/a&gt;.
-It is often forgotten, but &lt;a href=&quot;&quot;&gt;three.js&lt;/a&gt; is able render on various backends,
-they are called &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/renderers&quot;&gt;renderers&lt;/a&gt;.
-It isnt always possible to fallback tho.
-Materials are especially sensible to the type of renderer you use.
-For examples, many materials are webgl specific as they contains shaders and canvas2D got no shaders.
-Up to you to find the balance that fit your needs.&lt;/p&gt;
-
-&lt;p&gt;The camera controls is rather basic.
-If you need a different controls for your camera, pick one in
-&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/src/extras/controls&quot;&gt;this list&lt;/a&gt;.
-This one is simple to use and understand, a nice feature for a boilerplate.
-It supports
-&lt;a href=&quot;http://www.quirksmode.org/js/events_mouse.html&quot;&gt;mouse events&lt;/a&gt;
-and
-&lt;a href=&quot;https://developer.mozilla.org/en/DOM/Touch_events&quot;&gt;touch events&lt;/a&gt;.
-So you can run with a touch screen with a glitch.&lt;/p&gt;
-
-&lt;h2&gt;Good Practices&lt;/h2&gt;
-
-&lt;p&gt;Some features have been added: fullscreen, screenshot and window resize.
-I consider them &lt;a href=&quot;http://en.wikipedia.org/wiki/Best_practice&quot;&gt;good pratices&lt;/a&gt; which are often forgotten.
-Some numbers based on &lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples&quot;&gt;three.js examples&lt;/a&gt;:
-128 examples total,
-26 of them handle touch events,
-11 handle window resize,
-2 handle screenshot,
-0 handle fullscreen.&lt;/p&gt;
-
-&lt;iframe src=&quot;http://jeromeetienne.github.com/threejsboilerplate&quot;
-    webkitallowfullscreen mozallowfullscreen allowfullscreen 
-    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
-&lt;/iframe&gt;
-
-
-&lt;p&gt;&lt;strong&gt;Fullscreen&lt;/strong&gt; is supported to enjoy your 3D on a large display
-without visual distraction.
-If you press &lt;em&gt;f&lt;/em&gt;, your demo will go fullscreen.
-For technical details, see &quot;&lt;a href=&quot;http://learningthreejs.com/blog/2011/11/17/lets-make-a-3d-game-make-it-fullscreen/&quot;&gt;Make It Fullscreen&lt;/a&gt;&quot; post.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Screenshot&lt;/strong&gt; makes it easy to share the image
-as what you see on the screen at a given moment.
-If you press &lt;em&gt;p&lt;/em&gt;, a new tab will open with a screenshot of the rendered content.
-For technical details, see &quot;&lt;a href=&quot;http://learningthreejs.com/blog/2011/09/03/screenshot-in-javascript/&quot;&gt;screenhot in javascript&lt;/a&gt;&quot; post.
-It it usefull to share nice images and to help debug on various plateforms.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Window resize&lt;/strong&gt; is supported because it is required. Without it, your 3D scene will loose scaleing and center
-when you resize the window or go fullscreen.
-For technical details, see &quot;&lt;a href=&quot;http://learningthreejs.com/blog/2011/08/30/window-resize-for-your-demos/&quot;&gt;window resize your demos&lt;/a&gt;&quot; post.&lt;/p&gt;
-
-&lt;h2&gt;How to use it ?&lt;/h2&gt;
-
-&lt;p&gt;It is quite simple, first you download the code as
-a &lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate/zipball/master&quot;&gt;.zip file&lt;/a&gt;
-or with the &lt;a href=&quot;http://git-scm.com/&quot;&gt;git&lt;/a&gt; command line below.&lt;/p&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git clone git://github.com/jeromeetienne/threejsboilerplate.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;then start updating &lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate/blob/master/index.html&quot;&gt;index.html&lt;/a&gt; to
-fit your needs.
-Below is a screencast where i use the
-&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate&lt;/a&gt;
-to display a
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Utah_teapot&quot;&gt;teapot&lt;/a&gt;
-in only 3min!
-Why a teapot ? Because it is the &quot;hello world&quot; of 3D :)
-Be warned, the video is a bit speedy, im just starting at doing screencast.
-Next ones will hopefully be slower.&lt;/p&gt;
-
-&lt;center&gt;
-    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/0XPOCi6FJX0?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Later, it may be cool to have a builder.
-I think it may be possible to make it client only.
-&lt;a href=&quot;http://jszip.stuartk.co.uk/&quot;&gt;jszip&lt;/a&gt; library would create the zip containing all the files.
-&lt;a href=&quot;https://github.com/jeromeetienne/shorttag.js&quot;&gt;shorttag.js&lt;/a&gt; library would compile templates according to user needs.
-A builder would produce a cleaner and smaller result for you to play with.&lt;/p&gt;
-
-&lt;p&gt;I gave a short talk at &lt;a href=&quot;http://parisjs.org&quot;&gt;parisjs&lt;/a&gt; about it, here are the &lt;a href=&quot;http://jeromeetienne.github.com/slides-3jsbp-parisjs14&quot;&gt;slides&lt;/a&gt;.
-I hope
-&lt;a href=&quot;https://github.com/jeromeetienne/threejsboilerplate&quot;&gt;boilerplate for three.js&lt;/a&gt;.
-will help make
-&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
-even easier to use.
-This project is quite new and will likely improve soon.
-That's all folks, have fun :)&lt;/p&gt;
 </content>
   </entry>
   

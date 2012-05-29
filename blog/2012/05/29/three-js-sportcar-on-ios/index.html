@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Learning Three.js: Video Conference on Top of WebGL</title>
+  <title>Learning Three.js: Three.js Sport Car on iOS</title>
   <meta name="author" content="Jerome Etienne">
   
 
@@ -16,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://learningthreejs.com/blog/2012/04/12/video-conference-on-top-of-webgl/"/>
+  <link rel="canonical" href="http://learningthreejs.com/blog/2012/05/29/three-js-sportcar-on-ios/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -98,7 +98,7 @@
   
   <header>
     
-      <h1 class="entry-title">Video Conference on Top of WebGL</h1>
+      <h1 class="entry-title">Three.js Sport Car on iOS</h1>
     
     
       <p class="meta">
@@ -106,7 +106,7 @@
 
 
 
-<time datetime="2012-04-12 13:20:00 +0200" pubdate  updated >Apr 12<span>th</span>, 2012</time>
+<time datetime="2012-05-29 13:48:00 +0200" pubdate  updated >May 29<span>th</span>, 2012</time>
 
 
 </p>
@@ -114,101 +114,97 @@
   </header>
 
 
-<div class="entry-content"><p>This post presents
-<a href="http://webglmeeting.appspot.com">WebGL Meeting</a>,
-a very simple WebGL application to do webrtc call.
-It is a follow up of <a href="/blog/2012/02/07/live-video-in-webgl/">&#8220;Fun with live video on webgl&#8221;</a>.
-It was presenting how to use the WebCam using
-<a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html">WebRTC getUserMedia()</a>.
-This one goes one step further and make an actual
-<a href="http://www.webrtc.org/">WebRTC call</a>
-displayed in a WebGL scene.</p>
+<div class="entry-content"><p>This post is about iOS and three.js.
+It may seem surprising, but <a href="http://en.wikipedia.org/wiki/iOS">iOS</a> supports WebGL since version 4.2.
+There is a tough limitation tho, it is available only in their advertisment plateform,
+<a href="http://en.wikipedia.org/wiki/IAd">iAds</a>, not in safari browser.
+I got a ipad2 so i experimented a bit with three.js on iOS to see what is going on.
+Most WebGL examples from
+<a href="https://github.com/mrdoob/three.js/">three.js</a> and
+<a href="https://github.com/jeromeetienne/tquery">tQuery</a>
+are working nicely on iOS.</p>
 
-<p>In fact, it has already been done a month ago! As you can see
-<a href="http://www.youtube.com/watch?v=em5RWcstfI0&amp;feature=watch_response">here</a>
-:)
-The video from the first post, <a href="http://www.youtube.com/watch?v=vnNihxl3taE">&#8216;being on tv, watching tv&#8217;</a> has been answered
-by <a href="https://plus.google.com/109216128632357967445/posts">Ethan Hugg</a> from cisco.
-My very first video reponse btw! He
-<a href="http://www.youtube.com/watch?v=em5RWcstfI0&amp;feature=watch_response">shows a SIP video call</a>
-using an version of Chromium hacked by
-<a href="https://plus.google.com/102821430095362232437/posts">Suhas Nandakumar</a>.
-Definitly cool stuff!
-<a href="http://webglmeeting.appspot.com">WebGL Meeting</a> is similar but run on unmodified browsers.
-The
-<a href="http://youtu.be/Fjb7xBnxq9k">screencast</a>
-below is short demo of it.</p>
+<p>The
+<a href="http://www.youtube.com/watch?v=3yc4qhP87oY">screencast</a>
+below shows an ipad2 running the car demo we did last week in
+<a href="http://learningthreejs.com/blog/2012/05/21/sport-car-in-webgl/">&#8220;Sport Car in WebGL&#8221;</a> post.
+It runs at 40fps on the video. Rather good!
+Especially when you know the demo isn&#8217;t optimized.
+This car is way too detailed.
+One could reduce the size of this model by half without loosing much.
+So on mobile, the Good part is that <em>fps are good</em>.
+The Bad part is that <em>speed is slower</em> and <em>balanced differently</em>.
+This unbalanced part worries me a bit i admit. We need to better understand the mobile plateform.
+But hey, 40fps is quite good, way enougth to make a game!</p>
+
+<center>
+    <iframe width="425" height="349" src="http://www.youtube.com/embed/3yc4qhP87oY" frameborder="0" allowfullscreen></iframe>
+</center>
+
+
+
 
 <!-- more -->
 
 
+<h2>Experimenting with WebGL on iOS</h2>
 
+<p>Yesterday,
+<a href="http://news.ycombinator.com/user?id=daeken">daeken</a>
+published a
+<a href="http://demoseen.com/webglenabler/#">WebGL Enabler</a>
+for iOS.
+It enables WebGL in the browser for jailbroken iOS devices.
+Or if you prefere a less invasive solution, not requiring to jailbreak your devices.
+You can use
+<a href="https://github.com/benvanik/WebGLBrowser">WebGL Browser</a>
+made by
+<a href="http://noxa.org/">Ben Vanik</a>
+, aka <a href="https://twitter.com/#!/benvanik">@benvanik</a> on twitter.
+He is wellknow for <a href="https://github.com/benvanik/WebGL-Inspector">WebGL Inspector</a>.</p>
 
-<center>
-    <iframe width="425" height="349" src="http://www.youtube.com/embed/Fjb7xBnxq9k" frameborder="0" allowfullscreen></iframe>
-</center>
+<p>By the way,
+<a href="https://github.com/benvanik/WebGLBrowser">WebGL Browser</a>
+and
+<a href="http://demoseen.com/webglenabler/#">WebGL Enabler</a>,
+are both based on a similar trick.
+It has been discovered by
+<a href="https://twitter.com/#!/atnan">Nathan de Vries</a>
+who told about it in this
+<a href="http://atnan.com/blog/2011/11/03/enabling-and-using-webgl-on-ios/">excelent post</a>.
+A very good read to understand the underlying details!
+Unfortuntly this is using an unofficial API&#8230; so it is
+impossible to get it for the apps store unfortunatly.</p>
 
+<h2>WebGL Status on Mobile</h2>
 
-<h2>WebRTC progress</h2>
-
-<p>Using a modified browser is cool for make nice demo like
-<a href="https://plus.google.com/109216128632357967445/posts/QkFu7cxmbzi">this one</a>.
-Nevertheless it reduces how widely the technology can spread.
-It is now possible to do it using opensource and mainstream browsers.
-This field advances so fast!</p>
-
-<p><img class='right ' src='/data/2012-04-12-video-conference-on-top-of-webgl/twoTVsWithWebGLTeam-small.jpg' width='320' height='240' alt='' title=''></p>
-
-<p><a href="http://mozillamediagoddess.org/">Mozilla team</a> is
-<a href="http://hacks.mozilla.org/2012/04/webrtc-efforts-underway-at-mozilla/">working hard</a>
-to make it happen as soon as possible.
-It is even available on mobile with
-<a href="http://weblog.bocoup.com/javascript-webrtc-opera-mobile-12/">Opera Mobile 12</a>.
-Some <a href="http://www.youtube.com/watch?v=wpwjtzXgNFQ]">&#8220;protothon&#8221;</a> are happening about it.
-<a href="http://www.webrtc.org/">WebRTC</a>
-is on the edge but it is definitly coming hard.
-The picture on the right is Chrome WebRTC team doing thumb up on
-<a href="webglmeeting.appspot.com">WebGLMeeting</a>
-at an WebRTC event for
-<a href="http://www.ietf.org/meeting/83/index.html">IETF 83</a>
-:)</p>
-
-<h2>What about the code ?</h2>
-
-<p><a href="https://github.com/jeromeetienne/webglmeeting">WebGLMeeting source</a>
-is available on Github under MIT license.
-It uses three.js to handle the WebGL.
-It is the <a href="http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/">AppRTC app</a>
-mostly unmodified, with a simple WebGL skin on top.</p>
-
-<p>A post from Chrome WebRTC team recently announced
-<a href="http://www.webrtc.org/blog/sourcecodetoapprtcappspotcomexampleappavailable">&#8220;Source code to apprtc.appspot.com example app available&#8221;</a>.
-The post releases the
-<a href="http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/">source</a>
-on google code.
-The <a href="https://apprtc.appspot.com">apprtc demo</a>
-is a very simple, one-to-one, webrtc call.
-Go look at the <a href="http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/">source</a>, dont be shy :)
-It is very small, the whole code client+server, is less than 15kbyte.
-It is easy to understand and deploy thanks too google App Engine.</p>
-
-<h2>Face tracker seeking love ?</h2>
-
-<p>Surprising hey ? Well the source contains a face tracker,
-<a href="http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/html/face.html">face.html</a>.
-It works rather well but it is slow. If somebody could give it more love&#8230;
-It is a rather naive implementation which works well but got many rooms for speed improvement.
-It could make face tracking, less clumsy than wearing augmented reality marker on top
-of your head like
-<a href="http://learningthreejs.com/blog/2012/03/12/augmented-reality-in-the-browser/">i did a while back</a>
-:)</p>
+<p>WebGL is starting to be hot on mobile.
+<a href="http://www.blackberry.com/playbook">blackberry playbook2</a>
+got it
+<a href="http://devblog.blackberry.com/2012/02/playbook-native-webgl-development/">by default</a>.
+<a href="http://www.mozilla.org/en-US/b2g/">boot on gecko</a> got it too with firefox mobile.
+It isn&#8217;t enabled on android and iOS tho, the 2 majors.
+Maybe we will have more info in june with
+<a href="https://developers.google.com/events/io/">google.io</a>
+and
+<a href="https://developer.apple.com/wwdc/">apple event</a>.
+google got <a href="http://www.google.com/intl/en/chrome/android/">chrome on android</a>.
+iOS already got <a href="http://atnan.com/blog/2011/11/03/enabling-and-using-webgl-on-ios/">support</a>, this is more a matter of policy.
+So lets hope google will announce WebGL support for chrome mobile.
+and apple will announce they accepts WebGL on apps store applications.
+I am an optimist personn, i hope :)</p>
 
 <h2>Conclusion</h2>
 
-<p>I got the feeling WebRTC gonna change a lot of things soon. The peer-to-peer aspect makes it super
-cheap to integrate live video conferences to your own sites.</p>
+<p>WebGL is coming hard on mobile.
+<a href="https://github.com/mrdoob/three.js/">three.js</a> and
+<a href="https://github.com/jeromeetienne/tquery">tQuery</a>
+already work on it.
+We need the 2 majors mobile OS to support it tho.
+It think having it on android and ios would significantly change WebGL landscape.
+Meanwhile you can already play with it, and do minigames with it, thus be ready when needed :)</p>
 
-<p>That&#8217;s all folks, have fun!</p>
+<p>That&#8217;s all to today folks. Have fun :)</p>
 </div>
 
 
@@ -224,7 +220,7 @@ cheap to integrate live video conferences to your own sites.</p>
 
 
 
-<time datetime="2012-04-12 13:20:00 +0200" pubdate  updated >Apr 12<span>th</span>, 2012</time>
+<time datetime="2012-05-29 13:48:00 +0200" pubdate  updated >May 29<span>th</span>, 2012</time>
 
 
 
@@ -232,7 +228,7 @@ cheap to integrate live video conferences to your own sites.</p>
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/three-js/'>three.js</a>, <a class='category' href='/blog/categories/webrtc/'>webrtc</a>
+    <a class='category' href='/blog/categories/ios/'>ios</a>, <a class='category' href='/blog/categories/threejs/'>threejs</a>, <a class='category' href='/blog/categories/tquery/'>tquery</a>
   
 </span>
 
@@ -241,7 +237,7 @@ cheap to integrate live video conferences to your own sites.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2012/04/12/video-conference-on-top-of-webgl/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2012/04/12/video-conference-on-top-of-webgl/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learningthreejs.com/blog/2012/05/29/three-js-sportcar-on-ios/" data-via="learningthreejs" data-counturl="http://learningthreejs.com/blog/2012/05/29/three-js-sportcar-on-ios/" >Tweet</a>
   
   
   <g:plusone size="medium"></g:plusone>
@@ -257,8 +253,8 @@ cheap to integrate live video conferences to your own sites.</p>
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'learningthreejs';
-  var disqus_identifier = 'http://learningthreejs.com/blog/2012/04/12/video-conference-on-top-of-webgl/';
-  var disqus_url = 'http://learningthreejs.com/blog/2012/04/12/video-conference-on-top-of-webgl/';
+  var disqus_identifier = 'http://learningthreejs.com/blog/2012/05/29/three-js-sportcar-on-ios/';
+  var disqus_url = 'http://learningthreejs.com/blog/2012/05/29/three-js-sportcar-on-ios/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
