@@ -15,17 +15,18 @@ It easily bind
 [ammo.js](https://github.com/kripken/ammo.js/)
 and
 [three.js](http://mrdoob.github.com/three.js/).
-We will walk thru an example of it thru tQuery API.
+We will walk thru an example using it.
 Physics is always important in 3D graphics.
 It makes scenes more realistic.
 Additionally, if you simple put your object into the scene, it will move nicely and realisticly.
 So you spend less time tuning each moves. I am quite lazy so it matters :)
-The [screencast](http://www.youtube.com/watch?v=3yc4qhP87oY)
-presents what we gonna code and various examples of what is possible with
+The [screencast](http://www.youtube.com/watch?v=THI82Q-P8Fo)
+presents the [demo we gonna code](/data/2012-06-05-3d-physics-with-three-js-and-physijs/)
+and various examples of what is possible with
 [ammo.js](https://github.com/kripken/ammo.js/).
 
 <center>
-	<iframe width="425" height="349" src="http://www.youtube.com/embed/3yc4qhP87oY" frameborder="0" allowfullscreen></iframe>
+	<iframe width="425" height="349" src="http://www.youtube.com/embed/THI82Q-P8Fo" frameborder="0" allowfullscreen></iframe>
 </center>
 
 <!-- more -->
@@ -50,11 +51,11 @@ with
 ammo.js is "Direct port of the Bullet physics engine to JavaScript using
 [Emscripten](https://github.com/kripken/emscripten).
 The source code is translated directly to JavaScript, without human rewriting, so functionality should be identical to the original Bullet."
+
 [bullet](http://bulletphysics.org/) is a full-blown physics engine well-known in the 3D community. 
 It can do a lot as you can see in its [docs](http://bulletphysics.com/Bullet/BulletFull/).
 [ammo.js](https://github.com/kripken/ammo.js/)
 supports all the features you can expect from a mature 3D physics engine.
-
 Charles J. Cliffe, aka [@ccliffe](https://twitter.com/#!/ccliffe),
 did several demos using ammo.js. 
 This one is a [heighfield](http://cjcliffe.github.com/CubicVR.js/cubicvr/samples/physics/physics_heightfield.html)
@@ -77,9 +78,11 @@ the data. Thus no matter how large the data are, it will be very low latency.
 The code of today is a copy of the
 [collision example](http://chandlerprall.github.com/Physijs/examples/collisions.html)
 from
-[physijs](http://chandlerprall.github.com/Physijs/). It may usefull to reimplement the
-same thing, just to be sure they both perform the same way :) So we got object falling
-on the ground and slightly bouncing on it. Let's do just that.
+[physijs](http://chandlerprall.github.com/Physijs/)
+using it thru tQuery API.
+It may usefull to reimplement the same thing, just to be sure they both perform the same way. :)
+[Try it out](/data/2012-06-05-3d-physics-with-three-js-and-physijs/).
+So we got object falling on the ground and slightly bouncing on it. Let's do just that.
 
 <center>
 	<iframe width="100%" height="420" src="/data/2012-06-05-3d-physics-with-three-js-and-physijs/" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
