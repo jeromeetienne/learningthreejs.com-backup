@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Three.js Sport Car on iOS"
+title: "Three.js Sport Car on iOS at 40fps"
 date: 2012-05-29 13:48
 comments: true
 categories: [ios, threejs, tquery]
