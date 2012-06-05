@@ -4,13 +4,314 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-05-29T14:12:44+02:00</updated>
+  <updated>2012-06-05T15:28:26+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>3D Physics With Three.js and Physijs</title>
+    <link href="http://learningthreejs.com/blog/2012/06/05/3d-physics-with-three-js-and-physijs/"/>
+    <updated>2012-06-05T12:13:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2012/06/05/3d-physics-with-three-js-and-physijs</id>
+    <content type="html">&lt;p&gt;This is yet another post about physics.
+This one is about
+&lt;a href=&quot;https://github.com/chandlerprall/Physijs&quot;&gt;physijs&lt;/a&gt;
+by
+&lt;a href=&quot;https://twitter.com/#!/chandlerprall&quot;&gt;Chandler Prall&lt;/a&gt;.
+It easily bind
+&lt;a href=&quot;https://github.com/kripken/ammo.js/&quot;&gt;ammo.js&lt;/a&gt;
+and
+&lt;a href=&quot;http://mrdoob.github.com/three.js/&quot;&gt;three.js&lt;/a&gt;.
+We will walk thru an example using it.
+Physics is always important in 3D graphics.
+It makes scenes more realistic.
+Additionally, if you simple put your object into the scene, it will move nicely and realisticly.
+So you spend less time tuning each moves. I am quite lazy so it matters :)
+The &lt;a href=&quot;http://www.youtube.com/watch?v=THI82Q-P8Fo&quot;&gt;screencast&lt;/a&gt;
+presents the &lt;a href=&quot;http://learningthreejs.com/data/2012-06-05-3d-physics-with-three-js-and-physijs/&quot;&gt;demo we gonna code&lt;/a&gt;
+and various examples of what is possible with
+&lt;a href=&quot;https://github.com/kripken/ammo.js/&quot;&gt;ammo.js&lt;/a&gt;.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/THI82Q-P8Fo&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;What About Physics Engines ?&lt;/h2&gt;
+
+&lt;p&gt;We already did physics with three.js.
+It was with &lt;a href=&quot;https://github.com/jeromeetienne/microphysics.js&quot;&gt;microphysics.js&lt;/a&gt; for &lt;a href=&quot;http://marblesoccer.com&quot;&gt;marblesoccer&lt;/a&gt; minigame.
+It is a micro library implementing 3D physics.
+We talked quite a bit about it in
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/&quot;&gt;&quot;Lets Make a 3D Game: microphysics.js&quot;&lt;/a&gt;
+and
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/11/02/lets-make-a-3d-game-helper-for-microphysics-js/&quot;&gt;&quot;Lets Make a 3D Game: microphysics.js, Even Easier&quot;&lt;/a&gt;.
+It is only 500lines!
+Unfortunatly, this tiny size comes limitations.&lt;/p&gt;
+
+&lt;p&gt;Today we gonna use &lt;a href=&quot;https://github.com/chandlerprall/Physijs&quot;&gt;physijs&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/#!/chandlerprall&quot;&gt;Chandler Prall&lt;/a&gt;.
+This is a nice library which make it easy to use
+&lt;a href=&quot;https://github.com/kripken/ammo.js/&quot;&gt;ammo.js&lt;/a&gt;
+with
+&lt;a href=&quot;http://mrdoob.github.com/three.js/&quot;&gt;three.js&lt;/a&gt;.
+ammo.js is &quot;Direct port of the Bullet physics engine to JavaScript using
+&lt;a href=&quot;https://github.com/kripken/emscripten&quot;&gt;Emscripten&lt;/a&gt;.
+The source code is translated directly to JavaScript, without human rewriting, so functionality should be identical to the original Bullet.&quot;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://bulletphysics.org/&quot;&gt;bullet&lt;/a&gt; is a full-blown physics engine well-known in the 3D community.
+It can do a lot as you can see in its &lt;a href=&quot;http://bulletphysics.com/Bullet/BulletFull/&quot;&gt;docs&lt;/a&gt;.
+&lt;a href=&quot;https://github.com/kripken/ammo.js/&quot;&gt;ammo.js&lt;/a&gt;
+supports all the features you can expect from a mature 3D physics engine.
+Charles J. Cliffe, aka &lt;a href=&quot;https://twitter.com/#!/ccliffe&quot;&gt;@ccliffe&lt;/a&gt;,
+did several demos using ammo.js.
+This one is a &lt;a href=&quot;http://cjcliffe.github.com/CubicVR.js/cubicvr/samples/physics/physics_heightfield.html&quot;&gt;heighfield&lt;/a&gt;
+And look at this &lt;a href=&quot;http://cjcliffe.github.com/CubicVR.js/cubicvr/samples/vehicle_physics_demo/stunt_track1.html&quot;&gt;stunt track&lt;/a&gt;!
+Both are on top of &lt;a href=&quot;http://www.cubicvr.org/&quot;&gt;cubicvr&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/#!/ccliffe&quot;&gt;@ccliffe&lt;/a&gt; own library.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/chandlerprall/Physijs&quot;&gt;physijs&lt;/a&gt; has been written with performance in mind.
+&lt;a href=&quot;https://github.com/kripken/ammo.js/&quot;&gt;ammo.js&lt;/a&gt; is running in a
+&lt;a href=&quot;https://developer.mozilla.org/En/Using_web_workers&quot;&gt;webworker&lt;/a&gt;.
+So it most likely run on a second CPU. This is twice more cpu power for your javascript!
+Coordinates are exchanged with
+&lt;a href=&quot;http://updates.html5rocks.com/2011/12/Transferable-Objects-Lightning-Fast&quot;&gt;transferable objects&lt;/a&gt;
+when available.
+Transferable objects is a special type of object which can be transfered between the main thread and the worker &lt;strong&gt;without copying&lt;/strong&gt;
+the data. Thus no matter how large the data are, it will be very low latency.&lt;/p&gt;
+
+&lt;h2&gt;Lets Get Started&lt;/h2&gt;
+
+&lt;p&gt;The code of today is a copy of the
+&lt;a href=&quot;http://chandlerprall.github.com/Physijs/examples/collisions.html&quot;&gt;collision example&lt;/a&gt;
+from
+&lt;a href=&quot;http://chandlerprall.github.com/Physijs/&quot;&gt;physijs&lt;/a&gt;
+using it thru tQuery API.
+It may usefull to reimplement the same thing, just to be sure they both perform the same way. :)
+&lt;a href=&quot;http://learningthreejs.com/data/2012-06-05-3d-physics-with-three-js-and-physijs/&quot;&gt;Try it out&lt;/a&gt;.
+So we got object falling on the ground and slightly bouncing on it. Let's do just that.&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;100%&quot; height=&quot;420&quot; src=&quot;http://learningthreejs.com/data/2012-06-05-3d-physics-with-three-js-and-physijs/&quot; frameborder=&quot;0&quot; allowfullscreen webkitallowfullscreen mozallowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+&lt;p&gt;First a classic. We create a tQuery.World. So you immediatly got
+a scene, a renderer, camera and its controls. All that already
+setup according to reasonable default.
+&lt;code&gt;.boilerplate()&lt;/code&gt; adds
+the &lt;a href=&quot;http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;&quot;three.js boilerplate&quot;&lt;/a&gt;
+we did last year. We disable the camera controls as it will stay still in this scene.
+Then we &lt;code&gt;.start()&lt;/code&gt; to launch the render loop.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var world   = tQuery.createWorld().boilerplate({cameraControls: false}).start();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we setup the camera to be a bit far from the scene center. Thus
+we got room to display larger objects&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.tCamera().position.set( 70, 40, 70 );
+world.tCamera().lookAt( world.tScene().position );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we need to tell the renderer that shadow has to be casted. This is done by the simple lines below.
+We saw the details in &lt;a href=&quot;http://learningthreejs.com/blog/2012/01/20/casting-shadows/&quot;&gt;&quot;Casting Shadows&quot;&lt;/a&gt; post.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.tRenderer().shadowMapEnabled  = true;
+world.tRenderer().shadowMapSoft     = true;
+world.tRenderer().setClearColorHex( 0xffffff, 1 );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we enable the physics into the world.
+this is important. From now on, all the physics-enabled object
+of this world will move according to realistic physics rules.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.enablePhysics();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Enlight your world&lt;/h2&gt;
+
+&lt;p&gt;Here we setup the lights. For simplicity sake, we will use only one directional light.
+First we tune the position and color to fit our tastes. Dont be shy, play with those parameters to get a feel of it.
+Then we tune shadow parameters.
+Those can be tricky to tune.
+You can find more details in &lt;a href=&quot;http://learningthreejs.com/blog/2012/01/20/casting-shadows/&quot;&gt;&quot;Casting Shadow&quot;&lt;/a&gt; post.
+It helps if you make the shaddow camera visible. You can do so with &lt;code&gt;.shadowCameraVisible(true)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tQuery.createDirectionalLight().addTo(world)
+    .position(20, 40, -15).color(0xffffff)
+    .castShadow(true).shadowMap(512*2,512*2)
+    .shadowCamera(60, -60, 60, -60, 20, 200)
+    .shadowDarkness(0.7).shadowBias(.002)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Let's create a ground to stand on&lt;/h2&gt;
+
+&lt;p&gt;First we create the texture for our ground. We use &lt;code&gt;rocks.jpg&lt;/code&gt; to have like a rock
+effect. We use &lt;code&gt;.RepeatWrapping&lt;/code&gt; to repeat the texture on the faces and get a
+proper scale.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var texture = THREE.ImageUtils.loadTexture( &quot;images/rocks.jpg&quot; );
+texture.wrapS   = texture.wrapT = THREE.RepeatWrapping;
+texture.repeat.set( 3, 3 );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;In fact, the ground is only a cube which is wide and flat, a bit like
+the &lt;a href=&quot;http://en.wikipedia.org/wiki/Flat_Earth&quot;&gt;old-vision of earth&lt;/a&gt; :)
+It is usual now, we setup the position, material and shadow.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var ground  = tQuery.createCube(100, 1, 100).addTo(world)
+    .position(0, -10, 0)
+    .setLambertMaterial().map(texture).back()
+    .receiveShadow(true)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we just have to setup the physics for the ground. This is done
+by &lt;code&gt;.enablePhysics()&lt;/code&gt;. The &lt;code&gt;mass&lt;/code&gt; parameter define the mass
+of the object in the physics.
+By default, it is automatically computed depending on the volume of the object.
+Here zeroing the mass is a special case, which say
+&quot;the mass is infinite, dont move, ever&quot; :)&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ground.enablePhysics({
+    mass    : 0
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Spawning object in a 3D world&lt;/h2&gt;
+
+&lt;p&gt;Spawning is always a delicate matter in our world.
+But first let's load the texture for the spawned objects.
+It is done outside of the loop thus it get reused. Aka it is sent
+only once to the GPU for all the objects. This is an important
+point from performance point of view. Last year,
+&lt;a href=&quot;http://learningthreejs.com/blog/2011/09/16/performance-caching-material/&quot;&gt;&quot;Performance: Caching Material&quot;&lt;/a&gt;
+post was about this very topic.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var cTexture    = THREE.ImageUtils.loadTexture( &quot;images/plywood.jpg&quot; );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we declare &lt;code&gt;spawnObject()&lt;/code&gt; which gonna take care of spawning one object.
+So we create a cube, setup its position, rotation and material. This is all good. Oh dont
+forget to use &lt;code&gt;.castShadow()&lt;/code&gt; as got &lt;a href=&quot;http://en.wikipedia.org/wiki/Shadow_mapping&quot;&gt;shadow mapping&lt;/a&gt; going on :)&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var spawnObject = function(){
+    var object  = tQuery.createCube(4,4,4).addTo(world)
+        .rotation(Math.random()*Math.PI*2, Math.random()*Math.PI*2, Math.random()*Math.PI*2)
+        .position(Math.random()*15-7.5, 25, Math.random()*15-7.5)
+        .setLambertMaterial().map(cTexture).back()
+        .castShadow(true)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Here we enable the physics on this object. So the world will handle all its move from now on.
+It will object to physics laws according to the parameters you setup.
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Friction&quot;&gt;friction&lt;/a&gt; is the force resisting when 2 objects slides against each other.
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Coefficient_of_restitution&quot;&gt;resititution&lt;/a&gt; is how bouncy the object is.
+For scientific definition, go read a book :)&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    object.enablePhysics({
+        friction    : 0.4,
+        restitution : 0.6
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we gonna play with the 'collision' event. Physijs is able to notify
+you when an object collide with another. Just use &lt;code&gt;.addEventListener()&lt;/code&gt; on 'collision'.
+Here we gonna change the color of the object depending on the number of collisions
+they got.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    var nCollisions = 0;
+    object.physics().addEventListener('collision', function(){
+        var colliColors = [0xcc8855, 0xbb9955, 0xaaaa55, 0x99bb55, 0x88cc55, 0x77dd55];
+        if( ++nCollisions &amp;lt; colliColors.length ){
+            var color   = colliColors[nCollisions];
+            object.get(0).material.color.setHex( color );
+        }
+    })
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we simply use &lt;a href=&quot;https://developer.mozilla.org/en/DOM/window.setInterval&quot;&gt;&lt;code&gt;setInterval()&lt;/code&gt;&lt;/a&gt; to
+spawn an object every seconds.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;setInterval(spawnObject, 1000);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;And we are DONE! We got a realistic physics in our 3D world! not bad hey :)&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;So, thanks to &lt;a href=&quot;https://github.com/chandlerprall/Physijs&quot;&gt;physijs&lt;/a&gt;,
+it is now possible to get full blown realistic physics
+using
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;
+and
+&lt;a href=&quot;https://github.com/jeromeetienne/tquery&quot;&gt;tQuery&lt;/a&gt;.
+It is a simple way to make scene more realistic. It is nice to experiment with.
+I will do more on this very soon!&lt;/p&gt;
+
+&lt;p&gt;Thanks all folks! have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Three.js Sport Car on iOS at 40fps</title>
@@ -3261,117 +3562,6 @@ Lets face it... &lt;em&gt;canvas version is ugly&lt;/em&gt;.&lt;/p&gt;
 Not many players would accept that...
 currently canvas performance doesnt seems suitable to display 3D on mobile.
 It is a good way to monitor performances and see how they evolve with time.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Let’s Make a 3D Game: Virtual Joystick</title>
-    <link href="http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/"/>
-    <updated>2011-12-26T12:21:00+01:00</updated>
-    <id>http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick</id>
-    <content type="html">&lt;p&gt;Here is another article of the &quot;Let's Make a 3D Game&quot;
-&lt;a href=&quot;http://learningthreejs.com/blog/categories/tutorial3dgame/&quot;&gt;series&lt;/a&gt;.
-We have already seen how to handle other inputs like
-&lt;a href=&quot;http://learningthreejs.com/blog/2011/09/12/lets-Make-a-3D-game-keyboard/&quot;&gt;keyboard&lt;/a&gt;
-and
-&lt;a href=&quot;http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation/&quot;&gt;device orientation&lt;/a&gt;.
-This post is about &lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;
-It &lt;strong&gt;virtual joystick&lt;/strong&gt;, another input you can use for your games.
-A virtual joystick emulates a joystick behaviour on a touch screen.
-&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;
-has been coded in a effort to port
-&lt;a href=&quot;http://marblesoccer.com&quot;&gt;marblesoccer&lt;/a&gt;
-to mobile device.
-Show, dont tell,
-&lt;a href=&quot;http://jeromeetienne.github.com/virtualjoystick.js/&quot;&gt;Try it out&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;This
-&lt;a href=&quot;http://jeromeetienne.github.com/virtualjoystick.js/&quot;&gt;demo&lt;/a&gt;
-works with mouse events too thus, it is easier to test/debug.
-&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;
-has been widely inpired by
-&lt;a href=&quot;http://sebleedelisle.com/2011/04/multi-touch-game-controller-in-javascripthtml5-for-ipad/&quot;&gt;this post&lt;/a&gt;
-by
-&lt;a href=&quot;http://sebleedelisle.com/&quot;&gt;Seb Lee-Delisle&lt;/a&gt;.
-The screencast below is short introduction about
-&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-
-
-&lt;center&gt;
-    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/viyr_W0z1U8?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-
-&lt;h2&gt;Let's Get Started&lt;/h2&gt;
-
-&lt;p&gt;First step, you download
-&lt;a href=&quot;https://raw.github.com/jeromeetienne/virtualjoystick.js/master/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;
-from its
-&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;github&lt;/a&gt;
-Then include it in your own code.&lt;/p&gt;
-
-&lt;p&gt;```html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;virtualjoystick.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;The joystick is composed of 2 parts: the &lt;em&gt;base&lt;/em&gt; and the &lt;em&gt;stick&lt;/em&gt;.
-First the plare touch the screen, it gives the position of the &lt;em&gt;base&lt;/em&gt;.
-Then it drags its fingers to gives the position of the &lt;em&gt;stick&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2&gt;Let's Use it&lt;/h2&gt;
-
-&lt;iframe src=&quot;http://jeromeetienne.github.com/virtualjoystick.js/&quot;
-    webkitallowfullscreen mozallowfullscreen allowfullscreen 
-    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
-&lt;/iframe&gt;
-
-
-&lt;p&gt;First step is to create the object from &lt;code&gt;VirtualJoystick&lt;/code&gt; class.&lt;/p&gt;
-
-&lt;p&gt;```javascript&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var joystick = new VirtualJoystick()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;p&gt;The constructor has some options.
-They have sensible default.
-You can change them to fit your specific needs.
-See
-&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js#readme&quot;&gt;github README&lt;/a&gt;
-for a full API description.
-You may look at the &lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js/blob/master/index.html&quot;&gt;index.html&lt;/a&gt;.
-It is an example which uses the library.&lt;/p&gt;
-
-&lt;p&gt;It is possible to read
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Analog_stick&quot;&gt;analogic&lt;/a&gt;
-coordinates.
-&lt;code&gt;joystick.deltaX()&lt;/code&gt; gives the &lt;em&gt;delta x&lt;/em&gt; between the base and the stick in pixel.
-&lt;code&gt;joystick.deltaY()&lt;/code&gt; gives the &lt;em&gt;delta y&lt;/em&gt;.
-Those analogic coordinates may be interpreted as a
-&lt;a href=&quot;http://www.slagcoin.com/joystick/restrictors.html&quot;&gt;joystick with 4 switches&lt;/a&gt;.
-Similar to
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Arrow_keys&quot;&gt;arrow keys&lt;/a&gt;
-in a way.
-&lt;code&gt;joystick.up()&lt;/code&gt; tells you if your joystick is up or not.
-You guessed the meaning of &lt;code&gt;.down()&lt;/code&gt;, &lt;code&gt;.right()&lt;/code&gt; and &lt;code&gt;.left()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;The source is available on
-&lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;github&lt;/a&gt;
-under MIT license.
-Later, a button may be implemented as well.
-It is alway usefull to able to fire in video games :)
-That's all folks, have fun.&lt;/p&gt;
 </content>
   </entry>
   
