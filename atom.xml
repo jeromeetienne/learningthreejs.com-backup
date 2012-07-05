@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-07-05T14:03:12+02:00</updated>
+  <updated>2012-07-05T14:18:02+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -125,7 +125,7 @@ image of the skin texture. You can change it anytime with &lt;code&gt;character.
 
 &lt;p&gt;```&lt;/p&gt;
 
-&lt;h2&gt;Make this model moves&lt;/h2&gt;
+&lt;h2&gt;Make this model move&lt;/h2&gt;
 
 &lt;p&gt;So we talked about exposed limbs... kinda gross, almost disturbing :)
 In fact it just means each part of our model is exposed for you to
