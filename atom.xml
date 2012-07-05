@@ -4,13 +4,193 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-06-05T15:28:26+02:00</updated>
+  <updated>2012-07-05T13:57:02+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
     
   </author>
 
+  
+  <entry>
+    <title>Playing With Minecraft Character</title>
+    <link href="http://learningthreejs.com/blog/2012/07/05/playing-with-minecraft-character/"/>
+    <updated>2012-07-05T10:22:00+02:00</updated>
+    <id>http://learningthreejs.com/blog/2012/07/05/playing-with-minecraft-character</id>
+    <content type="html">&lt;p&gt;This post is about Minecraft Character.
+We will play with the minecraft character, learn how to do your own and make it move.
+I recently saw this excelent &lt;a href=&quot;http://djazz.mine.nu/lab/minecraft_items/&quot;&gt;minecraft items demo&lt;/a&gt;
+by &lt;a href=&quot;https://twitter.com/#!/daniel_hede&quot;&gt;@daniel_hede&lt;/a&gt;. It triggered a switch in my head :)
+I felt in love with minecraft style of 3d.
+It makes modeling so simple.
+You don't need to learn how to use 3d modeling software like
+&lt;a href=&quot;http://www.blender.org/&quot;&gt;blender&lt;/a&gt;,
+&lt;a href=&quot;http://usa.autodesk.com/maya/&quot;&gt;maya&lt;/a&gt; and such.
+It is easy to create new model based on this style.&lt;/p&gt;
+
+&lt;p&gt;Try the &lt;a href=&quot;http://learningthreejs.com/data/2012-07-05-playing-with-minecraft-character/&quot;&gt;minecraft plugin demo&lt;/a&gt;. This is the
+one we gonna build. I used &lt;a href=&quot;https://twitter.com/#!/daniel_hede&quot;&gt;@daniel_hede&lt;/a&gt;'s code
+and did many plugins to make it all simple and fun :)
+In this demo, i introduce
+&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples/js/postprocessing&quot;&gt;three.js post processing&lt;/a&gt;
+for the first time.
+This is the
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Vignetting&quot;&gt;Vignetting&lt;/a&gt;
+and
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Sepia_(color)&quot;&gt;sepia color&lt;/a&gt;
+that you see.
+Additionnaly, you can easily change the skins with the UI within the demo.
+Now let's get started!&lt;/p&gt;
+
+&lt;center&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/eg0qshn4VC0&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+
+
+
+&lt;!-- more --&gt;
+
+
+&lt;h2&gt;Let's start coding&lt;/h2&gt;
+
+&lt;p&gt;We start to create our world as usual. This initialize the renderer, the camera,
+its controls and a rendering loop.
+We setup the
+&lt;a href=&quot;http://learningthreejs.com/blog/2012/01/19/boilerplate-builder-for-three-js/&quot;&gt;boilerplate for three.js&lt;/a&gt;
+and add a page title with some info on our little 3D demo.
+We just put the camera a little closer to scene center. Thus the character
+will be bigger on screen. We just can't get enougth of it, can we ;)&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var world   = tQuery.createWorld().boilerplate().pageTitle('#info').start();
+world.tCamera().position.z  = 1.8;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now we add a bit of post processing. It is the first time
+we talk about this, so let's details it a bit.
+What is post processing (in a 3d context) ?
+Post processing is performed after rendering the 3D, hence the name.
+It applies on the screen as a whole. So the effects are in 2D.
+What's it not ?
+It isn't for 3d effect on specific objects in your world.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;tquery.effectcomposer.js&lt;/code&gt; plugin provides a simple api to add
+postprocessing to our world. It is a chained API on top of
+&lt;a href=&quot;https://github.com/mrdoob/three.js/tree/master/examples/js/postprocessing&quot;&gt;three.js effect composer&lt;/a&gt;.
+In our case, we first apply &lt;code&gt;.sepia()&lt;/code&gt; to change the colors toward
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Sepia_(color)&quot;&gt;sepia color&lt;/a&gt;.
+Then we apply &lt;code&gt;.vignette()&lt;/code&gt; for
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Vignetting&quot;&gt;Vignetting&lt;/a&gt;
+and mark the effects list
+as finished.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.addEffectComposer().sepia().vignette().finish();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Not too hard hey ;)&lt;/p&gt;
+
+&lt;h2&gt;Hello Steve!&lt;/h2&gt;
+
+&lt;p&gt;Now that we go a world. We will create a minecraft character.
+In fact, minecraft main character is called &lt;a href=&quot;http://www.minecraftwiki.net/wiki/The_Player&quot;&gt;'steve'&lt;/a&gt;.
+&lt;code&gt;tQuery.MinecraftChar&lt;/code&gt; is the main class. It will create
+a character model and expose all its limbs too e.g right legs or right arms.
+More on that later.
+As you can see, we specify &lt;code&gt;skinUrl&lt;/code&gt; parameter. It should point to the
+image of the skin texture. You can change it anytime with &lt;code&gt;character.loadSkin(skinUrl)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var character   = new tQuery.MinecraftChar({
+    skinUrl : 'images/3djesus.png'
+}); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Now that we got our character setup, we just need to include it in our 3D world.&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;character.model.addTo(world);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h2&gt;Make this model moves&lt;/h2&gt;
+
+&lt;p&gt;So we talked about exposed limbs... kinda gross, almost disturbing :)
+In fact it just means each part of our model is exposed for you to
+play with. It has the head, legs right and left, and the same for the arms.
+It is all in &lt;code&gt;character.parts&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;So the first step is to hook a function in the world rendering loop.
+two parameters are passed &lt;code&gt;delta&lt;/code&gt; and &lt;code&gt;now&lt;/code&gt;. &lt;code&gt;delta&lt;/code&gt; is the number
+of seconds since the last iteration of the rendering loop. &lt;code&gt;now&lt;/code&gt; is the absolute
+time in seconds.
+We use those values to tune the animation. Thus it will be animated at the same
+speed no matter the &lt;a href=&quot;http://en.wikipedia.org/wiki/Frame_rate&quot;&gt;fps&lt;/a&gt; rate of your computer.
+Here is simple animation of the head. So we hook the function and change
+the &lt;code&gt;headGroup&lt;/code&gt; rotation to fit our taste.
+We will make it do an
+&lt;a href=&quot;http://en.wikipedia.org/wiki/8_(number)&quot;&gt;eight&lt;/a&gt;
+or
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Infinity#Infinity_symbol&quot;&gt;infinite synbol&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.loop().hook(function(delta, now){
+    character.parts.headGroup.rotation.x    = Math.sin(now*1.5)/3;
+    character.parts.headGroup.rotation.y    = Math.sin(now)/3;
+}); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;This is nice but the body would appear rather static if we move only the head.
+Let's make see how to make it walk.
+When people walks or run, they swing theirs arm and legs.
+So we need to change the rotation X of each of those limbs. First we get
+an angle relative to current time. It will determine the position of the arms/legs.
+The amplitude of the move has been tuned to &lt;code&gt;1.4&lt;/code&gt;, play with it and find the
+value you like. Then you move the legs and arms by setting the rotation.
+Just take care of balancing legs and arms thus his can keep his balance :)&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;world.loop().hook(function(delta, now){
+    var angle   = 1/2 * now*Math.PI*2;
+    // move the arms
+    character.parts.armR.rotation.x = 1.4 * Math.cos(angle + Math.PI);
+    character.parts.armL.rotation.x = 1.4 * Math.cos(angle);
+    // move the legs
+    character.parts.legR.rotation.x = 1.4 * Math.cos(angle);
+    character.parts.legL.rotation.x = 1.4 * Math.cos(angle + Math.PI);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;And we are done! Pretty cool no ? :)&lt;/p&gt;
+
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;So we did a little character ala minecraft.
+We got a basic animations of it. Nevertheless it would be neat to make animations
+more robusts and generic. A new post will likely focus on this.
+I so love this field and how it make things easier.&lt;/p&gt;
+
+&lt;p&gt;That's all folks. Have fun :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>3D Physics With Three.js and Physijs</title>
@@ -3408,160 +3588,6 @@ The code is available on
 under MIT license.
 Feel free to fork and modify.
 That's all folks, have fun.&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Let’s Make a 3D Game: Supporting Mobile</title>
-    <link href="http://learningthreejs.com/blog/2011/12/28/let-s-make-a-3d-game-supporting-mobile/"/>
-    <updated>2011-12-28T13:46:00+01:00</updated>
-    <id>http://learningthreejs.com/blog/2011/12/28/let-s-make-a-3d-game-supporting-mobile</id>
-    <content type="html">&lt;p&gt;This post is about supporting mobile.
-We will try to port &lt;a href=&quot;http://marblesoccer.com&quot;&gt;marblesoccer&lt;/a&gt; on mobile.
-When doing a
-&lt;a href=&quot;http://127.0.0.1:8000/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;boilerplate for three.js&lt;/a&gt;,
-mobile had to be supported for compatibility.
-So it gave me the idea of this post.
-What about porting our game on mobile ?
-Porting a 3D web game to mobile ? crazy :)&lt;/p&gt;
-
-&lt;p&gt;The desktop version looks kindof ok.
-What would be the result of this experiment ?
-Is that even possible ?
-What about usable ?
-This is the purpose of this experiment to find out.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-
-
-
-&lt;center&gt;
-    &lt;iframe width=&quot;425&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/Ow_ceac1aEE?hl=en&amp;fs=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-
-&lt;h2&gt;Mobile isn't desktop&lt;/h2&gt;
-
-&lt;p&gt;Indeed... desktop and mobile are quite different plateforms.
-Which differences are relevant to us ?
-First, mobile network is bad, especially latency.
-So avoid download of long files, such as texture or sound.
-Here is a good talk on
-&lt;a href=&quot;http://www.youtube.com/watch?v=L2YqfVNHQO4&quot;&gt;Mobile Web Performance&lt;/a&gt;.
-Another thing, mobile got no keyboard, no mouse, but a touch screen
-We need to get a game controller for this environement.
-We use &lt;a href=&quot;https://github.com/jeromeetienne/virtualjoystick.js&quot;&gt;virtualjoystick.js&lt;/a&gt;.
-See details in our &lt;a href=&quot;http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/&quot;&gt;previous post&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;One big thing is that currently, on mobile, WebGL hasnt reached mainstream to say the least.
-No major vendor is shipping phone with webgl, so nobody or close get webgl on phone.
-So for our little experiment, we will display in
-&lt;a href=&quot;http://www.w3.org/TR/2010/WD-2dcontext-20100304/&quot;&gt;Canvas 2D&lt;/a&gt;
-with
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/renderers/CanvasRenderer.js&quot;&gt;THREE.CanvasRenderer&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2&gt;Porting to canvas 2D&lt;/h2&gt;
-
-&lt;p&gt;So what need to be done ?
-First step is to use the proper renderer when suitable.
-Second is fixing material and geometry to fit canvas2D renderer capability.
-Last step is to look for room of optimisations.
-Ok now let's intanciate the renderer. If webgl is available, use
-&lt;code&gt;THREE.WebGLRenderer&lt;/code&gt;
-else use
-&lt;code&gt;THREE.CanvasRenderer&lt;/code&gt;.
-Not too hard hey ?
-We already did that in the
-&lt;a href=&quot;http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/&quot;&gt;boilerplate for three.js&lt;/a&gt;&lt;/p&gt;
-
-&lt;iframe src=&quot;http://marblesoccer.com?render=canvas&amp;bypasslanding=1&quot;
-    webkitallowfullscreen mozallowfullscreen allowfullscreen 
-    width=&quot;420&quot; height=&quot;315&quot; frameborder=&quot;0&quot; style=&quot;float: right; margin-left: 1em;&quot;&gt;
-&lt;/iframe&gt;
-
-
-&lt;p&gt;We simplify geometry to reduce the number of polygon.
-For marble geometry, the sphere got 512 faces on webgl, and only 9 on canvas2d.
-Drastic :)
-What about material ? For webgl, we used
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Phong_shading&quot;&gt;phong&lt;/a&gt;
-for fancy lightings,
-We used
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Texture_mapping&quot;&gt;textures&lt;/a&gt;
-for realistic effects.
-But with canvas2D, those technics cant be used.
-They are way too slow.&lt;/p&gt;
-
-&lt;p&gt;This is enougth to get it working.
-It display something reasonable on the screen at least.
-We sacrifice a lot tho, no more texture not fancy lighting.
-And now the bad new, it results in 3fps on my ipad2 ios4... ouch.&lt;/p&gt;
-
-&lt;h2&gt;More measures&lt;/h2&gt;
-
-&lt;p&gt;How come performances are so bad ? So i did more measures.
-I disabled the display of map and marbles to see how they impact performance.
-If we display the map and the marbles, we got 3fps on my ipad2.
-If we display only marbles, no more maps, we got 23fps, much better.
-but still not great... Considere that we are only displaying marbles and they are real simple.&lt;/p&gt;
-
-&lt;p&gt;If we display no marble, and no map. we got only 30fps. So all the rest, all the non display
-part is already using a big part of time ? what are we doing ? not much...
-Still we run
-&lt;a href=&quot;http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/&quot;&gt;realistic 3D physics&lt;/a&gt;
-and ipad2 cpu isnt as fast as usual desktop ones.&lt;/p&gt;
-
-&lt;h2&gt;Time to optimize&lt;/h2&gt;
-
-&lt;p&gt;Ok it is slow but this is a first try.
-I admit the code isnt not too optimized.
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Central_processing_unit&quot;&gt;cpu&lt;/a&gt;
-/
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Graphics_processing_unit&quot;&gt;gpu&lt;/a&gt;
-performance are so good on desktop, i may have been sloppy here and there :)
-There are areas of optimisations.
-We need to draw less polygons.&lt;/p&gt;
-
-&lt;p&gt;First we need to &lt;em&gt;reduce the geometry&lt;/em&gt; of the map.
-We can do that by clustering voxels:
-if 2 voxels got the same color and touch each other, display one large box, instead of 2 small boxes.
-We did it to optimize our physics.
-See details in &lt;a href=&quot;http://learningthreejs.com/blog/2011/10/17/lets-make-a-3d-game-microphysics-js/&quot;&gt;microphysics post&lt;/a&gt;.
-Additionnaly we could use marblesoccer's
-&lt;a href=&quot;http://127.0.0.1:8000/blog/2011/09/14/lets-make-a-3D-game-map-editor/&quot;&gt;map editor&lt;/a&gt;
-to redesign a map with a simpler geometry.&lt;/p&gt;
-
-&lt;p&gt;Another low-hanging fruit is to remove faces which are never seen, like in
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/webgl_geometry_minecraft_ao.html&quot;&gt;minecraft example&lt;/a&gt;
-from
-&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;three.js&lt;/a&gt;.
-We could try to 2D sprites instead of 3D spheres for marble.
-We wont use
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/objects/Sprite.js&quot;&gt;THREE.Sprite&lt;/a&gt;.
-It isnt supported
-&lt;a href=&quot;https://github.com/mrdoob/three.js/blob/master/src/renderers/CanvasRenderer.js&quot;&gt;THREE.CanvasRenderer&lt;/a&gt;.
-But dont worry, it is possible with the particle system.
-See how &lt;code&gt;THREE.Particle&lt;/code&gt; is used in
-&lt;a href=&quot;http://mrdoob.github.com/three.js/examples/canvas_particles_sprites.html&quot;&gt;canvas_particles_sprites.html&lt;/a&gt;
-example.&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;And after all that, what can you expect ?
-Will that run at 60fps ? 30fps ? Not likely or it will require a lot of effort.
-&lt;img class='left ' src='http://learningthreejs.com/data/lets-make-a-3d-game-supporting-mobile/images/screenshot-webgl-small.png' width='' height='' alt='' title=''&gt;
-&lt;img class='right ' src='http://learningthreejs.com/data/lets-make-a-3d-game-supporting-mobile/images/screenshot-canvas-small.png' width='' height='' alt='' title=''&gt;
-So animations arent smooth, what about the look?
-Watch what you got on the screen...
-On the right, a canvas version. &lt;a href=&quot;http://marblesoccer.com/?render=canvas&quot;&gt;live here&lt;/a&gt;.
-On the left you can see a webgl version. &lt;a href=&quot;http://marblesoccer.com&quot;&gt;live here&lt;/a&gt;.
-Lets face it... &lt;em&gt;canvas version is ugly&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;After a significant work, you get poor performance and crappy look.
-Not many players would accept that...
-currently canvas performance doesnt seems suitable to display 3D on mobile.
-It is a good way to monitor performances and see how they evolve with time.&lt;/p&gt;
 </content>
   </entry>
   

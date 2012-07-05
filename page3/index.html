@@ -101,6 +101,61 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/12/28/let-s-make-a-3d-game-supporting-mobile/">Let’s Make a 3D Game: Supporting Mobile</a></h1>
+    
+    
+      <p class="meta">
+	
+
+
+
+
+<time datetime="2011-12-28 13:46:00 +0100" pubdate  updated >Dec 28<span>th</span>, 2011</time>
+
+
+
+	<span style="text-transform: none;">
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/canvas2d/'>canvas2d</a>, <a class='category' href='/blog/categories/mobile/'>mobile</a>, <a class='category' href='/blog/categories/three-js/'>three.js</a>
+  
+</span>
+
+</span>
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post is about supporting mobile.
+We will try to port <a href="http://marblesoccer.com">marblesoccer</a> on mobile.
+When doing a
+<a href="http://127.0.0.1:8000/blog/2011/12/20/boilerplate-for-three-js/">boilerplate for three.js</a>,
+mobile had to be supported for compatibility.
+So it gave me the idea of this post.
+What about porting our game on mobile ?
+Porting a 3D web game to mobile ? crazy :)</p>
+
+<p>The desktop version looks kindof ok.
+What would be the result of this experiment ?
+Is that even possible ?
+What about usable ?
+This is the purpose of this experiment to find out.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/12/28/let-s-make-a-3d-game-supporting-mobile/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/">Let’s Make a 3D Game: Virtual Joystick</a></h1>
     
     
@@ -731,58 +786,6 @@ Then include it in your own code with this line.</p>
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/05/performance-merging-geometry/">Performance: Merging Geometry</a></h1>
-    
-    
-      <p class="meta">
-	
-
-
-
-
-<time datetime="2011-10-05 11:29:00 +0200" pubdate  updated >Oct 5<span>th</span>, 2011</time>
-
-
-
-	<span style="text-transform: none;">
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/performance/'>performance</a>, <a class='category' href='/blog/categories/three-js/'>three.js</a>
-  
-</span>
-
-</span>
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This article is about merging geometry and how it can improve performance.
-It is important for perfomance to reduce the number of <a href="http://www.khronos.org/registry/webgl/specs/latest/">WebGL</a> calls as much as possible.
-The rules of thumbs is <em>the less data are exchanged between the cpu and the gpu, the better it is for performance</em>.</p>
-
-<p>The <a href="/data/performance-merging-geometry/">demo</a> is rendering many cubes and put them randomly in the space.
-<img class='left ' src='/data/performance-merging-geometry/images/demo-screenshot-2000.png' width='240' height='120' alt='' title=''>
-<img class='right ' src='/data/performance-merging-geometry/images/demo-screenshot-120000.png' width='240' height='120' alt='' title=''>
-It is a simplictic way to measure the performance, but it will do for us.
-If the geometries arent merged, my computer is able to display <em>2000</em> cubes at 30fps. See on the left.
-But if the geometry are merged, it displays <em>120000</em> cubes at 30fps. See on the right.
-Screenshots make it pretty obvious :) This is <strong>60 times</strong> more cubes!!!</p>
-
-</div>
-  <footer>
-    <a rel="full-article" href="/blog/2011/10/05/performance-merging-geometry/">Read on &rarr;</a>
-  </footer>
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -864,6 +867,10 @@ Screenshots make it pretty obvious :) This is <strong>60 times</strong> more cub
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/07/05/playing-with-minecraft-character/">Playing With Minecraft Character</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/06/05/3d-physics-with-three-js-and-physijs/">3D Physics With Three.js and Physijs</a>
       </li>
     
@@ -877,10 +884,6 @@ Screenshots make it pretty obvious :) This is <strong>60 times</strong> more cub
     
       <li class="post">
         <a href="/blog/2012/05/15/punch-a-doom-character-in-augmented-reality/">Punch A Doom Character in Augmented Reality</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/08/sound-visualisation-vuemeter-in-webgl/">Sound Visualisation: a Vuemeter in WebGL</a>
       </li>
     
   </ul>
