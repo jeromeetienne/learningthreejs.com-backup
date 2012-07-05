@@ -4,7 +4,7 @@
   <title>Learning Three.js</title>
   <link href="http://learningthreejs.com/atom.xml" rel="self"/>
   <link href="http://learningthreejs.com/"/>
-  <updated>2012-07-05T13:57:02+02:00</updated>
+  <updated>2012-07-05T14:03:12+02:00</updated>
   <id>http://learningthreejs.com/</id>
   <author>
     <name>Jerome Etienne</name>
@@ -13,10 +13,10 @@
 
   
   <entry>
-    <title>Playing With Minecraft Character</title>
-    <link href="http://learningthreejs.com/blog/2012/07/05/playing-with-minecraft-character/"/>
+    <title>Minecraft Character in WebGL</title>
+    <link href="http://learningthreejs.com/blog/2012/07/05/minecraft-character-in-webgl/"/>
     <updated>2012-07-05T10:22:00+02:00</updated>
-    <id>http://learningthreejs.com/blog/2012/07/05/playing-with-minecraft-character</id>
+    <id>http://learningthreejs.com/blog/2012/07/05/minecraft-character-in-webgl</id>
     <content type="html">&lt;p&gt;This post is about Minecraft Character.
 We will play with the minecraft character, learn how to do your own and make it move.
 I recently saw this excelent &lt;a href=&quot;http://djazz.mine.nu/lab/minecraft_items/&quot;&gt;minecraft items demo&lt;/a&gt;
@@ -28,7 +28,7 @@ You don't need to learn how to use 3d modeling software like
 &lt;a href=&quot;http://usa.autodesk.com/maya/&quot;&gt;maya&lt;/a&gt; and such.
 It is easy to create new model based on this style.&lt;/p&gt;
 
-&lt;p&gt;Try the &lt;a href=&quot;http://learningthreejs.com/data/2012-07-05-playing-with-minecraft-character/&quot;&gt;minecraft plugin demo&lt;/a&gt;. This is the
+&lt;p&gt;Try the &lt;a href=&quot;http://learningthreejs.com/data/2012-07-05-minecraft-character-in-webgl/&quot;&gt;minecraft plugin demo&lt;/a&gt;. This is the
 one we gonna build. I used &lt;a href=&quot;https://twitter.com/#!/daniel_hede&quot;&gt;@daniel_hede&lt;/a&gt;'s code
 and did many plugins to make it all simple and fun :)
 In this demo, i introduce
